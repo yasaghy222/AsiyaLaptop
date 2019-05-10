@@ -17,7 +17,6 @@ namespace Src.Models.Data
         public int ID { get; set; }
         public int ProcID { get; set; }
         public string Title { get; set; }
-        public string Image { get; set; }
     
         public virtual Tbl_Product Tbl_Product { get; set; }
     }

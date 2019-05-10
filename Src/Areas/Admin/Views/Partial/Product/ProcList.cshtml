@@ -1,0 +1,77 @@
+﻿<script id="procSource" type="text/x-handlebars-template">
+    {{#each list}}
+    <tr role="row">
+        <td>
+            <div class="media">
+                <div class="media-left">
+                    <img src="/Files/Product/{{ID}}.jpg?v={{getDate}}" style="width: 70px; height: 70px;" class="img-circle" alt="{{Title}}">
+                </div>
+                <div class="media-body valign-middle max-width">
+                    <h6 class="media-heading text-blue-700 text-bold" lang="en">{{Title}}</h6>
+                </div>
+            </div>
+        </td>
+        <td class="text-center pr-40">
+            {{#for Rate}}
+            {{/for}}
+        </td>
+        <td class="text-center pr-40">
+            {{#checkOff Price OffPrice}}{{/checkOff}}
+        </td>
+        <td class="text-center pr-40"><span class="label label-rounded label-info">{{CatName}}</span></td>
+        <td class="text-center pr-40"><span class="text-grey-800">{{BrandName}}</span></td>
+        <td class="text-center pr-40 text-grey-300">{{Type}}</td>
+        <td class="text-center control">
+            <a onclick="pageLoad('/Admin/Product/AddEdit/{{ID}}','ویرایش محصول {{Title}}','procList')" class="text-blue-800"><i class="icon-pencil"></i> ویرایش</a>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+<div id="dataTable">
+    <div class="datatable-header">
+        <div class="dataTables_filter">
+            <label>
+                <span>جستجو بر اساس عنوان :</span>
+                <input placeholder="مثلا : asus 4560,dell 11,..." id="getProc" autocomplete="off" type="search">
+            </label>
+        </div>
+        <div class="dataTables_length">
+            <label>
+                <span>نمایش :</span>
+                <select class="select" id="pageSize">
+                    <option value="10" selected="selected">10</option>
+                    <option value="25">25</option>
+                    <option value="40">40</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    <div class="datatable-scroll">
+        <table class="table datatable-basic table-hover dataTable no-footer" id="tblProc">
+            <thead>
+                <tr role="row">
+                    <th class="sorting_desc" data-sort="Title" data-sort-type="desc">عنوان</th>
+                    <th class="text-center sorting pr-40 text-center" data-sort="Rate" data-sort-type="">امتیاز</th>
+                    <th class="text-center sorting pr-40" data-sort="OffPrice" data-sort-type="">قیمت</th>
+                    <th class="text-center sorting pr-40" data-sort="CatID" data-sort-type="">دسته</th>
+                    <th class="text-center sorting pr-40" data-sort="BrandID" data-sort-type="">برند</th>
+                    <th class="text-center sorting pr-40" data-sort="Type" data-sort-type="">وضعیت</th>
+                    <th class="text-center control sorting_disabled">عملیات</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="datatable-footer">
+        <div class="dataTables_info" id="procInfo"></div>
+        <div class="dataTables_paginate paging_simple_numbers" id="procPaging"></div>
+    </div>
+</div>
+<div id="no-records" class="text-center hidden">
+    <div class="icon-object no-border">
+        <img class="img-responsive" src="~/Areas/Admin/Content/Images/notFound.png" title="داده ای یافت نشد" />
+    </div>
+    <h5 class="text-semibold">متاسفانه رکوردی یافت نشد!</h5>
+    <p class="mb-15">داده‌ای برای نمایش وجود ندارد می‌توانید از طریق دکمه ثبت مورد جدیدی را ثبت نمائید.</p>
+</div>
+

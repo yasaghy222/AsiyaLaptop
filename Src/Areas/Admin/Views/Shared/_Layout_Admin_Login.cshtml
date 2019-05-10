@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>پنل مدیریت لپتاپ آسیا</title>
+    <link href="~/Areas/Admin/Content/Css/icons/icomoon/styles.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/Css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/Css/components.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/Css/Core.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/Css/colors.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/Images/favicon.png" rel="icon" type="image/x-icon" />
+</head>
+<body class="login-container bg-sani2">
+    <div class="page-container">
+        <div class="page-content">
+            <div class="content-wrapper">
+                <div class="content p-20">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/Core/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Plugin/jgrowl.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/Core/jquery.validate.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/Core/jquery.validate.unobtrusive.min.js"></script>
+    @RenderSection("scripts", false)
+</body>
+</html>

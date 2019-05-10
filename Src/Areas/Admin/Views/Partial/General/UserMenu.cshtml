@@ -1,0 +1,25 @@
+﻿<div class="sidebar-user-material">
+    <div class="category-content">
+        <div class="sidebar-user-material-content">
+            <a href="#"><img src="~/Areas/Admin/Content/Images/placeholder.jpg" class="img-circle img-responsive" alt=""></a>
+            @if (Request.Browser.Cookies && Request.Cookies.Count > 0)
+            {
+                <h6>@Request.Cookies["SSODesc"]["Name"]</h6>
+                <span class="text-size-small">@Request.Cookies["SSODesc"]["Role"]</span>
+            }
+        </div>
+
+        <div class="sidebar-user-material-menu">
+            <a href="#user-nav" data-toggle="collapse"><span>حساب من</span> <i class="caret"></i></a>
+        </div>
+    </div>
+    <div class="navigation-wrapper collapse" id="user-nav">
+        <ul class="navigation">
+            <li><a href="#"><i class="icon-user-check"></i> <span>پروفایل</span></a></li>
+            <li><a href="#"><i class="icon-cash4"></i> <span>درآمد<span class="badge bg-green-800 pull-right">15،000 تومان</span></span></a></li>
+            <li><a href="#"><i class="icon-android"></i> <span>معرفی اپلیکیشن</span></a></li>
+            <li class="divider"></li>
+            <li><a href="#" class="text-grey-300"><i class="icon-exit3"></i> <span>خروج</span></a></li>
+        </ul>
+    </div>
+</div>

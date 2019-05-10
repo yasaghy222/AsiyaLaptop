@@ -1,0 +1,101 @@
+﻿<script id="PCPGSource" type="text/x-handlebars-template">
+    {{#each list}}
+    <tr>
+        <td>
+            {{#if HasChild}}
+            <a id="getChild" data-toggle="collapse" data-target="#{{ID}}" data-id="{{ID}}"><i class="icon-arrow-left5"></i></a>
+            {{/if}}
+            {{Title}}
+        </td>
+        <td class="text-center">
+            {{#if AssignCount}}
+            <span class="label label-rounded label-warning">
+                {{AssignCount}}
+            </span>
+            {{/if}}
+        </td>
+        <td class="text-center">
+            <a data-toggle="modal" data-target="#addEditPCPG" id="addEdit" 
+               data-id="{{ID}}" 
+               data-pid="{{PID}}" 
+               data-title="{{Title}}" 
+               data-hasChild="{{HasChild}}" 
+               data-assignCount="{{AssignCount}}" 
+               class="text-blue-800"><i class="icon-pencil"></i> ویرایش</a>
+            <a id="del" 
+               data-id="{{ID}}" 
+               data-hasChild="{{HasChild}}" 
+               data-assignCount="{{AssignCount}}"  class="text-danger-800"><i class="icon-bin"></i> حذف</a>
+        </td>
+    </tr>
+    <tr class="collapse bg-f8" id="{{ID}}">
+        <td colspan="3">
+            <table class="table datatable">
+                <tbody></tbody>
+            </table>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <a data-toggle="modal" data-target="#addEditPCPG"
+           class="btn max-width-120 btn-block bg-green-800 btn-labeled btn-rounded btn-xs heading-btn legitRipple"
+           id="addEdit">
+            <b>
+                <i class="icon-plus3"></i>
+            </b>
+            افزودن
+        </a>
+    </div>
+    <div class="panel-body">
+        <div id="dataTable">
+            <table class="table datatable" id="tblPCPG">
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="no-records" class="text-center hidden">
+            <div class="icon-object no-border">
+                <img class="img-responsive" src="~/Areas/Admin/Content/Images/notFound.png" title="notDataFound" />
+            </div>
+            <h5 class="text-semibold">متاسفانه رکوردی یافت نشد!</h5>
+            <p class="mb-15">برا این دسته ویژگی تعریف نکرده اید .</p>
+        </div>
+    </div>
+</div>
+
+<div id="addEditPCPG" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">افزودن ویژگی</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="FrmPCPG">
+                    <fieldset class="content-group col-lg-12">
+                        <div class="form-group mb-40">
+                            <label class="control-label col-lg-2" for="Title">عنوان :</label>
+                            <div class="col-lg-10">
+                                <input type="hidden" class="form-control" name="ID" id="ID">
+                                <input type="text" class="form-control maxlength" maxlength="50" autocomplete="off" name="Title" id="Title">
+                                <span class="validation-error-label field-validation-valid mt-15" data-valmsg-for="Title" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label title col-lg-2">دسته</label>
+                            <div class="col-lg-10 col-lg-offset-2 col-xs-10 col-xs-offset-2">
+                                <ul id="TreeSelect" class="list-group no-border"></ul>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-link text-grey-300" data-dismiss="modal"> بی خیال</button>
+                <button id="btnAddEdit" class="btn bg-green-800"><span class="ladda-label">ثبت</span></button>
+            </div>
+        </div>
+    </div>
+</div>

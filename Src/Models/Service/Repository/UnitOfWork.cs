@@ -18,6 +18,26 @@ namespace Src.Models.Service.Repository
         #region product
         private IProductRepository product;
         public IProductRepository Product { get => product = product ?? new ProductRepository(_context); }
+
+        private IGenericRepository<Tbl_ProcCat> procCat;
+        public IGenericRepository<Tbl_ProcCat> ProcCat { get => procCat = procCat ?? new GenericRepository<Tbl_ProcCat>(_context); }
+
+        private IGenericRepository<Tbl_ProcBrand> procBrand;
+        public IGenericRepository<Tbl_ProcBrand> ProcBrand { get => procBrand = procBrand ?? new GenericRepository<Tbl_ProcBrand>(_context); }
+
+        private IGenericRepository<Tbl_ProcImg> procImg;
+        public IGenericRepository<Tbl_ProcImg> ProcImg { get => procImg = procImg ?? new GenericRepository<Tbl_ProcImg>(_context); }
+
+        private IGenericRepository<Tbl_ProcProp> procProp;
+        public IGenericRepository<Tbl_ProcProp> ProcProp { get => procProp = procProp ?? new GenericRepository<Tbl_ProcProp>(_context); }
+
+        private IGenericRepository<Tbl_PCPGroup> pcpGroup;
+        public IGenericRepository<Tbl_PCPGroup> PCPGroup { get => pcpGroup = pcpGroup ?? new GenericRepository<Tbl_PCPGroup>(_context); }
+        #endregion
+
+        #region factor
+        private IFactorRepository factor;
+        public IFactorRepository Factor { get => factor = factor ?? new FactorRepository(_context); }
         #endregion
 
         public int Save()

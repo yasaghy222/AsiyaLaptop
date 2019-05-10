@@ -10204,7 +10204,7 @@ a.pswp__share--download:hover {
     direction: ltr
 }
 
-.pswp--css_animation .pswp__preloader--active, .pswp__preloader--active {
+.pswp--Css_animation .pswp__preloader--active, .pswp__preloader--active {
     opacity: 1
 }
 
@@ -10218,17 +10218,17 @@ a.pswp__share--download:hover {
     background: url(../img/preloader.gif) no-repeat
 }
 
-.pswp--css_animation .pswp__preloader--active .pswp__preloader__icn {
+.pswp--Css_animation .pswp__preloader--active .pswp__preloader__icn {
     -webkit-animation: clockwise .5s linear infinite;
     animation: clockwise .5s linear infinite
 }
 
-.pswp--css_animation .pswp__preloader--active .pswp__preloader__donut {
+.pswp--Css_animation .pswp__preloader--active .pswp__preloader__donut {
     -webkit-animation: donut-rotate 1s cubic-bezier(.4,0,.22,1) infinite;
     animation: donut-rotate 1s cubic-bezier(.4,0,.22,1) infinite
 }
 
-.pswp--css_animation .pswp__preloader__icn {
+.pswp--Css_animation .pswp__preloader__icn {
     background: 0 0;
     opacity: .75;
     width: 14px;
@@ -10239,14 +10239,14 @@ a.pswp__share--download:hover {
     margin: 0
 }
 
-.pswp--css_animation .pswp__preloader__cut {
+.pswp--Css_animation .pswp__preloader__cut {
     position: relative;
     width: 7px;
     height: 14px;
     overflow: hidden
 }
 
-.pswp--css_animation .pswp__preloader__donut {
+.pswp--Css_animation .pswp__preloader__donut {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 14px;

@@ -23,7 +23,7 @@ namespace Src.Models.Data
     
         public int ID { get; set; }
         public string Title { get; set; }
-        public int PID { get; set; }
+        public Nullable<int> PID { get; set; }
         public int CatID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

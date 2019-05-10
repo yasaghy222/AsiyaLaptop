@@ -1,0 +1,24 @@
+﻿@model  Src.Models.ViewData.Table.Product.ViewTbl_ProcCat
+<form id="FrmCat">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            @Html.HiddenFor(item => item.ID)
+            <div class="form-group col-lg-12">
+                <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">عنوان</label>
+                <div class="col-lg-7 col-xs-12">
+                    @Html.TextBoxFor(item => item.Title, new { @class = "form-control maxlength",
+                                                              autocomplete = "off",
+                                                              maxlength = "50" })
+                    @Html.ValidationMessageFor(item => item.Title, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="text-semibold title col-lg-2 col-xs-12">دسته</label>
+                <div class="col-lg-4 col-xs-12">
+                    <ul id="TreeSelect" class="list-group no-border"></ul>
+                    @Html.ValidationMessageFor(item => item.PID, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

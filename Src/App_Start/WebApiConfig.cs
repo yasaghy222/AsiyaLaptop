@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Src.Controllers.Api;
 using System.Web.Http;
 
 namespace Src
@@ -10,13 +8,14 @@ namespace Src
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            config.DependencyResolver = new NinjectApi();
 
             // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "api/v1/{controller}/{action}/{token}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

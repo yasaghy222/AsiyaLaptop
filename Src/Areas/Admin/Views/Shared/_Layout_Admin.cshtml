@@ -1,0 +1,467 @@
+﻿<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>پنل مدیریت لپتاپ آسیا</title>
+    <!-- Global stylesheets -->
+    <link href="~/Areas/Admin/Content/Css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="~/Areas/Admin/Content/Css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="~/Areas/Admin/Content/Css/components.css" rel="stylesheet" type="text/css">
+    <link href="~/Areas/Admin/Content/Css/Core.css" rel="stylesheet" type="text/css">
+    <link href="~/Areas/Admin/Content/Css/colors.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Images/favicon.png" rel="icon" type="image/x-icon" />
+    <style type="text/css">
+        ul#TreeSelect:before {
+            display: none !important;
+        }
+
+        ul#TreeSelect .choice {
+            margin-right: 11px !important;
+        }
+
+        ul#TreeSelect ul:before {
+            content: "";
+            width: 1px;
+            height: 18px;
+            position: absolute;
+            display: block;
+            top: 0;
+            right: -26px;
+            border-right: 1px solid #607D8B;
+        }
+
+        ul#TreeSelect li,
+        ul#TreeSelect ul li {
+            background-color: #fff;
+            color: #777777;
+            padding-bottom: 0;
+            margin-top: 0
+        }
+
+            ul#TreeSelect li label {
+                font-weight: 500;
+            }
+
+            ul#TreeSelect li.dis {
+                color: #999999;
+            }
+
+                ul#TreeSelect li.dis label.dis {
+                    cursor: not-allowed !important;
+                }
+
+            ul#TreeSelect li:before,
+            ul#TreeSelect ul li:before {
+                content: "";
+                width: 36px;
+                height: 1px;
+                position: absolute;
+                display: block;
+                top: 18px;
+                right: -26px;
+                border-bottom: 1px solid #607D8B;
+            }
+    </style>
+</head>
+<body class="navbar-top">
+    <!-- Main navbar -->
+    @Html.Partial("~/Areas/Admin/Views/Partial/General/MainNavbar.cshtml")
+    <!-- /main navbar -->
+    <!-- Page container -->
+    <div class="page-container">
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main sidebar -->
+            <div class="sidebar sidebar-main">
+                <div class="sidebar-content">
+                    <!-- Main navigation -->
+                    @Html.Partial("~/Areas/Admin/Views/Partial/General/MainNavigation.cshtml")
+                    <!-- /main navigation -->
+                </div>
+            </div>
+            <!-- /main sidebar -->
+            <!-- Main content -->
+            <div class="content-wrapper">
+                @RenderBody()
+            </div>
+            <!-- /main content -->
+        </div>
+        <!-- /page content -->
+    </div>
+    <!-- /page container -->
+    <!-- Core JS files -->
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Core/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Plugin/uniform.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Core/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Plugin/maxlength.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Core/handlebars-v4.0.5.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Plugin/blockui.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Plugin/pace.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Plugin/select2.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Plugin/ripple.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Plugin/intro.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Plugin/jgrowl.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Plugin/sweet_alert.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/Plugin/summernote.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/Plugin/summernote-fa-IR.js"></script>
+    <script src="~/Areas/Admin/Scripts/Plugin/tokenfield.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Scripts/Core/app.js"></script>
+    <!-- /Core JS files -->
+    <script type="text/javascript">
+        Handlebars.registerHelper('getDate', () => {
+            let date = new Date();
+            return date.getMilliseconds();
+        });
+        function HtmlEncode(target) {
+            return target.text(target.val()).html();
+        };
+        function HtmlDecode(target) {
+            return target.html(target.val()).text();
+        }
+        function getHost(path, id) {
+            let temp = window.location.origin + "/Api/V1/" + path + "/" + $("#token").val();
+            if (id != undefined) {
+                temp += id;
+            }
+            return temp;
+        }
+        function startAnimate(target) {
+            $(target).block({
+                message: '<i class="icon-spinner2 spinner text-grey-300 text-size-xlarge"></i>',
+                overlayCSS: {
+                    backgroundColor: '#fff',
+                    opacity: 0.8,
+                    cursor: 'wait',
+                    'box-shadow': '0 0 0 1px #ddd'
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: 'none'
+                }
+            });
+            ;
+        }
+        function finishAnimate(target) {
+            $(target).unblock();
+        };
+        function notifiction(type, message) {
+            switch (type) {
+                case 0:
+                    $.jGrowl(message, { theme: 'alert-styled-left alert-arrow-left bg-success', header: 'موفقیت', position: 'bottom-right', life: 5000 });
+                    break;
+                case 1:
+                    $.jGrowl(message, { theme: 'alert-styled-left alert-arrow-left bg-danger', header: 'عدم موفقیت', position: 'bottom-right', life: 10000 });
+                    break;
+                default:
+                    $.jGrowl(message, { theme: 'alert-styled-left alert-arrow-left bg-warning', header: 'هشدار', position: 'bottom-right', life: 8000 });
+                    break;
+            }
+        }
+        function msg(response, status, xhr) {
+            let content = $("body");
+            content.block({
+                message: '<i class="icon-spinner2 spinner text-grey-300 text-size-xlarge"></i>',
+                overlayCSS: {
+                    backgroundColor: '#fff',
+                    opacity: 0.8,
+                    cursor: 'wait',
+                    'box-shadow': '0 0 0 1px #ddd'
+                },
+                Css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: 'none'
+                }
+            });
+            window.setTimeout(function () {
+                content.unblock();
+                if (status == "error") {
+                    notifiction(2, "متاسفانه صفحه مورد نظر یافت نشد.");
+                }
+            }, 2000);
+        };
+        function pageLoad(url, title, target) {
+            document.title = title;
+            const actives = $(".navigation li.active");
+            const hiddenUl = $(".navigation ul.hidden-ul");
+            $.each(actives, (i) => {
+                $(actives[i]).removeClass('active');
+            });
+            $.each(hiddenUl, (i) => {
+                $(hiddenUl[i]).css('display', 'none');
+            });
+            if (target != null || target != undefined) {
+                const active = $(".navigation li a[data-target=" + target + "]");
+                $(active).parent().parent().parent().parent().parent().parent().parent().addClass('active');
+                $(active).parent().parent().parent().parent().parent().parent().css('display', 'block');
+                $(active).parent().parent().parent().parent().parent().addClass('active');
+                $(active).parent().parent().parent().parent().css('display', 'block');
+                $(active).parent().parent().parent().addClass('active');
+                $(active).parent().parent().css('display', 'block');
+                $(active).parent().addClass('active');
+            }
+            $(".content-wrapper").load(url, (response, status, xhr) => { msg(response, status, xhr) });
+        }
+        function reload() {
+            const panel = $(".content .panel");
+            $(panel).block({
+                message: '<i class="icon-spinner2 spinner"></i>',
+                overlayCSS: {
+                    backgroundColor: '#fff',
+                    opacity: 0.8,
+                    cursor: 'wait',
+                    'box-shadow': '0 0 0 1px #ddd'
+                },
+                Css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: 'none'
+                }
+            });
+            window.setTimeout(function () {
+                $(panel).unblock();
+            }, 2000);
+        };
+        function swichTab(e) {
+            const t = $(e);
+            const target = t.attr("data-tab");
+            $(".tabbable .nav-tabs li.active").removeClass("active");
+            $(".tabbable .tab-content .tab-pane.active").removeClass("active");
+            t.parent().addClass("active");
+            $(target).addClass("active");
+        };
+        function clearSelect(target) {
+            let options = target.find("option"),
+                optgroups = target.find("optgroup");
+            $.each(options, (i) => {
+                target.find(options[i]).remove();
+            });
+            $.each(optgroups, (i) => {
+                target.find(optgroups[i]).remove();
+            });
+            target.append('<option value="0">انتخاب کنید</option>');
+        }
+        function clearMultiSelect(target, name) {
+            target.html("");
+            target.append('<li class="radio list-group-item"><label><input type="radio" name="' + name + '" id="' + name + '" class="styled" value="0" checked="checked">انتخاب کنید</label></li>');
+        }
+        function fillSelectSingle(cat, model, target) {
+            if (cat.ID == model)
+                target.append('<option value="' + cat.ID + '" selected="selected">' + cat.Title + '</option>');
+            else
+                target.append('<option value="' + cat.ID + '">' + cat.Title + '</option>');
+        };
+        function fillSelectMulti(list, cat, model, target, name, isDisable, fullDisable) {
+            let count = 0,
+                resualt = false,
+                isRoot = (cat.PID == null) ? true : false,
+                parent = undefined,
+                isSelfExsist = null,
+                isParentExsist = null;
+
+            if (!isRoot) {
+                parent = list.find(item => item.ID == cat.PID);
+            } else {
+                parent = cat;
+            }
+
+            if (parent != undefined) {
+                isSelfExsist = target.find('li[data-id="' + cat.ID + '"]');
+                isParentExsist = target.find('li[data-id="' + parent.ID + '"]');
+            }
+
+            $.each(list, (i) => {
+                if (list[i].PID == cat.ID) {
+                    count++;
+                }
+            });
+
+            if (isRoot) {
+                if (isSelfExsist.length == 0) {
+                    if (isDisable && count > 0) {
+                        if (cat.ID == model) {
+                            target.append('<li data-id="' + cat.ID + '" class="radio dis list-group-item"><label class="dis"><input type="radio" name="' + name + '" id="' + name + '" class="styled" value="' + cat.ID + '" checked="checked" disabled="disabled">' + cat.Title + '</label><ul data-id="' + cat.ID + '" ></ul></li>');
+                        }
+                        else {
+                            target.append('<li data-id="' + cat.ID + '" class="radio dis list-group-item"><label class="dis"><input type="radio" name="' + name + '" id="' + name + '" class="styled" value="' + cat.ID + '" disabled="disabled">' + cat.Title + '</label><ul data-id="' + cat.ID + '" ></ul></li>');
+                        }
+                    }
+                    else {
+                        if (cat.ID == model) {
+                            target.append('<li data-id="' + cat.ID + '" class="radio list-group-item"><label><input type="radio" name="' + name + '" id="' + name + '" class="styled" value="' + cat.ID + '" checked="checked">' + cat.Title + '</label><ul data-id="' + cat.ID + '" ></ul></li>');
+                        }
+                        else {
+                            target.append('<li data-id="' + cat.ID + '" class="radio list-group-item"><label><input type="radio" name="' + name + '" id="' + name + '" class="styled" value="' + cat.ID + '">' + cat.Title + '</label><ul data-id="' + cat.ID + '" ></ul></li>');
+                        }
+                    }
+                    if (count > 0) {
+                        isSelfExsist = target.find('li[data-id="' + cat.ID + '"]');
+                        isSelfExsist.find("ul[data-id='" + cat.ID + "']").css("border-right", "1px solid #607D8B");
+                    }
+                    resualt = true;
+                }
+            }
+            else {
+                if (isParentExsist.length == 0) {
+                    resualt = fillSelectMulti(list, parent, model, target, name, isDisable);
+                    isParentExsist = target.find('li[data-id="' + parent.ID + '"]');
+                    if (resualt && isSelfExsist == null) {
+                        if (cat.ID == model) {
+                            isParentExsist.find("ul[data-id='" + cat.PID + "']").append('<li data-id="' + cat.ID + '" class="radio list-group-item"><label><input type="radio" name="' + name + '" id="' + name + '" class="styled" value="' + cat.ID + '" checked="checked">' + cat.Title + '</label><ul data-id="' + cat.ID + '" ></ul></li>');
+                        }
+                        else {
+                            isParentExsist.find("ul[data-id='" + cat.PID + "']").append('<li data-id="' + cat.ID + '" class="radio list-group-item"><label><input type="radio" name="' + name + '" id="' + name + '" class="styled" value="' + cat.ID + '">' + cat.Title + '</label><ul data-id="' + cat.ID + '" ></ul></li>');
+                        }
+                        if (count >= 0) {
+                            isSelfExsist = target.find('li[data-id="' + cat.ID + '"]');
+                            isSelfExsist.find("ul[data-id='" + cat.ID + "']").css("border-right", "1px solid #607D8B");
+                            if (isDisable) {
+                                isSelfExsist.addClass("dis");
+                                isSelfExsist.find("label").addClass("dis");
+                                isSelfExsist.find("label input[type='radio']").attr("disabled", "disabled");
+                            }
+                        }
+                    }
+                }
+                else {
+                    if (isSelfExsist.length == 0) {
+                        if (cat.ID == model) {
+                            isParentExsist.find("ul[data-id='" + cat.PID + "']").append('<li data-id="' + cat.ID + '" class="radio list-group-item"><label><input type="radio" name="' + name + '" id="' + name + '" class="styled" value="' + cat.ID + '" checked="checked">' + cat.Title + '</label><ul data-id="' + cat.ID + '" ></ul></li>');
+                        }
+                        else {
+                            isParentExsist.find("ul[data-id='" + cat.PID + "']").append('<li data-id="' + cat.ID + '" class="radio list-group-item"><label><input type="radio" name="' + name + '" id="' + name + '" class="styled" value="' + cat.ID + '">' + cat.Title + '</label><ul data-id="' + cat.ID + '" ></ul></li>');
+                        }
+                        if (count >= 0) {
+                            isSelfExsist = target.find('li[data-id="' + cat.ID + '"]');
+                            isSelfExsist.find("ul[data-id='" + cat.ID + "']").css("border-right", "1px solid #607D8B");
+                            if (fullDisable || isDisable && count > 0) {
+                                isSelfExsist.addClass("dis");
+                                isSelfExsist.find("label").addClass("dis");
+                                isSelfExsist.find("label input[type='radio']").attr("disabled", "disabled");
+                            }
+                        }
+                        resualt = true;
+                    }
+                }
+            }
+            $(".styled").uniform({
+                radioClass: 'choice'
+            });
+            return resualt;
+        };
+        function drawSelect(url, model, target, isSingle, name, isDisable) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {},
+                success: function (Result) {
+                    if (Result.length > 0) {
+                        if (isSingle) {
+                            $.each(Result, (i) => {
+                                fillSelectSingle(Result[i], model, target);
+                            });
+                            target.select2();
+                        }
+                        else {
+                            $.each(Result, (i) => {
+                                fillSelectMulti(Result, Result[i], model, target, name, isDisable);
+                            });
+                        }
+                    } else {
+                        target.select2();
+                        $.jGrowl('رکوردی یافت نشد.', { theme: 'alert-styled-left alert-arrow-left bg-warning', header: 'هشدار', position: 'bottom-right', life: 10000 });
+                    }
+                },
+                error: function () {
+                    $.jGrowl('عدم فراخوانی رکورد ها', { theme: 'alert-styled-left alert-arrow-left bg-warning', header: 'هشدار', position: 'bottom-right', life: 10000 });
+                }
+            });
+        };
+        function inputAddError(input, msg) {
+            const error = $('span[data-valmsg-for="' + input.attr("id") + '"]');
+            error.html('');
+            error.append('<span for="title">' + msg + '</span>');
+        };
+        function inputRemoveError(input) {
+            $('span[data-valmsg-for="' + input.attr("id") + '"]').html('');
+        };
+        function validateImage(target, mode) {
+            let tempValid = false;
+            if (target.val() == "") {
+                if (mode == "Add") {
+                    tempValid = validateInput(target, " لطفا تصویر را انتخاب نمایید.");;
+                } else {
+                    tempValid = true;
+                }
+            }
+            else {
+                let t = target.val().split('.').pop().toLowerCase(),
+                    s = target[0].files[0].size;
+                s /= 1024;
+
+                if ((t != 'jpg' || t != 'jpeg') && s > 2048) {
+                    inputAddError(target, "فرمت یا اندازه تصویر مجاز نمی باشد.");
+                }
+                else {
+                    inputRemoveError(target);
+                    tempValid = true;
+                }
+            }
+            return tempValid;
+        };
+        function validateInput(input, msg, text, reg) {
+            const val = input.val();
+            if (val == "0" || val == "" || val == null || val == text) {
+                inputAddError(input, msg);
+                return false;
+            }
+            else if (reg != undefined) {
+                let pattern = new RegExp(reg);
+                if (!pattern.test(val)) {
+                    inputAddError(input, msg);
+                    return false;
+                }
+                else {
+                    inputRemoveError(input);
+                    return true;
+                }
+            }
+            else {
+                inputRemoveError(input);
+                return true;
+            }
+        };
+        function validateForm(form, input, msg) {
+            let formValid = form.valid(),
+                inputValid = validateInput(input, msg);
+            if (formValid && inputValid) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
+        function btnSaveOnOff() {
+            let isActive = $("#btnSave").hasClass("disabled");
+            if (isActive) {
+                $("#btnSave").removeAttr("disabled");
+                $("#btnSaveNext").removeAttr("disabled");
+            }
+            else {
+                $("#btnSave").attr("disabled", "disabled");
+                $("#btnSaveNext").attr("disabled", "disabled");
+            }
+            $("#btnSave").toggleClass("disabled");
+            $("#btnSaveNext").toggleClass("disabled");
+        };
+        $(document).ready(() => {
+            pageLoad('/Admin/Dashboard', 'پنل مدیریت لپتاپ آسیا');
+        });
+    </script>
+</body>
+</html>
+

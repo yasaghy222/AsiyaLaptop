@@ -14,11 +14,12 @@ namespace Src.Models.Data
     
     public partial class Tbl_ProcProp
     {
-        public int ProcId { get; set; }
+        public int ID { get; set; }
+        public int ProcID { get; set; }
         public int PCPGID { get; set; }
         public string Value { get; set; }
     
-        public virtual Tbl_PCPGroup Tbl_PCPGroup { get; set; }
         public virtual Tbl_Product Tbl_Product { get; set; }
+        public virtual Tbl_PCPGroup Tbl_PCPGroup { get; set; }
     }
 }

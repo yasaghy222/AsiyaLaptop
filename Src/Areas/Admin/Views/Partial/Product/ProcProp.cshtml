@@ -1,0 +1,44 @@
+﻿<script id="procPropSource" type="text/x-handlebars-template">
+    {{#each list}}
+    <tr>
+        <td>
+            {{#if HasChild}}
+            <a id="getChild" data-toggle="collapse" data-target="#{{ID}}" data-id="{{ID}}"><i class="icon-arrow-left5"></i></a>
+            {{/if}}
+            {{Title}}
+        </td>
+        {{#unless  HasChild}}
+        <td class="text-center">
+            <input id="{{ID}}" type="text" class="form-control" value="{{Value}}">
+        </td>
+        <td class="text-center">
+            <a id="addEdit" data-id="{{ID}}" class="text-blue-800"><i class="icon-pencil"></i> ویرایش</a>
+        </td>
+        {{/unless}}
+    </tr>
+    <tr class="collapse bg-f8" id="{{ID}}">
+        <td colspan="3">
+            <table class="table datatable">
+                <tbody></tbody>
+            </table>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+
+<div class="panel panel-flat">
+    <div class="panel-body">
+        <div id="dataTable">
+            <table class="table datatable" id="tblProcProp">
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="no-records" class="text-center hidden">
+            <div class="icon-object no-border">
+                <img class="img-responsive" src="~/Areas/Admin/Content/Images/notFound.png" title="notDataFound" />
+            </div>
+            <h5 class="text-semibold">متاسفانه رکوردی یافت نشد!</h5>
+            <p class="mb-15">برا این دسته ویژگی تعریف نکرده اید .</p>
+        </div>
+    </div>
+</div>

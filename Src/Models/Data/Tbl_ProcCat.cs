@@ -17,21 +17,21 @@ namespace Src.Models.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tbl_ProcCat()
         {
-            this.Tbl_PCPGroup = new HashSet<Tbl_PCPGroup>();
             this.Tbl_ProcCat1 = new HashSet<Tbl_ProcCat>();
             this.Tbl_Product = new HashSet<Tbl_Product>();
+            this.Tbl_PCPGroup = new HashSet<Tbl_PCPGroup>();
         }
     
         public int ID { get; set; }
         public string Title { get; set; }
-        public int PID { get; set; }
+        public Nullable<int> PID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_PCPGroup> Tbl_PCPGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_ProcCat> Tbl_ProcCat1 { get; set; }
         public virtual Tbl_ProcCat Tbl_ProcCat2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_Product> Tbl_Product { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_PCPGroup> Tbl_PCPGroup { get; set; }
     }
 }

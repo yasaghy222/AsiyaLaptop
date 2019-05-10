@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Src.Models.ViewData.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -21,18 +22,20 @@ namespace Src.Models.Service.Repository
         Task<long> GetCountAsync(Expression<Func<T, bool>> where);
         IEnumerable<T> Get(Expression<Func<T, bool>> where = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderby = null, string includes = "");
         Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> where = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderby = null, string includes = "");
+        IEnumerable<T> Get(Common.TableVar tableVar);
+        Task<IEnumerable<T>> GetAsync(Common.TableVar tableVar);
         #endregion
         #region add
         void Add(T entity);
         void AddRange(IEnumerable<T> entity);
         #endregion
-        #region delete
-        void Remove(T entity);
-        void RemoveRange(IEnumerable<T> entitys);
-        #endregion
         #region update
         void Update(T entity);
         void UpdateRange(IEnumerable<T> entitys);
+        #endregion
+        #region delete
+        void Remove(T entity);
+        void RemoveRange(IEnumerable<T> entitys);
         #endregion
     }
 

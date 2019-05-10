@@ -11,7 +11,8 @@ namespace Src.Models.Data
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Tbl_Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,17 +26,16 @@ namespace Src.Models.Data
     
         public int ID { get; set; }
         public string Title { get; set; }
-        public string Image { get; set; }
         public string ShortDesc { get; set; }
         public string FullDesc { get; set; }
         public string TopProp { get; set; }
-        public Nullable<byte> Rate { get; set; }
+        public byte Rate { get; set; }
         public long Price { get; set; }
         public long OffPrice { get; set; }
         public Nullable<int> OffID { get; set; }
         public int BrandID { get; set; }
         public int CatID { get; set; }
-        public Nullable<int> Count { get; set; }
+        public int Count { get; set; }
         public byte Type { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

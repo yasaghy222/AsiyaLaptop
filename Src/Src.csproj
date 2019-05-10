@@ -49,9 +49,18 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Mapster, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2f39883af23c29a8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mapster.4.0.0\lib\net45\Mapster.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapster.JsonNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e64997d676a9c1d3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mapster.JsonNet.1.0.0\lib\net45\Mapster.JsonNet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.ChildKernel, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.ChildKernel.3.3.0\lib\net45\Ninject.Extensions.ChildKernel.dll</HintPath>
     </Reference>
     <Reference Include="Ninject.Web.Common, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.Web.Common.3.3.0\lib\net45\Ninject.Web.Common.dll</HintPath>
@@ -121,7 +130,78 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Css\IranSans.css" />
+    <Content Include="Areas\Admin\Content\Css\bootstrap-fileupload.min.css" />
+    <Content Include="Areas\Admin\Content\Css\bootstrap.css" />
+    <Content Include="Areas\Admin\Content\Css\colors.css" />
+    <Content Include="Areas\Admin\Content\Css\components.css" />
+    <Content Include="Areas\Admin\Content\Css\core.css" />
+    <Content Include="Areas\Admin\Content\Css\extras\animate.min.css" />
+    <Content Include="Areas\Admin\Content\Css\icons\icomoon\fonts\icomoon.svg" />
+    <Content Include="Areas\Admin\Content\Css\icons\icomoon\styles.css" />
+    <Content Include="Areas\Admin\Content\Css\introjs-rtl.css" />
+    <Content Include="Areas\Admin\Content\Css\introjs.css" />
+    <Content Include="Areas\Admin\Content\Css\jquery.Bootstrap-PersianDateTimePicker.css" />
+    <Content Include="Areas\Admin\Content\Images\cover.jpg" />
+    <Content Include="Areas\Admin\Content\Images\demoUpload.jpg" />
+    <Content Include="Areas\Admin\Content\Images\login_cover.jpg" />
+    <Content Include="Areas\Admin\Content\Images\notFound.png" />
+    <Content Include="Areas\Admin\Content\Images\placeholder.jpg" />
+    <Content Include="Areas\Admin\Content\Images\pnotify\danger.png" />
+    <Content Include="Areas\Admin\Content\Images\pnotify\default.png" />
+    <Content Include="Areas\Admin\Content\Images\pnotify\info.png" />
+    <Content Include="Areas\Admin\Content\Images\pnotify\success.png" />
+    <Content Include="Areas\Admin\Content\Images\pnotify\warning.png" />
+    <Content Include="Areas\Admin\Content\Images\ui\datepicker_trigger.png" />
+    <Content Include="Areas\Admin\Content\Images\ui\map_marker.png" />
+    <Content Include="Areas\Admin\Scripts\Core\app.js" />
+    <Content Include="Areas\Admin\Scripts\Core\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Scripts\Core\handlebars-v4.0.5.js" />
+    <Content Include="Areas\Admin\Scripts\Core\jquery.min.js" />
+    <Content Include="Areas\Admin\Scripts\Core\jquery.validate.min.js" />
+    <Content Include="Areas\Admin\Scripts\Core\jquery.validate.unobtrusive.js" />
+    <Content Include="Areas\Admin\Scripts\Core\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Areas\Admin\Scripts\Core\makepaging.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Dashboard\dashboard.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Product\catAddEdit.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Product\procAddEdit.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Product\procBrand.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Product\procCat.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Product\product.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\blockui.min.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\bootstrap-fileupload.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\calendar.min.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\bar.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\chord.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\eventRiver.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\force.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\funnel.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\gauge.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\heatmap.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\k.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\line.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\map.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\pie.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\radar.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\scatter.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\tree.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\treemap.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\venn.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\chart\wordCloud.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\echarts.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\echarts\theme\limitless.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\intro.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\jgrowl.min.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\jquery.Bootstrap-PersianDateTimePicker.min.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\maxlength.min.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\pace.min.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\ripple.min.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\select2.min.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\summernote-fa-IR.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\summernote.min.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\sweet_alert.min.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\tokenfield.min.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\touchspin.min.js" />
+    <Content Include="Areas\Admin\Scripts\Plugin\uniform.min.js" />
     <Content Include="Content\Css\styles.css" />
     <Content Include="Content\Css\vendor.css" />
     <Content Include="Content\Fonts\feather.svg" />
@@ -318,11 +398,14 @@
     <Content Include="Content\Images\team\06.jpg" />
     <Content Include="Content\Images\team\07.jpg" />
     <Content Include="Content\Images\team\08.jpg" />
+    <Content Include="Files\ProcBrand\1.jpg" />
+    <Content Include="Files\Product\19812641.jpg" />
+    <Content Include="Files\Product\19812645.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Models\Data\ALDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ALDB.Context.cs</LastGenOutput>
       <DependentUpon>ALDB.edmx</DependentUpon>
+      <LastGenOutput>ALDB.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Data\ALDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -333,12 +416,23 @@
     <Content Include="Scripts\Js\modernizr.min.js" />
     <Content Include="Scripts\Js\scripts.min.js" />
     <Content Include="Scripts\Js\vendor.min.js" />
+    <Content Include="Views\HtmlPage1.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\Account.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Controllers\Api\BaseApiController.cs" />
+    <Compile Include="Controllers\Api\NinjectApi.cs" />
+    <Compile Include="Controllers\Api\OrderController.cs" />
+    <Compile Include="Controllers\Api\ProductController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NinjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -357,7 +451,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ALDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\sysdiagram.cs">
+    <Compile Include="Models\Data\sysdiagrams.cs">
+      <DependentUpon>ALDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Data\Tbl_Admin.cs">
+      <DependentUpon>ALDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Data\Tbl_ARole.cs">
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Data\Tbl_Blog.cs">
@@ -381,13 +481,10 @@
     <Compile Include="Models\Data\Tbl_FactProc.cs">
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Data\Tbl_Media.cs">
+      <DependentUpon>ALDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Data\Tbl_Newsletter.cs">
-      <DependentUpon>ALDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Data\Tbl_Oprator.cs">
-      <DependentUpon>ALDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Data\Tbl_OPRole.cs">
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Data\Tbl_Page.cs">
@@ -420,12 +517,20 @@
     <Compile Include="Models\Data\Tbl_State_City.cs">
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Service\Repository\Factor\FactorRepository.cs" />
     <Compile Include="Models\Service\Repository\GenericRepository.cs" />
     <Compile Include="Models\Service\Repository\IGenericRepository.cs" />
-    <Compile Include="Models\Service\Repository\IProductRepository.cs" />
+    <Compile Include="Models\Service\Repository\Factor\IFactorRepository.cs" />
+    <Compile Include="Models\Service\Repository\Product\IProductRepository.cs" />
     <Compile Include="Models\Service\Repository\IUnitOfWork.cs" />
-    <Compile Include="Models\Service\Repository\ProductRepository.cs" />
+    <Compile Include="Models\Service\Repository\Product\ProductRepository.cs" />
     <Compile Include="Models\Service\Repository\UnitOfWork.cs" />
+    <Compile Include="Models\Utitlity\Extention.cs" />
+    <Compile Include="Models\Utitlity\Function.cs" />
+    <Compile Include="Models\ViewData\Base\Common.cs" />
+    <Compile Include="Models\ViewData\Table\Admin.cs" />
+    <Compile Include="Models\ViewData\Table\Factor.cs" />
+    <Compile Include="Models\ViewData\Table\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -486,6 +591,34 @@
     <Content Include="Content\Fonts\woff\IRANSansWeb_Light.woff" />
     <Content Include="Content\Fonts\woff\IRANSansWeb_Medium.woff" />
     <Content Include="Content\Fonts\woff\IRANSansWeb_UltraLight.woff" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Content\Css\icons\icomoon\fonts\icomoon.eot" />
+    <Content Include="Areas\Admin\Content\Css\icons\icomoon\fonts\icomoon.ttf" />
+    <Content Include="Areas\Admin\Content\Css\icons\icomoon\fonts\icomoon.woff" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout_Admin.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout_Admin_Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\Dashboard.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\index.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\General\MainNavbar.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\General\MainNavigation.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\General\OrderList.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\General\UserMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Product\ProcList.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\AddEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Product\ProcDetails.cshtml" />
+    <Content Include="Areas\Admin\Content\Css\icons\summernote\summernote.eot" />
+    <Content Include="Areas\Admin\Content\Css\icons\summernote\summernote.ttf" />
+    <Content Include="Areas\Admin\Content\Css\icons\summernote\summernote.woff" />
+    <Content Include="Areas\Admin\Views\Partial\Product\ProcImg.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Product\ProcProp.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Category.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Product\ProcCat.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\AddEditCat.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Product\CatDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Product\PCPG.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Brand.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Product\ProcBrand.cshtml" />
     <None Include="bundleconfig.json" />
     <EntityDeploy Include="Models\Data\ALDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -517,9 +650,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\" />
-    <Folder Include="Models\Data\MetaData\" />
-    <Folder Include="Models\Utitlity\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

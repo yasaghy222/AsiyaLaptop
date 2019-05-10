@@ -1,0 +1,38 @@
+﻿<link href="~/Areas/Admin/Content/Css/bootstrap-fileupload.min.css" rel="stylesheet" />
+<div class="content-group">
+    <div class="page-header page-header-default page-header-xs sticky">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h5>
+                    <span class="text-semibold">برندها</span>
+                </h5>
+            </div>
+            <div class="heading-elements">
+                <a id="addEdit" data-toggle="modal" data-target="#addEditBrand" class="btn bg-green-800 btn-labeled heading-btn legitRipple"><b><i class="icon-plus3"></i></b>افزودن برند</a>
+            </div>
+        </div>
+        <div class="breadcrumb-line">
+            <ul class="breadcrumb">
+                <li><a onclick="pageLoad('/Admin/Dashboard','پنل مدیریت لپتاپ آسیا')"><i class="icon-home position-left"></i> میز کار</a></li>
+                <li class="active">برندها</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="reload"></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            @Html.Partial("~/Areas/Admin/Views/Partial/Product/ProcBrand.cshtml")
+        </div>
+    </div>
+</div>
+<script src="~/Areas/Admin/Scripts/Plugin/bootstrap-fileupload.js"></script>
+<script src="~/Areas/Admin/Scripts/Core/makepaging.js"></script>
+<script src="~/Areas/Admin/Scripts/Page/Product/procBrand.js"></script>

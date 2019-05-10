@@ -1,0 +1,47 @@
+﻿<div class="navbar navbar-default navbar-fixed-top header-highlight">
+    <div class="navbar-header">
+        <a class="navbar-brand" onclick="pageLoad('/Admin/Dashboard','پنل مدیریت لپتاپ آسیا')"><span>لپتاپ آسیا</span></a>
+        <ul class="nav navbar-nav visible-xs-block">
+            <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+            <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+        </ul>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar-mobile">
+        <ul class="nav navbar-nav">
+            <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
+            <li><a href="/" class="sidebar-control  hidden-xs">مشاهده سایت</a></li>
+            <li><a onclick="pageLoad('/Admin/Dashboard','پنل مدیریت لپتاپ آسیا')" class="sidebar-control  hidden-xs">میز کار</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span>دسترسی سریع</span>
+                    <i class="icon-arrow-down5"></i>
+                </a>
+                <div class="dropdown-menu dropdown-content">
+                    <ul class="list dropdown-content-body width-200 no-padding">
+                        <li onclick="pageLoad('/Admin/Order', 'لیست سفارش ها','orderList')" class="list-group no-padding no-border no-margin"><a class="list-group-item" href="#">لیست سفارش ها</a></li>
+                        <li class="list-group no-padding no-border no-margin">
+                            <a onclick="pageLoad('/Admin/Product', 'لیست محصولات','procList')" class="list-group-item" href="#">لیست محصولات</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <div class="navbar-right">
+            <p class="navbar-text"><span class="label datetime">پنج شنبه 4 مرداد 1397</span></p>
+            <p class="navbar-text"><span class="label datetime">11 : 51 : 08</span></p>
+            <ul class="nav navbar-nav">
+                <li class="dropdown dropdown-user">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <span>@ViewBag.Name ، @ViewBag.Role </span>
+                        <input type="hidden" id="token" value="@ViewBag.Token" />
+                        <i class="caret"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right no-padding">
+                        <li><a class="text-primary"><i class="icon-user"></i><span class="text-semibold">پروفایل</span></a></li>
+                        <li><a class="text-danger-300" id="logout"><i class="icon-exit3"></i><span class="text-semibold">خروج</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -25,8 +25,7 @@ namespace Src.Models.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<Tbl_Blog> Tbl_Blog { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tbl_BlogCat> Tbl_BlogCat { get; set; }
         public virtual DbSet<Tbl_ContactUs> Tbl_ContactUs { get; set; }
         public virtual DbSet<Tbl_CustAddress> Tbl_CustAddress { get; set; }
@@ -34,17 +33,19 @@ namespace Src.Models.Data
         public virtual DbSet<Tbl_Factor> Tbl_Factor { get; set; }
         public virtual DbSet<Tbl_FactProc> Tbl_FactProc { get; set; }
         public virtual DbSet<Tbl_Newsletter> Tbl_Newsletter { get; set; }
-        public virtual DbSet<Tbl_Oprator> Tbl_Oprator { get; set; }
-        public virtual DbSet<Tbl_OPRole> Tbl_OPRole { get; set; }
         public virtual DbSet<Tbl_Page> Tbl_Page { get; set; }
         public virtual DbSet<Tbl_Payment> Tbl_Payment { get; set; }
-        public virtual DbSet<Tbl_PCPGroup> Tbl_PCPGroup { get; set; }
-        public virtual DbSet<Tbl_ProcBrand> Tbl_ProcBrand { get; set; }
         public virtual DbSet<Tbl_ProcCat> Tbl_ProcCat { get; set; }
+        public virtual DbSet<Tbl_ProcReview> Tbl_ProcReview { get; set; }
+        public virtual DbSet<Tbl_State_City> Tbl_State_City { get; set; }
+        public virtual DbSet<Tbl_Blog> Tbl_Blog { get; set; }
+        public virtual DbSet<Tbl_Media> Tbl_Media { get; set; }
+        public virtual DbSet<Tbl_ProcBrand> Tbl_ProcBrand { get; set; }
         public virtual DbSet<Tbl_ProcImg> Tbl_ProcImg { get; set; }
         public virtual DbSet<Tbl_ProcProp> Tbl_ProcProp { get; set; }
-        public virtual DbSet<Tbl_ProcReview> Tbl_ProcReview { get; set; }
+        public virtual DbSet<Tbl_Admin> Tbl_Admin { get; set; }
+        public virtual DbSet<Tbl_ARole> Tbl_ARole { get; set; }
         public virtual DbSet<Tbl_Product> Tbl_Product { get; set; }
-        public virtual DbSet<Tbl_State_City> Tbl_State_City { get; set; }
+        public virtual DbSet<Tbl_PCPGroup> Tbl_PCPGroup { get; set; }
     }
 }

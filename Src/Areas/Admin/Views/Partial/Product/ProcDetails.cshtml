@@ -1,0 +1,125 @@
+﻿@model  Src.Models.ViewData.Table.Product.ViewTbl_Proc
+@{
+    string imagePath = Model.ID != -1 ? $"/Files/Product/{Model.ID}.jpg" : "/Areas/Admin/Content/Images/demoUpload.jpg";
+    string imgBtnText = Model.ID != -1 ? "ویرایش" : "انتخاب";
+    int rateDiff = 5 - Model.Rate;
+}
+<form id="FrmProc">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            @Html.HiddenFor(item => item.ID)
+            @Html.HiddenFor(item => item.Rate)
+            @Html.HiddenFor(item => item.OffID)
+            @Html.HiddenFor(item => item.OffPrice)
+            @if (Model.ID != -1)
+            {
+                <div class="form-group col-lg-12">
+                    <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">امتیاز</label>
+                    <div class="col-lg-7 col-xs-12">
+                        @for (int i = 0; i < Model.Rate; i++)
+                        {
+                            <i class="icon-star-full2 text-warning"></i>
+                        }
+                        @if (Model.Rate < 5)
+                        {
+                            for (int i = 0; i < rateDiff; i++)
+                            {
+                                <i class="icon-star-empty3 text-warning"></i>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+            <div class="form-group col-lg-12">
+                <label class="control-label col-lg-2 col-xs-12"> تصویر</label>
+                <div class="col-lg-2" id="fileupload">
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                        <div class="fileupload-new thumbnail">
+                            <img src="@imagePath" />
+                        </div>
+                        <div class="fileupload-preview fileupload-exists thumbnail"></div>
+                        <div>
+                            <span class="btn btn-file btn-block bg-slate"><span class="fileupload-new">@imgBtnText</span><span class="fileupload-exists">تغییر</span><input type="file" name="Image" id="Image" /></span>
+                            <a href="#" class="btn btn-default btn-block mt-5 fileupload-exists" data-dismiss="fileupload">حذف</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-lg-offset-2">
+                    @Html.ValidationMessage("Image", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">عنوان</label>
+                <div class="col-lg-7 col-xs-12">
+                    @Html.TextBoxFor(item => item.Title, new { @class = "form-control maxlength",
+                                                              autocomplete = "off",
+                                                              maxlength = "50" })
+                    @Html.ValidationMessageFor(item => item.Title, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">توضیحات مختصر</label>
+                <div class="col-lg-7 col-xs-12">
+                    @Html.TextAreaFor(item => item.ShortDesc, new { @class = "form-control maxlength",
+                                                                    autocomplete = "off" ,
+                                                                    maxlength = "300"})
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">توضیحات تکمیلی</label>
+                <div class="col-lg-12 col-xs-12">
+                    @Html.TextAreaFor(item => item.FullDesc, new { @class = "form-control summernote",
+                                                              autocomplete = "off"})
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">ویژگی های مهم</label>
+                <div class="col-lg-7 col-xs-12">
+                    @Html.TextBoxFor(item => item.TopProp, new { @class = "form-control tokenfield maxlength",
+                                                                 maxlength = "300"})
+                    @Html.ValidationMessageFor(item => item.TopProp, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="control-label col-lg-2 col-xs-12">قیمت</label>
+                <div class="col-lg-4 col-xs-12">
+                    @Html.TextBoxFor(item => item.Price, new { @class = "form-control touchspin text-center",
+                                                                  dir = "ltr",
+                                                                  autocomplete = "off" })
+                    @Html.ValidationMessageFor(item => item.Price, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="text-semibold title col-lg-2 col-xs-12">دسته</label>
+                <div class="col-lg-4 col-xs-12">
+                    <ul id="TreeSelect" class="list-group no-border"></ul>
+                    @Html.ValidationMessageFor(item => item.CatID, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="text-semibold title col-lg-2 col-xs-12">برند</label>
+                <div class="col-lg-4 col-xs-12">
+                    <select name="BrandID" id="BrandID" class="select"></select>
+                    @Html.ValidationMessageFor(item => item.BrandID, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="control-label col-lg-2 col-xs-12">تعداد موجودی</label>
+                <div class="col-lg-4 col-xs-12">
+                    @Html.TextBoxFor(item => item.Count, new { @class = "form-control touchspin text-center",
+                                                                  dir = "ltr",
+                                                                  autocomplete = "off" })
+                    @Html.ValidationMessageFor(item => item.Count, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="text-semibold title col-lg-2 col-xs-12">وضعیت</label>
+                <div class="col-lg-4 col-xs-12">
+                    @Html.DropDownListFor(item =>item.Type,
+                                          EnumHelper.GetSelectList(typeof(Src.Models.ViewData.Table.Product.ProcType)),
+                                          new { @class = "form-control select" })
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

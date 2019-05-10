@@ -1,0 +1,83 @@
+﻿@model  Src.Models.ViewData.Table.Product.ViewTbl_ProcCat
+@{
+    string Title = Model.ID != -1 ? $"ویرایش دسته {Model.Title}" : "افزودن دسته";
+}
+
+<div class="content-group">
+    <div class="page-header page-header-default page-header-xs sticky">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h5>
+                    <span class="text-semibold">@Title</span>
+                </h5>
+            </div>
+            <div class="heading-elements">
+                <button id="btnSaveNext" class="btn bg-teal-800 btn-labeled heading-btn legitRipple"><b><i class="icon-rotate-cw3"></i></b>ثبت و ادامه</button>
+                <button id="btnSave" class="btn bg-green-800 btn-labeled heading-btn legitRipple btn-ladda"><b><i class="icon-floppy-disk"></i></b>ثبت</button>
+            </div>
+        </div>
+        <div class="breadcrumb-line">
+            <ul class="breadcrumb">
+                <li><a onclick="pageLoad('/Admin/Dashboard','پنل مدیریت لپتاپ آسیا')"><i class="icon-home position-left"></i> میز کار</a></li>
+                <li><a onclick="pageLoad('/Admin/Product/Category', 'دستبندی محصولات','procCat')"><i class="icon-price-Services position-left"></i> دستبندی محصولات</a></li>
+                <li class="active">@Title</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="panel panel-flat bg-none">
+        <div class="panel-body">
+            <div class="tabbable">
+                <ul class="nav nav-tabs nav-tabs-highlight no-border no-shadow">
+                    <li class="active"><a data-tab="#Details">جزئیات</a></li>
+                    <li><a data-tab="#PCPGs">ویژگی ها</a></li>
+                </ul>
+                <div class="tab-content bg-white rounded-tab">
+                    <div class="tab-pane active" id="Details">
+                        @Html.Partial("/Areas/Admin/Views/Partial/Product/CatDetails.cshtml", Model)
+                    </div>
+                    <div class="tab-pane" id="PCPGs">
+                        @Html.Partial("/Areas/Admin/Views/Partial/Product/PCPG.cshtml")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Areas/Admin/Scripts/Plugin/uniform.min.js"></script>
+<script src="~/Areas/Admin/Scripts/Plugin/maxlength.min.js"></script>
+<script src="~/Areas/Admin/Scripts/Core/jquery.validate.min.js"></script>
+<script src="~/Areas/Admin/Scripts/Core/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Areas/Admin/Scripts/Page/Product/catAddEdit.js"></script>
+<script type="text/javascript">
+    $(document).ready(() => {
+        //variable
+        let ModelID = @Model.ID,
+            AssignCount = @Model.AssignCount,
+            PID = $("#TreeSelect"),
+            CatList = @Html.Raw(Json.Encode(Model.CatList)),
+            HasChild = $.grep(CatList, (item) => {
+                return (item.PID == ModelID);
+            });
+
+        //fill select
+        if (ModelID == -1) {
+            clearMultiSelect(PID, "PID");
+        }
+
+        if (AssignCount == 0 && HasChild.length == 0) {
+            $.each(CatList, (i) => {
+                fillSelectMulti(CatList, CatList[i], ModelID, PID, "PID", false);
+            });
+        } else {
+            $.each(CatList, (i) => {
+                fillSelectMulti(CatList, CatList[i], ModelID, PID, "PID", true, true);
+            });
+        }
+    });
+</script>
+
+
+
