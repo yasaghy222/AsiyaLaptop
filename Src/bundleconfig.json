@@ -1,0 +1,20 @@
+[
+  {
+    "outputFileName": "Content/Css/styles.min.min.css",
+    "inputFiles": [
+      "Content/Css/styles.min.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Css/styles.min.css",
+    "inputFiles": [
+      "Content/Css/styles.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Css/vendor.min.css",
+    "inputFiles": [
+      "Content/Css/vendor.css"
+    ]
+  }
+]

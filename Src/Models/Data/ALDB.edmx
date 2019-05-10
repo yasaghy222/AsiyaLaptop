@@ -1,0 +1,1570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ALDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Blog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ShortDesc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FullDesc" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CatID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_BlogCat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_ContactUs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="IP" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="IsRead" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_CustAddress">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustID" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="PostCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="LocationID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Family" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Pass" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NatCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsInNewsletter" Type="bit" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Factor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CustID" Type="int" Nullable="false" />
+          <Property Name="PaymentType" Type="bit" Nullable="false" />
+          <Property Name="PaymentStatus" Type="bit" Nullable="false" />
+          <Property Name="CancelReason" Type="tinyint" />
+          <Property Name="IsPrint" Type="bit" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="AddressId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="bigint" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_FactProc">
+          <Key>
+            <PropertyRef Name="FactID" />
+            <PropertyRef Name="ProcID" />
+          </Key>
+          <Property Name="FactID" Type="int" Nullable="false" />
+          <Property Name="ProcID" Type="int" Nullable="false" />
+          <Property Name="Count" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Newsletter">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IP" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Oprator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Family" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Pass" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NatCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="RFCount" Type="tinyint" />
+          <Property Name="BDate" Type="datetime" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_OPRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShowTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Page">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TItle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SeoDesc" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Payment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="FactID" Type="int" Nullable="false" />
+          <Property Name="TrackingCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BankStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="bigint" Nullable="false" />
+          <Property Name="IP" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_PCPGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PID" Type="int" Nullable="false" />
+          <Property Name="CatID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_ProcBrand">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_ProcCat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_ProcImg">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_ProcProp">
+          <Key>
+            <PropertyRef Name="ProcId" />
+            <PropertyRef Name="PCPGID" />
+          </Key>
+          <Property Name="ProcId" Type="int" Nullable="false" />
+          <Property Name="PCPGID" Type="int" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_ProcReview">
+          <Key>
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="CustID" />
+          </Key>
+          <Property Name="ProcID" Type="int" Nullable="false" />
+          <Property Name="CustID" Type="int" Nullable="false" />
+          <Property Name="Rate" Type="tinyint" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Review" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ShortDesc" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="FullDesc" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TopProp" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Rate" Type="tinyint" />
+          <Property Name="Price" Type="bigint" Nullable="false" />
+          <Property Name="OffPrice" Type="bigint" Nullable="false" />
+          <Property Name="OffID" Type="int" />
+          <Property Name="BrandID" Type="int" Nullable="false" />
+          <Property Name="CatID" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" />
+          <Property Name="Type" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_State&amp;City">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Tbl_Blog_Tbl_BlogCat">
+          <End Role="Tbl_BlogCat" Type="Self.Tbl_BlogCat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_Blog" Type="Self.Tbl_Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_BlogCat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Blog">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_BlogCat_Tbl_BlogCat">
+          <End Role="Tbl_BlogCat" Type="Self.Tbl_BlogCat" Multiplicity="1" />
+          <End Role="Tbl_BlogCat1" Type="Self.Tbl_BlogCat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_BlogCat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_BlogCat1">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_CustAddress_Tbl_Customer">
+          <End Role="Tbl_Customer" Type="Self.Tbl_Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_CustAddress" Type="Self.Tbl_CustAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_CustAddress">
+              <PropertyRef Name="CustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_CustAddress_Tbl_State&amp;City">
+          <End Role="Tbl_State&amp;City" Type="Self.Tbl_State&amp;City" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_CustAddress" Type="Self.Tbl_CustAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_State&amp;City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_CustAddress">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Factor_Tbl_CustAddress">
+          <End Role="Tbl_CustAddress" Type="Self.Tbl_CustAddress" Multiplicity="1" />
+          <End Role="Tbl_Factor" Type="Self.Tbl_Factor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_CustAddress">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Factor">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Factor_Tbl_Customer">
+          <End Role="Tbl_Customer" Type="Self.Tbl_Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_Factor" Type="Self.Tbl_Factor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Factor">
+              <PropertyRef Name="CustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FactProc_Tbl_Factor">
+          <End Role="Tbl_Factor" Type="Self.Tbl_Factor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_FactProc" Type="Self.Tbl_FactProc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Factor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_FactProc">
+              <PropertyRef Name="FactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FactProc_Tbl_Product">
+          <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_FactProc" Type="Self.Tbl_FactProc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_FactProc">
+              <PropertyRef Name="ProcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Oprator_Tbl_OPRole">
+          <End Role="Tbl_OPRole" Type="Self.Tbl_OPRole" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_Oprator" Type="Self.Tbl_Oprator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_OPRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Oprator">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Payment_Tbl_Factor">
+          <End Role="Tbl_Factor" Type="Self.Tbl_Factor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_Payment" Type="Self.Tbl_Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Factor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Payment">
+              <PropertyRef Name="FactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_PCPGroup_Tbl_PCPGroup">
+          <End Role="Tbl_PCPGroup" Type="Self.Tbl_PCPGroup" Multiplicity="1" />
+          <End Role="Tbl_PCPGroup1" Type="Self.Tbl_PCPGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_PCPGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_PCPGroup1">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_PCPGroup_Tbl_ProcCat">
+          <End Role="Tbl_ProcCat" Type="Self.Tbl_ProcCat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_PCPGroup" Type="Self.Tbl_PCPGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ProcCat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_PCPGroup">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcCat_Tbl_ProcCat">
+          <End Role="Tbl_ProcCat" Type="Self.Tbl_ProcCat" Multiplicity="1" />
+          <End Role="Tbl_ProcCat1" Type="Self.Tbl_ProcCat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ProcCat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcCat1">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcImg_Tbl_Product">
+          <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_ProcImg" Type="Self.Tbl_ProcImg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcImg">
+              <PropertyRef Name="ProcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcProp_Tbl_PCPGroup">
+          <End Role="Tbl_PCPGroup" Type="Self.Tbl_PCPGroup" Multiplicity="1" />
+          <End Role="Tbl_ProcProp" Type="Self.Tbl_ProcProp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_PCPGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcProp">
+              <PropertyRef Name="PCPGID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcProp_Tbl_Product">
+          <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_ProcProp" Type="Self.Tbl_ProcProp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcProp">
+              <PropertyRef Name="ProcId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcRate_Tbl_Customer">
+          <End Role="Tbl_Customer" Type="Self.Tbl_Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_ProcReview" Type="Self.Tbl_ProcReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcReview">
+              <PropertyRef Name="CustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcRate_Tbl_Product">
+          <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_ProcReview" Type="Self.Tbl_ProcReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcReview">
+              <PropertyRef Name="ProcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Product_Tbl_ProcBrand">
+          <End Role="Tbl_ProcBrand" Type="Self.Tbl_ProcBrand" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ProcBrand">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Product">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Product_Tbl_ProcCat">
+          <End Role="Tbl_ProcCat" Type="Self.Tbl_ProcCat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ProcCat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Product">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_State&amp;City_Tbl_State&amp;City">
+          <End Role="Tbl_State&amp;City" Type="Self.Tbl_State&amp;City" Multiplicity="1" />
+          <End Role="Tbl_State&amp;City1" Type="Self.Tbl_State&amp;City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_State&amp;City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_State&amp;City1">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ALDBModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Blog" EntityType="Self.Tbl_Blog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_BlogCat" EntityType="Self.Tbl_BlogCat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_ContactUs" EntityType="Self.Tbl_ContactUs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_CustAddress" EntityType="Self.Tbl_CustAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Customer" EntityType="Self.Tbl_Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Factor" EntityType="Self.Tbl_Factor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FactProc" EntityType="Self.Tbl_FactProc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Newsletter" EntityType="Self.Tbl_Newsletter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Oprator" EntityType="Self.Tbl_Oprator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_OPRole" EntityType="Self.Tbl_OPRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Page" EntityType="Self.Tbl_Page" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Payment" EntityType="Self.Tbl_Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_PCPGroup" EntityType="Self.Tbl_PCPGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_ProcBrand" EntityType="Self.Tbl_ProcBrand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_ProcCat" EntityType="Self.Tbl_ProcCat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_ProcImg" EntityType="Self.Tbl_ProcImg" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_ProcProp" EntityType="Self.Tbl_ProcProp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_ProcReview" EntityType="Self.Tbl_ProcReview" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Product" EntityType="Self.Tbl_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_State&amp;City" EntityType="Self.Tbl_State&amp;City" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tbl_Blog_Tbl_BlogCat" Association="Self.FK_Tbl_Blog_Tbl_BlogCat">
+            <End Role="Tbl_BlogCat" EntitySet="Tbl_BlogCat" />
+            <End Role="Tbl_Blog" EntitySet="Tbl_Blog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_BlogCat_Tbl_BlogCat" Association="Self.FK_Tbl_BlogCat_Tbl_BlogCat">
+            <End Role="Tbl_BlogCat" EntitySet="Tbl_BlogCat" />
+            <End Role="Tbl_BlogCat1" EntitySet="Tbl_BlogCat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_CustAddress_Tbl_Customer" Association="Self.FK_Tbl_CustAddress_Tbl_Customer">
+            <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
+            <End Role="Tbl_CustAddress" EntitySet="Tbl_CustAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_CustAddress_Tbl_State&amp;City" Association="Self.FK_Tbl_CustAddress_Tbl_State&amp;City">
+            <End Role="Tbl_State&amp;City" EntitySet="Tbl_State&amp;City" />
+            <End Role="Tbl_CustAddress" EntitySet="Tbl_CustAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Factor_Tbl_CustAddress" Association="Self.FK_Tbl_Factor_Tbl_CustAddress">
+            <End Role="Tbl_CustAddress" EntitySet="Tbl_CustAddress" />
+            <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Factor_Tbl_Customer" Association="Self.FK_Tbl_Factor_Tbl_Customer">
+            <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
+            <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FactProc_Tbl_Factor" Association="Self.FK_Tbl_FactProc_Tbl_Factor">
+            <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
+            <End Role="Tbl_FactProc" EntitySet="Tbl_FactProc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FactProc_Tbl_Product" Association="Self.FK_Tbl_FactProc_Tbl_Product">
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+            <End Role="Tbl_FactProc" EntitySet="Tbl_FactProc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Oprator_Tbl_OPRole" Association="Self.FK_Tbl_Oprator_Tbl_OPRole">
+            <End Role="Tbl_OPRole" EntitySet="Tbl_OPRole" />
+            <End Role="Tbl_Oprator" EntitySet="Tbl_Oprator" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Payment_Tbl_Factor" Association="Self.FK_Tbl_Payment_Tbl_Factor">
+            <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
+            <End Role="Tbl_Payment" EntitySet="Tbl_Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_PCPGroup_Tbl_PCPGroup" Association="Self.FK_Tbl_PCPGroup_Tbl_PCPGroup">
+            <End Role="Tbl_PCPGroup" EntitySet="Tbl_PCPGroup" />
+            <End Role="Tbl_PCPGroup1" EntitySet="Tbl_PCPGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_PCPGroup_Tbl_ProcCat" Association="Self.FK_Tbl_PCPGroup_Tbl_ProcCat">
+            <End Role="Tbl_ProcCat" EntitySet="Tbl_ProcCat" />
+            <End Role="Tbl_PCPGroup" EntitySet="Tbl_PCPGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcCat_Tbl_ProcCat" Association="Self.FK_Tbl_ProcCat_Tbl_ProcCat">
+            <End Role="Tbl_ProcCat" EntitySet="Tbl_ProcCat" />
+            <End Role="Tbl_ProcCat1" EntitySet="Tbl_ProcCat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcImg_Tbl_Product" Association="Self.FK_Tbl_ProcImg_Tbl_Product">
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+            <End Role="Tbl_ProcImg" EntitySet="Tbl_ProcImg" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcProp_Tbl_PCPGroup" Association="Self.FK_Tbl_ProcProp_Tbl_PCPGroup">
+            <End Role="Tbl_PCPGroup" EntitySet="Tbl_PCPGroup" />
+            <End Role="Tbl_ProcProp" EntitySet="Tbl_ProcProp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcProp_Tbl_Product" Association="Self.FK_Tbl_ProcProp_Tbl_Product">
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+            <End Role="Tbl_ProcProp" EntitySet="Tbl_ProcProp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcRate_Tbl_Customer" Association="Self.FK_Tbl_ProcRate_Tbl_Customer">
+            <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
+            <End Role="Tbl_ProcReview" EntitySet="Tbl_ProcReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcRate_Tbl_Product" Association="Self.FK_Tbl_ProcRate_Tbl_Product">
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+            <End Role="Tbl_ProcReview" EntitySet="Tbl_ProcReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Product_Tbl_ProcBrand" Association="Self.FK_Tbl_Product_Tbl_ProcBrand">
+            <End Role="Tbl_ProcBrand" EntitySet="Tbl_ProcBrand" />
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Product_Tbl_ProcCat" Association="Self.FK_Tbl_Product_Tbl_ProcCat">
+            <End Role="Tbl_ProcCat" EntitySet="Tbl_ProcCat" />
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_State&amp;City_Tbl_State&amp;City" Association="Self.FK_Tbl_State&amp;City_Tbl_State&amp;City">
+            <End Role="Tbl_State&amp;City" EntitySet="Tbl_State&amp;City" />
+            <End Role="Tbl_State&amp;City1" EntitySet="Tbl_State&amp;City" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ALDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Blog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CatID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tbl_BlogCat" Relationship="Self.FK_Tbl_Blog_Tbl_BlogCat" FromRole="Tbl_Blog" ToRole="Tbl_BlogCat" />
+        </EntityType>
+        <EntityType Name="Tbl_BlogCat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_Blog" Relationship="Self.FK_Tbl_Blog_Tbl_BlogCat" FromRole="Tbl_BlogCat" ToRole="Tbl_Blog" />
+          <NavigationProperty Name="Tbl_BlogCat1" Relationship="Self.FK_Tbl_BlogCat_Tbl_BlogCat" FromRole="Tbl_BlogCat" ToRole="Tbl_BlogCat1" />
+          <NavigationProperty Name="Tbl_BlogCat2" Relationship="Self.FK_Tbl_BlogCat_Tbl_BlogCat" FromRole="Tbl_BlogCat1" ToRole="Tbl_BlogCat" />
+        </EntityType>
+        <EntityType Name="Tbl_ContactUs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Subject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_CustAddress">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustID" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PostCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_Customer" Relationship="Self.FK_Tbl_CustAddress_Tbl_Customer" FromRole="Tbl_CustAddress" ToRole="Tbl_Customer" />
+          <NavigationProperty Name="Tbl_State_City" Relationship="Self.FK_Tbl_CustAddress_Tbl_State_City" FromRole="Tbl_CustAddress" ToRole="Tbl_State_City" />
+          <NavigationProperty Name="Tbl_Factor" Relationship="Self.FK_Tbl_Factor_Tbl_CustAddress" FromRole="Tbl_CustAddress" ToRole="Tbl_Factor" />
+        </EntityType>
+        <EntityType Name="Tbl_Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Family" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pass" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NatCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsInNewsletter" Type="Boolean" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tbl_CustAddress" Relationship="Self.FK_Tbl_CustAddress_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_CustAddress" />
+          <NavigationProperty Name="Tbl_Factor" Relationship="Self.FK_Tbl_Factor_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_Factor" />
+          <NavigationProperty Name="Tbl_ProcReview" Relationship="Self.FK_Tbl_ProcRate_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_ProcReview" />
+        </EntityType>
+        <EntityType Name="Tbl_Factor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CustID" Type="Int32" Nullable="false" />
+          <Property Name="PaymentType" Type="Boolean" Nullable="false" />
+          <Property Name="PaymentStatus" Type="Boolean" Nullable="false" />
+          <Property Name="CancelReason" Type="Byte" />
+          <Property Name="IsPrint" Type="Boolean" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="AddressId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Int64" Nullable="false" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Tbl_CustAddress" Relationship="Self.FK_Tbl_Factor_Tbl_CustAddress" FromRole="Tbl_Factor" ToRole="Tbl_CustAddress" />
+          <NavigationProperty Name="Tbl_Customer" Relationship="Self.FK_Tbl_Factor_Tbl_Customer" FromRole="Tbl_Factor" ToRole="Tbl_Customer" />
+          <NavigationProperty Name="Tbl_FactProc" Relationship="Self.FK_Tbl_FactProc_Tbl_Factor" FromRole="Tbl_Factor" ToRole="Tbl_FactProc" />
+          <NavigationProperty Name="Tbl_Payment" Relationship="Self.FK_Tbl_Payment_Tbl_Factor" FromRole="Tbl_Factor" ToRole="Tbl_Payment" />
+        </EntityType>
+        <EntityType Name="Tbl_FactProc">
+          <Key>
+            <PropertyRef Name="FactID" />
+            <PropertyRef Name="ProcID" />
+          </Key>
+          <Property Name="FactID" Type="Int32" Nullable="false" />
+          <Property Name="ProcID" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Tbl_Factor" Relationship="Self.FK_Tbl_FactProc_Tbl_Factor" FromRole="Tbl_FactProc" ToRole="Tbl_Factor" />
+          <NavigationProperty Name="Tbl_Product" Relationship="Self.FK_Tbl_FactProc_Tbl_Product" FromRole="Tbl_FactProc" ToRole="Tbl_Product" />
+        </EntityType>
+        <EntityType Name="Tbl_Newsletter">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Oprator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Family" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pass" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NatCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RFCount" Type="Byte" />
+          <Property Name="BDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tbl_OPRole" Relationship="Self.FK_Tbl_Oprator_Tbl_OPRole" FromRole="Tbl_Oprator" ToRole="Tbl_OPRole" />
+        </EntityType>
+        <EntityType Name="Tbl_OPRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShowTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tbl_Oprator" Relationship="Self.FK_Tbl_Oprator_Tbl_OPRole" FromRole="Tbl_OPRole" ToRole="Tbl_Oprator" />
+        </EntityType>
+        <EntityType Name="Tbl_Page">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TItle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SeoDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Payment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="FactID" Type="Int32" Nullable="false" />
+          <Property Name="TrackingCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BankStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Int64" Nullable="false" />
+          <Property Name="IP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Tbl_Factor" Relationship="Self.FK_Tbl_Payment_Tbl_Factor" FromRole="Tbl_Payment" ToRole="Tbl_Factor" />
+        </EntityType>
+        <EntityType Name="Tbl_PCPGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PID" Type="Int32" Nullable="false" />
+          <Property Name="CatID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_PCPGroup1" Relationship="Self.FK_Tbl_PCPGroup_Tbl_PCPGroup" FromRole="Tbl_PCPGroup" ToRole="Tbl_PCPGroup1" />
+          <NavigationProperty Name="Tbl_PCPGroup2" Relationship="Self.FK_Tbl_PCPGroup_Tbl_PCPGroup" FromRole="Tbl_PCPGroup1" ToRole="Tbl_PCPGroup" />
+          <NavigationProperty Name="Tbl_ProcCat" Relationship="Self.FK_Tbl_PCPGroup_Tbl_ProcCat" FromRole="Tbl_PCPGroup" ToRole="Tbl_ProcCat" />
+          <NavigationProperty Name="Tbl_ProcProp" Relationship="Self.FK_Tbl_ProcProp_Tbl_PCPGroup" FromRole="Tbl_PCPGroup" ToRole="Tbl_ProcProp" />
+        </EntityType>
+        <EntityType Name="Tbl_ProcBrand">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tbl_Product" Relationship="Self.FK_Tbl_Product_Tbl_ProcBrand" FromRole="Tbl_ProcBrand" ToRole="Tbl_Product" />
+        </EntityType>
+        <EntityType Name="Tbl_ProcCat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_PCPGroup" Relationship="Self.FK_Tbl_PCPGroup_Tbl_ProcCat" FromRole="Tbl_ProcCat" ToRole="Tbl_PCPGroup" />
+          <NavigationProperty Name="Tbl_ProcCat1" Relationship="Self.FK_Tbl_ProcCat_Tbl_ProcCat" FromRole="Tbl_ProcCat" ToRole="Tbl_ProcCat1" />
+          <NavigationProperty Name="Tbl_ProcCat2" Relationship="Self.FK_Tbl_ProcCat_Tbl_ProcCat" FromRole="Tbl_ProcCat1" ToRole="Tbl_ProcCat" />
+          <NavigationProperty Name="Tbl_Product" Relationship="Self.FK_Tbl_Product_Tbl_ProcCat" FromRole="Tbl_ProcCat" ToRole="Tbl_Product" />
+        </EntityType>
+        <EntityType Name="Tbl_ProcImg">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tbl_Product" Relationship="Self.FK_Tbl_ProcImg_Tbl_Product" FromRole="Tbl_ProcImg" ToRole="Tbl_Product" />
+        </EntityType>
+        <EntityType Name="Tbl_ProcProp">
+          <Key>
+            <PropertyRef Name="ProcId" />
+            <PropertyRef Name="PCPGID" />
+          </Key>
+          <Property Name="ProcId" Type="Int32" Nullable="false" />
+          <Property Name="PCPGID" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tbl_PCPGroup" Relationship="Self.FK_Tbl_ProcProp_Tbl_PCPGroup" FromRole="Tbl_ProcProp" ToRole="Tbl_PCPGroup" />
+          <NavigationProperty Name="Tbl_Product" Relationship="Self.FK_Tbl_ProcProp_Tbl_Product" FromRole="Tbl_ProcProp" ToRole="Tbl_Product" />
+        </EntityType>
+        <EntityType Name="Tbl_ProcReview">
+          <Key>
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="CustID" />
+          </Key>
+          <Property Name="ProcID" Type="Int32" Nullable="false" />
+          <Property Name="CustID" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Byte" Nullable="false" />
+          <Property Name="Subject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Review" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tbl_Customer" Relationship="Self.FK_Tbl_ProcRate_Tbl_Customer" FromRole="Tbl_ProcReview" ToRole="Tbl_Customer" />
+          <NavigationProperty Name="Tbl_Product" Relationship="Self.FK_Tbl_ProcRate_Tbl_Product" FromRole="Tbl_ProcReview" ToRole="Tbl_Product" />
+        </EntityType>
+        <EntityType Name="Tbl_Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortDesc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TopProp" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rate" Type="Byte" />
+          <Property Name="Price" Type="Int64" Nullable="false" />
+          <Property Name="OffPrice" Type="Int64" Nullable="false" />
+          <Property Name="OffID" Type="Int32" />
+          <Property Name="BrandID" Type="Int32" Nullable="false" />
+          <Property Name="CatID" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Tbl_FactProc" Relationship="Self.FK_Tbl_FactProc_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_FactProc" />
+          <NavigationProperty Name="Tbl_ProcBrand" Relationship="Self.FK_Tbl_Product_Tbl_ProcBrand" FromRole="Tbl_Product" ToRole="Tbl_ProcBrand" />
+          <NavigationProperty Name="Tbl_ProcCat" Relationship="Self.FK_Tbl_Product_Tbl_ProcCat" FromRole="Tbl_Product" ToRole="Tbl_ProcCat" />
+          <NavigationProperty Name="Tbl_ProcImg" Relationship="Self.FK_Tbl_ProcImg_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_ProcImg" />
+          <NavigationProperty Name="Tbl_ProcProp" Relationship="Self.FK_Tbl_ProcProp_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_ProcProp" />
+          <NavigationProperty Name="Tbl_ProcReview" Relationship="Self.FK_Tbl_ProcRate_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_ProcReview" />
+        </EntityType>
+        <EntityType Name="Tbl_State_City">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_CustAddress" Relationship="Self.FK_Tbl_CustAddress_Tbl_State_City" FromRole="Tbl_State_City" ToRole="Tbl_CustAddress" />
+          <NavigationProperty Name="Tbl_State_City1" Relationship="Self.FK_Tbl_State_City_Tbl_State_City" FromRole="Tbl_State_City" ToRole="Tbl_State_City1" />
+          <NavigationProperty Name="Tbl_State_City2" Relationship="Self.FK_Tbl_State_City_Tbl_State_City" FromRole="Tbl_State_City1" ToRole="Tbl_State_City" />
+        </EntityType>
+        <Association Name="FK_Tbl_Blog_Tbl_BlogCat">
+          <End Role="Tbl_BlogCat" Type="Self.Tbl_BlogCat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_Blog" Type="Self.Tbl_Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_BlogCat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Blog">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_BlogCat_Tbl_BlogCat">
+          <End Role="Tbl_BlogCat" Type="Self.Tbl_BlogCat" Multiplicity="1" />
+          <End Role="Tbl_BlogCat1" Type="Self.Tbl_BlogCat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_BlogCat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_BlogCat1">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_CustAddress_Tbl_Customer">
+          <End Role="Tbl_Customer" Type="Self.Tbl_Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_CustAddress" Type="Self.Tbl_CustAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_CustAddress">
+              <PropertyRef Name="CustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_CustAddress_Tbl_State_City">
+          <End Role="Tbl_State_City" Type="Self.Tbl_State_City" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_CustAddress" Type="Self.Tbl_CustAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_State_City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_CustAddress">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Factor_Tbl_CustAddress">
+          <End Role="Tbl_CustAddress" Type="Self.Tbl_CustAddress" Multiplicity="1" />
+          <End Role="Tbl_Factor" Type="Self.Tbl_Factor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_CustAddress">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Factor">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Factor_Tbl_Customer">
+          <End Role="Tbl_Customer" Type="Self.Tbl_Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_Factor" Type="Self.Tbl_Factor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Factor">
+              <PropertyRef Name="CustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcRate_Tbl_Customer">
+          <End Role="Tbl_Customer" Type="Self.Tbl_Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_ProcReview" Type="Self.Tbl_ProcReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcReview">
+              <PropertyRef Name="CustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FactProc_Tbl_Factor">
+          <End Role="Tbl_Factor" Type="Self.Tbl_Factor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_FactProc" Type="Self.Tbl_FactProc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Factor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_FactProc">
+              <PropertyRef Name="FactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Payment_Tbl_Factor">
+          <End Role="Tbl_Factor" Type="Self.Tbl_Factor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_Payment" Type="Self.Tbl_Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Factor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Payment">
+              <PropertyRef Name="FactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FactProc_Tbl_Product">
+          <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_FactProc" Type="Self.Tbl_FactProc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_FactProc">
+              <PropertyRef Name="ProcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Oprator_Tbl_OPRole">
+          <End Role="Tbl_OPRole" Type="Self.Tbl_OPRole" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_Oprator" Type="Self.Tbl_Oprator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_OPRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Oprator">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_PCPGroup_Tbl_PCPGroup">
+          <End Role="Tbl_PCPGroup" Type="Self.Tbl_PCPGroup" Multiplicity="1" />
+          <End Role="Tbl_PCPGroup1" Type="Self.Tbl_PCPGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_PCPGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_PCPGroup1">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_PCPGroup_Tbl_ProcCat">
+          <End Role="Tbl_ProcCat" Type="Self.Tbl_ProcCat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_PCPGroup" Type="Self.Tbl_PCPGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ProcCat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_PCPGroup">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcProp_Tbl_PCPGroup">
+          <End Role="Tbl_PCPGroup" Type="Self.Tbl_PCPGroup" Multiplicity="1" />
+          <End Role="Tbl_ProcProp" Type="Self.Tbl_ProcProp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_PCPGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcProp">
+              <PropertyRef Name="PCPGID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Product_Tbl_ProcBrand">
+          <End Role="Tbl_ProcBrand" Type="Self.Tbl_ProcBrand" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ProcBrand">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Product">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcCat_Tbl_ProcCat">
+          <End Role="Tbl_ProcCat" Type="Self.Tbl_ProcCat" Multiplicity="1" />
+          <End Role="Tbl_ProcCat1" Type="Self.Tbl_ProcCat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ProcCat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcCat1">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Product_Tbl_ProcCat">
+          <End Role="Tbl_ProcCat" Type="Self.Tbl_ProcCat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ProcCat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Product">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcImg_Tbl_Product">
+          <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_ProcImg" Type="Self.Tbl_ProcImg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcImg">
+              <PropertyRef Name="ProcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcProp_Tbl_Product">
+          <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_ProcProp" Type="Self.Tbl_ProcProp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcProp">
+              <PropertyRef Name="ProcId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcRate_Tbl_Product">
+          <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_ProcReview" Type="Self.Tbl_ProcReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcReview">
+              <PropertyRef Name="ProcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_State_City_Tbl_State_City">
+          <End Role="Tbl_State_City" Type="Self.Tbl_State_City" Multiplicity="1" />
+          <End Role="Tbl_State_City1" Type="Self.Tbl_State_City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_State_City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_State_City1">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ALDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Tbl_Blog" EntityType="Self.Tbl_Blog" />
+          <EntitySet Name="Tbl_BlogCat" EntityType="Self.Tbl_BlogCat" />
+          <EntitySet Name="Tbl_ContactUs" EntityType="Self.Tbl_ContactUs" />
+          <EntitySet Name="Tbl_CustAddress" EntityType="Self.Tbl_CustAddress" />
+          <EntitySet Name="Tbl_Customer" EntityType="Self.Tbl_Customer" />
+          <EntitySet Name="Tbl_Factor" EntityType="Self.Tbl_Factor" />
+          <EntitySet Name="Tbl_FactProc" EntityType="Self.Tbl_FactProc" />
+          <EntitySet Name="Tbl_Newsletter" EntityType="Self.Tbl_Newsletter" />
+          <EntitySet Name="Tbl_Oprator" EntityType="Self.Tbl_Oprator" />
+          <EntitySet Name="Tbl_OPRole" EntityType="Self.Tbl_OPRole" />
+          <EntitySet Name="Tbl_Page" EntityType="Self.Tbl_Page" />
+          <EntitySet Name="Tbl_Payment" EntityType="Self.Tbl_Payment" />
+          <EntitySet Name="Tbl_PCPGroup" EntityType="Self.Tbl_PCPGroup" />
+          <EntitySet Name="Tbl_ProcBrand" EntityType="Self.Tbl_ProcBrand" />
+          <EntitySet Name="Tbl_ProcCat" EntityType="Self.Tbl_ProcCat" />
+          <EntitySet Name="Tbl_ProcImg" EntityType="Self.Tbl_ProcImg" />
+          <EntitySet Name="Tbl_ProcProp" EntityType="Self.Tbl_ProcProp" />
+          <EntitySet Name="Tbl_ProcReview" EntityType="Self.Tbl_ProcReview" />
+          <EntitySet Name="Tbl_Product" EntityType="Self.Tbl_Product" />
+          <EntitySet Name="Tbl_State_City" EntityType="Self.Tbl_State_City" />
+          <AssociationSet Name="FK_Tbl_Blog_Tbl_BlogCat" Association="Self.FK_Tbl_Blog_Tbl_BlogCat">
+            <End Role="Tbl_BlogCat" EntitySet="Tbl_BlogCat" />
+            <End Role="Tbl_Blog" EntitySet="Tbl_Blog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_BlogCat_Tbl_BlogCat" Association="Self.FK_Tbl_BlogCat_Tbl_BlogCat">
+            <End Role="Tbl_BlogCat" EntitySet="Tbl_BlogCat" />
+            <End Role="Tbl_BlogCat1" EntitySet="Tbl_BlogCat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_CustAddress_Tbl_Customer" Association="Self.FK_Tbl_CustAddress_Tbl_Customer">
+            <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
+            <End Role="Tbl_CustAddress" EntitySet="Tbl_CustAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_CustAddress_Tbl_State_City" Association="Self.FK_Tbl_CustAddress_Tbl_State_City">
+            <End Role="Tbl_State_City" EntitySet="Tbl_State_City" />
+            <End Role="Tbl_CustAddress" EntitySet="Tbl_CustAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Factor_Tbl_CustAddress" Association="Self.FK_Tbl_Factor_Tbl_CustAddress">
+            <End Role="Tbl_CustAddress" EntitySet="Tbl_CustAddress" />
+            <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Factor_Tbl_Customer" Association="Self.FK_Tbl_Factor_Tbl_Customer">
+            <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
+            <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcRate_Tbl_Customer" Association="Self.FK_Tbl_ProcRate_Tbl_Customer">
+            <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
+            <End Role="Tbl_ProcReview" EntitySet="Tbl_ProcReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FactProc_Tbl_Factor" Association="Self.FK_Tbl_FactProc_Tbl_Factor">
+            <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
+            <End Role="Tbl_FactProc" EntitySet="Tbl_FactProc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Payment_Tbl_Factor" Association="Self.FK_Tbl_Payment_Tbl_Factor">
+            <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
+            <End Role="Tbl_Payment" EntitySet="Tbl_Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FactProc_Tbl_Product" Association="Self.FK_Tbl_FactProc_Tbl_Product">
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+            <End Role="Tbl_FactProc" EntitySet="Tbl_FactProc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Oprator_Tbl_OPRole" Association="Self.FK_Tbl_Oprator_Tbl_OPRole">
+            <End Role="Tbl_OPRole" EntitySet="Tbl_OPRole" />
+            <End Role="Tbl_Oprator" EntitySet="Tbl_Oprator" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_PCPGroup_Tbl_PCPGroup" Association="Self.FK_Tbl_PCPGroup_Tbl_PCPGroup">
+            <End Role="Tbl_PCPGroup" EntitySet="Tbl_PCPGroup" />
+            <End Role="Tbl_PCPGroup1" EntitySet="Tbl_PCPGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_PCPGroup_Tbl_ProcCat" Association="Self.FK_Tbl_PCPGroup_Tbl_ProcCat">
+            <End Role="Tbl_ProcCat" EntitySet="Tbl_ProcCat" />
+            <End Role="Tbl_PCPGroup" EntitySet="Tbl_PCPGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcProp_Tbl_PCPGroup" Association="Self.FK_Tbl_ProcProp_Tbl_PCPGroup">
+            <End Role="Tbl_PCPGroup" EntitySet="Tbl_PCPGroup" />
+            <End Role="Tbl_ProcProp" EntitySet="Tbl_ProcProp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Product_Tbl_ProcBrand" Association="Self.FK_Tbl_Product_Tbl_ProcBrand">
+            <End Role="Tbl_ProcBrand" EntitySet="Tbl_ProcBrand" />
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcCat_Tbl_ProcCat" Association="Self.FK_Tbl_ProcCat_Tbl_ProcCat">
+            <End Role="Tbl_ProcCat" EntitySet="Tbl_ProcCat" />
+            <End Role="Tbl_ProcCat1" EntitySet="Tbl_ProcCat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Product_Tbl_ProcCat" Association="Self.FK_Tbl_Product_Tbl_ProcCat">
+            <End Role="Tbl_ProcCat" EntitySet="Tbl_ProcCat" />
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcImg_Tbl_Product" Association="Self.FK_Tbl_ProcImg_Tbl_Product">
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+            <End Role="Tbl_ProcImg" EntitySet="Tbl_ProcImg" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcProp_Tbl_Product" Association="Self.FK_Tbl_ProcProp_Tbl_Product">
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+            <End Role="Tbl_ProcProp" EntitySet="Tbl_ProcProp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcRate_Tbl_Product" Association="Self.FK_Tbl_ProcRate_Tbl_Product">
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+            <End Role="Tbl_ProcReview" EntitySet="Tbl_ProcReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_State_City_Tbl_State_City" Association="Self.FK_Tbl_State_City_Tbl_State_City">
+            <End Role="Tbl_State_City" EntitySet="Tbl_State_City" />
+            <End Role="Tbl_State_City1" EntitySet="Tbl_State_City" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ALDBModelStoreContainer" CdmEntityContainer="ALDBEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ALDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Blog">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_Blog">
+              <MappingFragment StoreEntitySet="Tbl_Blog">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ShortDesc" ColumnName="ShortDesc" />
+                <ScalarProperty Name="FullDesc" ColumnName="FullDesc" />
+                <ScalarProperty Name="CatID" ColumnName="CatID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_BlogCat">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_BlogCat">
+              <MappingFragment StoreEntitySet="Tbl_BlogCat">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ContactUs">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_ContactUs">
+              <MappingFragment StoreEntitySet="Tbl_ContactUs">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_CustAddress">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_CustAddress">
+              <MappingFragment StoreEntitySet="Tbl_CustAddress">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CustID" ColumnName="CustID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Customer">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_Customer">
+              <MappingFragment StoreEntitySet="Tbl_Customer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="NatCode" ColumnName="NatCode" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsInNewsletter" ColumnName="IsInNewsletter" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Factor">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_Factor">
+              <MappingFragment StoreEntitySet="Tbl_Factor">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CustID" ColumnName="CustID" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="CancelReason" ColumnName="CancelReason" />
+                <ScalarProperty Name="IsPrint" ColumnName="IsPrint" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FactProc">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_FactProc">
+              <MappingFragment StoreEntitySet="Tbl_FactProc">
+                <ScalarProperty Name="FactID" ColumnName="FactID" />
+                <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Newsletter">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_Newsletter">
+              <MappingFragment StoreEntitySet="Tbl_Newsletter">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Oprator">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_Oprator">
+              <MappingFragment StoreEntitySet="Tbl_Oprator">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="NatCode" ColumnName="NatCode" />
+                <ScalarProperty Name="RFCount" ColumnName="RFCount" />
+                <ScalarProperty Name="BDate" ColumnName="BDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_OPRole">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_OPRole">
+              <MappingFragment StoreEntitySet="Tbl_OPRole">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ShowTitle" ColumnName="ShowTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Page">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_Page">
+              <MappingFragment StoreEntitySet="Tbl_Page">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TItle" ColumnName="TItle" />
+                <ScalarProperty Name="SeoDesc" ColumnName="SeoDesc" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Payment">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_Payment">
+              <MappingFragment StoreEntitySet="Tbl_Payment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FactID" ColumnName="FactID" />
+                <ScalarProperty Name="TrackingCode" ColumnName="TrackingCode" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="BankStatus" ColumnName="BankStatus" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_PCPGroup">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_PCPGroup">
+              <MappingFragment StoreEntitySet="Tbl_PCPGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="CatID" ColumnName="CatID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ProcBrand">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_ProcBrand">
+              <MappingFragment StoreEntitySet="Tbl_ProcBrand">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ProcCat">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_ProcCat">
+              <MappingFragment StoreEntitySet="Tbl_ProcCat">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ProcImg">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_ProcImg">
+              <MappingFragment StoreEntitySet="Tbl_ProcImg">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ProcProp">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_ProcProp">
+              <MappingFragment StoreEntitySet="Tbl_ProcProp">
+                <ScalarProperty Name="ProcId" ColumnName="ProcId" />
+                <ScalarProperty Name="PCPGID" ColumnName="PCPGID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ProcReview">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_ProcReview">
+              <MappingFragment StoreEntitySet="Tbl_ProcReview">
+                <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+                <ScalarProperty Name="CustID" ColumnName="CustID" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Review" ColumnName="Review" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Product">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_Product">
+              <MappingFragment StoreEntitySet="Tbl_Product">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ShortDesc" ColumnName="ShortDesc" />
+                <ScalarProperty Name="FullDesc" ColumnName="FullDesc" />
+                <ScalarProperty Name="TopProp" ColumnName="TopProp" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="OffPrice" ColumnName="OffPrice" />
+                <ScalarProperty Name="OffID" ColumnName="OffID" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="CatID" ColumnName="CatID" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_State_City">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_State_City">
+              <MappingFragment StoreEntitySet="Tbl_State&amp;City">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

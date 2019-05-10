@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8">
+    <title>
+        @ViewBag.Title
+    </title>
+    <!-- SEO Meta Tags-->
+    @RenderSection("MetaTags")
+    <!-- Mobile Specific Meta Tag-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Favicon-->
+    <link rel="icon" type="image/png" href="~/Content/Images/favicon.png">
+    <!-- Vendor Styles including: Bootstrap, Font Icons, Plugins, etc.-->
+    <link rel="stylesheet" media="screen" href="~/Content/Css/vendor.css">
+    <!-- Main Template Styles-->
+    <link rel="stylesheet" media="screen" href="~/Content/Css/styles.css" />
+    <!-- Modernizr-->
+    <script type="text/javascript" src="~/Scripts/Js/modernizr.min.js"></script>
+</head>
+<!-- Body-->
+<body>
+    <!-- Header-->
+    <header class="site-header">
+        <!-- Topbar-->
+        <div class="topbar d-flex justify-content-between">
+            <!-- Logo-->
+            <div class="site-branding d-flex"><a class="site-logo align-self-center" href="index.html"><img src="~/Content/Images//logo/logo.png" alt="Unishop"></a></div>
+            @Html.Partial("~/Views/Partials/General/ToolBar.cshtml")
+        </div>
+        <!-- Navbar-->
+        <div class="navbar">
+            <!-- Main Navigation-->
+            <nav class="site-menu">
+                <ul>
+                    @Html.Partial("~/Views/Partials/General/MainMenu.cshtml")
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- Page Content-->
+    @RenderBody()
+    <!-- Site Footer-->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <!-- Contact Info-->
+                    <section class="widget widget-light-skin">
+                        <h3 class="widget-title">ارتباط با‌ما</h3>
+                        <p class="text-white">موبایل (علیزاده) : 8080 304 0935</p>
+                        <ul class="list-unstyled text-sm text-white">
+                            <li><span class="opacity-50">شنبه تا پنج شنبه:&nbsp;</span>9 صبح تا 8 عصر</li>
+                            <li><span class="opacity-50">جمعه و ایام تعطیل:&nbsp;</span>10 صبح تا 5 عصر</li>
+                        </ul>
+                        <p><a class="navi-link-light">support@asialaptop.com</a></p><a class="social-button shape-circle sb-facebook sb-light-skin" href="#"><i class="socicon-facebook"></i></a><a class="social-button shape-circle sb-twitter sb-light-skin" href="#"><i class="socicon-twitter"></i></a><a class="social-button shape-circle sb-instagram sb-light-skin" href="#"><i class="socicon-instagram"></i></a><a class="social-button shape-circle sb-google-plus sb-light-skin" href="#"><i class="socicon-telegram"></i></a>
+                    </section>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <!-- Top Linkes-->
+                    <section class="widget widget-links widget-light-skin">
+                        <h3 class="widget-title">لینک های مهم</h3>
+                        <ul>
+                            <li><a href="#">پرسش های متداول</a></li>
+                            <li><a href="#">شیوه های پرداخت</a></li>
+                            <li><a href="#">رویه های بازگرداندن کالا</a></li>
+                            <li><a href="#">رویه های ارسال کالا</a></li>
+                            <li><a href="#">شرایط استفاده</a></li>
+                            <li><a href="#">حریم خصوصی</a></li>
+                        </ul>
+                    </section>
+                </div>
+                <div class="col-lg-6">
+                    <!-- Subscription-->
+                    @Html.Partial("~/Views/Partials/General/Subscription.cshtml")
+                </div>
+            </div>
+            <!-- Copyright-->
+            <p class="footer-copyright"> © تمامی حقوق برای فروشگاه لپتاپ آسیا محفوظ است ، طراحی توسط <a href="http://rokaux.com/" target="_blank">طاها یساقی</a></p>
+        </div>
+    </footer>
+    <!-- Back To Top Button--><a class="scroll-to-top-btn" href="#"><i class="icon-chevron-up"></i></a>
+    <!-- Backdrop-->
+    <div class="site-backdrop"></div>
+    <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
+    <script src="~/Scripts/Js/vendor.min.js"></script>
+    <script src="~/Scripts/Js/scripts.min.js"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

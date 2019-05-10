@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "فروشگاه لپتاپ آسیا";
+    Layout = "~/Views/Sheared/_Layout.cshtml";
+}
+
+@section MetaTags{
+    <meta name="description" content="@ViewBag.Title">
+    <meta name="keywords" content="shop, e-commerce, modern, flat style, responsive, online store, business, mobile, blog, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
+    <meta name="author" content="T.Yasaghi">
+}
+
+<!-- Main Slider-->
+<section class="hero-slider">
+    <div class="owl-carousel large-controls dots-inside owl-loaded owl-drag" data-owl-carousel="{ &quot;nav&quot;: true, &quot;dots&quot;: true, &quot;loop&quot;: true, &quot;rtl&quot;: true, &quot;autoplay&quot;: false, &quot;autoplayTimeout&quot;: 7000 }">
+        @Html.Partial("~/Views/Partials/General/MainSlider.cshtml")
+    </div>
+</section>
+
+<!-- Top Categories-->
+<section class="container padding-top-3x padding-bottom-2x">
+    <div class="row">
+        @Html.Partial("~/Views/Partials/General/TopCategories.cshtml")
+    </div>
+</section>
+
+<!-- New Products-->
+<section class="container padding-bottom-2x mb-2" dir="rtl">
+    <h2 class="h3 pb-3 text-center">جدیدترین محصولات</h2>
+    <div class="row">
+        @Html.Partial("~/Views/Partials/General/NewProducts.cshtml")
+    </div>
+    <div class="text-center"><a class="btn btn-outline-secondary" href="shop-grid-ls.html">مشاهده تمام محصولات</a></div>
+</section>
+
+<!-- Offer-->
+@Html.Partial("~/Views/Partials/General/Offer.cshtml")
+
+<!-- Staff Picks (Widgets)-->
+<section class="container padding-top-3x padding-bottom-2x">
+    <h2 class="h3 pb-3 text-center">منتخب کاربران</h2>
+    <div class="row pt-1">
+        <div class="col-md-4 col-sm-6">
+            <div class="widget widget-featured-products">
+                <h3 class="widget-title">پرفروش ترین ها</h3>
+                @Html.Partial("~/Views/Partials/General/BestSellers.cshtml")
+                <a class="btn btn-outline-secondary btn-sm mb-0" href="shop-grid-ls.html">بیشتر</a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="widget widget-featured-products">
+                <h3 class="widget-title">منتخب برترین ها</h3>
+                @Html.Partial("~/Views/Partials/General/Best.cshtml")
+                <a class="btn btn-outline-secondary btn-sm mb-0" href="shop-grid-ls.html">بیشتر</a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="widget widget-featured-products">
+                <h3 class="widget-title">پربازدیدترین ها</h3>
+                @Html.Partial("~/Views/Partials/General/MostViewed.cshtml")
+                <a class="btn btn-outline-secondary btn-sm mb-0" href="shop-grid-ls.html">بیشتر</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Popular Brands Carousel-->
+<section class="bg-secondary padding-top-3x padding-bottom-3x">
+    <div class="container">
+        <h2 class="h3 text-center mb-30 pb-3">محبوب ترین برندها</h2>
+        <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: false, &quot;loop&quot;: true, &quot;rtl&quot;:true, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 4000, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:2}, &quot;470&quot;:{&quot;items&quot;:3},&quot;630&quot;:{&quot;items&quot;:4},&quot;991&quot;:{&quot;items&quot;:5},&quot;1200&quot;:{&quot;items&quot;:6}} }">
+            @Html.Partial("~/Views/Partials/General/PopularBrands.cshtml")
+        </div>
+    </div>
+</section>
+
+<!-- Services-->
+<section class="container padding-top-3x padding-bottom-2x" dir="rtl">
+    <div class="row">
+        <div class="col-md-3 col-sm-6 text-center mb-30">
+            <img class="d-block w-90 img-thumbnail rounded mx-auto mb-4" src="~/Content/Images//services/01.png" alt="Shipping">
+            <h6 class="mb-2">ضمانت اصالت و سلامت کالا</h6>
+        </div>
+        <div class="col-md-3 col-sm-6 text-center mb-30">
+            <img class="d-block w-90 img-thumbnail rounded mx-auto mb-4" src="~/Content/Images//services/02.png" alt="Money Back">
+            <h6 class="mb-2">بازگشت بی قید و شرط محصول</h6>
+        </div>
+        <div class="col-md-3 col-sm-6 text-center mb-30">
+            <img class="d-block w-90 img-thumbnail rounded mx-auto mb-4" src="~/Content/Images//services/03.png" alt="Support">
+            <h6 class="mb-2">پشتیبانی 24 ساعته</h6>
+        </div>
+        <div class="col-md-3 col-sm-6 text-center mb-30">
+            <img class="d-block w-90 img-thumbnail rounded mx-auto mb-4" src="~/Content/Images//services/04.png" alt="Payment">
+            <h6 class="mb-2">ارسال با پست پیشتاز</h6>
+        </div>
+    </div>
+</section>
+

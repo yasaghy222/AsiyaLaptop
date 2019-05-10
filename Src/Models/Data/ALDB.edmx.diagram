@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="76fdcb3ec63f4924aa40a3fe53b6dd41" Name="Diagram1">
+        <EntityTypeShape EntityType="ALDBModel.sysdiagram" Width="1.5" PointX="10.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Blog" Width="1.5" PointX="10" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_BlogCat" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ContactUs" Width="1.5" PointX="12.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_CustAddress" Width="1.5" PointX="0.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Customer" Width="1.5" PointX="1.5" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Factor" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_FactProc" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Newsletter" Width="1.5" PointX="10.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Oprator" Width="1.5" PointX="10" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_OPRole" Width="1.5" PointX="7.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Page" Width="1.5" PointX="12.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Payment" Width="1.5" PointX="5.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_PCPGroup" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcBrand" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcCat" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcImg" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcProp" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcReview" Width="1.5" PointX="8.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Product" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_State_City" Width="1.5" PointX="1.5" PointY="22" IsExpanded="true" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_Blog_Tbl_BlogCat" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_BlogCat_Tbl_BlogCat" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_CustAddress_Tbl_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_CustAddress_Tbl_State_City" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_Factor_Tbl_CustAddress" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_Factor_Tbl_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_FactProc_Tbl_Factor" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_Payment_Tbl_Factor" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_FactProc_Tbl_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_Oprator_Tbl_OPRole" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_PCPGroup_Tbl_PCPGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_PCPGroup_Tbl_ProcCat" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_ProcProp_Tbl_PCPGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_Product_Tbl_ProcBrand" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_ProcCat_Tbl_ProcCat" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_Product_Tbl_ProcCat" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_ProcImg_Tbl_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_ProcProp_Tbl_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_ProcRate_Tbl_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_State_City_Tbl_State_City" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
