@@ -27,7 +27,7 @@ namespace Src.Areas.Admin.Controllers
             if (HttpResponse.IsSuccessStatusCode)
             {
                 Resualt = GetResualt();
-                Product = Resualt.Data.ToJson<Product.ViewTbl_Proc>();
+                Product = Resualt.Data.DeserializeJson<Product.ViewTbl_Proc>();
             }
             else
             {
@@ -48,7 +48,7 @@ namespace Src.Areas.Admin.Controllers
             if (HttpResponse.IsSuccessStatusCode)
             {
                 Resualt = GetResualt();
-                ProcCat = Resualt.Data.ToJson<Product.ViewTbl_ProcCat>();
+                ProcCat = Resualt.Data.DeserializeJson<Product.ViewTbl_ProcCat>();
             }
             else
             {

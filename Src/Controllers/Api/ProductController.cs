@@ -59,9 +59,9 @@ namespace Src.Controllers.Api
             if (id != -1)
             {
                 #region edit
-                var Item = _unitOfWork.Product.SingleById(id).Adapt<Product.ViewTbl_Proc>();
-                Item.CatList = GetCatList();
-                Item.BrandList = GetBrandList();
+                var Item = await Task.Run(() => _unitOfWork.Product.SingleById(id).Adapt<Product.ViewTbl_Proc>());
+                Item.CatList = await GetCatList();
+                Item.BrandList = await GetBrandList();
                 Data = Item;
                 #endregion
             }
@@ -71,7 +71,7 @@ namespace Src.Controllers.Api
                 Data = new Product.ViewTbl_Proc
                 {
                     ID = -1,
-                    CatList = await Task.Run(() => GetCatList()),
+                    CatList = await GetCatList(),
                     BrandList = await Task.Run(() => _unitOfWork.ProcBrand.Get().Adapt<ICollection<Common.Select>>()),
                 };
                 #endregion
@@ -177,8 +177,8 @@ namespace Src.Controllers.Api
             if (id != -1)
             {
                 #region edit
-                var Item = _unitOfWork.ProcCat.SingleById(id).Adapt<Product.ViewTbl_ProcCat>();
-                Item.CatList = GetCatList();
+                var Item = await Task.Run(() => _unitOfWork.ProcCat.SingleById(id).Adapt<Product.ViewTbl_ProcCat>());
+                Item.CatList = await GetCatList();
                 Data = Item;
                 #endregion
             }
@@ -188,7 +188,7 @@ namespace Src.Controllers.Api
                 Data = new Product.ViewTbl_ProcCat
                 {
                     ID = -1,
-                    CatList = await Task.Run(() => GetCatList()),
+                    CatList = await GetCatList(),
                 };
                 #endregion
             }
@@ -271,7 +271,8 @@ namespace Src.Controllers.Api
                 ProcCat = await _unitOfWork.ProcCat.SingleByIdAsync(id);
                 if (ProcCat != null)
                 {
-                    if (ProcCat.Tbl_Product.Count == 0)
+                    AssignCount = ProcCat.Tbl_Product.Count;
+                    if (AssignCount == 0)
                     {
                         _unitOfWork.ProcCat.Remove(ProcCat);
                         try
@@ -281,8 +282,12 @@ namespace Src.Controllers.Api
                         }
                         catch (Exception)
                         {
-                            Resualt.Message = "شما تنها مجاز به حذف گروه هایی هستید که محصولی با این گروه وجود نداشته باشد.";
+                            Resualt.Message = Common.ResualtMessage.InternallServerError;
                         }
+                    }
+                    else
+                    {
+                        Resualt.Message = Common.ResualtMessage.ChildAssignError;
                     }
                 }
                 else
@@ -574,7 +579,7 @@ namespace Src.Controllers.Api
 
                 try
                 {
-                    _unitOfWork.Save();
+                    await _unitOfWork.SaveAsync();
                     Resualt.Message = Common.ResualtMessage.OK;
                 }
                 catch (Exception)
@@ -660,11 +665,10 @@ namespace Src.Controllers.Api
 
                 if (!HasChild && AssignCount == 0)
                 {
-
                     _unitOfWork.PCPGroup.Remove(PCPGroup);
                     try
                     {
-                        _unitOfWork.Save();
+                        await _unitOfWork.SaveAsync();
                         Resualt.Message = Common.ResualtMessage.OK;
                     }
                     catch (Exception)

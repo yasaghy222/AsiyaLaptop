@@ -67,6 +67,20 @@ namespace Src
                                                GenericFunction<Tbl_PCPGroup>
                                                .HasChild(src, item => item.PID == src.ID));
             #endregion
+
+            #region factor
+            Mapster.TypeAdapterConfig<Tbl_Factor, Factor.ViewOrderDetail>.NewConfig()
+                   .Map(dest => dest.CustName, src => src.Tbl_Customer.Name)
+                   .Map(dest => dest.CustAddress, src => src.Tbl_CustAddress)
+                   .Map(dest => dest.OrderProc, src => src.Tbl_FactProc)
+                   .Map(dest => dest.PaymentStatus, src => src.PaymentStatus ?
+                                                           Factor.PaymentStatus.Paid : Factor.PaymentStatus.UnPaid)
+                   .Map(dest => dest.TotalPrice, src => src.TotalPrice.SetCama())
+                   .Map(dest => dest.Status, src => (EnumExtensions
+                                                     .GetEnumValue<Factor.FactStatus>(src.Status))
+                                                     .GetAttribute<DisplayAttribute>().Name)
+                   .Map(dest => dest.SubmitDate, src => src.SubmitDate.ToPersianDate("default"));
+            #endregion
             #endregion
         }
     }

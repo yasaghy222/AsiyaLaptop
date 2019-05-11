@@ -10,10 +10,7 @@ namespace Src.Models.Service.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private ALDBEntities _context;
-        public UnitOfWork(ALDBEntities context)
-        {
-            _context = context;
-        }
+        public UnitOfWork(ALDBEntities context) => _context = context;
 
         #region product
         private IProductRepository product;
@@ -40,11 +37,15 @@ namespace Src.Models.Service.Repository
         public IFactorRepository Factor { get => factor = factor ?? new FactorRepository(_context); }
         #endregion
 
+        #region customer
+        private IGenericRepository<Tbl_CustAddress> custAddress;
+        private IGenericRepository<Tbl_CustAddress> CustAddress { get => custAddress = custAddress ?? new GenericRepository<Tbl_CustAddress>(_context); }
+        #endregion
+
         public int Save()
         {
             return _context.SaveChanges();
         }
-
         public async Task<int> SaveAsync()
         {
             return await _context.SaveChangesAsync();

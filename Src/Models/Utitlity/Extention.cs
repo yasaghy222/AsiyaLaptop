@@ -91,7 +91,6 @@ namespace Src.Models.Utitlity
             }
         }
 
-
         /// 
         /// Method to get enumeration value from string value.
         /// </summary>
@@ -116,7 +115,6 @@ namespace Src.Models.Utitlity
 
             return val;
         }
-
 
         ///<summary>
         /// Method to get enumeration value from int value.
@@ -149,6 +147,12 @@ namespace Src.Models.Utitlity
 
     public static class Extensions
     {
+        #region general
+        /// <summary>
+        /// split input by 3
+        /// </summary>
+        /// <param name="InputText">input</param>
+        /// <returns></returns>
         public static string SetCama(this object InputText)
         {
             string num = "0";
@@ -168,87 +172,74 @@ namespace Src.Models.Utitlity
             }
         }
 
-        public static string GetPersianDate(this DateTime? date)
+        /// <summary>
+        /// deserialize json to c# entity
+        /// </summary>
+        /// <typeparam name="T">type of output</typeparam>
+        /// <param name="value">json input</param>
+        /// <returns></returns>
+        public static T DeserializeJson<T>(this object value)
         {
-            DateTime d = (DateTime)date;
-            PersianCalendar jc = new PersianCalendar();
-            return string.Format("{0:0000}/{1:00}/{2:00}", jc.GetYear(d), jc.GetMonth(d), jc.GetDayOfMonth(d));
+            string Temp = JsonConvert.SerializeObject(value);
+            T Resualt = JsonConvert.DeserializeObject<T>(Temp);
+            return Resualt;
         }
+        #endregion
 
-        public static string GetPersianDate(this DateTime date)
+        #region datetime and calender
+        /// <summary>
+        /// convert datetime to persian date
+        /// </summary>
+        /// <param name="dateTime">datetime</param>
+        /// <param name="format">text: year monthName day, fullText: year monthName day dayOfweek, default: year/month/day</param>
+        /// <returns></returns>
+        public static string ToPersianDate(this DateTime dateTime, string format)
         {
-            PersianCalendar jc = new PersianCalendar();
-            return string.Format("{0:0000}/{1:00}/{2:00}", jc.GetYear(date), jc.GetMonth(date), jc.GetDayOfMonth(date));
-        }
-
-        public static string GetShortPersianDate(this DateTime date)
-        {
-            PersianCalendar jc = new PersianCalendar();
-            string temp = jc.GetYear(date).ToString();
-            return $"{temp.Substring(2)}{jc.GetMonth(date)}{jc.GetDayOfMonth(date)}";
-        }
-
-        public static string GetPersianDate(this DateTime? date, int type)
-        {
-            string temp = "";
-            DateTime d = (DateTime)date;
-            PersianCalendar jc = new PersianCalendar();
-            switch (type)
+            PersianCalendar pc = new PersianCalendar();
+            switch (format)
             {
-                case 1:
-                    temp = $"{d.GetDayOfWeekName()} {jc.GetDayOfMonth(d)} {d.GetMonthName()}";
-                    break;
-
-                case 2:
-                    temp = $"{d.GetDayOfWeekName()} {jc.GetDayOfMonth(d)} {d.GetMonthName()} {jc.GetYear(d)}";
-                    break;
-                case 3:
-                    temp = $"{jc.GetYear(d)}/{jc.GetMonth(d)}/{jc.GetDayOfMonth(d)} {d.ToString("HH:MM")}";
-                    break;
-                default:
-                    temp = string.Format("{0:0000}/{1:00}/{2:00}", jc.GetYear(d), jc.GetMonth(d), jc.GetDayOfMonth(d));
-                    break;
+                case "text": return $"{pc.GetDayOfMonth(dateTime)} {dateTime.GetMonthName()} {pc.GetYear(dateTime)}";
+                case "fullText": return $"{dateTime.GetDayOfWeekName()} {pc.GetDayOfMonth(dateTime)} {dateTime.GetMonthName()} {pc.GetYear(dateTime)}";
+                case "short": string temp = pc.GetYear(dateTime).ToString(); return $"{temp.Substring(2)}{pc.GetMonth(dateTime)}{pc.GetDayOfMonth(dateTime)}";
+                default: return $"{pc.GetYear(dateTime)}/{pc.GetMonth(dateTime)}/{pc.GetDayOfMonth(dateTime)}";
             }
-            return temp;
         }
-
-        public static string GetPersianDate(this DateTime date, int type)
+        /// <summary>
+        /// convert datetime to persian date
+        /// </summary>
+        /// <param name="dateTime">datetime</param>
+        /// <param name="format">text: year monthName day, fullText: year monthName day dayOfweek, default: year/month/day</param>
+        /// <returns></returns>
+        public static string ToPersianDate(this DateTime? dateTime, string format)
         {
-            string temp = "";
-            PersianCalendar jc = new PersianCalendar();
-            switch (type)
+            PersianCalendar pc = new PersianCalendar();
+            DateTime dt = (DateTime)dateTime;
+            switch (format)
             {
-                case 1:
-                    temp = $"{date.GetDayOfWeekName()} {jc.GetDayOfMonth(date)} {date.GetMonthName()}";
-                    break;
-
-                case 2:
-                    temp = $"{date.GetDayOfWeekName()} {jc.GetDayOfMonth(date)} {date.GetMonthName()} {jc.GetYear(date)}";
-                    break;
-                case 3:
-                    temp = $"{jc.GetYear(date)}/{jc.GetMonth(date)}/{jc.GetDayOfMonth(date)} {date.ToString("HH:MM")}";
-                    break;
-                default:
-                    temp = string.Format("{0:0000}/{1:00}/{2:00}", jc.GetYear(date), jc.GetMonth(date), jc.GetDayOfMonth(date));
-                    break;
+                case "text": return $"{pc.GetDayOfMonth(dt)} {dt.GetMonthName()} {pc.GetYear(dt)}";
+                case "fullText": return $"{dt.GetDayOfWeekName()} {pc.GetDayOfMonth(dt)} {dt.GetMonthName()} {pc.GetYear(dt)}";
+                default: return $"{pc.GetYear(dt)}/{pc.GetMonth(dt)}/{pc.GetDayOfMonth(dt)}";
             }
-            return temp;
         }
 
-        public static DateTime GetDateTimeFromJalaliString(this string jalaliDate)
+        /// <summary>
+        /// convert persian date to datetime
+        /// </summary>
+        /// <param name="persianDate"></param>
+        /// <returns></returns>
+        public static DateTime ToDateTime(this string persianDate)
         {
-            PersianCalendar jc = new PersianCalendar();
-
+            PersianCalendar pc = new PersianCalendar();
             try
             {
-                string[] date = jalaliDate.Split('/');
-                int year = Convert.ToInt32(date[0]);
-                int month = Convert.ToInt32(date[1]);
-                int day = Convert.ToInt32(date[2]);
+                string[] date = persianDate.Split('/');
+                int year = int.Parse(date[0]),
+                    month = int.Parse(date[1]),
+                    day = int.Parse(date[2]);
 
-                DateTime d = jc.ToDateTime(year, month, day, 0, 0, 0, 0, PersianCalendar.PersianEra);
+                DateTime dateTime = pc.ToDateTime(year, month, day, 0, 0, 0, 0, PersianCalendar.PersianEra);
 
-                return d;
+                return dateTime;
             }
             catch
             {
@@ -256,13 +247,18 @@ namespace Src.Models.Utitlity
             }
         }
 
+        /// <summary>
+        /// get month in persian calender
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public static string GetMonthName(this DateTime date)
         {
-            PersianCalendar jc = new PersianCalendar();
-            string pdate = string.Format("{0:0000}/{1:00}/{2:00}", jc.GetYear(date), jc.GetMonth(date), jc.GetDayOfMonth(date));
+            PersianCalendar pc = new PersianCalendar();
+            string pdate = $"{pc.GetYear(date)}/{pc.GetMonth(date)}/{pc.GetDayOfMonth(date)}";
 
             string[] dates = pdate.Split('/');
-            int month = Convert.ToInt32(dates[1]);
+            int month = int.Parse(dates[1]);
 
             switch (month)
             {
@@ -283,6 +279,11 @@ namespace Src.Models.Utitlity
 
         }
 
+        /// <summary>
+        /// get day of week in persian calender
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public static string GetDayOfWeekName(this DateTime date)
         {
             switch (date.DayOfWeek)
@@ -297,7 +298,14 @@ namespace Src.Models.Utitlity
                 default: return "";
             }
         }
+        #endregion
 
+        #region project
+        /// <summary>
+        /// return product category backtrack 
+        /// </summary>
+        /// <param name="item">procCat</param>
+        /// <returns></returns>
         public static string GetCatList(this Tbl_ProcCat item)
         {
             string temp = string.Empty;
@@ -322,12 +330,6 @@ namespace Src.Models.Utitlity
             }
             return temp;
         }
-
-        public static T ToJson<T>(this object value)
-        {
-            string Temp = JsonConvert.SerializeObject(value);
-            T Resualt = JsonConvert.DeserializeObject<T>(Temp);
-            return Resualt;
-        }
+        #endregion
     }
 }

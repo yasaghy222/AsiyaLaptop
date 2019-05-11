@@ -16,37 +16,7 @@ namespace Src.Models.Utitlity
 {
     public class Function
     {
-        /// <summary>
-        /// تولید کد عددی غیر تکراری
-        /// </summary>
-        /// <returns></returns>
-        public static int GenerateNumCode()
-        {
-            string temp = DateTime.Now.Millisecond.ToString();
-            temp = temp.Substring(0, temp.Length / 2);
-            temp = $"{DateTime.Now.GetShortPersianDate()}{temp}";
-            return int.Parse(temp);
-        }
-
-        /// <summary>
-        /// تولید توکن جدید
-        /// </summary>
-        /// <returns></returns>
-        public static string GenerateNewToken()
-        {
-            return Convert.ToBase64String(Guid.NewGuid().ToByteArray());
-        }
-
-        /// <summary>
-        /// تولید کد عددی برای اعتبار سنجی
-        /// </summary>
-        /// <returns></returns>
-        public static string GenerateValidationCode()
-        {
-            Random random = new Random();
-            return random.Next(100000, 999999).ToString();
-        }
-
+        #region general
         /// <summary>
         /// هش کردن پارامتر ورودی
         /// </summary>
@@ -71,7 +41,42 @@ namespace Src.Models.Utitlity
 
             return second;
         }
+        #endregion
 
+        #region code
+        /// <summary>
+        /// تولید کد عددی غیر تکراری
+        /// </summary>
+        /// <returns></returns>
+        public static int GenerateNumCode()
+        {
+            string temp = DateTime.Now.Millisecond.ToString();
+            temp = temp.Substring(0, temp.Length / 2);
+            temp = $"{DateTime.Now.ToPersianDate("short")}{temp}";
+            return int.Parse(temp);
+        }
+
+        /// <summary>
+        /// تولید توکن جدید
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateNewToken()
+        {
+            return Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+        }
+
+        /// <summary>
+        /// تولید کد عددی برای اعتبار سنجی
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateValidationCode()
+        {
+            Random random = new Random();
+            return random.Next(100000, 999999).ToString();
+        }
+        #endregion
+
+        #region image
         /// <summary>
         /// چک کردن تصویر
         /// </summary>
@@ -190,7 +195,9 @@ namespace Src.Models.Utitlity
             }
             return temp;
         }
+        #endregion
 
+        #region project
         /// <summary>
         /// دریافت اطلاعات کاربر مدیر
         /// </summary>
@@ -214,6 +221,7 @@ namespace Src.Models.Utitlity
 
             return Item;
         }
+        #endregion
     }
 
     public static class GenericFunction<T> where T : class

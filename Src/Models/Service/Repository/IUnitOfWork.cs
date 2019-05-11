@@ -19,6 +19,10 @@ namespace Src.Models.Service.Repository
         IFactorRepository Factor { get; }
         #endregion
 
+        #region customer
+        IGenericRepository<Tbl_CustAddress> CustAddress { get; set; }
+        #endregion
+
         int Save();
         Task<int> SaveAsync();
     }
