@@ -15,13 +15,13 @@ namespace Src.Models.Data
     public partial class Tbl_ContactUs
     {
         public int ID { get; set; }
+        public string IP { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Subject { get; set; }
         public string Message { get; set; }
         public System.DateTime Date { get; set; }
-        public string IP { get; set; }
         public bool IsRead { get; set; }
     }
 }

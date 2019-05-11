@@ -29,7 +29,13 @@ namespace Src.Models.ViewData.Table
             /// اتمام موجودی
             /// </summary>
             [Display(Name = "اتمام موجودی")]
-            outInventory = 2
+            outInventory = 2,
+
+            /// <summary>
+            /// توقف تولید
+            /// </summary>
+            [Display(Name = "توقف تولید")]
+            StopProduction = 3
         }
 
         public class ViewTbl_Proc
@@ -50,6 +56,7 @@ namespace Src.Models.ViewData.Table
             public int CatID { get; set; }
             [Required(ErrorMessage = "این فیلد اجباری است.")]
             public int Count { get; set; }
+            public int VisitCount { get; set; }
             public byte Type { get; set; }
             public ICollection<Common.Tree> CatList { get; set; }
             public ICollection<Common.Select> BrandList { get; set; }
@@ -64,6 +71,7 @@ namespace Src.Models.ViewData.Table
             public string OffPrice { get; set; }
             public string CatName { get; set; }
             public string BrandName { get; set; }
+            public int VisitCount { get; set; }
             public string Type { get; set; }
         }
         #endregion

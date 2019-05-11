@@ -20,7 +20,7 @@ namespace Src.Controllers.Api
         protected object Data { get; set; }
         protected IUnitOfWork _unitOfWork { get; set; }
         protected NameValueCollection FormData { get; set; }
-        protected Common.Resualt Resualt => new Common.Resualt();
+        protected Common.Resualt Resualt = new Common.Resualt();
         #endregion
 
         public BaseApiController(IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;

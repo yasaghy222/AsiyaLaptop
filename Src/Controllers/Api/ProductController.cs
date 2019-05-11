@@ -54,7 +54,7 @@ namespace Src.Controllers.Api
         }
 
         [HttpGet]
-        public async Task<Common.Resualt> Detail(int id)
+        public async Task<Common.Resualt> Detail([FromUri] int id)
         {
             if (id != -1)
             {
@@ -350,7 +350,7 @@ namespace Src.Controllers.Api
                     try
                     {
                         _unitOfWork.Save();
-                        Resualt.Message = Function.UpdateImg(ProcBrand.ID,"ProcBrand");
+                        Resualt.Message = Function.UpdateImg(ProcBrand.ID, "ProcBrand");
                     }
                     catch (Exception)
                     {

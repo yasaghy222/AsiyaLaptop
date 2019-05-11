@@ -17,8 +17,8 @@ namespace Src.Models.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tbl_BlogCat()
         {
-            this.Tbl_BlogCat1 = new HashSet<Tbl_BlogCat>();
             this.Tbl_Blog = new HashSet<Tbl_Blog>();
+            this.Tbl_BlogCat1 = new HashSet<Tbl_BlogCat>();
         }
     
         public int ID { get; set; }
@@ -26,9 +26,9 @@ namespace Src.Models.Data
         public int PID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_Blog> Tbl_Blog { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_BlogCat> Tbl_BlogCat1 { get; set; }
         public virtual Tbl_BlogCat Tbl_BlogCat2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_Blog> Tbl_Blog { get; set; }
     }
 }

@@ -19,6 +19,7 @@ namespace Src.Models.Data
         public string ShortDesc { get; set; }
         public string FullDesc { get; set; }
         public int CatID { get; set; }
+        public Nullable<int> VisitCount { get; set; }
         public bool Status { get; set; }
     
         public virtual Tbl_BlogCat Tbl_BlogCat { get; set; }

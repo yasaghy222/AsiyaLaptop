@@ -18,25 +18,24 @@ namespace Src.Models.Data
         public Tbl_Factor()
         {
             this.Tbl_FactProc = new HashSet<Tbl_FactProc>();
-            this.Tbl_Payment = new HashSet<Tbl_Payment>();
         }
     
         public int ID { get; set; }
         public int CustID { get; set; }
-        public bool PaymentType { get; set; }
-        public bool PaymentStatus { get; set; }
-        public Nullable<byte> CancelReason { get; set; }
+        public long TotalPrice { get; set; }
         public bool IsPrint { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public int AddressId { get; set; }
-        public long Price { get; set; }
+        public Nullable<int> AddressId { get; set; }
+        public Nullable<System.DateTime> SubmitDate { get; set; }
+        public Nullable<System.DateTime> PayDate { get; set; }
+        public Nullable<byte> CancelReason { get; set; }
+        public string TrackingCode { get; set; }
+        public string TipaxCode { get; set; }
+        public bool PaymentStatus { get; set; }
         public byte Status { get; set; }
     
         public virtual Tbl_CustAddress Tbl_CustAddress { get; set; }
         public virtual Tbl_Customer Tbl_Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FactProc> Tbl_FactProc { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_Payment> Tbl_Payment { get; set; }
     }
 }

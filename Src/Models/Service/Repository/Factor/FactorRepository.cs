@@ -9,9 +9,9 @@ using System.Web;
 
 namespace Src.Models.Service.Repository
 {
-    public class FactorRepository : GenericRepository<Tbl_Factor>,IFactorRepository
+    public class FactorRepository : GenericRepository<Tbl_Factor>, IFactorRepository
     {
-        public FactorRepository(ALDBEntities context) : base(context) => OrderBy = item => item.Date;
+        public FactorRepository(ALDBEntities context) : base(context) => OrderBy = item => item.SubmitDate;
 
         public List<Factor.ViewFullOrder> OrderList(Common.TableVar tableVar)
         {

@@ -19,7 +19,7 @@ namespace Src.Models.Data
         public int PCPGID { get; set; }
         public string Value { get; set; }
     
-        public virtual Tbl_Product Tbl_Product { get; set; }
         public virtual Tbl_PCPGroup Tbl_PCPGroup { get; set; }
+        public virtual Tbl_Product Tbl_Product { get; set; }
     }
 }

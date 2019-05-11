@@ -12,13 +12,9 @@ namespace Src.Models.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FactProc
+    public partial class Tbl_AModule
     {
-        public int FactID { get; set; }
-        public int ProcID { get; set; }
-        public byte Count { get; set; }
-    
-        public virtual Tbl_Product Tbl_Product { get; set; }
-        public virtual Tbl_Factor Tbl_Factor { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
     }
 }

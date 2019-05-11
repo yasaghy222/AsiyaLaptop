@@ -15,10 +15,10 @@ namespace Src.Controllers.Api
         public OrderController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         #region variable
-
         #endregion
 
         #region order
+        [HttpGet]
         public async Task<Common.Resualt> Get([FromUri]Common.TableVar tableVar)
         {
             Data = _unitOfWork.Factor.OrderList(tableVar);
@@ -37,7 +37,19 @@ namespace Src.Controllers.Api
             }
             return Resualt;
         }
-        #endregion
 
+        [HttpGet]
+        public Common.Resualt Detail([FromUri] int id)
+        {
+            if (id != -1)
+            {
+                #region edit
+                var item = 0;
+                #endregion
+            }
+
+            return Resualt;
+        }
+        #endregion
     }
 }

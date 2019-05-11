@@ -457,6 +457,12 @@
     <Compile Include="Models\Data\Tbl_Admin.cs">
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Data\Tbl_AModule.cs">
+      <DependentUpon>ALDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Data\Tbl_APermission.cs">
+      <DependentUpon>ALDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Data\Tbl_ARole.cs">
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
@@ -488,9 +494,6 @@
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Data\Tbl_Page.cs">
-      <DependentUpon>ALDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Data\Tbl_Payment.cs">
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Data\Tbl_PCPGroup.cs">
@@ -529,6 +532,7 @@
     <Compile Include="Models\Utitlity\Function.cs" />
     <Compile Include="Models\ViewData\Base\Common.cs" />
     <Compile Include="Models\ViewData\Table\Admin.cs" />
+    <Compile Include="Models\ViewData\Table\Customer.cs" />
     <Compile Include="Models\ViewData\Table\Factor.cs" />
     <Compile Include="Models\ViewData\Table\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

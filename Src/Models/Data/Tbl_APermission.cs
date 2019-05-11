@@ -12,18 +12,12 @@ namespace Src.Models.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_Payment
+    public partial class Tbl_APermission
     {
         public int ID { get; set; }
-        public int FactID { get; set; }
-        public string TrackingCode { get; set; }
-        public System.DateTime Date { get; set; }
-        public string BankName { get; set; }
-        public string BankStatus { get; set; }
-        public long Price { get; set; }
-        public string IP { get; set; }
-        public byte Status { get; set; }
-    
-        public virtual Tbl_Factor Tbl_Factor { get; set; }
+        public int RoleID { get; set; }
+        public int ModuleID { get; set; }
+        public Nullable<bool> Read_Write { get; set; }
+        public Nullable<bool> Delete { get; set; }
     }
 }
