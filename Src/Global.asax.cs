@@ -26,7 +26,7 @@ namespace Src
 
             #region authorize filler
             var config = GlobalConfiguration.Configuration;
-            config.Filters.Add(new Account());
+            config.Filters.Add(new Api());
             #endregion
 
             #region mapster

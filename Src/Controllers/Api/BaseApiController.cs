@@ -1,21 +1,18 @@
 ﻿using Mapster;
 using Src.App_Start;
 using Src.Models.Service.Repository;
-using Src.Models.Utitlity;
 using Src.Models.ViewData.Base;
-using Src.Models.ViewData.Table;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Hosting;
 using System.Web.Http;
+using System.Web.Http.Controllers;
+using static Src.Models.ViewData.Table.Admin;
 
 namespace Src.Controllers.Api
 {
-    [Account]
     public class BaseApiController : ApiController
     {
         #region variable
@@ -26,6 +23,102 @@ namespace Src.Controllers.Api
         #endregion
 
         public BaseApiController(IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
+
+        #region authorize & authenticate
+        Common.Resualt IsAuthorize(string token)
+        {
+            bool isExsit = true;
+            if (isExsit)
+            {
+                bool status = true;
+                if (status)
+                {
+                    return Resualt = new Common.Resualt
+                    {
+                        Message = Common.ResualtMessage.OK,
+                        Data = 12
+                    };
+                }
+                else
+                {
+                    return Resualt = new Common.Resualt
+                    {
+                        Message = Common.ResualtMessage.AccountIsBlock,
+                    };
+                }
+            }
+            else
+            {
+                return Resualt = new Common.Resualt
+                {
+                    Message = Common.ResualtMessage.NotFound
+                };
+            }
+        }
+        Common.Resualt HasPermisstion(int roleID, string action, string controller)
+        {
+            return Resualt = new Common.Resualt
+            {
+                Message = Common.ResualtMessage.OK
+            };
+        }
+        public override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext,CancellationToken cancellationToken)
+        {
+            #region variable
+            bool IsPublicAction;
+            string Token, Action, Controller;
+            #endregion
+
+            #region get info
+            Token = controllerContext.RouteData.Values["Token"].ToString();
+            Action = controllerContext.RouteData.Values["Action"].ToString();
+            Controller = controllerContext.RouteData.Values["Controller"].ToString();
+            IsPublicAction = controllerContext.ControllerDescriptor.GetCustomAttributes<BaseApiController>(true).Count > 0;
+            object GetResponse()
+            {
+                if (controllerContext.Request.Content != null)
+                {
+                    Task<string> Temp = controllerContext.Request.Content.ReadAsStringAsync();
+                    return System.Web.Helpers.Json.Decode(Temp.Result.ToString());
+                }
+                else
+                {
+                    return Resualt = new Common.Resualt
+                    {
+                        Message = Common.ResualtMessage.InternallServerError
+                    };
+                }
+            }
+            #endregion
+
+            #region check is public
+            if (IsPublicAction)
+            {
+                Data = GetResponse();
+            }
+            else
+            {
+                #region authorize
+                Resualt = IsAuthorize(Token);
+                if (Resualt.Message == Common.ResualtMessage.OK)
+                {
+                    #region check permission
+                    Resualt = HasPermisstion((int)Resualt.Data, Action, Controller);
+                    Data = Resualt.Message == Common.ResualtMessage.OK ? GetResponse() : Resualt;
+                    #endregion
+                }
+                else
+                {
+                    Data = Resualt;
+                }
+                #endregion
+            }
+            #endregion
+
+            controllerContext.Request.CreateResponse(Data);
+            return base.ExecuteAsync(controllerContext, cancellationToken);
+        }
+        #endregion
 
         #region common function
         /// <summary>

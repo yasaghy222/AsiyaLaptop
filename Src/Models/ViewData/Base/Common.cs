@@ -17,8 +17,11 @@ namespace Src.Models.ViewData.Base
             public const string OK = "Success";
             public const string NotFound = "داده ای یافت نشد.";
             public const string BadRequest = "ورودی ها صحیح نمی باشد.";
+            public const string Redirect = "....عملیات انجام شده است. درحال هدایت";
+            public const string UnvalidActionRequest = "شما اجازه دسترسی به این صفحه را ندارید.";
             public const string ChildAssignError = "رکورد دارای فرزند و یا اختصاص قابل حذف نیست!";
             public const string InternallServerError = "مشکلی پیش آمده است لطفا در زمان دیگری اقدام نمایید.";
+            public const string AccountIsBlock = "حساب کاربری شما غیرفعال شده است. لطفا با مدیر تماس بگیرید."; 
         }
 
         public static List<string> ImgValidType { get; } = new List<string>
@@ -67,7 +70,6 @@ namespace Src.Models.ViewData.Base
         public class FullTree : Tree
         {
             public int AssignCount { get; set; }
-
             public bool HasChild { get; set; }
         }
     }
