@@ -162,6 +162,7 @@
     <Content Include="Areas\Admin\Scripts\Core\jquery.validate.unobtrusive.min.js" />
     <Content Include="Areas\Admin\Scripts\Core\makepaging.js" />
     <Content Include="Areas\Admin\Scripts\Page\Dashboard\dashboard.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Order\order.js" />
     <Content Include="Areas\Admin\Scripts\Page\Product\catAddEdit.js" />
     <Content Include="Areas\Admin\Scripts\Page\Product\procAddEdit.js" />
     <Content Include="Areas\Admin\Scripts\Page\Product\procBrand.js" />
@@ -203,7 +204,13 @@
     <Content Include="Areas\Admin\Scripts\Plugin\touchspin.min.js" />
     <Content Include="Areas\Admin\Scripts\Plugin\uniform.min.js" />
     <Content Include="Content\Css\styles.css" />
+    <Content Include="Content\Css\styles.min.css">
+      <DependentUpon>styles.css</DependentUpon>
+    </Content>
     <Content Include="Content\Css\vendor.css" />
+    <Content Include="Content\Css\vendor.min.css">
+      <DependentUpon>vendor.css</DependentUpon>
+    </Content>
     <Content Include="Content\Fonts\feather.svg" />
     <Content Include="Content\Fonts\Pe-icon-7-strokebb1d-2.html" />
     <Content Include="Content\Fonts\Pe-icon-7-strokebb1d-3.html" />
@@ -426,11 +433,14 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
     <Compile Include="Controllers\Api\NinjectApi.cs" />
     <Compile Include="Controllers\Api\OrderController.cs" />
     <Compile Include="Controllers\Api\ProductController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NinjectController.cs" />
     <Compile Include="Global.asax.cs">
@@ -623,6 +633,8 @@
     <Content Include="Areas\Admin\Views\Partial\Product\PCPG.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Brand.cshtml" />
     <Content Include="Areas\Admin\Views\Partial\Product\ProcBrand.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Order\OrderList.cshtml" />
     <None Include="bundleconfig.json" />
     <EntityDeploy Include="Models\Data\ALDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -632,7 +644,7 @@
       <DependentUpon>ALDB.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
-    <Content Include="Views\Sheared\_Layout.cshtml" />
+    <Content Include="Views\Sheared\_Layout_Primary.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Partials\General\MainSlider.cshtml" />
     <Content Include="Views\Partials\General\MainMenu.cshtml" />
@@ -645,6 +657,9 @@
     <Content Include="Views\Partials\General\MostViewed.cshtml" />
     <Content Include="Views\Partials\General\PopularBrands.cshtml" />
     <Content Include="Views\Partials\General\Subscription.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Sheared\_Layout_secondery.cshtml" />
+    <Content Include="Views\Account\ResetPass.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -653,7 +668,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

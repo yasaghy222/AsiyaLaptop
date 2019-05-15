@@ -20,7 +20,7 @@ namespace Src.Models.Service.Repository
         #endregion
 
         #region customer
-        IGenericRepository<Tbl_CustAddress> CustAddress { get; set; }
+        IGenericRepository<Tbl_CustAddress> CustAddress { get; }
         #endregion
 
         int Save();

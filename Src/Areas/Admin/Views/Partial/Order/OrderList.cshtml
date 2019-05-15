@@ -1,0 +1,72 @@
+﻿<script id="orderSource" type="text/x-handlebars-template">
+    {{#each list}}
+    <tr role="row">
+        <td class="text-center pr-40 text-xlarge">{{ID}}</td>
+        <td class="text-center pr-40 text-muted">{{SubmitDate}}</td>
+        <td class="text-center pr-40"><span class="text-info-800">{{CustName}}</span></td>
+        <td class="text-center pr-40">
+            {{#if PymentStatus}}
+            <span class="label label-rounded label-icon label-success"><i class="icon-checkmark3"></i></span>
+            {{else}}
+            <span class="label label-rounded label-icon label-danger"><i class="icon-cross2"></i></span>
+            {{/if}}
+        </td>
+        <td class="text-center pr-40"><span class="text-green-800 text-bold text-large">{{TotalPrice}} تومان</span></td>
+        <td class="text-center pr-40 text-grey-300">{{Status}}</td>
+        <td class="text-center control">
+            <a class="text-blue-800"><i class="icon-pencil"></i>جزئیات</a>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+<div id="dataTable">
+    <div class="datatable-header">
+        <div class="dataTables_filter">
+            <label>
+                <span>جستجو بر اساس شناسه :</span>
+                <input placeholder="شناسه را وارد کنید...." id="getOrder" autocomplete="off" type="search">
+            </label>
+        </div>
+        <div class="dataTables_length">
+            <label>
+                <span>نمایش :</span>
+                <select class="select" id="pageSize">
+                    <option value="10" selected="selected">10</option>
+                    <option value="25">25</option>
+                    <option value="40">40</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    <div class="datatable-scroll">
+        <table class="table datatable-basic table-hover dataTable no-footer" id="tblOrder">
+            <thead>
+                <tr role="row">
+                    <th class="sorting_desc" data-sort="ID" data-sort-type="desc">شناسه</th>
+                    <th class="text-center sorting pr-40 text-center" data-sort="SubmitDate" data-sort-type="">تاریخ ثبت</th>
+                    <th class="text-center sorting pr-40 text-center" data-sort="CustName" data-sort-type="">نام مشتری</th>
+                    <th class="text-center sorting pr-40" data-sort="PaymentStatus" data-sort-type="">وضعیت پرداخت</th>
+                    <th class="text-center sorting pr-40" data-sort="TotalPrice" data-sort-type="">مبلغ کل</th>
+                    <th class="text-center sorting pr-40" data-sort="BrandID" data-sort-type="">برند</th>
+                    <th class="text-center sorting pr-40" data-sort="VisitCount" data-sort-type="">تعداد بازدید</th>
+                    <th class="text-center sorting pr-40" data-sort="Status" data-sort-type="">وضعیت</th>
+                    <th class="text-center control sorting_disabled">عملیات</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="datatable-footer">
+        <div class="dataTables_info" id="orderInfo"></div>
+        <div class="dataTables_paginate paging_simple_numbers" id="orderPaging"></div>
+    </div>
+</div>
+<div id="no-records" class="text-center hidden">
+    <div class="icon-object no-border">
+        <img class="img-responsive" src="~/Areas/Admin/Content/Images/notFound.png" title="داده ای یافت نشد" />
+    </div>
+    <h5 class="text-semibold">متاسفانه رکوردی یافت نشد!</h5>
+    <p class="mb-15">داده‌ای برای نمایش وجود ندارد می‌توانید از طریق دکمه ثبت مورد جدیدی را ثبت نمائید.</p>
+</div>
+
+

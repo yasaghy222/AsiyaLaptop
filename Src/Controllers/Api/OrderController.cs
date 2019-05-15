@@ -60,14 +60,14 @@ namespace Src.Controllers.Api
         }
 
         [HttpPost]
-        public async Task<Common.Resualt> ChangeStatus([FromBody] int id, [FromBody] byte status)
+        public async Task<Common.Resualt> ChangeStatus([FromBody] int id, [FromBody] byte newState)
         {
             if (ModelState.IsValid)
             {
                 Factor = await _unitOfWork.Factor.SingleByIdAsync(id);
                 if (Factor != null)
                 {
-                    Factor.Status = status;
+                    Factor.Status = newState;
                     try
                     {
                         await _unitOfWork.SaveAsync();

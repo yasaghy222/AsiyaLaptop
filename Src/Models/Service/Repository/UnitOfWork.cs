@@ -39,7 +39,7 @@ namespace Src.Models.Service.Repository
 
         #region customer
         private IGenericRepository<Tbl_CustAddress> custAddress;
-        private IGenericRepository<Tbl_CustAddress> CustAddress { get => custAddress = custAddress ?? new GenericRepository<Tbl_CustAddress>(_context); }
+        public IGenericRepository<Tbl_CustAddress> CustAddress { get => custAddress = custAddress ?? new GenericRepository<Tbl_CustAddress>(_context); }
         #endregion
 
         public int Save()

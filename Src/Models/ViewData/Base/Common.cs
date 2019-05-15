@@ -12,13 +12,13 @@ namespace Src.Models.ViewData.Base
             public object Data { get; set; }
         }
 
-        public static class ResualtMessage
+        public abstract class ResualtMessage
         {
-            public static string OK => "Success";
-            public static string NotFound => "داده ای یافت نشد.";
-            public static string BadRequest => "ورودی ها صحیح نمی باشد.";
-            public static string ChildAssignError => "رکورد دارای فرزند و یا اختصاص قابل حذف نیست!";
-            public static string InternallServerError => "مشکلی پیش آمده است لطفا در زمان دیگری اقدام نمایید.";
+            public const string OK = "Success";
+            public const string NotFound = "داده ای یافت نشد.";
+            public const string BadRequest = "ورودی ها صحیح نمی باشد.";
+            public const string ChildAssignError = "رکورد دارای فرزند و یا اختصاص قابل حذف نیست!";
+            public const string InternallServerError = "مشکلی پیش آمده است لطفا در زمان دیگری اقدام نمایید.";
         }
 
         public static List<string> ImgValidType { get; } = new List<string>

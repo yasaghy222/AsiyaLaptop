@@ -7,11 +7,14 @@ using System.Web.Mvc;
 
 namespace Src.Controllers
 {
-    public class HomeController : BaseController
+    public class AccountController : BaseController
     {
-        public HomeController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public AccountController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         [HttpGet]
         public ActionResult Index() => View();
+
+        [HttpGet]
+        public ActionResult ResetPass() => View();
     }
 }

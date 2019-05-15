@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "لپتاپ آسیا";
+    Layout = "~/Views/Sheared/_Layout_secondery.cshtml";
+}
+
+@section MetaTags{
+    <meta name="description" content="@ViewBag.Title">
+    <meta name="keywords" content="shop, e-commerce, modern, flat style, responsive, online store, business, mobile, blog, bootstrap 4, html5, Css3, jquery, js, gallery, slider, touch, creative, clean">
+    <meta name="author" content="T.Yasaghi">
+}
+
+<div class="col-md-6" style="margin:0 auto">
+    <form class="card" method="post">
+        <div class="card-body">
+            <h4 class="margin-bottom-1x">یادآوری رمز عبور</h4>
+            <div class="form-group input-group">
+                <label for="PhoneNumber">شماره موبایل</label>
+                <input class="form-control" name="PhoneNumber" type="number" placeholder="شماره موبایل خود را وارد نمایید" required><span class="input-group-addon"><i class="icon-smartphone"></i></span>
+            </div>
+            <div class="text-center text-sm-right">
+                <button class="btn btn-primary margin-bottom-none" type="submit">یادآوری رمز عبور</button>
+            </div>
+        </div>
+    </form>
+</div>

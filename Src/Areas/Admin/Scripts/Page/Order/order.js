@@ -6,45 +6,21 @@
     });
 
     // page table variable
-    let TableVar = { PageIndex: 1, PageSize: 10, OrderBy: "Title", OrderType: "desc", Includes: null }
+    let TableVar = { PageIndex: 1, PageSize: 10, OrderBy: "ID", OrderType: "desc", Includes: null }
     let count = 0;
-
-    Handlebars.registerHelper('for', (n) => {
-        var resualt = '';
-        for (var i = 0; i < n; i++) {
-            resualt += '<i class="icon-star-full2 text-warning"></i>';
-        }
-        if (n < 5) {
-            let diff = 5 - n;
-            for (var i = 0; i < diff; i++) {
-                resualt += '<i class="icon-star-empty3 text-warning"></i>';
-            }
-        }
-        return resualt;
-    });
-    Handlebars.registerHelper('checkOff', (price, offPrice) => {
-        let resualt = '';
-        if (offPrice > 0) {
-            resualt = '<del class="text-grey-400">' + price + '</del> <span class="text-green-800 text-bold text-large">' + offPrice + ' تومان </span>';
-        }
-        else {
-            resualt = '<span class="text-green-800 text-bold text-large">' + price + ' تومان</span>';
-        }
-        return resualt;
-    });
     //#endregion
 
     //#region Functions
 
     //select all items
-    function ProcList(tableVar) {
+    function OrderList(tableVar) {
         if (tableVar == null) {
             tableVar = TableVar;
-            $('#tblProc th.sorting_desc').removeClass("sorting_desc").attr("data-sort-type", "").addClass("sorting");
-            $('#tblProc th.sorting_asc').removeClass("sorting_asc").attr("data-sort-type", "").addClass("sorting");
-            $('#tblProc th[data-sort="0"]').removeClass("sorting").attr("data-sort-type", "false").addClass("sorting_desc");
+            $('#tblOrder th.sorting_desc').removeClass("sorting_desc").attr("data-sort-type", "").addClass("sorting");
+            $('#tblOrder th.sorting_asc').removeClass("sorting_asc").attr("data-sort-type", "").addClass("sorting");
+            $('#tblOrder th[data-sort="0"]').removeClass("sorting").attr("data-sort-type", "false").addClass("sorting_desc");
         };
-        let url = getHost('Product/Get');
+        let url = getHost('Order/Get');
         $.ajax({
             url: url,
             type: 'Get',
@@ -52,12 +28,12 @@
             success: function (Resualt) {
                 NoRecords(false);
                 if (Resualt.Data.List.length > 0 && Resualt.Message == "Success") {
-                    let source = $('#procSource').html(),
+                    let source = $('#orderSource').html(),
                         template = Handlebars.compile(source),
                         list = template({ list: Resualt.Data.List });
-                    $('#tblProc tbody').html(list);
+                    $('#tblOrder tbody').html(list);
                     count = Resualt.Data.Count;
-                    CreatePagingInfo(count, Resualt.Data.List.length, '#procInfo', TableVar);
+                    CreatePagingInfo(count, Resualt.Data.List.length, '#orderInfo', TableVar);
                 } else {
                     NoRecords(true);
                 }
@@ -73,16 +49,16 @@
         TableVar.OrderBy = "Title";
         TableVar.OrderType = "desc";
         TableVar.Includes = null;
-        $(".panel #getProc").val("");
+        $(".panel #getOrder").val("");
         $(".panel #pageSize").val("10").trigger("change");
-        ProcList();
+        OrderList();
     }
 
     //go to next page's of items
-    $("#procPaging").delegate('a.paginate_button', "click", function () {
+    $("#orderPaging").delegate('a.paginate_button', "click", function () {
         var newIndex = $(this).attr("data-index");
         TableVar.PageIndex = newIndex;
-        ProcList(TableVar);
+        OrderList(TableVar);
     })
 
     //change pagesize's of items
@@ -90,17 +66,17 @@
         var newPageSize = $(this).val();
         TableVar.PageSize = newPageSize;
         TableVar.PageIndex = 1;
-        ProcList(TableVar);
+        OrderList(TableVar);
     })
 
     //orderby items list
-    $('#tblProc th').click(function (e) {
+    $('#tblOrder th').click(function (e) {
         let isSrortEnable = $(e.currentTarget).hasClass("sorting_disabled");
         if (!isSrortEnable) {
             var newOrderby = $(this).attr("data-sort");
             var newOrderType = $(this).attr("data-sort-type");
-            $('#tblProc th.sorting_desc').removeClass("sorting_desc").attr("data-sort-type", "").addClass("sorting");
-            $('#tblProc th.sorting_asc').removeClass("sorting_asc").attr("data-sort-type", "").addClass("sorting");
+            $('#tblOrder th.sorting_desc').removeClass("sorting_desc").attr("data-sort-type", "").addClass("sorting");
+            $('#tblOrder th.sorting_asc').removeClass("sorting_asc").attr("data-sort-type", "").addClass("sorting");
             if (newOrderType == "") {
                 TableVar.OrderType = "desc";
                 $(this).removeClass("sorting sorting_asc").attr("data-sort-type", "desc").addClass("sorting_desc");
@@ -114,34 +90,34 @@
                 $(this).removeClass("sorting").attr("data-sort-type", "desc").addClass("sorting_desc");
             }
             TableVar.OrderBy = newOrderby;
-            ProcList(TableVar);
+            OrderList(TableVar);
         }
     })
 
     //search item
-    function getProc() {
-        let key = $('#getProc').val();
+    function getOrder() {
+        let key = $('#getOrder').val();
         if (key != "") {
             var newPageSize = $("#pagesize").val();
             TableVar.PageSize = newPageSize;
             TableVar.PageIndex = 1;
             TableVar.Includes = key;
-            ProcList(TableVar);
+            OrderList(TableVar);
         }
         else {
-            ProcList();
+            OrderList();
         }
     }
 
     //#endregion
 
     //#region Usage
-    ProcList();
+    OrderList();
     $('.panel a[data-action="reload"]').on('click', () => {
         ReloadList();
     });
-    $('.panel #getProc').on('focusout', () => {
-        getProc();
+    $('.panel #getOrder').on('focusout', () => {
+        getOrder();
     });
     //#endregion
 });

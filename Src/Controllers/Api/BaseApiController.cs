@@ -19,9 +19,9 @@ namespace Src.Controllers.Api
     public class BaseApiController : ApiController
     {
         #region variable
-        protected object Data { get; set; }
-        protected IUnitOfWork _unitOfWork { get; set; }
-        protected NameValueCollection FormData { get; set; }
+        protected object Data;
+        protected IUnitOfWork _unitOfWork;
+        protected NameValueCollection FormData;
         protected Common.Resualt Resualt = new Common.Resualt();
         #endregion
 
@@ -39,6 +39,6 @@ namespace Src.Controllers.Api
         /// </summary>
         /// <returns></returns>
         protected async Task<ICollection<Common.Tree>> GetCatList() => await Task.Run(() => _unitOfWork.ProcCat.Get().Adapt<ICollection<Common.Tree>>());
-        #endregion
+        #endregion 
     }
 }

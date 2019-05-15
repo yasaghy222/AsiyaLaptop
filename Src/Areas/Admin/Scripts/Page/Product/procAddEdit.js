@@ -268,7 +268,7 @@
                     contentType: "application/json",
                     success: function (Resualt) {
                         if (Resualt.Message == "Success") {
-                            refreshImgList();
+                            ImgList();
                             swal({
                                 title: "عملیات حذف انجام شد .",
                                 text: "رکورد مد نظر شما با موفقیت حذف گردید .",

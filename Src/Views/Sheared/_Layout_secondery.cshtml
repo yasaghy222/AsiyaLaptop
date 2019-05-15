@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        @ViewBag.Title
+    </title>
+    <!-- SEO Meta Tags-->
+    @RenderSection("MetaTags")
+    <!-- Mobile Specific Meta Tag-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Favicon and Apple Icons-->
+    <link rel="icon" type="image/png" href="~/Content/Images/favicon.png">
+    <!-- Vendor Styles including: Bootstrap, Font Icons, Plugins, etc.-->
+    <link rel="stylesheet" media="screen" href="~/Content/Css/vendor.css">
+    <!-- Main Template Styles-->
+    <link id="mainStyles" rel="stylesheet" media="screen" href="~/Content/Css/styles.css">
+    <!-- Modernizr-->
+    <script src="~/Scripts/Js/modernizr.min.js"></script>
+</head>
+<!-- Body-->
+<body dir="rtl">
+    <!-- Page Content-->
+    <div class="container min-height">
+        <div class="row">
+            <div class="col-lg-12 text-center padding-top-2x padding-bottom-3x">
+                <a href="/"><img src="~/Content/Images/logo/logo.png" width="136" /></a>
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+    <hr class="hr-light mt-2 margin-bottom-2x hidden-md-down">
+    <!-- Site Footer-->
+    <footer class="text-center p-3" style="background-image: url(img/404-bg.png);" dir="rtl">
+        <div class="container">
+            <!-- Copyright-->
+            <p class="footer-copyright text-muted"> © تمامی حقوق برای فروشگاه لپتاپ آسیا محفوظ است .</a></p>
+        </div>
+    </footer>
+    <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
+    <script src="~/Scripts/Js/vendor.min.js"></script>
+    <script src="~/Scripts/Js/scripts.min.js"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

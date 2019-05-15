@@ -17,9 +17,9 @@ namespace Src.Areas.Admin.Controllers
     public class BaseController : Controller
     {
         #region variable
-        protected Common.Resualt Resualt { get; set; } = null;
-        protected HttpClient Client { get; set; } = new HttpClient();
-        protected HttpResponseMessage HttpResponse { get; set; } = null;
+        protected Common.Resualt Resualt = null;
+        protected HttpClient Client = new HttpClient();
+        protected HttpResponseMessage HttpResponse = null;
         #endregion
 
         #region general functions
@@ -50,6 +50,18 @@ namespace Src.Areas.Admin.Controllers
             #endregion
 
             base.OnActionExecuted(filterContext);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (Client != null)
+                {
+                    Client.Dispose();
+                    Client = null;
+                }
+            }
         }
     }
 }

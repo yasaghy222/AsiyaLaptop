@@ -4822,7 +4822,6 @@ a.alert {
 
     .owl-carousel .owl-item img {
         width: 100%;
-        max-height: 100vh;
     }
 
     .owl-carousel.owl-grab {
