@@ -2,13 +2,10 @@
 
 namespace Src.Areas.Admin.Controllers
 {
-    public class DashboardController : BaseController
+    public class DashboardController : Controller
     {
         // GET: Admin/Dashboard
-        public ActionResult Index()
-        {
-            return View();
-        }
+        public ActionResult Index() => View();
 
         public ActionResult Dashboard() => View();
     }

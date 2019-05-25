@@ -661,6 +661,8 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Sheared\_Layout_secondery.cshtml" />
     <Content Include="Views\Account\ResetPass.cshtml" />
+    <Content Include="Views\Partials\Account\Login.cshtml" />
+    <Content Include="Views\Partials\Account\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

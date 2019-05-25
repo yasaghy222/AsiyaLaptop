@@ -1,0 +1,32 @@
+﻿@model Src.Models.ViewData.Table.Customer.ViewRegisterVar
+<form class="row" method="post">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="Name">نام</label>
+            <input class="form-control" type="text" id="Name" required>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="PhoneNumber">شماره موبایل</label>
+            <input class="form-control" type="number" id="PhoneNumber" required>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="Password">رمز عبور</label>
+            <input class="form-control" type="text" id="Password" required>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="d-flex flex-wrap justify-content-between padding-bottom-1x">
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="term_cond_acc" checked="">
+                <label class="custom-control-label" for="term_cond_acc"><a class="ml-1 mr-2" href="">حریم خصوصی</a> و <a class="ml-1 mr-1" href="">قوانین</a> فروشگاه لپتاپ آسیا را مطالعه کرده و با کلیه موارد آن موافقم.</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 text-center text-sm-right">
+        <button class="btn btn-primary margin-bottom-none" type="submit">ثبت نام</button>
+    </div>
+</form>

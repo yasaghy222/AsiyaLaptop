@@ -24,8 +24,6 @@ namespace Src
             ControllerBuilder.Current.SetControllerFactory(new NinjectController());
 
             #region authorize filler
-            //var config = GlobalConfiguration.Configuration;
-            //config.Filters.Add(new Api());
             #endregion
 
             #region mapster

@@ -5,6 +5,7 @@ using Src.Models.Utitlity;
 using Src.Models.ViewData.Base;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -22,7 +23,11 @@ namespace Src.Controllers
         public AccountController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         [HttpGet, PublicAction]
-        public ActionResult Index() => View();
+        public ActionResult Index()
+        {
+            var data = new Tuple<ViewLoginVar, ViewRegisterVar>(new ViewLoginVar(), new ViewRegisterVar());
+            return View(data);
+        }
 
         [HttpGet]
         public ActionResult ResetPass() => View();

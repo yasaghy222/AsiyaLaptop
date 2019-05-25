@@ -1,0 +1,23 @@
+﻿@model Src.Models.ViewData.Table.Customer.ViewLoginVar
+<form class="card" method="post">
+    <div class="card-body">
+        <h4 class="margin-bottom-1x">ورود</h4>
+        <div class="form-group input-group">
+            <label for="PhoneNumber">شماره موبایل</label>
+            <input class="form-control" name="PhoneNumber" type="number" placeholder="شماره موبایل خود را وارد نمایید" required><span class="input-group-addon"><i class="icon-smartphone"></i></span>
+        </div>
+        <div class="form-group input-group">
+            <label for="Password">رمز عبور</label>
+            <input class="form-control" name="Password" type="password" placeholder="رمز عبور خود را وارد نمایید" required><span class="input-group-addon"><i class="icon-lock"></i></span>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between padding-bottom-1x">
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="remember_me" checked>
+                <label class="custom-control-label" for="remember_me"><span class="mr-2">مرا بخاطر داشته باش</span></label>
+            </div><a class="navi-link" href="/Account/ResetPass">رمز عبور خود را فراموش کرده ام</a>
+        </div>
+        <div class="text-center text-sm-right">
+            <button class="btn btn-primary margin-bottom-none" type="submit">ورود</button>
+        </div>
+    </div>
+</form>

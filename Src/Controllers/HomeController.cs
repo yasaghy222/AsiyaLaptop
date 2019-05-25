@@ -7,10 +7,8 @@ using System.Web.Mvc;
 
 namespace Src.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
-        public HomeController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-
         [HttpGet]
         public ActionResult Index() => View();
     }

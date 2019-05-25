@@ -72,7 +72,7 @@ namespace Src.Controllers
             #region get info
             Action = filterContext.RouteData.Values["Action"].ToString();
             Controller = filterContext.RouteData.Values["Controller"].ToString();
-            IsPublicAction = filterContext.ActionDescriptor.GetCustomAttributes(true).Count() > 0;
+            IsPublicAction = filterContext.ActionDescriptor.GetCustomAttributes(typeof(PublicAction), true).Count() > 0;
             ActionResult GetResponse(Common.Resualt resualt, string redirectPath = null)
             {
                 if (filterContext.HttpContext.Request.IsAjaxRequest())
