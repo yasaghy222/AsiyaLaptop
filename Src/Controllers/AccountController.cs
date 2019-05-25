@@ -21,7 +21,7 @@ namespace Src.Controllers
 
         public AccountController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
-        [HttpGet]
+        [HttpGet, PublicAction]
         public ActionResult Index() => View();
 
         [HttpGet]
@@ -55,16 +55,12 @@ namespace Src.Controllers
                 return false;
             }
         }
-        async Task<string> IsValid(ViewLoginVar loginVar)
+        async Task<string> IsValid(Tbl_Customer customer)
         {
-            string hashPass = Function.GenerateHash(loginVar.Pass);
-            Customer = await _unitOfWork.Customer.SingleAsync(item =>
-                                                                    item.Phone == loginVar.Phone &&
-                                                                    item.Pass == hashPass);
             #region check status
-            if (Customer.Status)
+            if (customer.Status)
             {
-                return await SetToken(Customer) ? Common.ResualtMessage.OK : Common.ResualtMessage.InternallServerError;
+                return await SetToken(customer) ? Common.ResualtMessage.OK : Common.ResualtMessage.InternallServerError;
             }
             else
             {
@@ -82,10 +78,10 @@ namespace Src.Controllers
             if (ModelState.IsValid)
             {
                 string hashPass = Function.GenerateHash(loginVar.Pass);
-                bool isExist = await _unitOfWork.Customer.SingleAnyAsync(item =>
+                Customer = await _unitOfWork.Customer.SingleAsync(item =>
                                                                          item.Phone == loginVar.Phone &&
                                                                          item.Pass == hashPass);
-                Resualt.Message = isExist ? await IsValid(loginVar) : Common.ResualtMessage.NotFound;
+                Resualt.Message = Customer != null ? await IsValid(Customer) : Common.ResualtMessage.NotFound;
             }
             else
             {

@@ -32,8 +32,9 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
-                        <span>@ViewBag.Name ، @ViewBag.Role </span>
+                        <span>@ViewBag.FullName ، @ViewBag.RoleName </span>
                         <input type="hidden" id="token" value="@ViewBag.Token" />
+                        <input type="hidden" id="roleID" value="@ViewBag.RoleID" />
                         <i class="caret"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right no-padding">

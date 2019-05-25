@@ -206,7 +206,7 @@ namespace Src.Models.Utitlity
         public static Admin.AInfo GetAdminInfo(HttpRequestBase request)
         {
             Admin.AInfo Item = new Admin.AInfo();
-            if (request.Cookies.Count > 0)
+            if (request.Cookies.Get("AlADesc") != null)
             {
                 Item.FullName = request.Cookies["ALADesc"]["FullName"];
                 Item.RoleName = request.Cookies["ALADesc"]["RoleName"];

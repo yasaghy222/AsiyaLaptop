@@ -22,6 +22,7 @@ namespace Src.Models.ViewData.Base
             public const string ChildAssignError = "رکورد دارای فرزند و یا اختصاص قابل حذف نیست!";
             public const string InternallServerError = "مشکلی پیش آمده است لطفا در زمان دیگری اقدام نمایید.";
             public const string AccountIsBlock = "حساب کاربری شما غیرفعال شده است. لطفا با مدیر تماس بگیرید."; 
+            public const string TokenExpire = " کاربر گرامی ، شناسه کاربری شما منقضی شده است.";
         }
 
         public static List<string> ImgValidType { get; } = new List<string>

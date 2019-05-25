@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using Src.Models.Service.Repository;
 using Src.Models.ViewData.Base;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net.Http;
@@ -8,10 +9,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using System.Web.Http.Filters;
 using static Src.Models.ViewData.Table.Admin;
 
 namespace Src.Controllers.Api
 {
+    public class PublicHttpAction : ActionFilterAttribute { }
+
     public class BaseApiController : ApiController
     {
         #region variable
@@ -61,7 +65,7 @@ namespace Src.Controllers.Api
                 Message = Common.ResualtMessage.OK
             };
         }
-        public override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext,CancellationToken cancellationToken)
+        public override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
         {
             #region variable
             bool IsPublicAction;
@@ -78,7 +82,8 @@ namespace Src.Controllers.Api
                 if (controllerContext.Request.Content != null)
                 {
                     Task<string> Temp = controllerContext.Request.Content.ReadAsStringAsync();
-                    return System.Web.Helpers.Json.Decode(Temp.Result.ToString());
+                    string tempResult = Temp.Result.ToString();
+                    return tempResult != "" ? System.Web.Helpers.Json.Decode(Temp.Result.ToString()) : Resualt;
                 }
                 else
                 {

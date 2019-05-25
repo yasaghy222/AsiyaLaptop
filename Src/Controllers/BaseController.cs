@@ -1,10 +1,13 @@
-﻿using Src.Models.Service.Repository;
+﻿using Src.Models.Data;
+using Src.Models.Service.Repository;
 using Src.Models.ViewData.Base;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace Src.Controllers
 {
+    public class PublicAction : ActionFilterAttribute { }
+
     public class BaseController : Controller
     {
         #region variable
@@ -17,25 +20,35 @@ namespace Src.Controllers
         public BaseController(IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
 
         #region authorize & check action
-        Common.Resualt IsAuthorize(string token)
+        Common.Resualt IsAuthorize()
         {
-            bool isExsit = true;
-            if (isExsit)
+            if (Request.Cookies.Get("ALCustInfo") != null)
             {
-                bool status = true;
-
-                if (status)
+                string token = Request.Cookies["ALCustInfo"]["Token"];
+                Tbl_Customer customer = null;
+                if (customer != null)
                 {
-                    return Resualt = new Common.Resualt
+                    customer.Status = true;
+                    if (customer.Status)
                     {
-                        Message = Common.ResualtMessage.OK,
-                    };
+                        return Resualt = new Common.Resualt
+                        {
+                            Message = Common.ResualtMessage.OK,
+                        };
+                    }
+                    else
+                    {
+                        return Resualt = new Common.Resualt
+                        {
+                            Message = Common.ResualtMessage.AccountIsBlock,
+                        };
+                    }
                 }
                 else
                 {
                     return Resualt = new Common.Resualt
                     {
-                        Message = Common.ResualtMessage.AccountIsBlock,
+                        Message = Common.ResualtMessage.NotFound
                     };
                 }
             }
@@ -43,7 +56,7 @@ namespace Src.Controllers
             {
                 return Resualt = new Common.Resualt
                 {
-                    Message = Common.ResualtMessage.NotFound
+                    Message = Common.ResualtMessage.TokenExpire
                 };
             }
         }
@@ -51,13 +64,12 @@ namespace Src.Controllers
         {
             #region variable
             bool IsPublicAction;
-            string Token, Action, Controller;
+            string Action, Controller;
             string[] Login = { "logout", "changepass" },
                      outLogin = { "index", "login", "register", "resetpass" };
             #endregion
 
             #region get info
-            Token = filterContext.RouteData.Values["Token"].ToString();
             Action = filterContext.RouteData.Values["Action"].ToString();
             Controller = filterContext.RouteData.Values["Controller"].ToString();
             IsPublicAction = filterContext.ActionDescriptor.GetCustomAttributes(true).Count() > 0;
@@ -104,7 +116,7 @@ namespace Src.Controllers
             else
             {
                 #region authorize
-                Resualt = IsAuthorize(Token);
+                Resualt = IsAuthorize();
                 if (Resualt.Message != Common.ResualtMessage.OK && !outLogin.Contains(Action))
                 {
                     filterContext.Result = GetResponse(Resualt, "/Account");
