@@ -28,9 +28,9 @@ namespace Src.Models.Data
         public string PostCode { get; set; }
         public int LocationID { get; set; }
     
-        public virtual Tbl_Customer Tbl_Customer { get; set; }
         public virtual Tbl_State_City Tbl_State_City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_Factor> Tbl_Factor { get; set; }
+        public virtual Tbl_Customer Tbl_Customer { get; set; }
     }
 }

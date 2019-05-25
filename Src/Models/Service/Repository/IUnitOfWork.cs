@@ -20,6 +20,7 @@ namespace Src.Models.Service.Repository
         #endregion
 
         #region customer
+        ICustomerRepository Customer { get; }
         IGenericRepository<Tbl_CustAddress> CustAddress { get; }
         #endregion
 

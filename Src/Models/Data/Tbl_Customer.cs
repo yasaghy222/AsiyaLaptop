@@ -18,8 +18,8 @@ namespace Src.Models.Data
         public Tbl_Customer()
         {
             this.Tbl_CustAddress = new HashSet<Tbl_CustAddress>();
-            this.Tbl_ProcReview = new HashSet<Tbl_ProcReview>();
             this.Tbl_Factor = new HashSet<Tbl_Factor>();
+            this.Tbl_ProcReview = new HashSet<Tbl_ProcReview>();
         }
     
         public int ID { get; set; }
@@ -32,12 +32,13 @@ namespace Src.Models.Data
         public string Email { get; set; }
         public Nullable<bool> IsInNewsletter { get; set; }
         public bool Status { get; set; }
+        public string Token { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_CustAddress> Tbl_CustAddress { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_ProcReview> Tbl_ProcReview { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_Factor> Tbl_Factor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_ProcReview> Tbl_ProcReview { get; set; }
     }
 }

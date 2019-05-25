@@ -10,6 +10,7 @@ namespace Src.Controllers
         #region variable
         protected object Data;
         protected IUnitOfWork _unitOfWork;
+        protected JsonResult JsonResult = new JsonResult();
         protected Common.Resualt Resualt = new Common.Resualt();
         #endregion
 

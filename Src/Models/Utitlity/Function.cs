@@ -208,14 +208,16 @@ namespace Src.Models.Utitlity
             Admin.AInfo Item = new Admin.AInfo();
             if (request.Cookies.Count > 0)
             {
-                Item.Name = request.Cookies["SSODesc"]["Name"];
-                Item.Role = request.Cookies["SSODesc"]["Role"];
-                Item.Token = request.Cookies["SSODesc"]["Token"];
+                Item.FullName = request.Cookies["ALADesc"]["FullName"];
+                Item.RoleName = request.Cookies["ALADesc"]["RoleName"];
+                Item.RoleID = int.Parse(request.Cookies["ALADesc"]["RoleID"]);
+                Item.Token = request.Cookies["ALADesc"]["Token"];
             }
             else
             {
-                Item.Name = "test";
-                Item.Role = "test";
+                Item.FullName = "test";
+                Item.RoleName = "test";
+                Item.RoleID = 1;
                 Item.Token = "a4d5sd455f44==";
             }
 

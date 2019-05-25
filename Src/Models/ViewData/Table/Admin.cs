@@ -7,7 +7,6 @@ namespace Src.Models.ViewData.Table
 {
     public class Admin
     {
-
         public class ViewAdmin
         {
             public string Name { get; set; }

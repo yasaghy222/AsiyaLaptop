@@ -34,7 +34,6 @@ namespace Src.Models.Data
         public virtual DbSet<Tbl_BlogCat> Tbl_BlogCat { get; set; }
         public virtual DbSet<Tbl_ContactUs> Tbl_ContactUs { get; set; }
         public virtual DbSet<Tbl_CustAddress> Tbl_CustAddress { get; set; }
-        public virtual DbSet<Tbl_Customer> Tbl_Customer { get; set; }
         public virtual DbSet<Tbl_FactProc> Tbl_FactProc { get; set; }
         public virtual DbSet<Tbl_Media> Tbl_Media { get; set; }
         public virtual DbSet<Tbl_Newsletter> Tbl_Newsletter { get; set; }
@@ -48,5 +47,6 @@ namespace Src.Models.Data
         public virtual DbSet<Tbl_Product> Tbl_Product { get; set; }
         public virtual DbSet<Tbl_State_City> Tbl_State_City { get; set; }
         public virtual DbSet<Tbl_Factor> Tbl_Factor { get; set; }
+        public virtual DbSet<Tbl_Customer> Tbl_Customer { get; set; }
     }
 }

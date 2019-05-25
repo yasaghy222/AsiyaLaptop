@@ -115,6 +115,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="IsInNewsletter" Type="bit" />
           <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Token" Type="nchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Tbl_Factor">
           <Key>
@@ -636,7 +637,6 @@
           <EntitySet Name="Tbl_BlogCat" EntityType="ALDBModel.Tbl_BlogCat" />
           <EntitySet Name="Tbl_ContactUs" EntityType="ALDBModel.Tbl_ContactUs" />
           <EntitySet Name="Tbl_CustAddress" EntityType="ALDBModel.Tbl_CustAddress" />
-          <EntitySet Name="Tbl_Customer" EntityType="ALDBModel.Tbl_Customer" />
           <EntitySet Name="Tbl_FactProc" EntityType="ALDBModel.Tbl_FactProc" />
           <EntitySet Name="Tbl_Media" EntityType="ALDBModel.Tbl_Media" />
           <EntitySet Name="Tbl_Newsletter" EntityType="ALDBModel.Tbl_Newsletter" />
@@ -661,17 +661,9 @@
             <End Role="Tbl_BlogCat" EntitySet="Tbl_BlogCat" />
             <End Role="Tbl_BlogCat1" EntitySet="Tbl_BlogCat" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_CustAddress_Tbl_Customer" Association="ALDBModel.FK_Tbl_CustAddress_Tbl_Customer">
-            <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
-            <End Role="Tbl_CustAddress" EntitySet="Tbl_CustAddress" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tbl_CustAddress_Tbl_State_City" Association="ALDBModel.FK_Tbl_CustAddress_Tbl_State_City">
             <End Role="Tbl_State_City" EntitySet="Tbl_State_City" />
             <End Role="Tbl_CustAddress" EntitySet="Tbl_CustAddress" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_ProcRate_Tbl_Customer" Association="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer">
-            <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
-            <End Role="Tbl_ProcReview" EntitySet="Tbl_ProcReview" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FactProc_Tbl_Product" Association="ALDBModel.FK_Tbl_FactProc_Tbl_Product">
             <End Role="Tbl_Product" EntitySet="Tbl_Product" />
@@ -722,13 +714,22 @@
             <End Role="Tbl_CustAddress" EntitySet="Tbl_CustAddress" />
             <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
           </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FactProc_Tbl_Factor" Association="ALDBModel.FK_Tbl_FactProc_Tbl_Factor">
+            <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
+            <End Role="Tbl_FactProc" EntitySet="Tbl_FactProc" />
+          </AssociationSet>
+          <EntitySet Name="Tbl_Customer" EntityType="ALDBModel.Tbl_Customer" />
+          <AssociationSet Name="FK_Tbl_CustAddress_Tbl_Customer" Association="ALDBModel.FK_Tbl_CustAddress_Tbl_Customer">
+            <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
+            <End Role="Tbl_CustAddress" EntitySet="Tbl_CustAddress" />
+          </AssociationSet>
           <AssociationSet Name="FK_Tbl_Factor_Tbl_Customer" Association="ALDBModel.FK_Tbl_Factor_Tbl_Customer">
             <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
             <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FactProc_Tbl_Factor" Association="ALDBModel.FK_Tbl_FactProc_Tbl_Factor">
-            <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
-            <End Role="Tbl_FactProc" EntitySet="Tbl_FactProc" />
+          <AssociationSet Name="FK_Tbl_ProcRate_Tbl_Customer" Association="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer">
+            <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
+            <End Role="Tbl_ProcReview" EntitySet="Tbl_ProcReview" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagrams">
@@ -832,27 +833,9 @@
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
           <Property Name="PostCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="LocationID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Tbl_Customer" Relationship="ALDBModel.FK_Tbl_CustAddress_Tbl_Customer" FromRole="Tbl_CustAddress" ToRole="Tbl_Customer" />
           <NavigationProperty Name="Tbl_State_City" Relationship="ALDBModel.FK_Tbl_CustAddress_Tbl_State_City" FromRole="Tbl_CustAddress" ToRole="Tbl_State_City" />
           <NavigationProperty Name="Tbl_Factor" Relationship="ALDBModel.FK_Tbl_Factor_Tbl_CustAddress" FromRole="Tbl_CustAddress" ToRole="Tbl_Factor" />
-        </EntityType>
-        <EntityType Name="Tbl_Customer">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IP" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Family" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="Pass" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="NatCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="IsInNewsletter" Type="Boolean" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Tbl_CustAddress" Relationship="ALDBModel.FK_Tbl_CustAddress_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_CustAddress" />
-          <NavigationProperty Name="Tbl_ProcReview" Relationship="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_ProcReview" />
-          <NavigationProperty Name="Tbl_Factor" Relationship="ALDBModel.FK_Tbl_Factor_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_Factor" />
+          <NavigationProperty Name="Tbl_Customer" Relationship="ALDBModel.FK_Tbl_CustAddress_Tbl_Customer" FromRole="Tbl_CustAddress" ToRole="Tbl_Customer" />
         </EntityType>
         <EntityType Name="Tbl_FactProc">
           <Key>
@@ -956,8 +939,8 @@
           <Property Name="Subject" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Review" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Tbl_Customer" Relationship="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer" FromRole="Tbl_ProcReview" ToRole="Tbl_Customer" />
           <NavigationProperty Name="Tbl_Product" Relationship="ALDBModel.FK_Tbl_ProcRate_Tbl_Product" FromRole="Tbl_ProcReview" ToRole="Tbl_Product" />
+          <NavigationProperty Name="Tbl_Customer" Relationship="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer" FromRole="Tbl_ProcReview" ToRole="Tbl_Customer" />
         </EntityType>
         <EntityType Name="Tbl_Product">
           <Key>
@@ -1035,20 +1018,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_CustAddress_Tbl_Customer">
-          <End Type="ALDBModel.Tbl_Customer" Role="Tbl_Customer" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ALDBModel.Tbl_CustAddress" Role="Tbl_CustAddress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Customer">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Tbl_CustAddress">
-              <PropertyRef Name="CustID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tbl_CustAddress_Tbl_State_City">
           <End Type="ALDBModel.Tbl_State_City" Role="Tbl_State_City" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1060,20 +1029,6 @@
             </Principal>
             <Dependent Role="Tbl_CustAddress">
               <PropertyRef Name="LocationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_ProcRate_Tbl_Customer">
-          <End Type="ALDBModel.Tbl_Customer" Role="Tbl_Customer" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ALDBModel.Tbl_ProcReview" Role="Tbl_ProcReview" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Customer">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Tbl_ProcReview">
-              <PropertyRef Name="CustID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1240,8 +1195,8 @@
           <Property Name="PaymentStatus" Type="Boolean" Nullable="false" />
           <Property Name="Status" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Tbl_CustAddress" Relationship="ALDBModel.FK_Tbl_Factor_Tbl_CustAddress" FromRole="Tbl_Factor" ToRole="Tbl_CustAddress" />
-          <NavigationProperty Name="Tbl_Customer" Relationship="ALDBModel.FK_Tbl_Factor_Tbl_Customer" FromRole="Tbl_Factor" ToRole="Tbl_Customer" />
           <NavigationProperty Name="Tbl_FactProc" Relationship="ALDBModel.FK_Tbl_FactProc_Tbl_Factor" FromRole="Tbl_Factor" ToRole="Tbl_FactProc" />
+          <NavigationProperty Name="Tbl_Customer" Relationship="ALDBModel.FK_Tbl_Factor_Tbl_Customer" FromRole="Tbl_Factor" ToRole="Tbl_Customer" />
         </EntityType>
         <Association Name="FK_Tbl_Factor_Tbl_CustAddress">
           <End Type="ALDBModel.Tbl_CustAddress" Role="Tbl_CustAddress" Multiplicity="0..1" />
@@ -1252,6 +1207,53 @@
             </Principal>
             <Dependent Role="Tbl_Factor">
               <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FactProc_Tbl_Factor">
+          <End Type="ALDBModel.Tbl_Factor" Role="Tbl_Factor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ALDBModel.Tbl_FactProc" Role="Tbl_FactProc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Factor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_FactProc">
+              <PropertyRef Name="FactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tbl_Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IP" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Family" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Pass" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NatCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsInNewsletter" Type="Boolean" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Tbl_CustAddress" Relationship="ALDBModel.FK_Tbl_CustAddress_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_CustAddress" />
+          <NavigationProperty Name="Tbl_Factor" Relationship="ALDBModel.FK_Tbl_Factor_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_Factor" />
+          <NavigationProperty Name="Tbl_ProcReview" Relationship="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_ProcReview" />
+        </EntityType>
+        <Association Name="FK_Tbl_CustAddress_Tbl_Customer">
+          <End Type="ALDBModel.Tbl_Customer" Role="Tbl_Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ALDBModel.Tbl_CustAddress" Role="Tbl_CustAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_CustAddress">
+              <PropertyRef Name="CustID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1269,17 +1271,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FactProc_Tbl_Factor">
-          <End Type="ALDBModel.Tbl_Factor" Role="Tbl_Factor" Multiplicity="1">
+        <Association Name="FK_Tbl_ProcRate_Tbl_Customer">
+          <End Type="ALDBModel.Tbl_Customer" Role="Tbl_Customer" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="ALDBModel.Tbl_FactProc" Role="Tbl_FactProc" Multiplicity="*" />
+          <End Type="ALDBModel.Tbl_ProcReview" Role="Tbl_ProcReview" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_Factor">
+            <Principal Role="Tbl_Customer">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Tbl_FactProc">
-              <PropertyRef Name="FactID" />
+            <Dependent Role="Tbl_ProcReview">
+              <PropertyRef Name="CustID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1390,22 +1392,6 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="CustID" ColumnName="CustID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_Customer">
-            <EntityTypeMapping TypeName="ALDBModel.Tbl_Customer">
-              <MappingFragment StoreEntitySet="Tbl_Customer">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="IsInNewsletter" ColumnName="IsInNewsletter" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="NatCode" ColumnName="NatCode" />
-                <ScalarProperty Name="Pass" ColumnName="Pass" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Family" ColumnName="Family" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IP" ColumnName="IP" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1550,6 +1536,23 @@
                 <ScalarProperty Name="IsPrint" ColumnName="IsPrint" />
                 <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
                 <ScalarProperty Name="CustID" ColumnName="CustID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Customer">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_Customer">
+              <MappingFragment StoreEntitySet="Tbl_Customer">
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsInNewsletter" ColumnName="IsInNewsletter" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NatCode" ColumnName="NatCode" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -9,7 +9,6 @@ using Src.Models.ViewData.Table;
 using Src.Models.Utitlity;
 using System.ComponentModel.DataAnnotations;
 using Src.Models.ViewData.Base;
-using Src.App_Start;
 using System.Linq;
 
 namespace Src
@@ -25,8 +24,8 @@ namespace Src
             ControllerBuilder.Current.SetControllerFactory(new NinjectController());
 
             #region authorize filler
-            var config = GlobalConfiguration.Configuration;
-            config.Filters.Add(new Api());
+            //var config = GlobalConfiguration.Configuration;
+            //config.Filters.Add(new Api());
             #endregion
 
             #region mapster

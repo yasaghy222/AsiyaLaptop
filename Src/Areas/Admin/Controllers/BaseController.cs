@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Src.Models.ViewData;
 using Newtonsoft.Json;
 
 namespace Src.Areas.Admin.Controllers
@@ -44,8 +45,9 @@ namespace Src.Areas.Admin.Controllers
         {
             #region get admin info
             Models.ViewData.Table.Admin.AInfo AInfo = Function.GetAdminInfo(Request);
-            ViewBag.Name = AInfo.Name;
-            ViewBag.Role = AInfo.Role;
+            ViewBag.FullName =  AInfo.FullName;
+            ViewBag.RoleName = AInfo.RoleName;
+            ViewBag.RoleID = AInfo.RoleID;
             ViewBag.Token = AInfo.Token;
             #endregion
 

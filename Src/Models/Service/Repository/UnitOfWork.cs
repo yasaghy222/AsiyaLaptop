@@ -38,6 +38,9 @@ namespace Src.Models.Service.Repository
         #endregion
 
         #region customer
+        private ICustomerRepository customer;
+        public ICustomerRepository Customer { get => customer = customer ?? new CustomerRepository(_context); }
+
         private IGenericRepository<Tbl_CustAddress> custAddress;
         public IGenericRepository<Tbl_CustAddress> CustAddress { get => custAddress = custAddress ?? new GenericRepository<Tbl_CustAddress>(_context); }
         #endregion

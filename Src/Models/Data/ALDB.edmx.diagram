@@ -5,34 +5,31 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2f12f9834f7f4e77a65de5cfb5138081" Name="Diagram1">
-        <EntityTypeShape EntityType="ALDBModel.sysdiagrams" Width="1.5" PointX="10.75" PointY="4.75" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_Admin" Width="1.5" PointX="11" PointY="9" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_AModule" Width="1.5" PointX="12.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_APermission" Width="1.5" PointX="12.75" PointY="3.75" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_ARole" Width="1.5" PointX="8.75" PointY="9.625" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_Blog" Width="1.5" PointX="10" PointY="1" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_BlogCat" Width="1.5" PointX="7.75" PointY="1.125" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_ContactUs" Width="1.5" PointX="13.75" PointY="6.75" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_CustAddress" Width="1.5" PointX="0.75" PointY="12" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_Customer" Width="1.5" PointX="1.5" PointY="16.25" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_FactProc" Width="1.5" PointX="5.25" PointY="2.75" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_Media" Width="1.5" PointX="7.75" PointY="13.75" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_Newsletter" Width="1.5" PointX="9.75" PointY="13.75" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_Page" Width="1.5" PointX="13.75" PointY="10.75" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_PCPGroup" Width="1.5" PointX="6" PointY="9.5" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcBrand" Width="1.5" PointX="0.75" PointY="6" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcCat" Width="1.5" PointX="0.75" PointY="2.5" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcImg" Width="1.5" PointX="5.25" PointY="14.75" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcProp" Width="1.5" PointX="8.25" PointY="5.625" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcReview" Width="1.5" PointX="5.25" PointY="5.5" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_Product" Width="1.5" PointX="3" PointY="4.25" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_State_City" Width="1.5" PointX="1.5" PointY="20.5" />
+        <EntityTypeShape EntityType="ALDBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="10" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Admin" Width="1.5" PointX="10" PointY="5.25" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_AModule" Width="1.5" PointX="9.75" PointY="10" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_APermission" Width="1.5" PointX="11.75" PointY="10" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ARole" Width="1.5" PointX="7.75" PointY="6" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Blog" Width="1.5" PointX="10" PointY="1.25" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_BlogCat" Width="1.5" PointX="7.75" PointY="1.375" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ContactUs" Width="1.5" PointX="12.75" PointY="1" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_CustAddress" Width="1.5" PointX="0.75" PointY="13.5" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_FactProc" Width="1.5" PointX="5.25" PointY="6" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Media" Width="1.5" PointX="12.75" PointY="5" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Newsletter" Width="1.5" PointX="7.75" PointY="13" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Page" Width="1.5" PointX="9.75" PointY="13" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_PCPGroup" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcBrand" Width="1.5" PointX="0.75" PointY="6.25" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcCat" Width="1.5" PointX="0.75" PointY="2.875" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcImg" Width="1.5" PointX="5.25" PointY="15.125" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcProp" Width="1.5" PointX="5.25" PointY="3" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcReview" Width="1.5" PointX="5.25" PointY="8.75" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Product" Width="1.5" PointX="3" PointY="4.625" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_State_City" Width="1.5" PointX="1.5" PointY="23.125" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_Admin_Tbl_ARole" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_Blog_Tbl_BlogCat" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_BlogCat_Tbl_BlogCat" />
-        <AssociationConnector Association="ALDBModel.FK_Tbl_CustAddress_Tbl_Customer" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_CustAddress_Tbl_State_City" />
-        <AssociationConnector Association="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_FactProc_Tbl_Product" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_PCPGroup_Tbl_PCPGroup" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_PCPGroup_Tbl_ProcCat" />
@@ -44,10 +41,13 @@
         <AssociationConnector Association="ALDBModel.FK_Tbl_ProcProp_Tbl_Product" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_ProcRate_Tbl_Product" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_State_City_Tbl_State_City" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_Factor" Width="1.5" PointX="3.75" PointY="9.875" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Factor" Width="1.5" PointX="3" PointY="13.125" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_Factor_Tbl_CustAddress" />
-        <AssociationConnector Association="ALDBModel.FK_Tbl_Factor_Tbl_Customer" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_FactProc_Tbl_Factor" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Customer" Width="1.5" PointX="1.5" PointY="18.75" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_CustAddress_Tbl_Customer" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_Factor_Tbl_Customer" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

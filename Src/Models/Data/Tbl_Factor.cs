@@ -34,8 +34,8 @@ namespace Src.Models.Data
         public byte Status { get; set; }
     
         public virtual Tbl_CustAddress Tbl_CustAddress { get; set; }
-        public virtual Tbl_Customer Tbl_Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FactProc> Tbl_FactProc { get; set; }
+        public virtual Tbl_Customer Tbl_Customer { get; set; }
     }
 }

@@ -529,8 +529,10 @@
     <Compile Include="Models\Data\Tbl_State_City.cs">
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Service\Repository\Customer\CustomerRepository.cs" />
     <Compile Include="Models\Service\Repository\Factor\FactorRepository.cs" />
     <Compile Include="Models\Service\Repository\GenericRepository.cs" />
+    <Compile Include="Models\Service\Repository\Customer\ICustomerRepository.cs" />
     <Compile Include="Models\Service\Repository\IGenericRepository.cs" />
     <Compile Include="Models\Service\Repository\Factor\IFactorRepository.cs" />
     <Compile Include="Models\Service\Repository\Product\IProductRepository.cs" />

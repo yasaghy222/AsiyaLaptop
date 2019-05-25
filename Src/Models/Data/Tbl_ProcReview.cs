@@ -21,7 +21,7 @@ namespace Src.Models.Data
         public string Review { get; set; }
         public bool Status { get; set; }
     
-        public virtual Tbl_Customer Tbl_Customer { get; set; }
         public virtual Tbl_Product Tbl_Product { get; set; }
+        public virtual Tbl_Customer Tbl_Customer { get; set; }
     }
 }
