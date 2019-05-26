@@ -5,14 +5,14 @@ namespace Src.Models.ViewData.Base
 {
     public class Common
     {
-        public class Resualt
+        public class Result
         {
-            public Resualt() => Data = null;
+            public Result() => Data = null;
             public string Message { get; set; }
             public object Data { get; set; }
         }
 
-        public abstract class ResualtMessage
+        public abstract class ResultMessage
         {
             public const string OK = "Success";
             public const string NotFound = "داده ای یافت نشد.";

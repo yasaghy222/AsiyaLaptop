@@ -1,23 +1,23 @@
-﻿@model Src.Models.ViewData.Table.Customer.ViewLoginVar
-<form class="card" method="post">
+﻿@model Src.Models.ViewData.Table.Customer.ViewAccountVar
+<form class="card" action="/Account/Index" enctype="multipart/form-data" method="post">
+    @Html.AntiForgeryToken()
     <div class="card-body">
         <h4 class="margin-bottom-1x">ورود</h4>
         <div class="form-group input-group">
-            <label for="PhoneNumber">شماره موبایل</label>
-            <input class="form-control" name="PhoneNumber" type="number" placeholder="شماره موبایل خود را وارد نمایید" required><span class="input-group-addon"><i class="icon-smartphone"></i></span>
+            @Html.LabelFor(item => item.Phone)
+            @Html.TextBoxFor(item => item.Phone, new { @class = "form-control", @type = "number", placeholder = "شماره موبایل خود را وارد نمایید" })
+            <span class="input-group-addon"><i class="icon-smartphone"></i></span>
+            @Html.ValidationMessageFor(item => item.Phone, "", new { @class = "invalid-feedback" })
         </div>
         <div class="form-group input-group">
-            <label for="Password">رمز عبور</label>
-            <input class="form-control" name="Password" type="password" placeholder="رمز عبور خود را وارد نمایید" required><span class="input-group-addon"><i class="icon-lock"></i></span>
+            @Html.LabelFor(item => item.Pass)
+            @Html.TextBoxFor(item => item.Pass, new { @class = "form-control", @type = "password", placeholder = "رمز عبور خود را وارد نمایید" })
+            <span class="input-group-addon"><i class="icon-lock"></i></span>
+            @Html.ValidationMessageFor(item => item.Pass, "", new { @class = "invalid-feedback" })
         </div>
-        <div class="d-flex flex-wrap justify-content-between padding-bottom-1x">
-            <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="remember_me" checked>
-                <label class="custom-control-label" for="remember_me"><span class="mr-2">مرا بخاطر داشته باش</span></label>
-            </div><a class="navi-link" href="/Account/ResetPass">رمز عبور خود را فراموش کرده ام</a>
-        </div>
-        <div class="text-center text-sm-right">
+        <div class="d-flex justify-content-between mt-30" style="align-items:center">
             <button class="btn btn-primary margin-bottom-none" type="submit">ورود</button>
+            <a class="navi-link" href="/Account/ResetPass">رمز عبور خود را فراموش کرده ام</a>
         </div>
     </div>
 </form>

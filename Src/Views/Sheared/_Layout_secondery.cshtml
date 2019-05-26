@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="fa">
-
 <head>
     <meta charset="utf-8">
     <title>
@@ -22,7 +21,7 @@
 <!-- Body-->
 <body dir="rtl">
     <!-- Page Content-->
-    <div class="container min-height">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center padding-top-2x padding-bottom-3x">
                 <a href="/"><img src="~/Content/Images/logo/logo.png" width="136" /></a>
@@ -32,15 +31,57 @@
     </div>
     <hr class="hr-light mt-2 margin-bottom-2x hidden-md-down">
     <!-- Site Footer-->
-    <footer class="text-center p-3" style="background-image: url(img/404-bg.png);" dir="rtl">
+    <footer class="text-center p-3 fixed-bottom" style="background-image: url(../../Content/Images/404-bg.png);" dir="rtl">
         <div class="container">
             <!-- Copyright-->
-            <p class="footer-copyright text-muted"> © تمامی حقوق برای فروشگاه لپتاپ آسیا محفوظ است .</a></p>
+            <p class="footer-copyright text-muted"> © تمامی حقوق برای فروشگاه لپتاپ آسیا محفوظ است .</p>
         </div>
     </footer>
     <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
     <script src="~/Scripts/Js/vendor.min.js"></script>
     <script src="~/Scripts/Js/scripts.min.js"></script>
+    <script type="text/javascript">
+        function notify(type, title, message) {
+            let icon;
+            switch (type) {
+                case "warning":
+                    icon: "icon-alert-triangle";
+                    break;
+                case "danger":
+                    icon: "icon-slash";
+                    break;
+                case "success":
+                    icon: "icon-check-circle";
+                    break;
+                default:
+                    icon = null;
+            };
+            let conf = {
+                class: "iziToast-" + type || "",
+                title: title || "Title",
+                message: message || "toast message",
+                animateInside: !1,
+                position: "topRight",
+                progressBar: !1,
+                icon: icon,
+                timeout: 5000,
+                transitionIn: "fadeInLeft",
+                transitionOut: "fadeOut",
+                transitionInMobile: "fadeIn",
+                transitionOutMobile: "fadeOut"
+            };
+            iziToast.show(conf)
+        }
+
+        $(document).ready(() => {
+            let resualt = @Html.Raw(Json.Encode(ViewBag.Resualt));
+            if (resualt != null) {
+                if (resualt.Message != "Success") {
+                    notify('danger', 'خطا!', resualt.Message);
+                }
+            }
+        });
+    </script>
     @RenderSection("Scripts", false)
 </body>
 </html>

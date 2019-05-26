@@ -17,19 +17,15 @@ namespace Src.Controllers
     public class AccountController : BaseController
     {
         #region variable
-        Tbl_Customer Customer = null;
+        Tbl_Customer Customer;
         #endregion
 
         public AccountController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         [HttpGet, PublicAction]
-        public ActionResult Index()
-        {
-            var data = new Tuple<ViewLoginVar, ViewRegisterVar>(new ViewLoginVar(), new ViewRegisterVar());
-            return View(data);
-        }
+        public ActionResult Index() => View(new ViewAccountVar());
 
-        [HttpGet]
+        [HttpGet, PublicAction]
         public ActionResult ResetPass() => View();
 
         #region authorize functions
@@ -65,45 +61,60 @@ namespace Src.Controllers
             #region check status
             if (customer.Status)
             {
-                return await SetToken(customer) ? Common.ResualtMessage.OK : Common.ResualtMessage.InternallServerError;
+                return await SetToken(customer) ? Common.ResultMessage.OK : Common.ResultMessage.InternallServerError;
             }
             else
             {
-                return Common.ResualtMessage.AccountIsBlock;
+                return Common.ResultMessage.AccountIsBlock;
             }
             #endregion
         }
         #endregion
 
-        #region login
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(ViewLoginVar loginVar)
+        #region login/register
+        [HttpPost, PublicAction]
+        [ValidateAntiForgeryToken, ValidateModel]
+        public async Task<ActionResult> Index(ViewAccountVar accountVar)
         {
-            if (ModelState.IsValid)
+            if (accountVar.Name == null)
             {
-                string hashPass = Function.GenerateHash(loginVar.Pass);
+                #region login
+                string hashPass = Function.GenerateHash(accountVar.Pass);
                 Customer = await _unitOfWork.Customer.SingleAsync(item =>
-                                                                         item.Phone == loginVar.Phone &&
+                                                                         item.Phone == accountVar.Phone &&
                                                                          item.Pass == hashPass);
-                Resualt.Message = Customer != null ? await IsValid(Customer) : Common.ResualtMessage.NotFound;
+                if (Customer != null)
+                {
+                    string message = await IsValid(Customer);
+                    if (message == Common.ResultMessage.OK)
+                    {
+                        return Redirect("/");
+                    }
+                    else
+                    {
+                        ViewBag.Resualt = new Common.Result
+                        {
+                            Message = message
+                        };
+                        return View();
+                    }
+                }
+                else
+                {
+                    ViewBag.Resualt = new Common.Result
+                    {
+                        Message = Common.ResultMessage.NotFound
+                    };
+                    return View();
+                }
+                #endregion
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.BadRequest;
+                #region register
+                return View();
+                #endregion
             }
-
-            ViewBag.Resualt = Resualt;
-            return View();
-        }
-        #endregion
-
-        #region register
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register()
-        {
-            return Redirect("/");
         }
         #endregion
     }

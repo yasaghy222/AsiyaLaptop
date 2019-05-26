@@ -34,12 +34,12 @@ namespace Src.Controllers.Api
 
         #region product
         [HttpGet]
-        public async Task<Common.Resualt> Get([FromUri]Common.TableVar tableVar)
+        public async Task<Common.Result> Get([FromUri]Common.TableVar tableVar)
         {
             Data = await Task.Run(() => _unitOfWork.Product.ProcList(tableVar));
             if (Data != null)
             {
-                Resualt.Message = Common.ResualtMessage.OK;
+                Resualt.Message = Common.ResultMessage.OK;
                 Resualt.Data = new
                 {
                     List = Data,
@@ -48,13 +48,13 @@ namespace Src.Controllers.Api
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.InternallServerError;
+                Resualt.Message = Common.ResultMessage.InternallServerError;
             }
             return Resualt;
         }
 
         [HttpGet]
-        public async Task<Common.Resualt> Detail([FromUri] int id)
+        public async Task<Common.Result> Detail([FromUri] int id)
         {
             if (id != -1)
             {
@@ -79,18 +79,18 @@ namespace Src.Controllers.Api
 
             if (Data != null)
             {
-                Resualt.Message = Common.ResualtMessage.OK;
+                Resualt.Message = Common.ResultMessage.OK;
                 Resualt.Data = Data;
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.InternallServerError;
+                Resualt.Message = Common.ResultMessage.InternallServerError;
             }
             return Resualt;
         }
 
         [HttpPost]
-        public Common.Resualt AddEdit()
+        public Common.Result AddEdit()
         {
             if (ModelState.IsValid)
             {
@@ -125,7 +125,7 @@ namespace Src.Controllers.Api
                     }
                     catch (Exception)
                     {
-                        Resualt.Message = Common.ResualtMessage.InternallServerError;
+                        Resualt.Message = Common.ResultMessage.InternallServerError;
                     }
                     #endregion
                 }
@@ -141,14 +141,14 @@ namespace Src.Controllers.Api
                     }
                     catch (Exception)
                     {
-                        Resualt.Message = Common.ResualtMessage.InternallServerError;
+                        Resualt.Message = Common.ResultMessage.InternallServerError;
                     }
                     #endregion
                 }
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.BadRequest;
+                Resualt.Message = Common.ResultMessage.BadRequest;
             }
             return Resualt;
         }
@@ -156,23 +156,23 @@ namespace Src.Controllers.Api
 
         #region category
         [HttpGet]
-        public Common.Resualt CatList()
+        public Common.Result CatList()
         {
             ProcCatList = _unitOfWork.ProcCat.Get();
             if (ProcCatList != null)
             {
-                Resualt.Message = Common.ResualtMessage.OK;
+                Resualt.Message = Common.ResultMessage.OK;
                 Resualt.Data = ProcCatList.Adapt<List<Common.FullTree>>();
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.InternallServerError;
+                Resualt.Message = Common.ResultMessage.InternallServerError;
             }
             return Resualt;
         }
 
         [HttpGet]
-        public async Task<Common.Resualt> CatDetail(int id)
+        public async Task<Common.Result> CatDetail(int id)
         {
             if (id != -1)
             {
@@ -195,18 +195,18 @@ namespace Src.Controllers.Api
 
             if (Data != null)
             {
-                Resualt.Message = Common.ResualtMessage.OK;
+                Resualt.Message = Common.ResultMessage.OK;
                 Resualt.Data = Data;
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.InternallServerError;
+                Resualt.Message = Common.ResultMessage.InternallServerError;
             }
             return Resualt;
         }
 
         [HttpPost]
-        public async Task<Common.Resualt> AddEditCat([FromBody] Product.ViewTbl_ProcCat model)
+        public async Task<Common.Result> AddEditCat([FromBody] Product.ViewTbl_ProcCat model)
         {
             if (ModelState.IsValid)
             {
@@ -248,23 +248,23 @@ namespace Src.Controllers.Api
                         await _unitOfWork.SaveAsync();
                     }
                     #endregion
-                    Resualt.Message = Common.ResualtMessage.OK;
+                    Resualt.Message = Common.ResultMessage.OK;
                     Resualt.Data = ProcCat.ID;
                 }
                 catch (Exception)
                 {
-                    Resualt.Message = Common.ResualtMessage.InternallServerError;
+                    Resualt.Message = Common.ResultMessage.InternallServerError;
                 }
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.BadRequest;
+                Resualt.Message = Common.ResultMessage.BadRequest;
             }
             return Resualt;
         }
 
         [HttpPost]
-        public async Task<Common.Resualt> DelCat([FromBody]int id)
+        public async Task<Common.Result> DelCat([FromBody]int id)
         {
             if (ModelState.IsValid)
             {
@@ -278,26 +278,26 @@ namespace Src.Controllers.Api
                         try
                         {
                             await _unitOfWork.SaveAsync();
-                            Resualt.Message = Common.ResualtMessage.OK;
+                            Resualt.Message = Common.ResultMessage.OK;
                         }
                         catch (Exception)
                         {
-                            Resualt.Message = Common.ResualtMessage.InternallServerError;
+                            Resualt.Message = Common.ResultMessage.InternallServerError;
                         }
                     }
                     else
                     {
-                        Resualt.Message = Common.ResualtMessage.ChildAssignError;
+                        Resualt.Message = Common.ResultMessage.ChildAssignError;
                     }
                 }
                 else
                 {
-                    Resualt.Message = Common.ResualtMessage.NotFound;
+                    Resualt.Message = Common.ResultMessage.NotFound;
                 }
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.BadRequest;
+                Resualt.Message = Common.ResultMessage.BadRequest;
             }
 
             return Resualt;
@@ -306,23 +306,23 @@ namespace Src.Controllers.Api
 
         #region brand
         [HttpGet]
-        public Common.Resualt BrandList()
+        public Common.Result BrandList()
         {
             Data = _unitOfWork.ProcBrand.Get();
             if (Data != null)
             {
-                Resualt.Message = Common.ResualtMessage.OK;
+                Resualt.Message = Common.ResultMessage.OK;
                 Resualt.Data = Data.Adapt<List<Product.ViewTbl_ProcBrand>>();
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.InternallServerError;
+                Resualt.Message = Common.ResultMessage.InternallServerError;
             }
             return Resualt;
         }
 
         [HttpPost]
-        public Common.Resualt AddEditBrand()
+        public Common.Result AddEditBrand()
         {
             if (ModelState.IsValid)
             {
@@ -344,7 +344,7 @@ namespace Src.Controllers.Api
                     }
                     catch (Exception)
                     {
-                        Resualt.Message = Common.ResualtMessage.InternallServerError;
+                        Resualt.Message = Common.ResultMessage.InternallServerError;
                     }
                     #endregion
                 }
@@ -359,21 +359,21 @@ namespace Src.Controllers.Api
                     }
                     catch (Exception)
                     {
-                        Resualt.Message = Common.ResualtMessage.InternallServerError;
+                        Resualt.Message = Common.ResultMessage.InternallServerError;
                     }
                     #endregion
                 }
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.BadRequest;
+                Resualt.Message = Common.ResultMessage.BadRequest;
             }
 
             return Resualt;
         }
 
         [HttpPost]
-        public async Task<Common.Resualt> DelBrand([FromBody]int id)
+        public async Task<Common.Result> DelBrand([FromBody]int id)
         {
             if (ModelState.IsValid)
             {
@@ -388,26 +388,26 @@ namespace Src.Controllers.Api
                         {
                             await _unitOfWork.SaveAsync();
                             Function.DelImg(ProcBrand.ID, "ProcBrand");
-                            Resualt.Message = Common.ResualtMessage.OK;
+                            Resualt.Message = Common.ResultMessage.OK;
                         }
                         catch (Exception)
                         {
-                            Resualt.Message = Common.ResualtMessage.InternallServerError;
+                            Resualt.Message = Common.ResultMessage.InternallServerError;
                         }
                     }
                     else
                     {
-                        Resualt.Message = Common.ResualtMessage.ChildAssignError;
+                        Resualt.Message = Common.ResultMessage.ChildAssignError;
                     }
                 }
                 else
                 {
-                    Resualt.Message = Common.ResualtMessage.NotFound;
+                    Resualt.Message = Common.ResultMessage.NotFound;
                 }
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.BadRequest;
+                Resualt.Message = Common.ResultMessage.BadRequest;
             }
 
             return Resualt;
@@ -416,24 +416,24 @@ namespace Src.Controllers.Api
 
         #region image
         [HttpGet]
-        public Common.Resualt ImgList([FromUri] int procID)
+        public Common.Result ImgList([FromUri] int procID)
         {
             Data = _unitOfWork.ProcImg.Get(item => item.ProcID == procID);
             if (Data != null)
             {
-                Resualt.Message = Common.ResualtMessage.OK;
+                Resualt.Message = Common.ResultMessage.OK;
                 Resualt.Data = Data.Adapt<List<Common.SelectWithProc>>();
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.InternallServerError;
+                Resualt.Message = Common.ResultMessage.InternallServerError;
             }
 
             return Resualt;
         }
 
         [HttpPost]
-        public Common.Resualt AddEditImg()
+        public Common.Result AddEditImg()
         {
             if (ModelState.IsValid)
             {
@@ -456,7 +456,7 @@ namespace Src.Controllers.Api
                     }
                     catch (Exception)
                     {
-                        Resualt.Message = Common.ResualtMessage.InternallServerError;
+                        Resualt.Message = Common.ResultMessage.InternallServerError;
                     }
                     #endregion
                 }
@@ -471,21 +471,21 @@ namespace Src.Controllers.Api
                     }
                     catch (Exception)
                     {
-                        Resualt.Message = Common.ResualtMessage.InternallServerError;
+                        Resualt.Message = Common.ResultMessage.InternallServerError;
                     }
                     #endregion
                 }
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.BadRequest;
+                Resualt.Message = Common.ResultMessage.BadRequest;
             }
 
             return Resualt;
         }
 
         [HttpPost]
-        public Common.Resualt DelImg([FromBody]int id)
+        public Common.Result DelImg([FromBody]int id)
         {
             if (ModelState.IsValid)
             {
@@ -495,17 +495,17 @@ namespace Src.Controllers.Api
                 {
                     _unitOfWork.Save();
                     Function.DelImg(ProcImg.ProcID + ProcImg.ID, "Product");
-                    Resualt.Message = Common.ResualtMessage.OK;
+                    Resualt.Message = Common.ResultMessage.OK;
                 }
                 catch (Exception)
                 {
-                    Resualt.Message = Common.ResualtMessage.InternallServerError;
+                    Resualt.Message = Common.ResultMessage.InternallServerError;
                     throw;
                 }
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.BadRequest;
+                Resualt.Message = Common.ResultMessage.BadRequest;
             }
 
             return Resualt;
@@ -514,7 +514,7 @@ namespace Src.Controllers.Api
 
         #region property
         [HttpGet]
-        public async Task<Common.Resualt> PropList([FromUri] int procID, [FromUri] int catID)
+        public async Task<Common.Result> PropList([FromUri] int procID, [FromUri] int catID)
         {
             PCPGroupList = await _unitOfWork.PCPGroup.GetAsync(item => item.CatID == catID);
             ProcPropList = await _unitOfWork.ProcProp.GetAsync(item => item.ProcID == procID);
@@ -543,19 +543,19 @@ namespace Src.Controllers.Api
             }
             if (Props != null)
             {
-                Resualt.Message = Common.ResualtMessage.OK;
+                Resualt.Message = Common.ResultMessage.OK;
                 Resualt.Data = Props;
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.InternallServerError;
+                Resualt.Message = Common.ResultMessage.InternallServerError;
             }
 
             return Resualt;
         }
 
         [HttpPost]
-        public async Task<Common.Resualt> EditProp([FromBody]Product.ViewPropVar model)
+        public async Task<Common.Result> EditProp([FromBody]Product.ViewPropVar model)
         {
             if (ModelState.IsValid)
             {
@@ -580,16 +580,16 @@ namespace Src.Controllers.Api
                 try
                 {
                     await _unitOfWork.SaveAsync();
-                    Resualt.Message = Common.ResualtMessage.OK;
+                    Resualt.Message = Common.ResultMessage.OK;
                 }
                 catch (Exception)
                 {
-                    Resualt.Message = Common.ResualtMessage.InternallServerError;
+                    Resualt.Message = Common.ResultMessage.InternallServerError;
                 }
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.BadRequest;
+                Resualt.Message = Common.ResultMessage.BadRequest;
             }
 
             return Resualt;
@@ -598,24 +598,24 @@ namespace Src.Controllers.Api
 
         #region product category property group
         [HttpGet]
-        public Common.Resualt PCPGList([FromUri] int catID)
+        public Common.Result PCPGList([FromUri] int catID)
         {
             Data = _unitOfWork.PCPGroup.Get(item => item.CatID == catID);
             if (Data != null)
             {
-                Resualt.Message = Common.ResualtMessage.OK;
+                Resualt.Message = Common.ResultMessage.OK;
                 Resualt.Data = Data.Adapt<List<Common.FullTree>>();
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.InternallServerError;
+                Resualt.Message = Common.ResultMessage.InternallServerError;
             }
 
             return Resualt;
         }
 
         [HttpPost]
-        public async Task<Common.Resualt> AddEditPCPG([FromBody]Product.ViewTbl_PCPGroup model)
+        public async Task<Common.Result> AddEditPCPG([FromBody]Product.ViewTbl_PCPGroup model)
         {
             if (ModelState.IsValid)
             {
@@ -638,23 +638,23 @@ namespace Src.Controllers.Api
                 try
                 {
                     await _unitOfWork.SaveAsync();
-                    Resualt.Message = Common.ResualtMessage.OK;
+                    Resualt.Message = Common.ResultMessage.OK;
                 }
                 catch (Exception)
                 {
-                    Resualt.Message = Common.ResualtMessage.InternallServerError;
+                    Resualt.Message = Common.ResultMessage.InternallServerError;
                 }
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.BadRequest;
+                Resualt.Message = Common.ResultMessage.BadRequest;
             }
 
             return Resualt;
         }
 
         [HttpPost]
-        public async Task<Common.Resualt> DelPCPG([FromBody]int id)
+        public async Task<Common.Result> DelPCPG([FromBody]int id)
         {
             if (ModelState.IsValid)
             {
@@ -669,21 +669,21 @@ namespace Src.Controllers.Api
                     try
                     {
                         await _unitOfWork.SaveAsync();
-                        Resualt.Message = Common.ResualtMessage.OK;
+                        Resualt.Message = Common.ResultMessage.OK;
                     }
                     catch (Exception)
                     {
-                        Resualt.Message = Common.ResualtMessage.InternallServerError;
+                        Resualt.Message = Common.ResultMessage.InternallServerError;
                     }
                 }
                 else
                 {
-                    Resualt.Message = Common.ResualtMessage.ChildAssignError;
+                    Resualt.Message = Common.ResultMessage.ChildAssignError;
                 }
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.BadRequest;
+                Resualt.Message = Common.ResultMessage.BadRequest;
             }
 
             return Resualt;

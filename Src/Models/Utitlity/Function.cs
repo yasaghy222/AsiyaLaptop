@@ -182,7 +182,7 @@ namespace Src.Models.Utitlity
                 {
                     HttpPostedFile img = Files[i];
                     temp = ValidateImg(img);
-                    if (temp == Common.ResualtMessage.OK)
+                    if (temp == Common.ResultMessage.OK)
                     {
                         DelImg(id, path);
                         img.SaveAs(HostingEnvironment.MapPath($"~/Files/{path}/{id}.jpg"));
@@ -191,7 +191,7 @@ namespace Src.Models.Utitlity
             }
             else
             {
-                temp = Common.ResualtMessage.OK;
+                temp = Common.ResultMessage.OK;
             }
             return temp;
         }

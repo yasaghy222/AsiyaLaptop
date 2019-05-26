@@ -21,6 +21,7 @@ namespace Src.Controllers
 
         void AddBinding() => ninjectKernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
-        protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType) => controllerType == null ? null : (IController)ninjectKernel.Get(controllerType);
+        protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType) => 
+                                       controllerType == null ? null : (IController)ninjectKernel.Get(controllerType);
     }
 }

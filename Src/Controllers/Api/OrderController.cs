@@ -23,12 +23,12 @@ namespace Src.Controllers.Api
 
         #region order
         [HttpGet]
-        public async Task<Common.Resualt> Get([FromUri]Common.TableVar tableVar)
+        public async Task<Common.Result> Get([FromUri]Common.TableVar tableVar)
         {
             Data = _unitOfWork.Factor.OrderList(tableVar);
             if (Data != null)
             {
-                Resualt.Message = Common.ResualtMessage.OK;
+                Resualt.Message = Common.ResultMessage.OK;
                 Resualt.Data = new
                 {
                     List = Data,
@@ -37,30 +37,30 @@ namespace Src.Controllers.Api
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.InternallServerError;
+                Resualt.Message = Common.ResultMessage.InternallServerError;
             }
             return Resualt;
         }
 
         [HttpGet]
-        public Common.Resualt Detail([FromUri] int id)
+        public Common.Result Detail([FromUri] int id)
         {
             Data = _unitOfWork.Factor.SingleById(id).Adapt<Factor.ViewOrderDetail>();
 
             if (Data != null)
             {
-                Resualt.Message = Common.ResualtMessage.OK;
+                Resualt.Message = Common.ResultMessage.OK;
                 Resualt.Data = Data;
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.InternallServerError;
+                Resualt.Message = Common.ResultMessage.InternallServerError;
             }
             return Resualt;
         }
 
         [HttpPost]
-        public async Task<Common.Resualt> ChangeStatus([FromBody] int id, [FromBody] byte newState)
+        public async Task<Common.Result> ChangeStatus([FromBody] int id, [FromBody] byte newState)
         {
             if (ModelState.IsValid)
             {
@@ -71,21 +71,21 @@ namespace Src.Controllers.Api
                     try
                     {
                         await _unitOfWork.SaveAsync();
-                        Resualt.Message = Common.ResualtMessage.OK;
+                        Resualt.Message = Common.ResultMessage.OK;
                     }
                     catch (Exception)
                     {
-                        Resualt.Message = Common.ResualtMessage.InternallServerError;
+                        Resualt.Message = Common.ResultMessage.InternallServerError;
                     }
                 }
                 else
                 {
-                    Resualt.Message = Common.ResualtMessage.NotFound;
+                    Resualt.Message = Common.ResultMessage.NotFound;
                 }
             }
             else
             {
-                Resualt.Message = Common.ResualtMessage.BadRequest;
+                Resualt.Message = Common.ResultMessage.BadRequest;
             }
             return Resualt;
         }

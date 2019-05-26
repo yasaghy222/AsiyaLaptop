@@ -31,7 +31,7 @@ namespace Src.Areas.Admin.Controllers
             }
             else
             {
-                ViewBag.Message = Common.ResualtMessage.InternallServerError;
+                ViewBag.Message = Common.ResultMessage.InternallServerError;
                 return Redirect("/Admin/Product");
             }
 
@@ -52,7 +52,7 @@ namespace Src.Areas.Admin.Controllers
             }
             else
             {
-                ViewBag.Message = Common.ResualtMessage.InternallServerError;
+                ViewBag.Message = Common.ResultMessage.InternallServerError;
                 return Redirect("/Admin/Product/Category");
             }
 

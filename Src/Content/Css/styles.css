@@ -2326,7 +2326,7 @@ select.form-control.form-control-sm:not([size]):not([multiple]) {
 }
 
 .invalid-feedback {
-    color: #f44336
+    color: #f44336;
 }
 
 .valid-tooltip {

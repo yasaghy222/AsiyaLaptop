@@ -2068,8 +2068,10 @@ textarea.form-control {
 }
 
 .invalid-feedback {
-    display: none;
+    display: block;
     width: 100%;
+    float: left;
+    text-align: left;
     margin-top: .25rem;
     font-size: 80%;
     color: #dc3545

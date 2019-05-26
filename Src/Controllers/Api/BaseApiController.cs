@@ -22,13 +22,13 @@ namespace Src.Controllers.Api
         protected object Data;
         protected IUnitOfWork _unitOfWork;
         protected NameValueCollection FormData;
-        protected Common.Resualt Resualt = new Common.Resualt();
+        protected Common.Result Resualt = new Common.Result();
         #endregion
 
         public BaseApiController(IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
 
         #region authorize & authenticate
-        Common.Resualt IsAuthorize(string token)
+        Common.Result IsAuthorize(string token)
         {
             bool isExsit = true;
             if (isExsit)
@@ -36,33 +36,33 @@ namespace Src.Controllers.Api
                 bool status = true;
                 if (status)
                 {
-                    return Resualt = new Common.Resualt
+                    return Resualt = new Common.Result
                     {
-                        Message = Common.ResualtMessage.OK,
+                        Message = Common.ResultMessage.OK,
                         Data = 12
                     };
                 }
                 else
                 {
-                    return Resualt = new Common.Resualt
+                    return Resualt = new Common.Result
                     {
-                        Message = Common.ResualtMessage.AccountIsBlock,
+                        Message = Common.ResultMessage.AccountIsBlock,
                     };
                 }
             }
             else
             {
-                return Resualt = new Common.Resualt
+                return Resualt = new Common.Result
                 {
-                    Message = Common.ResualtMessage.NotFound
+                    Message = Common.ResultMessage.NotFound
                 };
             }
         }
-        Common.Resualt HasPermisstion(int roleID, string action, string controller)
+        Common.Result HasPermisstion(int roleID, string action, string controller)
         {
-            return Resualt = new Common.Resualt
+            return Resualt = new Common.Result
             {
-                Message = Common.ResualtMessage.OK
+                Message = Common.ResultMessage.OK
             };
         }
         public override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
@@ -87,9 +87,9 @@ namespace Src.Controllers.Api
                 }
                 else
                 {
-                    return Resualt = new Common.Resualt
+                    return Resualt = new Common.Result
                     {
-                        Message = Common.ResualtMessage.InternallServerError
+                        Message = Common.ResultMessage.InternallServerError
                     };
                 }
             }
@@ -104,11 +104,11 @@ namespace Src.Controllers.Api
             {
                 #region authorize
                 Resualt = IsAuthorize(Token);
-                if (Resualt.Message == Common.ResualtMessage.OK)
+                if (Resualt.Message == Common.ResultMessage.OK)
                 {
                     #region check permission
                     Resualt = HasPermisstion((int)Resualt.Data, Action, Controller);
-                    Data = Resualt.Message == Common.ResualtMessage.OK ? GetResponse() : Resualt;
+                    Data = Resualt.Message == Common.ResultMessage.OK ? GetResponse() : Resualt;
                     #endregion
                 }
                 else

@@ -420,6 +420,8 @@
       <LastGenOutput>ALDB.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\Js\card.min.js" />
+    <Content Include="Scripts\Js\jquery.validate.min.js" />
+    <Content Include="Scripts\Js\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Js\modernizr.min.js" />
     <Content Include="Scripts\Js\scripts.min.js" />
     <Content Include="Scripts\Js\vendor.min.js" />
