@@ -35,9 +35,23 @@
         </a>
     </div>
     <div class="toolbar-item hidden-on-mobile">
-        <a href="/Account">
-            <div><i class="icon-user"></i><span class="text-label">ورود / ثبت نام</span></div>
-        </a>
+        @if (Request.Cookies.Get("ALCustInfo") == null)
+        {
+            <a href="/Account">
+                <div><i class="icon-user"></i><span class="text-label">ورود / ثبت نام</span></div>
+            </a>
+        }
+        else
+        {
+            var data = Request.Cookies["ALCustInfo"].Values;
+            <a><div><i class="icon-chevron-down"></i><span class="text-label">@data.Get("Name") @data.Get("Family")</span></div></a>
+            <ul class="toolbar-dropdown">
+                <li><a href="#"><i class="icon-user"></i>پروفایل</a></li>
+                <li><a href="#"><i class="icon-shopping-bag"></i>سفارش های من</a></li>
+                <li><hr></li>
+                <li><a href="/Account/Logout"><i class="icon-log-out"></i>خروج از حساب کاربری</a></li>
+            </ul>
+        }
     </div>
     <div class="toolbar-item">
         <a href="cart.html">

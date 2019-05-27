@@ -15,7 +15,8 @@
 
     .toolbar-dropdown > li, .site-header .site-menu > ul > li .sub-menu > li {
         display: block;
-        position: relative
+        position: relative;
+        margin: 8px auto
     }
 
         .toolbar-dropdown > li > a, .site-header .site-menu > ul > li .sub-menu > li > a {
@@ -33,8 +34,8 @@
             .toolbar-dropdown > li > a > i, .site-header .site-menu > ul > li .sub-menu > li > a > i {
                 display: inline-block;
                 margin-top: -2px;
-                margin-left: 6px;
-                font-size: .9em;
+                margin-left: 10px;
+                font-size: 1.2em;
                 vertical-align: middle
             }
 

@@ -4,8 +4,6 @@ using Src.Models.Service.Repository;
 using Src.Models.Utitlity;
 using Src.Models.ViewData.Base;
 using System;
-using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -16,11 +14,11 @@ namespace Src.Controllers
 {
     public class AccountController : BaseController
     {
+        public AccountController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+
         #region variable
         Tbl_Customer Customer;
         #endregion
-
-        public AccountController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         [HttpGet, PublicAction]
         public ActionResult Index() => View(new ViewAccountVar());
@@ -33,7 +31,8 @@ namespace Src.Controllers
         {
             HttpCookie cookie = new HttpCookie("ALCustInfo")
             {
-                Expires = DateTime.Now.AddMonths(3)
+                Expires = DateTime.Now.AddMonths(3),
+                HttpOnly = true
             };
             cookie.Values.Add("Token", info.Token);
             cookie.Values.Add("Name", info.Name);
@@ -69,6 +68,15 @@ namespace Src.Controllers
             }
             #endregion
         }
+        void ClearToken()
+        {
+            if (ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("ALCustInfo"))
+            {
+                HttpCookie cookie = ControllerContext.HttpContext.Request.Cookies["ALCustInfo"];
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+            }
+        }
         #endregion
 
         #region login/register
@@ -92,7 +100,7 @@ namespace Src.Controllers
                     }
                     else
                     {
-                        ViewBag.Resualt = new Common.Result
+                        ViewBag.Result = new Common.Result
                         {
                             Message = message
                         };
@@ -101,9 +109,9 @@ namespace Src.Controllers
                 }
                 else
                 {
-                    ViewBag.Resualt = new Common.Result
+                    ViewBag.Result = new Common.Result
                     {
-                        Message = Common.ResultMessage.NotFound
+                        Message = "شماره موبایل یا رمزعبور اشتباه است"
                     };
                     return View();
                 }
@@ -115,6 +123,54 @@ namespace Src.Controllers
                 return View();
                 #endregion
             }
+        }
+        #endregion
+
+        #region logout
+        [HttpGet]
+        public async Task<ActionResult> Logout()
+        {
+            string token = ControllerContext.HttpContext.Request.Cookies["ALCustInfo"]?["Token"].ToString();
+            #region check token not null
+            if (token != null)
+            {
+                string hashToken = Function.GenerateHash(token);
+                #region get customer with token
+                Customer = await _unitOfWork.Customer.SingleAsync(item => item.Token == hashToken);
+                if (Customer != null)
+                {
+                    Customer.Token = null;
+                    await _unitOfWork.SaveAsync();
+                    try
+                    {
+                        ClearToken();
+                        ViewBag.RedirectPath = "/";
+                        return View();
+                    }
+                    catch (Exception)
+                    {
+                        ViewBag.Result = new Common.Result
+                        {
+                            Message = Common.ResultMessage.InternallServerError
+                        };
+                        return View();
+                    }
+                }
+                else
+                {
+                    ClearToken();
+                    ViewBag.RedirectPath = "/";
+                    return View();
+                }
+                #endregion
+            }
+            else
+            {
+                ClearToken();
+                ViewBag.RedirectPath = "/";
+                return View();
+            }
+            #endregion
         }
         #endregion
     }
