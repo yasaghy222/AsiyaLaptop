@@ -44,26 +44,26 @@
             $('#tblProc th.sorting_asc').removeClass("sorting_asc").attr("data-sort-type", "").addClass("sorting");
             $('#tblProc th[data-sort="0"]').removeClass("sorting").attr("data-sort-type", "false").addClass("sorting_desc");
         };
-        let url = getHost('Product/Get');
+        let url = getUrl('Product/Get');
         $.ajax({
             url: url,
             type: 'Get',
             data: tableVar,
-            success: function (Resualt) {
+            success: function (Result) {
                 NoRecords(false);
-                if (Resualt.Data.List.length > 0 && Resualt.Message == "Success") {
+                if (Result.Data.List.length > 0 && Result.Message == "Success") {
                     let source = $('#procSource').html(),
                         template = Handlebars.compile(source),
-                        list = template({ list: Resualt.Data.List });
+                        list = template({ list: Result.Data.List });
                     $('#tblProc tbody').html(list);
-                    count = Resualt.Data.Count;
-                    CreatePagingInfo(count, Resualt.Data.List.length, '#procInfo', TableVar);
+                    count = Result.Data.Count;
+                    CreatePagingInfo(count, Result.Data.List.length, '#procInfo', TableVar);
                 } else {
                     NoRecords(true);
                 }
             },
-            error: function (Resualt) {
-                notifiction(3, Resualt.Message);
+            error: function (Result) {
+                notifiction(3, Result.Message);
             }
         })
     }

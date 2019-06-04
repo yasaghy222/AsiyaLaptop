@@ -29,8 +29,8 @@ namespace Src.Models.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_PCPGroup> Tbl_PCPGroup1 { get; set; }
         public virtual Tbl_PCPGroup Tbl_PCPGroup2 { get; set; }
-        public virtual Tbl_ProcCat Tbl_ProcCat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_ProcProp> Tbl_ProcProp { get; set; }
+        public virtual Tbl_ProcCat Tbl_ProcCat { get; set; }
     }
 }

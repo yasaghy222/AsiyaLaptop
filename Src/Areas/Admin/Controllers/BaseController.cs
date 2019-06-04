@@ -18,17 +18,17 @@ namespace Src.Areas.Admin.Controllers
     public class BaseController : Controller
     {
         #region variable
-        protected Common.Result Resualt = null;
+        protected Common.Result Result = null;
         protected HttpClient Client = new HttpClient();
         protected HttpResponseMessage HttpResponse = null;
         #endregion
 
         #region general functions
-        protected Common.Result GetResualt()
+        protected Common.Result GetResult()
         {
             Task<string> data = HttpResponse.Content.ReadAsStringAsync();
-            Resualt = JsonConvert.DeserializeObject<Common.Result>(data.Result.ToString());
-            return Resualt;
+            Result = JsonConvert.DeserializeObject<Common.Result>(data.Result.ToString());
+            return Result;
         }
         #endregion
 

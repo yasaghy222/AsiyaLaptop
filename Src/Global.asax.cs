@@ -39,6 +39,13 @@ namespace Src
 
             Mapster.TypeAdapterConfig<Tbl_Product, Product.ViewTbl_Proc>.NewConfig()
                    .Map(dest => dest.FullDesc, src => HttpUtility.HtmlDecode(src.FullDesc));
+
+            Mapster.TypeAdapterConfig<Tbl_Product, Product.FullSearchResult>.NewConfig()
+                   .Map(dest => dest.Price, src => src.Price.SetCama())
+                   .Map(dest => dest.OffPrice, src => src.OffPrice.SetCama())
+                   .Map(dest => dest.Type, src => (EnumExtensions
+                                                   .GetEnumValue<Product.ProcType>(src.Type))
+                                                   .GetAttribute<DisplayAttribute>().Name);
             #endregion
 
             #region procBrand

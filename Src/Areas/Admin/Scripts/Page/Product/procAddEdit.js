@@ -87,16 +87,16 @@
                 frmProcData.append("Image", ProcImg[0].files[0]);
             }
 
-            let url = getHost("Product/AddEdit");
+            let url = getUrl("Product/AddEdit");
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: frmProcData,
                 processData: false,
                 contentType: false,
-                success: function (Resualt) {
-                    if (Resualt.Message == "Success") {
-                        ProcID.val(Resualt.Data);
+                success: function (Result) {
+                    if (Result.Message == "Success") {
+                        ProcID.val(Result.Data);
                         finishAnimate(".tab-content");
                         btnSaveOnOff();
                         notifiction(0, "عمیات با موفقیت انجام شد.");
@@ -104,13 +104,13 @@
                             pageLoad('/Admin/Product', 'لیست محصولات', 'procList');
                         }
                     } else {
-                        notifiction(1, Resualt.Message);
+                        notifiction(1, Result.Message);
                         finishAnimate(".tab-content");
                     }
                 },
-                error: function (Resualt) {
+                error: function (Result) {
                     finishAnimate(".tab-content");
-                    notifiction(1, Resualt.Message);
+                    notifiction(1, Result.Message);
                 }
             });
         }
@@ -153,31 +153,31 @@
         };
 
     function ImgList() {
-        let url = getHost("Product/ImgList", "?procID=" + ProcID.val() + "");
+        let url = getUrl("Product/ImgList", "?procID=" + ProcID.val() + "");
         $.ajax({
             url: url,
             type: "Get",
             data: ProcID,
-            success: (Resualt) => {
-                if (Resualt.Message == "Success") {
-                    if (Resualt.Data.length > 0) {
+            success: (Result) => {
+                if (Result.Message == "Success") {
+                    if (Result.Data.length > 0) {
                         NoRecords(false);
                         let source = $('#procImgSource').html(),
                             template = Handlebars.compile(source),
-                            list = template({ list: Resualt.Data });
+                            list = template({ list: Result.Data });
                         $('#tblProcImg tbody').html(list);
-                        $("#Imgs #count").html(Resualt.Data.length + " مورد ");
+                        $("#Imgs #count").html(Result.Data.length + " مورد ");
                     }
                     else {
                         NoRecords(true);
                     }
                 }
                 else {
-                    notifiction(1, Resualt.Message);
+                    notifiction(1, Result.Message);
                 }
             },
-            error: (Resualt) => {
-                notifiction(1, Resualt.Message);
+            error: (Result) => {
+                notifiction(1, Result.Message);
             }
         });
     }
@@ -221,27 +221,27 @@
                 frmProcImgData.append("Image", ProcImgs[0].files[0]);
             }
 
-            let url = getHost("Product/AddEditImg");
+            let url = getUrl("Product/AddEditImg");
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: frmProcImgData,
                 processData: false,
                 contentType: false,
-                success: function (Resualt) {
-                    if (Resualt.Message == "Success") {
+                success: function (Result) {
+                    if (Result.Message == "Success") {
                         finishAnimate("#addEditImg .modal-content");
                         notifiction(0, "عمیات با موفقیت انجام شد.");
                         modal.modal("hide");
                         ImgList();
                     } else {
-                        notifiction(1, Resualt.Message);
+                        notifiction(1, Result.Message);
                         finishAnimate("#addEditImg .modal-content");
                     }
                 },
-                error: function (Resualt) {
+                error: function (Result) {
                     finishAnimate("#addEditImg .modal-content");
-                    notifiction(1, Resualt.Message);
+                    notifiction(1, Result.Message);
                 }
             });
         }
@@ -259,15 +259,15 @@
             closeOnCancel: true
         }, (isConfirm) => {
             if (isConfirm) {
-                let url = getHost("Product/DelImg");
+                let url = getUrl("Product/DelImg");
                 $.ajax({
                     url: url,
                     type: 'POST',
                     data: id,
                     processData: false,
                     contentType: "application/json",
-                    success: function (Resualt) {
-                        if (Resualt.Message == "Success") {
+                    success: function (Result) {
+                        if (Result.Message == "Success") {
                             ImgList();
                             swal({
                                 title: "عملیات حذف انجام شد .",
@@ -278,11 +278,11 @@
                             });
                         }
                         else {
-                            notifiction(1, Resualt.Message);
+                            notifiction(1, Result.Message);
                         }
                     },
-                    error: function (Resualt) {
-                        notifiction(1, Resualt.Message);
+                    error: function (Result) {
+                        notifiction(1, Result.Message);
                     }
                 });
             }
@@ -321,7 +321,7 @@
     let ProcPropList = {};
     function PropList(pid) {
         if (pid == undefined) {
-            let url = getHost("Product/PropList/", `?procOp=${ProcID.val()}&catID=${$("#FrmProc #CatID[checked='checked']").val()}`);
+            let url = getUrl("Product/PropList/", `?procOp=${ProcID.val()}&catID=${$("#FrmProc #CatID[checked='checked']").val()}`);
             $.ajax({
                 url: url,
                 type: "Get",
@@ -329,11 +329,11 @@
                     procID: ProcID.val(),
                     catId: $("#FrmProc #CatID[checked='checked']").val()
                 },
-                success: (Resualt) => {
-                    if (Resualt.Message == "Success") {
-                        if (Resualt.Data.length > 0) {
+                success: (Result) => {
+                    if (Result.Message == "Success") {
+                        if (Result.Data.length > 0) {
                             NoRecords(false);
-                            ProcPropList = Resualt.Data;
+                            ProcPropList = Result.Data;
                             let source = $('#procPropSource').html(),
                                 template = Handlebars.compile(source),
                                 parentList = $.grep(ProcPropList, (item) => {
@@ -347,11 +347,11 @@
                         }
                     }
                     else {
-                        notifiction(1, Resualt.Message);
+                        notifiction(1, Result.Message);
                     }
                 },
-                error: (Resualt) => {
-                    notifiction(1, Resualt.Message);
+                error: (Result) => {
+                    notifiction(1, Result.Message);
                 }
             });
         }
@@ -382,15 +382,15 @@
             closeOnCancel: false
         }, (isConfirm) => {
             if (isConfirm) {
-                let url = getHost("Product/EditProp");
+                let url = getUrl("Product/EditProp");
                 $.ajax({
                     url: url,
                     type: 'POST',
                     data: JSON.stringify(model),
                     processData: false,
                     contentType: "application/json",
-                    success: function (Resualt) {
-                        if (Resualt.Message == "Success") {
+                    success: function (Result) {
+                        if (Result.Message == "Success") {
                             swal({
                                 title: "عملیات ویرایش انجام شد .",
                                 text: "رکورد مد نظر شما با موفقیت ویرایش گردید .",
@@ -400,11 +400,11 @@
                             });
                         }
                         else {
-                            notifiction(1, Resualt.Message);
+                            notifiction(1, Result.Message);
                         }
                     },
-                    error: function (Resualt) {
-                        notifiction(1, Resualt.Message);
+                    error: function (Result) {
+                        notifiction(1, Result.Message);
                     }
                 });
             }

@@ -1,4 +1,5 @@
-﻿using Src.Models.Data;
+﻿using Mapster;
+using Src.Models.Data;
 using Src.Models.ViewData.Base;
 using Src.Models.ViewData.Table;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Hosting;
@@ -223,7 +225,148 @@ namespace Src.Models.Utitlity
 
             return Item;
         }
+
+        /// <summary>
+        /// دریافت آدرس جستجوی محصولات
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="brand"></param>
+        /// <param name="minprice"></param>
+        /// <param name="maxprice"></param>
+        /// <param name="filter"></param>
+        /// <param name="pageno"></param>
+        /// <param name="sortby"></param>
+        /// <returns></returns>
+        public static string GetSearchLink(Product.SearchParam searchParam)
+        {
+            string url = "/Search?";
+
+            #region category
+            url += searchParam.Category != "" ? $"category={searchParam.Category}" : "";
+            #endregion
+
+            #region brand
+            url += searchParam.Brand != "" ? $"&brand={searchParam.Brand}" : "";
+            #endregion
+
+            #region price
+            url += searchParam.MinPrice != 0 ? $"&minprice={searchParam.MinPrice}" : "";
+            url += searchParam.MaxPrice != 0 ? $"&maxprice={searchParam.MaxPrice}" : "";
+            #endregion
+
+            #region filter
+            url += searchParam.Filter != "" ? $"&filter={searchParam.Filter}" : "";
+            #endregion
+
+            #region pageno
+            url += searchParam.PageNo != 1 ? $"&pageno={searchParam.PageNo}" : "";
+            #endregion
+
+            #region sortby
+            url += searchParam.SortBy != 0 ? $"&sortby={searchParam.SortBy}" : "";
+            #endregion
+
+            url = url.Length == 8 ? url.Substring(0, 7) : url;
+            return url;
+        }
         #endregion
+
+        /// <summary>
+        /// get single category of products
+        /// </summary>
+        /// <param name="searchParam"></param>
+        /// <param name="catTitle"></param>
+        /// <returns></returns>
+        public static async Task<Product.Cat> GetCat(Product.SearchParam searchParam, string catTitle = null)
+        {
+            catTitle = catTitle ?? searchParam.Category;
+            using (ALDBEntities aLDB = new ALDBEntities())
+            {
+                int catID = await Task.Run(() => aLDB.Tbl_ProcCat.Single(x => x.Title == catTitle || x.EnTitle == catTitle).ID);
+                var ChildList = await Task.Run(() => aLDB.Tbl_ProcCat.Where(x => x.PID == catID).ToList());
+                searchParam.Category = searchParam.Category.SubStrFirst(catTitle);
+                return new Product.Cat
+                {
+                    ID = catID,
+                    Title = catTitle,
+                    PID = catTitle ?? searchParam.Category.SubStrFirst(catTitle).Split('-')[0],
+                    ChildList = ChildList.Adapt<List<Common.Tree>>(),
+                    Link = GetSearchLink(searchParam)
+                };
+            }
+        }
+
+        /// <summary>
+        /// get search product category list
+        /// </summary>
+        /// <param name="searchParam"></param>
+        /// <returns></returns>
+        public static async Task<List<Product.Cat>> GetCatList(Product.SearchParam searchParam)
+        {
+            List<Product.Cat> catList = null;
+            if (searchParam.Category != "")
+            {
+                catList = new List<Product.Cat>();
+                string[] cats = searchParam.Category.Contains("-") ? searchParam.Category.Split('-') : null;
+                if (cats != null)
+                {
+                    foreach (string item in cats)
+                    {
+                        if (searchParam.Category.SubStrLast(item) == "")
+                        {
+                            catList.Add(await GetCat(searchParam, item));
+                        }
+                        else
+                        {
+                            searchParam.Category = searchParam.Category.SubStrFirst(item);
+                            Product.Cat cat = new Product.Cat
+                            {
+                                ID = 0,
+                                Title = item,
+                                PID = searchParam.Category.SubStrFirst(item).Split('-')[0],
+                                ChildList = null,
+                                Link = GetSearchLink(searchParam)
+                            };
+                            catList.Add(cat);
+                        }
+                    }
+                }
+                else
+                {
+                    catList.Add(await GetCat(searchParam));
+                }
+            }
+            return catList;
+        }
+
+        public static string GetSearchCat(Product.SearchParam searchParam)
+        {
+            string cat = "<li><a href='/'>فروشگاه لپتاپ آسیا</a></li>";
+            if (searchParam.Category != null)
+            {
+                string[] catList = searchParam.Category?.Split('-');
+                if (catList != null)
+                {
+                    #region draw cat multi
+                    byte i = 0;
+                    for (i = 0; i < catList.Length - 1; i++)
+                    {
+                        searchParam.Category = searchParam.Category.SubStrFirst(catList[i]);
+                        string url = GetSearchLink(searchParam);
+                        cat += $"<li class='separator'>&nbsp;</li><li><a href='{url}{catList[i]}'>{catList[i]}</a></li>";
+                    }
+                    cat += $"<li class='separator'>&nbsp;</li><li>{catList[i++]}</li>";
+                    #endregion
+                }
+                else
+                {
+                    string url = GetSearchLink(searchParam);
+                    cat += $"<li class='separator'>&nbsp;</li><li><a href='{url}'>{searchParam.Category}</a></li>";
+                }
+            }
+
+            return cat;
+        }
     }
 
     public static class GenericFunction<T> where T : class

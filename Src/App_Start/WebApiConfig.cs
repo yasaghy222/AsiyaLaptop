@@ -14,9 +14,9 @@ namespace Src
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/v1/{controller}/{action}/{token}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                "DefaultApi",
+                "api/v1/{controller}/{action}/{token}/{id}",
+                new { id = RouteParameter.Optional }
             );
         }
     }

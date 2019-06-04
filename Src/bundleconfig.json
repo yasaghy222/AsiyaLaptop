@@ -16,5 +16,17 @@
     "inputFiles": [
       "Content/css/vendor.css"
     ]
+  },
+  {
+    "outputFileName": "Areas/Admin/Scripts/Core/handlebars-v4.0.5.min.js",
+    "inputFiles": [
+      "Areas/Admin/Scripts/Core/handlebars-v4.0.5.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Js/vendor.min.min.js",
+    "inputFiles": [
+      "Scripts/Js/vendor.min.js"
+    ]
   }
 ]

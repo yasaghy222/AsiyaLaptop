@@ -25,7 +25,7 @@
         <!-- Topbar-->
         <div class="topbar d-flex justify-content-between">
             <!-- Logo-->
-            <div class="site-branding d-flex"><a class="site-logo align-self-center" href="index.html"><img src="~/Content/Images//logo/logo.png" alt="Unishop"></a></div>
+            <div class="site-branding d-flex"><a class="site-logo align-self-center" href="/"><img src="~/Content/Images//logo/logo.png" alt="Unishop"></a></div>
             @Html.Partial("~/Views/Partials/General/ToolBar.cshtml")
         </div>
         <!-- Navbar-->
@@ -85,6 +85,20 @@
     <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
     <script src="~/Scripts/Js/vendor.min.js"></script>
     <script src="~/Scripts/Js/scripts.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(() => {
+            let resualt = @Html.Raw(Json.Encode(ViewBag.Result));
+            if (resualt != null) {
+                if (resualt.Message == "Success") {
+                    notify('success', 'موفقیت!', resualt.Message);
+                }
+                else
+                {
+                    notify('danger', 'خطا!', resualt.Message);
+                }
+            }
+        });
+    </script>
     @RenderSection("Scripts", false)
 </body>
 </html>

@@ -2,28 +2,13 @@
 <div class="search-box-wrap d-flex">
     <div class="search-box-inner align-self-center">
         <div class="search-box d-flex">
-            <div class="btn-group categories-btn">
-                <div class="dropdown-menu mega-dropdown">
-                    <div class="row">
-                        <div class="col-sm-3"><a class="d-block navi-link text-center mb-30" href="shop-grid-ls.html"><img class="d-block" src="~/Content/Images//shop/header-categories/01.jpg"><span class="text-gray-dark">کامپیوتر ، لوازم جانبی</span></a></div>
-                        <div class="col-sm-3"><a class="d-block navi-link text-center mb-30" href="shop-grid-ls.html"><img class="d-block" src="~/Content/Images//shop/header-categories/02.jpg"><span class="text-gray-dark"> موبایل ، تبلت</span></a></div>
-                        <div class="col-sm-3"><a class="d-block navi-link text-center mb-30" href="shop-grid-ls.html"><img class="d-block" src="~/Content/Images//shop/header-categories/03.jpg"><span class="text-gray-dark">تلوزیون ، پخش کننده خانگی</span></a></div>
-                        <div class="col-sm-3"><a class="d-block navi-link text-center mb-30" href="shop-grid-ls.html"><img class="d-block" src="~/Content/Images//shop/header-categories/04.jpg"><span class="text-gray-dark">دوربین</span></a></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3"><a class="d-block navi-link text-center mb-30" href="shop-grid-ls.html"><img class="d-block" src="~/Content/Images//shop/header-categories/05.jpg"><span class="text-gray-dark">هدفون ، هنسفری</span></a></div>
-                        <div class="col-sm-3"><a class="d-block navi-link text-center mb-30" href="shop-grid-ls.html"><img class="d-block" src="~/Content/Images//shop/header-categories/06.jpg"><span class="text-gray-dark">ساعت هوشمند</span></a></div>
-                        <div class="col-sm-3"><a class="d-block navi-link text-center mb-30" href="shop-grid-ls.html"><img class="d-block" src="~/Content/Images//shop/header-categories/07.jpg"><span class="text-gray-dark">پرینتر ، اسکنر</span></a></div>
-                        <div class="col-sm-3"><a class="d-block navi-link text-center mb-30" href="shop-grid-ls.html"><img class="d-block" src="~/Content/Images//shop/header-categories/08.jpg"><span class="text-gray-dark">کنسول و بازی</span></a></div>
-                    </div>
-                </div>
-            </div>
-            <form class="input-group" method="get">
+            <form class="input-group" action="/Product/" method="post">
                 <span class="input-group-btn">
                     <button type="submit"><i class="icon-search"></i></button>
                 </span>
-                <input class="form-control" type="search" placeholder="جستجو ...">
+                <input id="search-input" class="form-control" type="text" placeholder="جستجو ..." autocomplete="off">
             </form>
+            <div class="search-result-box"></div>
         </div>
     </div>
 </div>
@@ -46,40 +31,49 @@
             var data = Request.Cookies["ALCustInfo"].Values;
             <a><div><i class="icon-chevron-down"></i><span class="text-label">@data.Get("Name") @data.Get("Family")</span></div></a>
             <ul class="toolbar-dropdown">
-                <li><a href="#"><i class="icon-user"></i>پروفایل</a></li>
-                <li><a href="#"><i class="icon-shopping-bag"></i>سفارش های من</a></li>
+                <li><a href="/Account/Profile"><i class="icon-user"></i>پروفایل</a></li>
+                <li><a href="/Account/Order"><i class="icon-shopping-bag"></i>سفارش های من</a></li>
                 <li><hr></li>
                 <li><a href="/Account/Logout"><i class="icon-log-out"></i>خروج از حساب کاربری</a></li>
             </ul>
         }
     </div>
     <div class="toolbar-item">
-        <a href="cart.html">
-            <div><span class="cart-icon"><i class="icon-shopping-cart"></i><span class="count-label">3   </span></span><span class="text-label">سبد خرید</span></div>
-        </a>
-        <div class="toolbar-dropdown cart-dropdown widget-cart hidden-on-mobile">
-            <!-- Entry-->
-            <div class="entry">
-                <div class="entry-thumb"><a href="shop-single.html"><img src="~/Content/Images//shop/widget/06.jpg" alt="Product"></a></div>
-                <div class="entry-content">
-                    <h4 class="entry-title"><a href="shop-single.html" lang="en">پرینتر لیزر جت پرو اچ‌پی</a></h4><span class="entry-meta">1 عدد | 1،500،000 تومان</span>
+        @if (Request.Cookies.Get("ALCustInfo") == null)
+        {
+            <a href="/Account">
+                <div><span class="cart-icon"><i class="icon-shopping-cart"></i></span><span class="text-label">سبد خرید</span></div>
+            </a>
+        }
+        else
+        {
+            <a href="Account/Card">
+                <div><span class="cart-icon"><i class="icon-shopping-cart"></i><span class="count-label">3   </span></span><span class="text-label">سبد خرید</span></div>
+            </a>
+            <div class="toolbar-dropdown cart-dropdown widget-cart hidden-on-mobile">
+                <!-- Entry-->
+                <div class="entry">
+                    <div class="entry-thumb"><a href="shop-single.html"><img src="~/Content/Images//shop/widget/06.jpg" alt="Product"></a></div>
+                    <div class="entry-content">
+                        <h4 class="entry-title"><a href="shop-single.html" lang="en">پرینتر لیزر جت پرو اچ‌پی</a></h4><span class="entry-meta">1 عدد | 1،500،000 تومان</span>
+                    </div>
+                    <div class="entry-delete"><i class="icon-x-circle"></i></div>
                 </div>
-                <div class="entry-delete"><i class="icon-x-circle"></i></div>
+                <div class="text-center">
+                    <p class="text-gray-dark py-2 mb-0"><span class='text-muted'>جمع کل :</span> 1،500،000 تومان &nbsp;</p>
+                </div>
+                <div class="d-flex">
+                    <div class="w-400"><a class="btn btn-secondary btn-sm btn-block mb-0" href="cart.html">مشاهد سبد خرید</a></div>
+                </div>
             </div>
-            <div class="text-center">
-                <p class="text-gray-dark py-2 mb-0"><span class='text-muted'>جمع کل :</span> 1،500،000 تومان &nbsp;</p>
-            </div>
-            <div class="d-flex">
-                <div class="w-400"><a class="btn btn-secondary btn-sm btn-block mb-0" href="cart.html">مشاهد سبد خرید</a></div>
-            </div>
-        </div>
+        }
     </div>
 </div>
 <!-- Mobile Menu-->
 <div class="mobile-menu">
     <!-- Search Box-->
     <div class="mobile-search">
-        <form class="input-group" method="get">
+        <form class="input-group" action="/Home/Search" method="post">
             <span class="input-group-btn">
                 <button type="submit"><i class="icon-search"></i></button>
             </span>
@@ -89,9 +83,23 @@
     <!-- Toolbar-->
     <div class="toolbar">
         <div class="toolbar-item">
-            <a href="account-login.html">
-                <div><i class="icon-user"></i><span class="text-label">ورود / ثبت نام</span></div>
-            </a>
+            @if (Request.Cookies.Get("ALCustInfo") == null)
+            {
+                <a href="/Account">
+                    <div><i class="icon-user"></i><span class="text-label">ورود / ثبت نام</span></div>
+                </a>
+            }
+            else
+            {
+                var data = Request.Cookies["ALCustInfo"].Values;
+                <a><div><i class="icon-chevron-down"></i><span class="text-label">@data.Get("Name") @data.Get("Family")</span></div></a>
+                <ul class="toolbar-dropdown">
+                    <li><a href="/Account/Profile"><i class="icon-user"></i>پروفایل</a></li>
+                    <li><a href="/Account/Order"><i class="icon-shopping-bag"></i>سفارش های من</a></li>
+                    <li><hr></li>
+                    <li><a href="/Account/Logout"><i class="icon-log-out"></i>خروج از حساب کاربری</a></li>
+                </ul>
+            }
         </div>
     </div>
     <!-- Slideable (Mobile) Menu-->

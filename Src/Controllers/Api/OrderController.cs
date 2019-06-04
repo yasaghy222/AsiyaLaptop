@@ -28,8 +28,8 @@ namespace Src.Controllers.Api
             Data = _unitOfWork.Factor.OrderList(tableVar);
             if (Data != null)
             {
-                Resualt.Message = Common.ResultMessage.OK;
-                Resualt.Data = new
+                Result.Message = Common.ResultMessage.OK;
+                Result.Data = new
                 {
                     List = Data,
                     Count = await _unitOfWork.Factor.GetCountAsync()
@@ -37,9 +37,9 @@ namespace Src.Controllers.Api
             }
             else
             {
-                Resualt.Message = Common.ResultMessage.InternallServerError;
+                Result.Message = Common.ResultMessage.InternallServerError;
             }
-            return Resualt;
+            return Result;
         }
 
         [HttpGet]
@@ -49,14 +49,14 @@ namespace Src.Controllers.Api
 
             if (Data != null)
             {
-                Resualt.Message = Common.ResultMessage.OK;
-                Resualt.Data = Data;
+                Result.Message = Common.ResultMessage.OK;
+                Result.Data = Data;
             }
             else
             {
-                Resualt.Message = Common.ResultMessage.InternallServerError;
+                Result.Message = Common.ResultMessage.InternallServerError;
             }
-            return Resualt;
+            return Result;
         }
 
         [HttpPost]
@@ -71,23 +71,23 @@ namespace Src.Controllers.Api
                     try
                     {
                         await _unitOfWork.SaveAsync();
-                        Resualt.Message = Common.ResultMessage.OK;
+                        Result.Message = Common.ResultMessage.OK;
                     }
                     catch (Exception)
                     {
-                        Resualt.Message = Common.ResultMessage.InternallServerError;
+                        Result.Message = Common.ResultMessage.InternallServerError;
                     }
                 }
                 else
                 {
-                    Resualt.Message = Common.ResultMessage.NotFound;
+                    Result.Message = Common.ResultMessage.NotFound;
                 }
             }
             else
             {
-                Resualt.Message = Common.ResultMessage.BadRequest;
+                Result.Message = Common.ResultMessage.BadRequest;
             }
-            return Resualt;
+            return Result;
         }
         #endregion
     }

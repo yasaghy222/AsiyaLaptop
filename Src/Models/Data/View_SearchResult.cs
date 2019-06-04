@@ -12,19 +12,27 @@ namespace Src.Models.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_ProcBrand
+    public partial class View_SearchResult
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tbl_ProcBrand()
+        public View_SearchResult()
         {
-            this.Tbl_Product = new HashSet<Tbl_Product>();
+            this.Tbl_ProcProp = new HashSet<Tbl_ProcProp>();
         }
-    
+
         public int ID { get; set; }
         public string Title { get; set; }
-        public string EnTitle { get; set; }
-    
+        public string ShortDesc { get; set; }
+        public byte Rate { get; set; }
+        public long Price { get; set; }
+        public long OffPrice { get; set; }
+        public Nullable<int> OffID { get; set; }
+        public string BrandName { get; set; }
+        public string CatName { get; set; }
+        public Nullable<int> VisitCount { get; set; }
+        public byte Type { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_Product> Tbl_Product { get; set; }
+        public virtual ICollection<Tbl_ProcProp> Tbl_ProcProp { get; set; }
     }
 }

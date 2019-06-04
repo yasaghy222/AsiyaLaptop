@@ -15,12 +15,11 @@ namespace Src.Models.Service.Repository
 
         #region variable
         protected ALDBEntities Context { get; set; }
-        protected DbSet<T> Dbset { get; set; }
-        protected Expression<Func<T, long>> OrderByL { get; set; } = null;
-        protected Expression<Func<T, byte>> OrderByB { get; set; } = null;
-        protected Expression<Func<T, object>> OrderBy { get; set; } = null;
-        protected Func<IQueryable<T>, IOrderedQueryable<T>> Order { get; set; } = null;
-        protected IQueryable<T> Query { get; set; } = null;
+        protected DbSet<T> Dbset;
+        protected IQueryable<T> Query = null;
+        protected Expression<Func<T, bool>> Where = null;
+        protected Expression<Func<T, object>> OrderBy = null;
+        protected Func<IQueryable<T>, IOrderedQueryable<T>> Order  = null;
         #endregion
 
         public GenericRepository(ALDBEntities context)
@@ -65,30 +64,6 @@ namespace Src.Models.Service.Repository
 
             return query.ToList();
         }
-        public async Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> where = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderby = null, string includes = "")
-        {
-            IQueryable<T> query = Dbset;
-
-            if (where != null)
-            {
-                query = query.Where(where);
-            }
-
-            if (orderby != null)
-            {
-                query = orderby(query);
-            }
-
-            if (includes != "")
-            {
-                foreach (string include in includes.Split(','))
-                {
-                    query = query.Include(include);
-                }
-            }
-
-            return await query.ToListAsync();
-        }
         public IEnumerable<T> Get(Common.TableVar tableVar)
         {
             string query = "";
@@ -123,6 +98,30 @@ namespace Src.Models.Service.Repository
             #endregion
 
             return Data;
+        }
+        public async Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> where = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderby = null, string includes = "")
+        {
+            IQueryable<T> query = Dbset;
+
+            if (where != null)
+            {
+                query = query.Where(where);
+            }
+
+            if (orderby != null)
+            {
+                query = orderby(query);
+            }
+
+            if (includes != "")
+            {
+                foreach (string include in includes.Split(','))
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return await query.ToListAsync();
         }
         public async Task<IEnumerable<T>> GetAsync(Common.TableVar tableVar)
         {

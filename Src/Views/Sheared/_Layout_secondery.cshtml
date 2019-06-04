@@ -31,7 +31,7 @@
     </div>
     <hr class="hr-light mt-2 margin-bottom-2x hidden-md-down">
     <!-- Site Footer-->
-    <footer class="text-center p-3 fixed-bottom" style="background-image: url(../../Content/Images/404-bg.png);" dir="rtl">
+    <footer class="text-center p-3" style="background-image: url(../../Content/Images/404-bg.png);" dir="rtl">
         <div class="container">
             <!-- Copyright-->
             <p class="footer-copyright text-muted"> © تمامی حقوق برای فروشگاه لپتاپ آسیا محفوظ است .</p>
@@ -44,7 +44,9 @@
         $(document).ready(() => {
             let resualt = @Html.Raw(Json.Encode(ViewBag.Result));
             if (resualt != null) {
-                if (resualt.Message != "Success") {
+                if (resualt.Message == "Success") {
+                    notify('success', 'موفقیت!', resualt.Message);
+                } else {
                     notify('danger', 'خطا!', resualt.Message);
                 }
             }

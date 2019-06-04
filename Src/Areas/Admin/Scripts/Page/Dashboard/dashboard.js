@@ -13,10 +13,10 @@ function TopOrders() {
     $.ajax({
         url: '/Base/TopOrders',
         type: 'POST',
-        success: function (Resualt) {
+        success: function (Result) {
             var source = $('#topOrderSource').html();
             var template = Handlebars.compile(source);
-            var list = template({ orderList: Resualt });
+            var list = template({ orderList: Result });
             $('#tbl-TopOrder tbody').html(list);
         },
         error: function () {

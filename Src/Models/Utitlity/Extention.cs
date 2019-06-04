@@ -181,9 +181,25 @@ namespace Src.Models.Utitlity
         public static T DeserializeJson<T>(this object value)
         {
             string Temp = JsonConvert.SerializeObject(value);
-            T Resualt = JsonConvert.DeserializeObject<T>(Temp);
-            return Resualt;
+            T Result = JsonConvert.DeserializeObject<T>(Temp);
+            return Result;
         }
+
+        /// <summary>
+        /// substring from beginning of the string to custom word position
+        /// </summary>
+        /// <param name="str">string</param>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public static string SubStrFirst(this string str, string word) => str.Substring(0, str.IndexOf(word));
+
+        /// <summary>
+        /// substring from custom word position to end of the string
+        /// </summary>
+        /// <param name="str">string</param>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public static string SubStrLast(this string str, string word) => str.Substring(str.IndexOf(word));
         #endregion
 
         #region datetime and calender

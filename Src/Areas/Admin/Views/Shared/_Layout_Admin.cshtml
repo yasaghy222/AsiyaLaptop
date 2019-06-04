@@ -121,7 +121,7 @@
         function HtmlDecode(target) {
             return target.html(target.val()).text();
         }
-        function getHost(path, id) {
+        function getUrl(path, id) {
             let temp = window.location.origin + "/Api/V1/" + path + "/" + $("#token").val();
             if (id != undefined) {
                 temp += id;

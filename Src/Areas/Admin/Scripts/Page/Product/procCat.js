@@ -6,13 +6,13 @@
     //#region Functions
     function CatList(pid) {
         if (pid == undefined) {
-            let url = getHost("Product/CatList");
+            let url = getUrl("Product/CatList");
             $.ajax({
                 url: url,
                 type: "Get",
-                success: (Resualt) => {
-                    if (Resualt.Message == "Success") {
-                        ProcCatList = Resualt.Data;
+                success: (Result) => {
+                    if (Result.Message == "Success") {
+                        ProcCatList = Result.Data;
                         let source = $('#procCatSource').html(),
                             template = Handlebars.compile(source),
                             parentList = $.grep(ProcCatList, (item) => {
@@ -22,11 +22,11 @@
                         $('#TblProcCat tbody').html(list);
                     }
                     else {
-                        notifiction(1, Resualt.Message);
+                        notifiction(1, Result.Message);
                     }
                 },
-                error: (Resualt) => {
-                    notifiction(1, Resualt.Message);
+                error: (Result) => {
+                    notifiction(1, Result.Message);
                 }
             });
         }
@@ -53,15 +53,15 @@
             closeOnCancel: true
         }, (isConfirm) => {
             if (isConfirm) {
-                let url = getHost("Product/DelCat");
+                let url = getUrl("Product/DelCat");
                 $.ajax({
                     url: url,
                     type: 'POST',
                     data: id,
                     processData: false,
                     contentType: "application/json",
-                    success: function (Resualt) {
-                        if (Resualt.Message == "Success") {
+                    success: function (Result) {
+                        if (Result.Message == "Success") {
                             CatList();
                             swal({
                                 title: "عملیات حذف انجام شد .",
@@ -72,11 +72,11 @@
                             });
                         }
                         else {
-                            notifiction(1, Resualt.Message);
+                            notifiction(1, Result.Message);
                         }
                     },
-                    error: function (Resualt) {
-                        notifiction(1, Resualt.Message);
+                    error: function (Result) {
+                        notifiction(1, Result.Message);
                     }
                 });
             }

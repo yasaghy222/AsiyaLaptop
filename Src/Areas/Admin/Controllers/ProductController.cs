@@ -26,8 +26,8 @@ namespace Src.Areas.Admin.Controllers
             HttpResponse = Client.GetAsync($"Product/Detail/{Function.GetAdminInfo(Request).Token}?id={id}").Result;
             if (HttpResponse.IsSuccessStatusCode)
             {
-                Resualt = GetResualt();
-                Product = Resualt.Data.DeserializeJson<Product.ViewTbl_Proc>();
+                Result = GetResult();
+                Product = Result.Data.DeserializeJson<Product.ViewTbl_Proc>();
             }
             else
             {
@@ -47,8 +47,8 @@ namespace Src.Areas.Admin.Controllers
             HttpResponse = Client.GetAsync($"Product/CatDetail/{Function.GetAdminInfo(Request).Token}?id={id}").Result;
             if (HttpResponse.IsSuccessStatusCode)
             {
-                Resualt = GetResualt();
-                ProcCat = Resualt.Data.DeserializeJson<Product.ViewTbl_ProcCat>();
+                Result = GetResult();
+                ProcCat = Result.Data.DeserializeJson<Product.ViewTbl_ProcCat>();
             }
             else
             {

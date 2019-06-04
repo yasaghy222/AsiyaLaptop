@@ -1,7 +1,6 @@
 ﻿using Mapster;
 using Src.Models.Service.Repository;
 using Src.Models.ViewData.Base;
-using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net.Http;
@@ -10,7 +9,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using static Src.Models.ViewData.Table.Admin;
 
 namespace Src.Controllers.Api
 {
@@ -22,7 +20,7 @@ namespace Src.Controllers.Api
         protected object Data;
         protected IUnitOfWork _unitOfWork;
         protected NameValueCollection FormData;
-        protected Common.Result Resualt = new Common.Result();
+        protected Common.Result Result = new Common.Result();
         #endregion
 
         public BaseApiController(IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
@@ -36,7 +34,7 @@ namespace Src.Controllers.Api
                 bool status = true;
                 if (status)
                 {
-                    return Resualt = new Common.Result
+                    return Result = new Common.Result
                     {
                         Message = Common.ResultMessage.OK,
                         Data = 12
@@ -44,7 +42,7 @@ namespace Src.Controllers.Api
                 }
                 else
                 {
-                    return Resualt = new Common.Result
+                    return Result = new Common.Result
                     {
                         Message = Common.ResultMessage.AccountIsBlock,
                     };
@@ -52,7 +50,7 @@ namespace Src.Controllers.Api
             }
             else
             {
-                return Resualt = new Common.Result
+                return Result = new Common.Result
                 {
                     Message = Common.ResultMessage.NotFound
                 };
@@ -60,7 +58,7 @@ namespace Src.Controllers.Api
         }
         Common.Result HasPermisstion(int roleID, string action, string controller)
         {
-            return Resualt = new Common.Result
+            return Result = new Common.Result
             {
                 Message = Common.ResultMessage.OK
             };
@@ -83,11 +81,11 @@ namespace Src.Controllers.Api
                 {
                     Task<string> Temp = controllerContext.Request.Content.ReadAsStringAsync();
                     string tempResult = Temp.Result.ToString();
-                    return tempResult != "" ? System.Web.Helpers.Json.Decode(Temp.Result.ToString()) : Resualt;
+                    return tempResult != "" ? System.Web.Helpers.Json.Decode(Temp.Result.ToString()) : Result;
                 }
                 else
                 {
-                    return Resualt = new Common.Result
+                    return Result = new Common.Result
                     {
                         Message = Common.ResultMessage.InternallServerError
                     };
@@ -103,17 +101,17 @@ namespace Src.Controllers.Api
             else
             {
                 #region authorize
-                Resualt = IsAuthorize(Token);
-                if (Resualt.Message == Common.ResultMessage.OK)
+                Result = IsAuthorize(Token);
+                if (Result.Message == Common.ResultMessage.OK)
                 {
                     #region check permission
-                    Resualt = HasPermisstion((int)Resualt.Data, Action, Controller);
-                    Data = Resualt.Message == Common.ResultMessage.OK ? GetResponse() : Resualt;
+                    Result = HasPermisstion((int)Result.Data, Action, Controller);
+                    Data = Result.Message == Common.ResultMessage.OK ? GetResponse() : Result;
                     #endregion
                 }
                 else
                 {
-                    Data = Resualt;
+                    Data = Result;
                 }
                 #endregion
             }

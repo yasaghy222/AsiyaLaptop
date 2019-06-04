@@ -25,7 +25,7 @@ namespace Src.Models.ViewData.Base
             public const string TokenExpire = " کاربر گرامی ، شناسه کاربری شما منقضی شده است.";
         }
 
-        public static List<string> ImgValidType { get; } = new List<string>
+        public static List<string> ImgValidType = new List<string>
         {
             "image/png",
             "image/jpg",
@@ -39,7 +39,7 @@ namespace Src.Models.ViewData.Base
             {
                 PageIndex = 1;
                 PageSize = 10;
-                OrderBy = "first";
+                OrderBy = "";
                 OrderType = "desc";
                 Includes = null;
             }
@@ -64,7 +64,7 @@ namespace Src.Models.ViewData.Base
         public class Tree
         {
             public int ID { get; set; }
-            public int? PID { get; set; }
+            public object PID { get; set; }
             public string Title { get; set; }
         }
 

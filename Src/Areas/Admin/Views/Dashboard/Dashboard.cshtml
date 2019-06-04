@@ -105,26 +105,3 @@
 <!-- /content area -->
 <script type="text/javascript" src="~/Areas/Admin/Scripts/Plugin/echarts/echarts.js"></script>
 <script src="~/Areas/Admin/Scripts/Page/Dashboard/dashboard.js"></script>
-@*<script type="text/javascript">
-    $(document).ready(() => {
-        $("#logout").on("click", () => {
-            let token = @ViewBag.Token;
-            $.ajax({
-                url: '/Account/Logout',
-                data: { token: token },
-                    type: 'POST',
-                    success: function (Resualt) {
-                        if (Resualt != "success") {
-                            notifiction(3, Resualt);
-                        }
-                        else {
-                            window.location.replace("/SS-OManage/Login");
-                        }
-                    },
-                    error: function () {
-                        notifiction(3, 'مشکلی به وجود آمده است لطفا زمان دیگری اقدام نمایید.');
-                    }
-                });
-        });
-    })
-</script>*@

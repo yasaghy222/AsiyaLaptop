@@ -185,6 +185,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EnTitle" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Tbl_ProcCat">
           <Key>
@@ -192,6 +193,8 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EnTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SeoDesc" Type="nvarchar" MaxLength="80" />
           <Property Name="PID" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_ProcImg">
@@ -249,6 +252,31 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ALDB.dbo.View_SearchResult' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_SearchResult">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Rate" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="OffPrice" />
+            <PropertyRef Name="BrandName" />
+            <PropertyRef Name="CatName" />
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShortDesc" Type="nvarchar" MaxLength="300" />
+          <Property Name="Rate" Type="tinyint" Nullable="false" />
+          <Property Name="Price" Type="bigint" Nullable="false" />
+          <Property Name="OffPrice" Type="bigint" Nullable="false" />
+          <Property Name="OffID" Type="int" />
+          <Property Name="BrandName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="CatName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VisitCount" Type="int" />
+          <Property Name="Type" Type="tinyint" Nullable="false" />
         </EntityType>
         <Association Name="FK_Tbl_Admin_Tbl_ARole">
           <End Role="Tbl_ARole" Type="Self.Tbl_ARole" Multiplicity="1">
@@ -542,6 +570,21 @@
           <EntitySet Name="Tbl_ProcReview" EntityType="Self.Tbl_ProcReview" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Product" EntityType="Self.Tbl_Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_State&amp;City" EntityType="Self.Tbl_State&amp;City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_SearchResult" EntityType="Self.View_SearchResult" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_SearchResult].[ID] AS [ID], 
+    [View_SearchResult].[Title] AS [Title], 
+    [View_SearchResult].[ShortDesc] AS [ShortDesc], 
+    [View_SearchResult].[Rate] AS [Rate], 
+    [View_SearchResult].[Price] AS [Price], 
+    [View_SearchResult].[OffPrice] AS [OffPrice], 
+    [View_SearchResult].[OffID] AS [OffID], 
+    [View_SearchResult].[BrandName] AS [BrandName], 
+    [View_SearchResult].[CatName] AS [CatName], 
+    [View_SearchResult].[VisitCount] AS [VisitCount], 
+    [View_SearchResult].[Type] AS [Type]
+    FROM [dbo].[View_SearchResult] AS [View_SearchResult]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Tbl_Admin_Tbl_ARole" Association="Self.FK_Tbl_Admin_Tbl_ARole">
             <End Role="Tbl_ARole" EntitySet="Tbl_ARole" />
             <End Role="Tbl_Admin" EntitySet="Tbl_Admin" />
@@ -642,8 +685,6 @@
           <EntitySet Name="Tbl_Newsletter" EntityType="ALDBModel.Tbl_Newsletter" />
           <EntitySet Name="Tbl_Page" EntityType="ALDBModel.Tbl_Page" />
           <EntitySet Name="Tbl_PCPGroup" EntityType="ALDBModel.Tbl_PCPGroup" />
-          <EntitySet Name="Tbl_ProcBrand" EntityType="ALDBModel.Tbl_ProcBrand" />
-          <EntitySet Name="Tbl_ProcCat" EntityType="ALDBModel.Tbl_ProcCat" />
           <EntitySet Name="Tbl_ProcImg" EntityType="ALDBModel.Tbl_ProcImg" />
           <EntitySet Name="Tbl_ProcProp" EntityType="ALDBModel.Tbl_ProcProp" />
           <EntitySet Name="Tbl_ProcReview" EntityType="ALDBModel.Tbl_ProcReview" />
@@ -673,25 +714,9 @@
             <End Role="Tbl_PCPGroup" EntitySet="Tbl_PCPGroup" />
             <End Role="Tbl_PCPGroup1" EntitySet="Tbl_PCPGroup" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_PCPGroup_Tbl_ProcCat" Association="ALDBModel.FK_Tbl_PCPGroup_Tbl_ProcCat">
-            <End Role="Tbl_ProcCat" EntitySet="Tbl_ProcCat" />
-            <End Role="Tbl_PCPGroup" EntitySet="Tbl_PCPGroup" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tbl_ProcProp_Tbl_PCPGroup" Association="ALDBModel.FK_Tbl_ProcProp_Tbl_PCPGroup">
             <End Role="Tbl_PCPGroup" EntitySet="Tbl_PCPGroup" />
             <End Role="Tbl_ProcProp" EntitySet="Tbl_ProcProp" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_Product_Tbl_ProcBrand" Association="ALDBModel.FK_Tbl_Product_Tbl_ProcBrand">
-            <End Role="Tbl_ProcBrand" EntitySet="Tbl_ProcBrand" />
-            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_ProcCat_Tbl_ProcCat" Association="ALDBModel.FK_Tbl_ProcCat_Tbl_ProcCat">
-            <End Role="Tbl_ProcCat" EntitySet="Tbl_ProcCat" />
-            <End Role="Tbl_ProcCat1" EntitySet="Tbl_ProcCat" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_Product_Tbl_ProcCat" Association="ALDBModel.FK_Tbl_Product_Tbl_ProcCat">
-            <End Role="Tbl_ProcCat" EntitySet="Tbl_ProcCat" />
-            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_ProcImg_Tbl_Product" Association="ALDBModel.FK_Tbl_ProcImg_Tbl_Product">
             <End Role="Tbl_Product" EntitySet="Tbl_Product" />
@@ -730,6 +755,25 @@
           <AssociationSet Name="FK_Tbl_ProcRate_Tbl_Customer" Association="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer">
             <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
             <End Role="Tbl_ProcReview" EntitySet="Tbl_ProcReview" />
+          </AssociationSet>
+          <EntitySet Name="View_SearchResult" EntityType="ALDBModel.View_SearchResult" />
+          <EntitySet Name="Tbl_ProcBrand" EntityType="ALDBModel.Tbl_ProcBrand" />
+          <EntitySet Name="Tbl_ProcCat" EntityType="ALDBModel.Tbl_ProcCat" />
+          <AssociationSet Name="FK_Tbl_PCPGroup_Tbl_ProcCat" Association="ALDBModel.FK_Tbl_PCPGroup_Tbl_ProcCat">
+            <End Role="Tbl_ProcCat" EntitySet="Tbl_ProcCat" />
+            <End Role="Tbl_PCPGroup" EntitySet="Tbl_PCPGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Product_Tbl_ProcBrand" Association="ALDBModel.FK_Tbl_Product_Tbl_ProcBrand">
+            <End Role="Tbl_ProcBrand" EntitySet="Tbl_ProcBrand" />
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcCat_Tbl_ProcCat" Association="ALDBModel.FK_Tbl_ProcCat_Tbl_ProcCat">
+            <End Role="Tbl_ProcCat" EntitySet="Tbl_ProcCat" />
+            <End Role="Tbl_ProcCat1" EntitySet="Tbl_ProcCat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Product_Tbl_ProcCat" Association="ALDBModel.FK_Tbl_Product_Tbl_ProcCat">
+            <End Role="Tbl_ProcCat" EntitySet="Tbl_ProcCat" />
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagrams">
@@ -885,28 +929,8 @@
           <Property Name="CatID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Tbl_PCPGroup1" Relationship="ALDBModel.FK_Tbl_PCPGroup_Tbl_PCPGroup" FromRole="Tbl_PCPGroup" ToRole="Tbl_PCPGroup1" />
           <NavigationProperty Name="Tbl_PCPGroup2" Relationship="ALDBModel.FK_Tbl_PCPGroup_Tbl_PCPGroup" FromRole="Tbl_PCPGroup1" ToRole="Tbl_PCPGroup" />
-          <NavigationProperty Name="Tbl_ProcCat" Relationship="ALDBModel.FK_Tbl_PCPGroup_Tbl_ProcCat" FromRole="Tbl_PCPGroup" ToRole="Tbl_ProcCat" />
           <NavigationProperty Name="Tbl_ProcProp" Relationship="ALDBModel.FK_Tbl_ProcProp_Tbl_PCPGroup" FromRole="Tbl_PCPGroup" ToRole="Tbl_ProcProp" />
-        </EntityType>
-        <EntityType Name="Tbl_ProcBrand">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Tbl_Product" Relationship="ALDBModel.FK_Tbl_Product_Tbl_ProcBrand" FromRole="Tbl_ProcBrand" ToRole="Tbl_Product" />
-        </EntityType>
-        <EntityType Name="Tbl_ProcCat">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PID" Type="Int32" />
-          <NavigationProperty Name="Tbl_PCPGroup" Relationship="ALDBModel.FK_Tbl_PCPGroup_Tbl_ProcCat" FromRole="Tbl_ProcCat" ToRole="Tbl_PCPGroup" />
-          <NavigationProperty Name="Tbl_ProcCat1" Relationship="ALDBModel.FK_Tbl_ProcCat_Tbl_ProcCat" FromRole="Tbl_ProcCat" ToRole="Tbl_ProcCat1" />
-          <NavigationProperty Name="Tbl_ProcCat2" Relationship="ALDBModel.FK_Tbl_ProcCat_Tbl_ProcCat" FromRole="Tbl_ProcCat1" ToRole="Tbl_ProcCat" />
-          <NavigationProperty Name="Tbl_Product" Relationship="ALDBModel.FK_Tbl_Product_Tbl_ProcCat" FromRole="Tbl_ProcCat" ToRole="Tbl_Product" />
+          <NavigationProperty Name="Tbl_ProcCat" Relationship="ALDBModel.FK_Tbl_PCPGroup_Tbl_ProcCat" FromRole="Tbl_PCPGroup" ToRole="Tbl_ProcCat" />
         </EntityType>
         <EntityType Name="Tbl_ProcImg">
           <Key>
@@ -961,11 +985,11 @@
           <Property Name="VisitCount" Type="Int32" />
           <Property Name="Type" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Tbl_FactProc" Relationship="ALDBModel.FK_Tbl_FactProc_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_FactProc" />
-          <NavigationProperty Name="Tbl_ProcBrand" Relationship="ALDBModel.FK_Tbl_Product_Tbl_ProcBrand" FromRole="Tbl_Product" ToRole="Tbl_ProcBrand" />
-          <NavigationProperty Name="Tbl_ProcCat" Relationship="ALDBModel.FK_Tbl_Product_Tbl_ProcCat" FromRole="Tbl_Product" ToRole="Tbl_ProcCat" />
           <NavigationProperty Name="Tbl_ProcImg" Relationship="ALDBModel.FK_Tbl_ProcImg_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_ProcImg" />
           <NavigationProperty Name="Tbl_ProcProp" Relationship="ALDBModel.FK_Tbl_ProcProp_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_ProcProp" />
           <NavigationProperty Name="Tbl_ProcReview" Relationship="ALDBModel.FK_Tbl_ProcRate_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_ProcReview" />
+          <NavigationProperty Name="Tbl_ProcBrand" Relationship="ALDBModel.FK_Tbl_Product_Tbl_ProcBrand" FromRole="Tbl_Product" ToRole="Tbl_ProcBrand" />
+          <NavigationProperty Name="Tbl_ProcCat" Relationship="ALDBModel.FK_Tbl_Product_Tbl_ProcCat" FromRole="Tbl_Product" ToRole="Tbl_ProcCat" />
         </EntityType>
         <EntityType Name="Tbl_State_City">
           <Key>
@@ -1058,20 +1082,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_PCPGroup_Tbl_ProcCat">
-          <End Type="ALDBModel.Tbl_ProcCat" Role="Tbl_ProcCat" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ALDBModel.Tbl_PCPGroup" Role="Tbl_PCPGroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_ProcCat">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Tbl_PCPGroup">
-              <PropertyRef Name="CatID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tbl_ProcProp_Tbl_PCPGroup">
           <End Type="ALDBModel.Tbl_PCPGroup" Role="Tbl_PCPGroup" Multiplicity="1" />
           <End Type="ALDBModel.Tbl_ProcProp" Role="Tbl_ProcProp" Multiplicity="*" />
@@ -1081,46 +1091,6 @@
             </Principal>
             <Dependent Role="Tbl_ProcProp">
               <PropertyRef Name="PCPGID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_Product_Tbl_ProcBrand">
-          <End Type="ALDBModel.Tbl_ProcBrand" Role="Tbl_ProcBrand" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ALDBModel.Tbl_Product" Role="Tbl_Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_ProcBrand">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Tbl_Product">
-              <PropertyRef Name="BrandID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_ProcCat_Tbl_ProcCat">
-          <End Type="ALDBModel.Tbl_ProcCat" Role="Tbl_ProcCat" Multiplicity="0..1" />
-          <End Type="ALDBModel.Tbl_ProcCat" Role="Tbl_ProcCat1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_ProcCat">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Tbl_ProcCat1">
-              <PropertyRef Name="PID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_Product_Tbl_ProcCat">
-          <End Type="ALDBModel.Tbl_ProcCat" Role="Tbl_ProcCat" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ALDBModel.Tbl_Product" Role="Tbl_Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_ProcCat">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Tbl_Product">
-              <PropertyRef Name="CatID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1285,6 +1255,106 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="View_SearchResult">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Rate" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="OffPrice" />
+            <PropertyRef Name="BrandName" />
+            <PropertyRef Name="CatName" />
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDesc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Rate" Type="Byte" Nullable="false" />
+          <Property Name="Price" Type="Int64" Nullable="false" />
+          <Property Name="OffPrice" Type="Int64" Nullable="false" />
+          <Property Name="OffID" Type="Int32" />
+          <Property Name="BrandName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="CatName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VisitCount" Type="Int32" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_ProcBrand">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EnTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Tbl_Product" Relationship="ALDBModel.FK_Tbl_Product_Tbl_ProcBrand" FromRole="Tbl_ProcBrand" ToRole="Tbl_Product" />
+        </EntityType>
+        <EntityType Name="Tbl_ProcCat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EnTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SeoDesc" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="PID" Type="Int32" />
+          <NavigationProperty Name="Tbl_PCPGroup" Relationship="ALDBModel.FK_Tbl_PCPGroup_Tbl_ProcCat" FromRole="Tbl_ProcCat" ToRole="Tbl_PCPGroup" />
+          <NavigationProperty Name="Tbl_ProcCat1" Relationship="ALDBModel.FK_Tbl_ProcCat_Tbl_ProcCat" FromRole="Tbl_ProcCat" ToRole="Tbl_ProcCat1" />
+          <NavigationProperty Name="Tbl_ProcCat2" Relationship="ALDBModel.FK_Tbl_ProcCat_Tbl_ProcCat" FromRole="Tbl_ProcCat1" ToRole="Tbl_ProcCat" />
+          <NavigationProperty Name="Tbl_Product" Relationship="ALDBModel.FK_Tbl_Product_Tbl_ProcCat" FromRole="Tbl_ProcCat" ToRole="Tbl_Product" />
+        </EntityType>
+        <Association Name="FK_Tbl_PCPGroup_Tbl_ProcCat">
+          <End Type="ALDBModel.Tbl_ProcCat" Role="Tbl_ProcCat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ALDBModel.Tbl_PCPGroup" Role="Tbl_PCPGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ProcCat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_PCPGroup">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Product_Tbl_ProcBrand">
+          <End Type="ALDBModel.Tbl_ProcBrand" Role="Tbl_ProcBrand" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ALDBModel.Tbl_Product" Role="Tbl_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ProcBrand">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Product">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcCat_Tbl_ProcCat">
+          <End Type="ALDBModel.Tbl_ProcCat" Role="Tbl_ProcCat" Multiplicity="0..1" />
+          <End Type="ALDBModel.Tbl_ProcCat" Role="Tbl_ProcCat1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ProcCat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcCat1">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Product_Tbl_ProcCat">
+          <End Type="ALDBModel.Tbl_ProcCat" Role="Tbl_ProcCat" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ALDBModel.Tbl_Product" Role="Tbl_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ProcCat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Product">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1445,23 +1515,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_ProcBrand">
-            <EntityTypeMapping TypeName="ALDBModel.Tbl_ProcBrand">
-              <MappingFragment StoreEntitySet="Tbl_ProcBrand">
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_ProcCat">
-            <EntityTypeMapping TypeName="ALDBModel.Tbl_ProcCat">
-              <MappingFragment StoreEntitySet="Tbl_ProcCat">
-                <ScalarProperty Name="PID" ColumnName="PID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tbl_ProcImg">
             <EntityTypeMapping TypeName="ALDBModel.Tbl_ProcImg">
               <MappingFragment StoreEntitySet="Tbl_ProcImg">
@@ -1553,6 +1606,43 @@
                 <ScalarProperty Name="Family" ColumnName="Family" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_SearchResult">
+            <EntityTypeMapping TypeName="ALDBModel.View_SearchResult">
+              <MappingFragment StoreEntitySet="View_SearchResult">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="VisitCount" ColumnName="VisitCount" />
+                <ScalarProperty Name="CatName" ColumnName="CatName" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="OffID" ColumnName="OffID" />
+                <ScalarProperty Name="OffPrice" ColumnName="OffPrice" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="ShortDesc" ColumnName="ShortDesc" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ProcBrand">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_ProcBrand">
+              <MappingFragment StoreEntitySet="Tbl_ProcBrand">
+                <ScalarProperty Name="EnTitle" ColumnName="EnTitle" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ProcCat">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_ProcCat">
+              <MappingFragment StoreEntitySet="Tbl_ProcCat">
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="SeoDesc" ColumnName="SeoDesc" />
+                <ScalarProperty Name="EnTitle" ColumnName="EnTitle" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

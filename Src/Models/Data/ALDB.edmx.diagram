@@ -19,8 +19,6 @@
         <EntityTypeShape EntityType="ALDBModel.Tbl_Newsletter" Width="1.5" PointX="7.75" PointY="13" />
         <EntityTypeShape EntityType="ALDBModel.Tbl_Page" Width="1.5" PointX="9.75" PointY="13" />
         <EntityTypeShape EntityType="ALDBModel.Tbl_PCPGroup" Width="1.5" PointX="3" PointY="0.75" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcBrand" Width="1.5" PointX="0.75" PointY="6.25" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcCat" Width="1.5" PointX="0.75" PointY="2.875" />
         <EntityTypeShape EntityType="ALDBModel.Tbl_ProcImg" Width="1.5" PointX="5.25" PointY="15.125" />
         <EntityTypeShape EntityType="ALDBModel.Tbl_ProcProp" Width="1.5" PointX="5.25" PointY="3" />
         <EntityTypeShape EntityType="ALDBModel.Tbl_ProcReview" Width="1.5" PointX="5.25" PointY="8.75" />
@@ -32,11 +30,7 @@
         <AssociationConnector Association="ALDBModel.FK_Tbl_CustAddress_Tbl_State_City" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_FactProc_Tbl_Product" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_PCPGroup_Tbl_PCPGroup" />
-        <AssociationConnector Association="ALDBModel.FK_Tbl_PCPGroup_Tbl_ProcCat" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_ProcProp_Tbl_PCPGroup" />
-        <AssociationConnector Association="ALDBModel.FK_Tbl_Product_Tbl_ProcBrand" />
-        <AssociationConnector Association="ALDBModel.FK_Tbl_ProcCat_Tbl_ProcCat" />
-        <AssociationConnector Association="ALDBModel.FK_Tbl_Product_Tbl_ProcCat" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_ProcImg_Tbl_Product" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_ProcProp_Tbl_Product" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_ProcRate_Tbl_Product" />
@@ -48,6 +42,13 @@
         <AssociationConnector Association="ALDBModel.FK_Tbl_CustAddress_Tbl_Customer" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_Factor_Tbl_Customer" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer" />
+        <EntityTypeShape EntityType="ALDBModel.View_SearchResult" Width="1.5" PointX="12.375" PointY="13" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcBrand" Width="1.5" PointX="0.75" PointY="8.125" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_ProcCat" Width="1.5" PointX="0.75" PointY="3.75" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_PCPGroup_Tbl_ProcCat" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_Product_Tbl_ProcBrand" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_ProcCat_Tbl_ProcCat" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_Product_Tbl_ProcCat" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -29,6 +29,7 @@ namespace Src.Controllers
         #region authorize functions
         void SetCookie(CustomerInfo info)
         {
+            ClearCookie();
             HttpCookie cookie = new HttpCookie("ALCustInfo")
             {
                 Expires = DateTime.Now.AddMonths(3),
@@ -67,15 +68,6 @@ namespace Src.Controllers
                 return Common.ResultMessage.AccountIsBlock;
             }
             #endregion
-        }
-        void ClearToken()
-        {
-            if (ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("ALCustInfo"))
-            {
-                HttpCookie cookie = ControllerContext.HttpContext.Request.Cookies["ALCustInfo"];
-                cookie.Expires = DateTime.Now.AddDays(-1);
-                ControllerContext.HttpContext.Response.Cookies.Add(cookie);
-            }
         }
         #endregion
 
@@ -143,7 +135,7 @@ namespace Src.Controllers
                     await _unitOfWork.SaveAsync();
                     try
                     {
-                        ClearToken();
+                        ClearCookie();
                         ViewBag.RedirectPath = "/";
                         return View();
                     }
@@ -158,7 +150,7 @@ namespace Src.Controllers
                 }
                 else
                 {
-                    ClearToken();
+                    ClearCookie();
                     ViewBag.RedirectPath = "/";
                     return View();
                 }
@@ -166,7 +158,7 @@ namespace Src.Controllers
             }
             else
             {
-                ClearToken();
+                ClearCookie();
                 ViewBag.RedirectPath = "/";
                 return View();
             }

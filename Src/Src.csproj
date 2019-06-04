@@ -52,6 +52,9 @@
     <Reference Include="Mapster, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2f39883af23c29a8, processorArchitecture=MSIL">
       <HintPath>..\packages\Mapster.4.0.0\lib\net45\Mapster.dll</HintPath>
     </Reference>
+    <Reference Include="Mapster.EF6, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e63643a69f0add22, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mapster.EF6.1.0.0\lib\net45\Mapster.EF6.dll</HintPath>
+    </Reference>
     <Reference Include="Mapster.JsonNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e64997d676a9c1d3, processorArchitecture=MSIL">
       <HintPath>..\packages\Mapster.JsonNet.1.0.0\lib\net45\Mapster.JsonNet.dll</HintPath>
     </Reference>
@@ -156,6 +159,9 @@
     <Content Include="Areas\Admin\Scripts\Core\app.js" />
     <Content Include="Areas\Admin\Scripts\Core\bootstrap.min.js" />
     <Content Include="Areas\Admin\Scripts\Core\handlebars-v4.0.5.js" />
+    <Content Include="Areas\Admin\Scripts\Core\handlebars-v4.0.5.min.js">
+      <DependentUpon>handlebars-v4.0.5.js</DependentUpon>
+    </Content>
     <Content Include="Areas\Admin\Scripts\Core\jquery.min.js" />
     <Content Include="Areas\Admin\Scripts\Core\jquery.validate.min.js" />
     <Content Include="Areas\Admin\Scripts\Core\jquery.validate.unobtrusive.js" />
@@ -206,6 +212,9 @@
     <Content Include="Content\Css\styles.css" />
     <Content Include="Content\Css\styles.min.css">
       <DependentUpon>styles.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Css\styles.min.min.css">
+      <DependentUpon>styles.min.css</DependentUpon>
     </Content>
     <Content Include="Content\Css\vendor.css" />
     <Content Include="Content\Css\vendor.min.css">
@@ -425,7 +434,6 @@
     <Content Include="Scripts\Js\modernizr.min.js" />
     <Content Include="Scripts\Js\scripts.min.js" />
     <Content Include="Scripts\Js\vendor.min.js" />
-    <Content Include="Views\HtmlPage1.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -444,6 +452,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NinjectController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -531,10 +540,14 @@
     <Compile Include="Models\Data\Tbl_State_City.cs">
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Data\View_SearchResult.cs">
+      <DependentUpon>ALDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Service\Repository\Customer\CustomerRepository.cs" />
     <Compile Include="Models\Service\Repository\Factor\FactorRepository.cs" />
     <Compile Include="Models\Service\Repository\GenericRepository.cs" />
     <Compile Include="Models\Service\Repository\Customer\ICustomerRepository.cs" />
+    <Compile Include="Models\Service\Repository\Blog\IBlogRepository.cs" />
     <Compile Include="Models\Service\Repository\IGenericRepository.cs" />
     <Compile Include="Models\Service\Repository\Factor\IFactorRepository.cs" />
     <Compile Include="Models\Service\Repository\Product\IProductRepository.cs" />
@@ -665,6 +678,7 @@
     <Content Include="Views\Account\ResetPass.cshtml" />
     <Content Include="Views\Partials\Account\Login.cshtml" />
     <Content Include="Views\Partials\Account\Register.cshtml" />
+    <Content Include="Views\Product\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

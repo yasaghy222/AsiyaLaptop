@@ -54,7 +54,7 @@
                 PID: $("#FrmCat #PID[checked='checked']").val(),
                 Title: $("#FrmCat #Title").val(),
             },
-                url = getHost("Product/AddEditCat");
+                url = getUrl("Product/AddEditCat");
 
             $.ajax({
                 url: url,
@@ -62,9 +62,9 @@
                 data: JSON.stringify(model),
                 processData: false,
                 contentType: "application/json",
-                success: function (Resualt) {
-                    if (Resualt.Message == "Success") {
-                        CatID.val(Resualt.Data);
+                success: function (Result) {
+                    if (Result.Message == "Success") {
+                        CatID.val(Result.Data);
                         finishAnimate(".tab-content");
                         btnSaveOnOff();
                         notifiction(0, "عمیات با موفقیت انجام شد.");
@@ -72,13 +72,13 @@
                             pageLoad('/Admin/Product/Category', 'دستبندی محصولات', 'procCat');
                         }
                     } else {
-                        notifiction(1, Resualt.Message);
+                        notifiction(1, Result.Message);
                         finishAnimate(".tab-content");
                     }
                 },
-                error: function (Resualt) {
+                error: function (Result) {
                     finishAnimate(".tab-content");
-                    notifiction(1, Resualt.Message);
+                    notifiction(1, Result.Message);
                 }
             });
         }
@@ -111,16 +111,16 @@
 
     function PropList(pid) {
         if (pid == undefined) {
-            let url = getHost("Product/PCPGList/", `?catID=${CatID.val()}`);
+            let url = getUrl("Product/PCPGList/", `?catID=${CatID.val()}`);
             $.ajax({
                 url: url,
                 type: "Get",
                 data: CatID.val(),
-                success: (Resualt) => {
-                    if (Resualt.Message == "Success") {
-                        if (Resualt.Data.length > 0) {
+                success: (Result) => {
+                    if (Result.Message == "Success") {
+                        if (Result.Data.length > 0) {
                             NoRecords(false);
-                            CatPropList = Resualt.Data;
+                            CatPropList = Result.Data;
                             let source = $('#PCPGSource').html(),
                                 template = Handlebars.compile(source),
                                 parentList = $.grep(CatPropList, (item) => {
@@ -134,11 +134,11 @@
                         }
                     }
                     else {
-                        notifiction(1, Resualt.Message);
+                        notifiction(1, Result.Message);
                     }
                 },
-                error: (Resualt) => {
-                    notifiction(1, Resualt.Message);
+                error: (Result) => {
+                    notifiction(1, Result.Message);
                 }
             });
         }
@@ -197,7 +197,7 @@
                 Title: PropTitle.val(),
                 CatID: CatID.val()
             },
-                url = getHost("Product/AddEditPCPG");
+                url = getUrl("Product/AddEditPCPG");
 
             $.ajax({
                 url: url,
@@ -205,20 +205,20 @@
                 data: JSON.stringify(model),
                 processData: false,
                 contentType: "application/json",
-                success: function (Resualt) {
-                    if (Resualt.Message == "Success") {
+                success: function (Result) {
+                    if (Result.Message == "Success") {
                         finishAnimate("#addEditPCPG .modal-content");
                         notifiction(0, "عمیات با موفقیت انجام شد.");
                         modal.modal("hide");
                         PropList();
                     } else {
-                        notifiction(1, Resualt.Message);
+                        notifiction(1, Result.Message);
                         finishAnimate("#addEditPCPG .modal-content");
                     }
                 },
-                error: function (Resualt) {
+                error: function (Result) {
                     finishAnimate("#addEditPCPG .modal-content");
-                    notifiction(1, Resualt.Message);
+                    notifiction(1, Result.Message);
                 }
             });
 
@@ -237,15 +237,15 @@
             closeOnCancel: true
         }, (isConfirm) => {
             if (isConfirm) {
-                let url = getHost("Product/DelPCPG");
+                let url = getUrl("Product/DelPCPG");
                 $.ajax({
                     url: url,
                     type: 'POST',
                     data: id,
                     processData: false,
                     contentType: "application/json",
-                    success: function (Resualt) {
-                        if (Resualt.Message == "Success") {
+                    success: function (Result) {
+                        if (Result.Message == "Success") {
                             PropList();
                             swal({
                                 title: "عملیات حذف انجام شد .",
@@ -256,11 +256,11 @@
                             });
                         }
                         else {
-                            notifiction(1, Resualt.Message);
+                            notifiction(1, Result.Message);
                         }
                     },
-                    error: function (Resualt) {
-                        notifiction(1, Resualt.Message);
+                    error: function (Result) {
+                        notifiction(1, Result.Message);
                     }
                 });
             }

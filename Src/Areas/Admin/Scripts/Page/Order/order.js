@@ -20,26 +20,26 @@
             $('#tblOrder th.sorting_asc').removeClass("sorting_asc").attr("data-sort-type", "").addClass("sorting");
             $('#tblOrder th[data-sort="0"]').removeClass("sorting").attr("data-sort-type", "false").addClass("sorting_desc");
         };
-        let url = getHost('Order/Get');
+        let url = getUrl('Order/Get');
         $.ajax({
             url: url,
             type: 'Get',
             data: tableVar,
-            success: function (Resualt) {
+            success: function (Result) {
                 NoRecords(false);
-                if (Resualt.Data.List.length > 0 && Resualt.Message == "Success") {
+                if (Result.Data.List.length > 0 && Result.Message == "Success") {
                     let source = $('#orderSource').html(),
                         template = Handlebars.compile(source),
-                        list = template({ list: Resualt.Data.List });
+                        list = template({ list: Result.Data.List });
                     $('#tblOrder tbody').html(list);
-                    count = Resualt.Data.Count;
-                    CreatePagingInfo(count, Resualt.Data.List.length, '#orderInfo', TableVar);
+                    count = Result.Data.Count;
+                    CreatePagingInfo(count, Result.Data.List.length, '#orderInfo', TableVar);
                 } else {
                     NoRecords(true);
                 }
             },
-            error: function (Resualt) {
-                notifiction(3, Resualt.Message);
+            error: function (Result) {
+                notifiction(3, Result.Message);
             }
         })
     }

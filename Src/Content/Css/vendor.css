@@ -3448,7 +3448,8 @@ a.badge:hover, a.badge:focus {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: start;
-    align-items: flex-start
+    align-items: flex-start;
+    align-items: center
 }
 
 .media-body {

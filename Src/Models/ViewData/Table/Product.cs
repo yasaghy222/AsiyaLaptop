@@ -77,7 +77,6 @@ namespace Src.Models.ViewData.Table
         #endregion
 
         #region procCat
-
         public class ViewTbl_ProcCat
         {
             public int ID { get; set; }
@@ -96,7 +95,6 @@ namespace Src.Models.ViewData.Table
             public string Title { get; set; }
             public int AssignCount { get; set; }
         }
-
         #endregion
 
         #region procProp
@@ -132,6 +130,112 @@ namespace Src.Models.ViewData.Table
             public int Title { get; set; }
             public string PName { get; set; }
             public string CatName { get; set; }
+        }
+        #endregion
+
+        #region search
+        public class SearchResult
+        {
+            public int ID { get; set; }
+            public string Title { get; set; }
+            public string ShortDesc { get; set; }
+        }
+
+        public class FullSearchResult : SearchResult
+        {
+            public byte Rate { get; set; }
+            public string Price { get; set; }
+            public string OffPrice { get; set; }
+            public int OffID { get; set; }
+            public string Type { get; set; }
+        }
+
+        public class SearchParam
+        {
+            public SearchParam(
+            string title,
+            string category,
+            string brand,
+            string filter,
+            long minprice,
+            long maxprice,
+            byte pageno,
+            byte sortby)
+            {
+                Title = title;
+                Category = category;
+                Brand = brand;
+                MinPrice = minprice;
+                MaxPrice = maxprice;
+                Filter = filter;
+                PageNo = pageno;
+                SortBy = sortby;
+            }
+            public string Title { get; set; }
+            public string Category { get; set; }
+            public string Brand { get; set; }
+            public long MinPrice { get; set; }
+            public long MaxPrice { get; set; }
+            public string Filter { get; set; }
+            public byte PageNo { get; set; }
+            public byte SortBy { get; set; }
+        }
+
+        public class CatProp
+        {
+            public int ID { get; set; }
+            public string Title { get; set; }
+            public string[] ValueList { get; set; }
+        }
+
+        public class Cat : Common.Tree
+        {
+            public List<Common.Tree> ChildList { get; set; }
+            public string Link { get; set; }
+        }
+
+        public class SearchPageModel
+        {
+            public SearchParam Params { get; set; }
+            public List<Cat> CatList { get; set; }
+            public string SeoTitle { get; set; }
+            public List<CatProp> PropList { get; set; }
+            public List<ViewTbl_ProcBrand> BrandList { get; set; }
+            public List<FullSearchResult> Results { get; set; }
+            public long MaxResultPrice { get; set; }
+        }
+
+        public enum SortType : byte
+        {
+            /// <summary>
+            /// پربازدید ترین
+            /// </summary>
+            [Display(Name = "پربازدید ترین")]
+            mostVisited = 0,
+
+            /// <summary>
+            /// محبوب ترین
+            /// </summary>
+            [Display(Name = "محبوب ترین")]
+            mostPopular = 1,
+
+            /// <summary>
+            /// جدید ترین
+            /// </summary>
+            [Display(Name = "جدید ترین")]
+            newest = 2,
+
+            /// <summary>
+            /// ارزان ترین
+            /// </summary>
+            [Display(Name = "ارزان ترین")]
+            cheapest = 3,
+
+            /// <summary>
+            /// گران ترین
+            /// </summary>
+            [Display(Name = "گران ترین")]
+            mostExpensive = 4,
         }
         #endregion
     }

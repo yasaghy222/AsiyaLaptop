@@ -16,23 +16,23 @@
 
     //#region Functions
     function BrandList() {
-        let url = getHost("Product/BrandList");
+        let url = getUrl("Product/BrandList");
         $.ajax({
             url: url,
             type: "Get",
-            success: (Resualt) => {
-                if (Resualt.Message == "Success") {
+            success: (Result) => {
+                if (Result.Message == "Success") {
                     let source = $('#procBrandSource').html(),
                         template = Handlebars.compile(source),
-                        list = template({ list: Resualt.Data });
+                        list = template({ list: Result.Data });
                     $('#TblProcBrand tbody').html(list);
                 }
                 else {
-                    notifiction(1, Resualt.Message);
+                    notifiction(1, Result.Message);
                 }
             },
-            error: (Resualt) => {
-                notifiction(1, Resualt.Message);
+            error: (Result) => {
+                notifiction(1, Result.Message);
             }
         });
     };
@@ -49,15 +49,15 @@
             closeOnCancel: true
         }, (isConfirm) => {
             if (isConfirm) {
-                let url = getHost("Product/DelBrand");
+                let url = getUrl("Product/DelBrand");
                 $.ajax({
                     url: url,
                     type: 'POST',
                     data: id,
                     processData: false,
                     contentType: "application/json",
-                    success: function (Resualt) {
-                        if (Resualt.Message == "Success") {
+                    success: function (Result) {
+                        if (Result.Message == "Success") {
                             BrandList();
                             swal({
                                 title: "عملیات حذف انجام شد .",
@@ -68,11 +68,11 @@
                             });
                         }
                         else {
-                            notifiction(1, Resualt.Message);
+                            notifiction(1, Result.Message);
                         }
                     },
-                    error: function (Resualt) {
-                        notifiction(1, Resualt.Message);
+                    error: function (Result) {
+                        notifiction(1, Result.Message);
                     }
                 });
             }
@@ -127,27 +127,27 @@
                 frmProcBrandData.append("Image", ProcBrand[0].files[0]);
             }
 
-            let url = getHost("Product/AddEditBrand");
+            let url = getUrl("Product/AddEditBrand");
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: frmProcBrandData,
                 processData: false,
                 contentType: false,
-                success: function (Resualt) {
-                    if (Resualt.Message == "Success") {
+                success: function (Result) {
+                    if (Result.Message == "Success") {
                         finishAnimate("#addEditBrand .modal-content");
                         notifiction(0, "عمیات با موفقیت انجام شد.");
                         modal.modal("hide");
                         BrandList();
                     } else {
-                        notifiction(1, Resualt.Message);
+                        notifiction(1, Result.Message);
                         finishAnimate("#addEditBrand .modal-content");
                     }
                 },
-                error: function (Resualt) {
+                error: function (Result) {
                     finishAnimate("#addEditBrand .modal-content");
-                    notifiction(1, Resualt.Message);
+                    notifiction(1, Result.Message);
                 }
             });
         }
