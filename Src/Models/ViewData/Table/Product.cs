@@ -82,6 +82,8 @@ namespace Src.Models.ViewData.Table
             public int ID { get; set; }
             [Required(ErrorMessage = "این فیلد اجباری است.")]
             public string Title { get; set; }
+            [Required(ErrorMessage = "این فیلد اجباری است.")]
+            public string EnTitle { get; set; }
             public int? PID { get; set; }
             public int AssignCount { get; set; }
             public ICollection<Common.Tree> CatList { get; set; }
@@ -121,6 +123,7 @@ namespace Src.Models.ViewData.Table
         {
             public int ID { get; set; }
             public string Title { get; set; }
+            public string EnTitle { get; set; }
             public int PID { get; set; }
             public int CatID { get; set; }
         }

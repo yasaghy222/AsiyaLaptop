@@ -53,6 +53,7 @@
                 ID: CatID.val(),
                 PID: $("#FrmCat #PID[checked='checked']").val(),
                 Title: $("#FrmCat #Title").val(),
+                EnTitle: $("#FrmCat #EnTitle").val()
             },
                 url = getUrl("Product/AddEditCat");
 
@@ -103,6 +104,7 @@
         modalTitle = $("#addEditPCPG .modal-title"),
         PropID = $("#FrmPCPG #ID"),
         PropTitle = $("#FrmPCPG #Title"),
+        PropEnTitle = $("#FrmPCPG #EnTitle"),
         PropPID = $("#FrmPCPG #TreeSelect"),
         frmProcCatMode = (id) => {
             let temp = (id == undefined || id == -1) ? "Add" : "Edit";
@@ -156,6 +158,7 @@
         let target = $(e.currentTarget),
             id = target.attr("data-id"),
             title = target.attr("data-title"),
+            enTitle = target.attr("data-enTitle"),
             hasChild = target.attr("data-hasChild"),
             assignCount = target.attr("data-assignCount"),
             pid = target.attr("data-pid") == "" ? id : target.attr("data-pid");
@@ -163,6 +166,7 @@
         if (frmProcCatMode(id) == "Add") {
             PropID.val("-1");
             PropTitle.val("");
+            PropEnTitle.val("");
             clearMultiSelect(PropPID, "PID");
             $.each(CatPropList, (i) => {
                 fillSelectMulti(CatPropList, CatPropList[i], pid, PropPID, "PID", false);
@@ -172,6 +176,7 @@
         else {
             PropID.val(id);
             PropTitle.val(title);
+            PropEnTitle.val(enTitle);
             if (hasChild == "false" && assignCount == 0) {
                 $.each(CatPropList, (i) => {
                     fillSelectMulti(CatPropList, CatPropList[i], pid, PropPID, "PID", false);
@@ -186,15 +191,17 @@
         }
     };
     function AddEditCatProp() {
-        let isTitleValid = validateInput(PropTitle, "لطفا یک مورد را انتخاب کنید.");
+        let isTitleValid = validateInput(PropTitle, "لطفا یک مورد را انتخاب کنید."),
+            isEnTitleValid = validateInput(PropEnTitle, "لطفا یک مورد را انتخاب کنید.");
 
-        if (isTitleValid) {
+        if (isTitleValid && isEnTitleValid) {
             startAnimate("#addEditPCPG .modal-content");
 
             let model = {
                 ID: PropID.val(),
                 PID: $("#FrmPCPG #PID[checked='checked']").val(),
                 Title: PropTitle.val(),
+                EnTitle: PropEnTitle.val(),
                 CatID: CatID.val()
             },
                 url = getUrl("Product/AddEditPCPG");
@@ -221,7 +228,6 @@
                     notifiction(1, Result.Message);
                 }
             });
-
         }
     };
     function delCatProp(id) {
@@ -288,7 +294,7 @@
             hasChild = $(e.currentTarget).attr("data-hasChild"),
             assignCount = $(e.currentTarget).attr("data-assignCount");
         if (hasChild = "false" && assignCount == 0) {
-        delCatProp(id);
+            delCatProp(id);
         } else {
             notifiction(2, "شما تنها می توانید ویژگی هایی که فرزند و اختصاصی ندارند را حذف نمایید.");
         }
@@ -299,6 +305,9 @@
     });
     $("#addEditPCPG").delegate("#Title", "keyup", () => {
         validateInput(PropTitle, "این فیلد نمی تواند خالی باشد.");
+    });
+    $("#addEditPCPG").delegate("#EnTitle", "keyup", () => {
+        validateInput(PropEnTitle, "این فیلد نمی تواند خالی باشد.");
     });
     $("#addEditPCPG").delegate("#btnAddEdit", "click", () => {
         AddEditCatProp();

@@ -54,6 +54,7 @@ namespace Src.Models.ViewData.Base
         {
             public int ID { get; set; }
             public string Title { get; set; }
+            public string EnTitle { get; set; }
         }
 
         public class SelectWithProc : Select
@@ -66,6 +67,7 @@ namespace Src.Models.ViewData.Base
             public int ID { get; set; }
             public object PID { get; set; }
             public string Title { get; set; }
+            public string EnTitle { get; set; }
         }
 
         public class FullTree : Tree

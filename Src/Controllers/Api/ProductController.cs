@@ -620,11 +620,10 @@ namespace Src.Controllers.Api
             if (ModelState.IsValid)
             {
                 PCPGroup = model.Adapt<Tbl_PCPGroup>();
-
+                PCPGroup.PID = PCPGroup.PID == 0 || PCPGroup.PID == PCPGroup.ID ? null : PCPGroup.PID;
                 if (model.ID == -1)
                 {
                     #region add
-                    PCPGroup.PID = PCPGroup.PID == 0 ? null : PCPGroup.PID;
                     _unitOfWork.PCPGroup.Add(PCPGroup);
                     #endregion
                 }

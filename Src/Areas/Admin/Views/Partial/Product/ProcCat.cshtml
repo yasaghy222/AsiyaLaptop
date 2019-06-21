@@ -8,6 +8,9 @@
             {{Title}}
         </td>
         <td class="text-center">
+            {{EnTitle}}
+        </td>
+        <td class="text-center">
             {{#if AssignCount}}
             <span class="label label-rounded label-warning">
                 {{AssignCount}}
@@ -29,7 +32,7 @@
         </td>
     </tr>
     <tr class="collapse bg-f8" id="{{ID}}">
-        <td colspan="3">
+        <td colspan="4">
             <table class="table datatable">
                 <tbody></tbody>
             </table>
@@ -42,6 +45,7 @@
         <thead>
             <tr>
                 <th>عنوان</th>
+                <th class="text-center">عنوان انگلیسی</th>
                 <th class="text-center">تعداد اختصاص</th>
                 <th class="text-center">عملیات</th>
             </tr>

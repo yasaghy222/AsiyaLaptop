@@ -14,6 +14,21 @@ namespace Src.Controllers.Api
 {
     public class PublicHttpAction : ActionFilterAttribute { }
 
+    public class ValidateModel : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(HttpActionContext filterContext)
+        {
+            if (!filterContext.ModelState.IsValid)
+            {
+                using (_ = filterContext.Request.CreateResponse(new Common.Result { Data = null, Message = Common.ResultMessage.BadRequest }))
+                {
+                    base.OnActionExecuting(filterContext);
+                }
+            }
+        }
+    }
+
+
     public class BaseApiController : ApiController
     {
         #region variable
@@ -56,13 +71,11 @@ namespace Src.Controllers.Api
                 };
             }
         }
-        Common.Result HasPermisstion(int roleID, string action, string controller)
+        Common.Result HasPermisstion(int roleID, string action, string controller) =>
+        Result = new Common.Result
         {
-            return Result = new Common.Result
-            {
-                Message = Common.ResultMessage.OK
-            };
-        }
+            Message = Common.ResultMessage.OK
+        };
         public override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
         {
             #region variable
@@ -117,8 +130,10 @@ namespace Src.Controllers.Api
             }
             #endregion
 
-            controllerContext.Request.CreateResponse(Data);
-            return base.ExecuteAsync(controllerContext, cancellationToken);
+            using (_ = controllerContext.Request.CreateResponse(Data))
+            {
+                return base.ExecuteAsync(controllerContext, cancellationToken);
+            }
         }
         #endregion
 
@@ -134,6 +149,6 @@ namespace Src.Controllers.Api
         /// </summary>
         /// <returns></returns>
         protected async Task<ICollection<Common.Tree>> GetCatList() => await Task.Run(() => _unitOfWork.ProcCat.Get().Adapt<ICollection<Common.Tree>>());
-        #endregion 
+        #endregion
     }
 }

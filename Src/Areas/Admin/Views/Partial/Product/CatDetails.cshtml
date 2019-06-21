@@ -6,10 +6,25 @@
             <div class="form-group col-lg-12">
                 <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">عنوان</label>
                 <div class="col-lg-7 col-xs-12">
-                    @Html.TextBoxFor(item => item.Title, new { @class = "form-control maxlength",
+                    @Html.TextBoxFor(item => item.Title, new
+                    {
+                        @class = "form-control maxlength",
                                                               autocomplete = "off",
-                                                              maxlength = "50" })
+                                                              maxlength = "50"
+                    })
                     @Html.ValidationMessageFor(item => item.Title, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">عنوان انگلیسی</label>
+                <div class="col-lg-7 col-xs-12">
+                    @Html.TextBoxFor(item => item.EnTitle, new
+                    {
+                        @class = "form-control maxlength text-left",
+                                                              autocomplete = "off",
+                                                              maxlength = "50"
+                    })
+                    @Html.ValidationMessageFor(item => item.EnTitle, "", new { @class = "validation-error-label" })
                 </div>
             </div>
             <div class="form-group col-lg-12">
