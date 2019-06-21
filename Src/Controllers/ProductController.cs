@@ -40,21 +40,20 @@ namespace Src.Controllers
         #region search with full details
         [HttpGet, PublicAction, ValidateModel]
         [Route("Search")]
-        public async Task<ActionResult> Search(
-            string title = "",
-            string category = "",
-            string brand = "",
-            string filter = "",
-            long minprice = 0,
-            long maxprice = 0,
-            byte pageno = 1,
-            byte sortby = 0)
+        public async Task<ActionResult> Search(string title = "",
+                                               string category = "",
+                                               string brand = "",
+                                               string filter = "",
+                                               long minprice = 0,
+                                               long maxprice = 0,
+                                               byte pageno = 1,
+                                               byte sortby = 0)
         {
             #region set parameters
-            Product.SearchParam searchParam =
-                new Product.SearchParam(title, category, brand, filter, minprice, maxprice, pageno, sortby);
-            string[] catList = category != "" ? category.Split('-') : null,
-                     brandList = brand != "" ? brand.Split(',') : null;
+            Product.SearchParam searchParam = new Product.SearchParam(title, category, brand, filter, minprice, maxprice, pageno, sortby);
+            string[] catList = category != "" ? category.Split('-') ?? null : null;
+            _ = brand != "" ? brand.Split(',') ?? null : null;
+            string cat = catList == null ? category : catList[catList.Length - 1];
             #endregion
 
             #region search result
@@ -64,12 +63,13 @@ namespace Src.Controllers
             Product.SearchPageModel searchPageModel = new Product.SearchPageModel
             {
                 Params = searchParam,
-                CatList = await Function.GetCatList(searchParam),
-                PropList = new List<Product.CatProp>(),
-                BrandList = new List<Product.ViewTbl_ProcBrand>(),
+                CatList = await Function.GetSearchCats(searchParam),
+                PropList = await _unitOfWork.Product.GetCatProps(cat),
+                BrandList = await _unitOfWork.Product.GetBrands(cat),
                 Results = searchResult.Item1,
                 SeoTitle = searchResult.Item2,
-                MaxResultPrice = await _unitOfWork.Product.GetMaxPrice(catList != null ? catList[catList.Length - 1] : category)
+                ResultCount = searchResult.Item3,
+                MaxResultPrice = await _unitOfWork.Product.GetMaxPrice(cat)
             };
             return View(searchPageModel);
         }

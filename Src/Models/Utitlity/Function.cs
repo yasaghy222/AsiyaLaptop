@@ -277,22 +277,33 @@ namespace Src.Models.Utitlity
         /// <param name="searchParam"></param>
         /// <param name="catTitle"></param>
         /// <returns></returns>
-        public static async Task<Product.Cat> GetCat(Product.SearchParam searchParam, string catTitle = null)
+        public static async Task<Product.Cat> GetSearchCat(Product.SearchParam searchParam, string catTitle)
         {
-            catTitle = catTitle ?? searchParam.Category;
             using (ALDBEntities aLDB = new ALDBEntities())
             {
-                int catID = await Task.Run(() => aLDB.Tbl_ProcCat.Single(x => x.Title == catTitle || x.EnTitle == catTitle).ID);
-                var ChildList = await Task.Run(() => aLDB.Tbl_ProcCat.Where(x => x.PID == catID).ToList());
-                searchParam.Category = searchParam.Category.SubStrFirst(catTitle);
-                return new Product.Cat
+                var Cat = await Task.Run(() => aLDB.Tbl_ProcCat.SingleOrDefault(x => x.Title == catTitle || x.EnTitle == catTitle));
+                if (Cat != null)
                 {
-                    ID = catID,
-                    Title = catTitle,
-                    PID = catTitle ?? searchParam.Category.SubStrFirst(catTitle).Split('-')[0],
-                    ChildList = ChildList.Adapt<List<Common.Tree>>(),
-                    Link = GetSearchLink(searchParam)
-                };
+                    var ChildList = await Task.Run(() => aLDB.Tbl_ProcCat.Where(x => x.PID == Cat.ID && x.Tbl_Product.Count > 0).ToList());
+                    if (searchParam.Category.Contains('-'))
+                    {
+                        string temp = searchParam.Category.SubStrFirst(catTitle);
+                        searchParam.Category = temp == "" ? catTitle : temp + catTitle;
+                    }
+                    return new Product.Cat
+                    {
+                        ID = Cat.ID,
+                        PID = Cat.PID,
+                        Title = Cat.Title,
+                        EnTitle = Cat.EnTitle,
+                        ChildList = ChildList.Adapt<List<Product.Cat>>(),
+                        Link = GetSearchLink(searchParam)
+                    };
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -301,7 +312,7 @@ namespace Src.Models.Utitlity
         /// </summary>
         /// <param name="searchParam"></param>
         /// <returns></returns>
-        public static async Task<List<Product.Cat>> GetCatList(Product.SearchParam searchParam)
+        public static async Task<List<Product.Cat>> GetSearchCats(Product.SearchParam searchParam)
         {
             List<Product.Cat> catList = null;
             if (searchParam.Category != "")
@@ -310,62 +321,23 @@ namespace Src.Models.Utitlity
                 string[] cats = searchParam.Category.Contains("-") ? searchParam.Category.Split('-') : null;
                 if (cats != null)
                 {
+                    string oldCat = searchParam.Category;
                     foreach (string item in cats)
                     {
-                        if (searchParam.Category.SubStrLast(item) == "")
+                        searchParam.Category = oldCat;
+                        Product.Cat cat = await GetSearchCat(searchParam, item);
+                        if (cat != null)
                         {
-                            catList.Add(await GetCat(searchParam, item));
-                        }
-                        else
-                        {
-                            searchParam.Category = searchParam.Category.SubStrFirst(item);
-                            Product.Cat cat = new Product.Cat
-                            {
-                                ID = 0,
-                                Title = item,
-                                PID = searchParam.Category.SubStrFirst(item).Split('-')[0],
-                                ChildList = null,
-                                Link = GetSearchLink(searchParam)
-                            };
                             catList.Add(cat);
                         }
                     }
                 }
                 else
                 {
-                    catList.Add(await GetCat(searchParam));
+                    catList.Add(await GetSearchCat(searchParam, searchParam.Category));
                 }
             }
             return catList;
-        }
-
-        public static string GetSearchCat(Product.SearchParam searchParam)
-        {
-            string cat = "<li><a href='/'>فروشگاه لپتاپ آسیا</a></li>";
-            if (searchParam.Category != null)
-            {
-                string[] catList = searchParam.Category?.Split('-');
-                if (catList != null)
-                {
-                    #region draw cat multi
-                    byte i = 0;
-                    for (i = 0; i < catList.Length - 1; i++)
-                    {
-                        searchParam.Category = searchParam.Category.SubStrFirst(catList[i]);
-                        string url = GetSearchLink(searchParam);
-                        cat += $"<li class='separator'>&nbsp;</li><li><a href='{url}{catList[i]}'>{catList[i]}</a></li>";
-                    }
-                    cat += $"<li class='separator'>&nbsp;</li><li>{catList[i++]}</li>";
-                    #endregion
-                }
-                else
-                {
-                    string url = GetSearchLink(searchParam);
-                    cat += $"<li class='separator'>&nbsp;</li><li><a href='{url}'>{searchParam.Category}</a></li>";
-                }
-            }
-
-            return cat;
         }
     }
 

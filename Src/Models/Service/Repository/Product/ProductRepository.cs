@@ -81,7 +81,7 @@ namespace Src.Models.Service.Repository
             }
         }
 
-        public async Task<Tuple<List<Product.FullSearchResult>, string>> Search(Product.SearchParam searchParam)
+        public async Task<Tuple<List<Product.FullSearchResult>, string, int>> Search(Product.SearchParam searchParam)
         {
             string query = "select * from Tbl_Product ",
                    seoTitle = "فروشگاه لپتاپ آسیا";
@@ -89,24 +89,24 @@ namespace Src.Models.Service.Repository
             #region title
             if (searchParam.Title != "")
             {
-                query += $"where Title like '{searchParam.Title}'";
+                query += $"where Title like '%{searchParam.Title}%'";
             }
             #endregion
 
             #region cat 
             if (searchParam.Category != "")
             {
-                query += query.Contains("where") ? " and " : "where ";
                 int catID = 0;
-                string[] catList = searchParam.Category.Split('-');
+                string[] catList = searchParam.Category.Split('-') ?? null;
                 string cat = catList != null ? catList[catList.Length - 1] : searchParam.Category;
-                Tbl_ProcCat procCat = await Context.Tbl_ProcCat.SingleAsync(item => item.EnTitle == cat || item.Title == cat);
+                Tbl_ProcCat procCat = await Context.Tbl_ProcCat.SingleOrDefaultAsync(item => item.EnTitle == cat || item.Title == cat);
                 if (procCat != null)
                 {
+                    query += query.Contains("where") ? " and " : "where ";
                     catID = procCat.ID;
                     seoTitle = procCat.SeoDesc;
+                    query += $"CatID = {procCat.ID}";
                 }
-                query += $"CatID = {procCat.ID}";
             }
             #endregion
 
@@ -114,7 +114,7 @@ namespace Src.Models.Service.Repository
             if (searchParam.Brand != "")
             {
                 query += query.Contains("where") ? " and " : "where ";
-                string[] brandList = searchParam.Brand.Split(',');
+                string[] brandList = searchParam.Brand.Split(',') ?? null;
                 if (brandList != null)
                 {
                     query += $"BrandID in (";
@@ -138,16 +138,19 @@ namespace Src.Models.Service.Repository
             {
                 query += query.Contains("where") ? " and " : "where ";
                 query += $"Price between {searchParam.MinPrice} and {searchParam.MaxPrice}";
+                query += $"or OffPrice between {searchParam.MinPrice} and {searchParam.MaxPrice}";
             }
             else if (searchParam.MinPrice != 0 && searchParam.MaxPrice == 0)
             {
                 query += query.Contains("where") ? " and " : "where ";
                 query += $"Price > {searchParam.MinPrice}";
+                query += $"or OffPrice > {searchParam.MinPrice}";
             }
             else if (searchParam.MinPrice == 0 && searchParam.MaxPrice != 0)
             {
                 query += query.Contains("where") ? " and " : "where ";
                 query += $"Price < {searchParam.MaxPrice}";
+                query += $"or OffPrice < {searchParam.MaxPrice}";
             }
             #endregion
 
@@ -187,36 +190,58 @@ namespace Src.Models.Service.Repository
                 {
                     foreach (string item in filterList)
                     {
-                        string[] filter = item?.Split(':'),
-                                 values = filter[1]?.Split('.');
-                        string title = filter[0] ?? "";
-                        Data = Data.Where(proc => proc.Tbl_ProcProp.Any(x => x.Tbl_PCPGroup.Title == title && values.Contains(x.Value))).ToList();
+                        if (item != "")
+                        {
+                            string[] filter = item.Split(':'),
+                                     values = filter[1].Split('.');
+                            string title = filter[0] ?? "";
+                            Data = Data.Where(proc => proc.Tbl_ProcProp.Any(x => x.Tbl_PCPGroup.EnTitle == title && values.Contains(x.Value))).ToList();
+                        }
                     }
                 }
                 else
                 {
-                    string[] filter = searchParam.Filter?.Split(':'),
-                                values = filter[1]?.Split('.');
+                    string[] filter = searchParam.Filter.Split(':'),
+                                values = filter[1].Split('.');
                     string title = filter[0] ?? "";
-                    Data = Data.Where(proc => proc.Tbl_ProcProp.Any(x => x.Tbl_PCPGroup.Title == title && values.Contains(x.Value))).ToList();
+                    Data = Data.Where(proc => proc.Tbl_ProcProp.Any(x => x.Tbl_PCPGroup.EnTitle == title && values.Contains(x.Value))).ToList();
                 }
             }
             #endregion
 
             #region make paging
+            int count = Data.Count;
             Data = Data.Skip((searchParam.PageNo - 1) * 10)
                        .Take(10)
                        .ToList();
             #endregion
 
             List<Product.FullSearchResult> searchResults = Data.Adapt<List<Product.FullSearchResult>>();
-            return new Tuple<List<Product.FullSearchResult>, string>(searchResults, seoTitle);
+            return new Tuple<List<Product.FullSearchResult>, string, int>(searchResults, seoTitle, count);
         }
 
         public async Task<long> GetMaxPrice(string catName)
         {
             List<Tbl_Product> products = await Context.Tbl_Product.Where(item => item.Tbl_ProcCat.Title == catName).ToListAsync();
-            return products.Count() > 0 ? products.Max(item => item.Price) : 0;
+            return products.Count() > 0 ? products.Max(item => item.Price) : await Context.Tbl_Product.MaxAsync(item => item.Price);
+        }
+
+        public async Task<List<Product.CatProp>> GetCatProps(string catName)
+        {
+            List<Tbl_PCPGroup> catProps = await Context.Tbl_PCPGroup.Where(item => item.Tbl_ProcCat.EnTitle == catName).ToListAsync();
+            return catProps.Count() > 0 ? catProps.Adapt<List<Product.CatProp>>() : null;
+        }
+
+        public async Task<List<Product.ViewTbl_ProcBrand>> GetBrands(string catName)
+        {
+            string query = $"SELECT DISTINCT dbo.Tbl_ProcBrand.ID, dbo.Tbl_ProcBrand.Title, dbo.Tbl_ProcBrand.EnTitle, dbo.Tbl_ProcCat.EnTitle FROM dbo.Tbl_Product INNER JOIN dbo.Tbl_ProcBrand ON dbo.Tbl_Product.BrandID = dbo.Tbl_ProcBrand.ID INNER JOIN dbo.Tbl_ProcCat ON dbo.Tbl_Product.CatID = dbo.Tbl_ProcCat.ID Where  dbo.Tbl_ProcCat.EnTitle ='{catName}'";
+            List<Product.ViewTbl_ProcBrand> brands = await Context.Database.SqlQuery<Product.ViewTbl_ProcBrand>(query).ToListAsync();
+            if (brands.Count == 0 || brands == null)
+            {
+                query = $"select dbo.Tbl_ProcBrand.ID, dbo.Tbl_ProcBrand.Title, dbo.Tbl_ProcBrand.EnTitle from dbo.Tbl_ProcBrand";
+                brands = await Context.Database.SqlQuery<Product.ViewTbl_ProcBrand>(query).ToListAsync();
+            }
+            return brands;
         }
         #endregion
     }

@@ -2,11 +2,11 @@
 <div class="search-box-wrap d-flex">
     <div class="search-box-inner align-self-center">
         <div class="search-box d-flex">
-            <form class="input-group" action="/Product/" method="post">
+            <form class="input-group" action="/Product/Search" method="get">
                 <span class="input-group-btn">
                     <button type="submit"><i class="icon-search"></i></button>
                 </span>
-                <input id="search-input" class="form-control" type="text" placeholder="جستجو ..." autocomplete="off">
+                <input id="search-input" class="form-control" name="title" type="text" placeholder="جستجو ..." autocomplete="off">
             </form>
             <div class="search-result-box"></div>
         </div>

@@ -10,6 +10,8 @@ using Src.Models.Utitlity;
 using System.ComponentModel.DataAnnotations;
 using Src.Models.ViewData.Base;
 using System.Linq;
+using Mapster;
+using System.Collections.Generic;
 
 namespace Src
 {
@@ -28,7 +30,7 @@ namespace Src
 
             #region mapster
             #region product
-            Mapster.TypeAdapterConfig<Tbl_Product, Product.ViewProc>.NewConfig()
+            TypeAdapterConfig<Tbl_Product, Product.ViewProc>.NewConfig()
                    .Map(dest => dest.BrandName, src => src.Tbl_ProcBrand.Title)
                    .Map(dest => dest.CatName, src => src.Tbl_ProcCat.GetCatList())
                    .Map(dest => dest.Price, src => src.Price.SetCama())
@@ -37,10 +39,10 @@ namespace Src
                                                    .GetEnumValue<Product.ProcType>(src.Type))
                                                    .GetAttribute<DisplayAttribute>().Name);
 
-            Mapster.TypeAdapterConfig<Tbl_Product, Product.ViewTbl_Proc>.NewConfig()
+            TypeAdapterConfig<Tbl_Product, Product.ViewTbl_Proc>.NewConfig()
                    .Map(dest => dest.FullDesc, src => HttpUtility.HtmlDecode(src.FullDesc));
 
-            Mapster.TypeAdapterConfig<Tbl_Product, Product.FullSearchResult>.NewConfig()
+            TypeAdapterConfig<Tbl_Product, Product.FullSearchResult>.NewConfig()
                    .Map(dest => dest.Price, src => src.Price.SetCama())
                    .Map(dest => dest.OffPrice, src => src.OffPrice.SetCama())
                    .Map(dest => dest.Type, src => (EnumExtensions
@@ -49,15 +51,15 @@ namespace Src
             #endregion
 
             #region procBrand
-            Mapster.TypeAdapterConfig<Tbl_ProcBrand, Product.ViewTbl_ProcBrand>.NewConfig()
+            TypeAdapterConfig<Tbl_ProcBrand, Product.ViewTbl_ProcBrand>.NewConfig()
                    .Map(dest => dest.AssignCount, src => src.Tbl_Product.Count);
             #endregion
 
             #region product category
-            Mapster.TypeAdapterConfig<Tbl_ProcCat, Product.ViewTbl_ProcCat>.NewConfig()
+            TypeAdapterConfig<Tbl_ProcCat, Product.ViewTbl_ProcCat>.NewConfig()
                    .Map(dest => dest.AssignCount, src => src.Tbl_Product.Count());
 
-            Mapster.TypeAdapterConfig<Tbl_ProcCat, Common.FullTree>.NewConfig()
+            TypeAdapterConfig<Tbl_ProcCat, Common.FullTree>.NewConfig()
                    .Map(dest => dest.AssignCount, src => src.Tbl_Product.Count())
                    .Map(dest => dest.HasChild, src =>
                                                GenericFunction<Tbl_ProcCat>
@@ -65,15 +67,18 @@ namespace Src
             #endregion
 
             #region product property
-            Mapster.TypeAdapterConfig<Tbl_PCPGroup, Common.FullTree>.NewConfig()
+            TypeAdapterConfig<Tbl_PCPGroup, Common.FullTree>.NewConfig()
                    .Map(dest => dest.AssignCount, src => src.Tbl_ProcProp.Count())
                    .Map(dest => dest.HasChild, src =>
                                                GenericFunction<Tbl_PCPGroup>
                                                .HasChild(src, item => item.PID == src.ID));
+
+            TypeAdapterConfig<Tbl_PCPGroup, Product.CatProp>.NewConfig()
+                   .Map(dest => dest.ValueList, src => src.Tbl_ProcProp.Where(item => item.PCPGID == src.ID).Select(item => item.Value).ToList());
             #endregion
 
             #region factor
-            Mapster.TypeAdapterConfig<Tbl_Factor, Factor.ViewOrderDetail>.NewConfig()
+            TypeAdapterConfig<Tbl_Factor, Factor.ViewOrderDetail>.NewConfig()
                    .Map(dest => dest.CustName, src => src.Tbl_Customer.Name)
                    .Map(dest => dest.CustAddress, src => src.Tbl_CustAddress)
                    .Map(dest => dest.OrderProc, src => src.Tbl_FactProc)

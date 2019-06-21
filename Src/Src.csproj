@@ -49,6 +49,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.SqlServerCompact.6.2.0\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
+    </Reference>
     <Reference Include="Mapster, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2f39883af23c29a8, processorArchitecture=MSIL">
       <HintPath>..\packages\Mapster.4.0.0\lib\net45\Mapster.dll</HintPath>
     </Reference>
@@ -73,6 +76,10 @@
     </Reference>
     <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
@@ -435,6 +442,13 @@
     <Content Include="Scripts\Js\scripts.min.js" />
     <Content Include="Scripts\Js\vendor.min.js" />
     <Content Include="Web.config" />
+    <EntityDeploy Include="Models\Data\ALDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ALDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Data\ALDB.edmx.diagram">
+      <DependentUpon>ALDB.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -450,6 +464,7 @@
     <Compile Include="Controllers\Api\OrderController.cs" />
     <Compile Include="Controllers\Api\ProductController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NinjectController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -538,9 +553,6 @@
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Data\Tbl_State_City.cs">
-      <DependentUpon>ALDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Data\View_SearchResult.cs">
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Service\Repository\Customer\CustomerRepository.cs" />
@@ -652,13 +664,6 @@
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Partial\Order\OrderList.cshtml" />
     <None Include="bundleconfig.json" />
-    <EntityDeploy Include="Models\Data\ALDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ALDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Data\ALDB.edmx.diagram">
-      <DependentUpon>ALDB.edmx</DependentUpon>
-    </Content>
     <None Include="packages.config" />
     <Content Include="Views\Sheared\_Layout_Primary.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -679,6 +684,7 @@
     <Content Include="Views\Partials\Account\Login.cshtml" />
     <Content Include="Views\Partials\Account\Register.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

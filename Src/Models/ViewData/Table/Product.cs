@@ -93,6 +93,7 @@ namespace Src.Models.ViewData.Table
         {
             public int ID { get; set; }
             public string Title { get; set; }
+            public string EnTitle { get; set; }
             public int AssignCount { get; set; }
         }
         #endregion
@@ -152,6 +153,18 @@ namespace Src.Models.ViewData.Table
 
         public class SearchParam
         {
+            public SearchParam(SearchParam searchParam)
+            {
+                Title = searchParam.Title;
+                Category = searchParam.Category;
+                Brand = searchParam.Brand;
+                MinPrice = searchParam.MinPrice;
+                MaxPrice = searchParam.MaxPrice;
+                Filter = searchParam.Filter;
+                PageNo = searchParam.PageNo;
+                SortBy = searchParam.SortBy;
+            }
+
             public SearchParam(
             string title,
             string category,
@@ -171,6 +184,7 @@ namespace Src.Models.ViewData.Table
                 PageNo = pageno;
                 SortBy = sortby;
             }
+
             public string Title { get; set; }
             public string Category { get; set; }
             public string Brand { get; set; }
@@ -185,12 +199,14 @@ namespace Src.Models.ViewData.Table
         {
             public int ID { get; set; }
             public string Title { get; set; }
-            public string[] ValueList { get; set; }
+            public string EnTitle { get; set; }
+            public List<string> ValueList { get; set; }
         }
 
         public class Cat : Common.Tree
         {
-            public List<Common.Tree> ChildList { get; set; }
+            public string EnTitle { get; set; }
+            public List<Cat> ChildList { get; set; }
             public string Link { get; set; }
         }
 
@@ -199,6 +215,7 @@ namespace Src.Models.ViewData.Table
             public SearchParam Params { get; set; }
             public List<Cat> CatList { get; set; }
             public string SeoTitle { get; set; }
+            public int ResultCount { get; set; }
             public List<CatProp> PropList { get; set; }
             public List<ViewTbl_ProcBrand> BrandList { get; set; }
             public List<FullSearchResult> Results { get; set; }

@@ -13,8 +13,10 @@ namespace Src.Models.Service.Repository
 
         #region search
         Task<List<Product.SearchResult>> Search(string title);
-        Task<Tuple<List<Product.FullSearchResult>, string>> Search(Product.SearchParam searchParam);
+        Task<Tuple<List<Product.FullSearchResult>, string, int>> Search(Product.SearchParam searchParam);
         Task<long> GetMaxPrice(string catName);
+        Task<List<Product.CatProp>> GetCatProps(string catName);
+        Task<List<Product.ViewTbl_ProcBrand>> GetBrands(string catName);
         #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿@model Src.Models.ViewData.Table.Product.SearchPageModel
 @{
-    ViewBag.Title = Model.SeoTitle;
+    ViewBag.Title = Model.SeoTitle ?? "فروشگاه لپتاپ آسیا";
     Layout = "~/Views/Sheared/_Layout_Primary.cshtml";
 }
 
@@ -17,7 +17,7 @@
             <!-- Shop Toolbar-->
             <div class="shop-toolbar padding-bottom-1x mb-2">
                 <div class="column">
-                    <ul class="breadcrumbs text-right">
+                    <ul class="breadcrumbs text-right" id="cats">
                         <li><a href='/'>فروشگاه لپتاپ آسیا</a></li>
                     </ul>
                 </div>
@@ -28,7 +28,7 @@
                                         EnumHelper.GetSelectList(typeof(Src.Models.ViewData.Table.Product.SortType)),
                                         new { @class = "form-control" , id= "sorting" })
 
-                        <span class="text-muted"></span><span>@Model.Results.Count کالا</span>
+                        <span class="text-muted"></span><span>@Model.ResultCount کالا</span>
                     </div>
                 </div>
             </div>
@@ -58,29 +58,53 @@
                                         }
                                     }
                                 }
-                            </div><a class="product-thumb" href="/Product/ALP-@item.ID/@item.Title"><img src="@imgPath" alt="@item.Title"></a>
+                            </div>
+                            @if (item.Type == "پیشنهاد ویژه")
+                            {
+                                <div class="product-badge bg-danger">@item.Type</div>
+                            }
+                            <a class="product-thumb" href="/Product/ALP-@item.ID/@item.Title"><img src="@imgPath" alt="@item.Title"></a>
                             <div class="product-card-body">
                                 <h3 class="product-title" lang="en"><a href="/Product/ALP-@item.ID/@item.Title">@item.Title</a></h3>
-                                <h4 class="product-price">@item.Price تومان</h4>
+                                @if (item.Type == "اتمام موجودی" || item.Type == "توقف تولید")
+                                {
+                                    <h4 class="product-price">---------------</h4>
+                                }
+                                else
+                                {
+                                    <h4 class="product-price">
+                                        @if (item.OffPrice != "0")
+                                        {
+                                            <del>@item.Price</del>
+                                            @item.OffPrice
+                                        }
+                                        else
+                                        {
+                                            @item.Price
+                                        }
+                                        تومان
+                                    </h4>
+                                }
                             </div>
-                            <div class="product-button-group"><a class="product-button"><i class="icon-shopping-cart"></i><span>افزودن به سبد خرید</span></a></div>
+                            <div class="product-button-group">
+                                @if (item.Type == "اتمام موجودی" || item.Type == "توقف تولید")
+                                {
+                                    <span class="product-button"><i class="icon-x-circle"></i><span>@item.Type</span></span>
+                                }
+                                else
+                                {
+                                    <a class="product-button"><i class="icon-shopping-cart"></i><span>افزودن به سبد خرید</span></a>
+                                }
+                            </div>
                         </div>
                     </div>
                 }
             </div>
             <!-- Pagination-->
-            <nav class="pagination">
+            <nav class="pagination hidden">
                 <div class="column">
-                    <ul class="pages">
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li>...</li>
-                        <li><a href="#">12</a></li>
-                    </ul>
+                    <ul class="pages"></ul>
                 </div>
-                <div class="column text-left hidden-xs-down"><a class="btn btn-outline-secondary btn-sm" href="#">صفحه بعد&nbsp;<i class="icon-chevron-left"></i></a></div>
             </nav>
         </div>
         <!-- Sidebar-->
@@ -91,81 +115,130 @@
                 <!-- Widget Categories-->
                 <section class="widget widget-categories">
                     <h3 class="widget-title">دستبندی نتایج</h3>
-                    <ul>
-                        <li class="has-children expanded">
-                            <a href="#">لپتاپ نو</a><span>(1138)</span>
-                            <ul>
-                                <li>
-                                    <a href="#">برند</a><span>(10)</span>
-                                    <ul>
-                                        <li><a href="#">Asus</a></li>
-                                        <li><a href="#">Apple</a></li>
-                                        <li><a href="#">Dell</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">پردازنده</a><span>(4)</span>
-                                    <ul lang="en">
-                                        <li><a href="#">i9</a></li>
-                                        <li><a href="#">i7</a></li>
-                                        <li><a href="#">i5</a></li>
-                                        <li><a href="#">i3</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">قیمت</a><span>(4)</span>
-                                    <ul>
-                                        <li><a href="#">کمتر از 5 ملیون</a></li>
-                                        <li><a href="#">بین 5 تا ده ملیون</a></li>
-                                        <li><a href="#">بیشتر از ده ملیون</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <ul lang="en" id="resultCats"></ul>
                 </section>
                 <!-- Widget Price Range-->
                 <section class="widget widget-categories">
                     <h3 class="widget-title">محدوده قیمت مورد نظر</h3>
-                    <form class="price-range-slider" method="post" data-start-min="0" data-start-max="24000000" data-min="0" data-max="24000000" data-step="500000">
-                        <div class="ui-range-slider"></div>
-                        <footer class="ui-range-slider-footer">
-                            <div class="ui-range-values">
-                                <div class="ui-range-value-min">
-                                    از <span></span> تومان
-                                    <input type="hidden">
-                                </div>&nbsp;تا&nbsp;
-                                <div class="ui-range-value-max">
-                                    <span></span> تومان
-                                    <input type="hidden">
+                    <form class="price-range-slider">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group text-center">
+                                    <label for="minPrice" class="d-block text-center p-0">از</label>
+                                    <input class="form-control form-control-sm mt-2 mb-2 text-center" type="text" id="minPrice" autocomplete="off">
+                                    <label for="minPrice" class="d-block text-center p-0">تومان</label>
                                 </div>
                             </div>
-                            <button class="btn btn-outline-primary btn-sm" type="submit">اعمال محدودیت</button>
-                        </footer>
+                            <div class="col-sm-6">
+                                <div class="form-group text-center">
+                                    <label for="maxPrice" class="d-block text-center p-0">تا</label>
+                                    <input class="form-control form-control-sm mt-2 mb-2 text-center" type="text" id="maxPrice" autocomplete="off">
+                                    <label for="maxPrice" class="d-block text-center p-0">تومان</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 text-center margin-top-1x">
+                                <button class="btn btn-outline-primary btn-sm" type="button" id="filterPrice">اعمال محدودیت</button>
+                            </div>
+                        </div>
                     </form>
                 </section>
-                <section class="widget">
-                    <h3 class="widget-title">برند</h3>
-                    <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="low">
-                        <label class="custom-control-label" for="low">Apple</label>
-                    </div>
-                </section>
-                <section class="widget">
-                    <h3 class="widget-title">حافظه رم</h3>
-                    <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="low">
-                        <label class="custom-control-label" for="low">4 گیگ</label>
-                    </div>
-                </section>
-                <section class="widget" lang="en">
-                    <h3 class="widget-title">نوع حافظه رم</h3>
-                    <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="low">
-                        <label class="custom-control-label" for="low">DDR4</label>
-                    </div>
-                </section>
+                @if (Model.BrandList != null)
+                {
+                    <section class="widget">
+                        <h3 class="widget-title">برند ها</h3>
+                        @foreach (var i in Model.BrandList)
+                        {
+                            string id = $"brand{i.ID}";
+                            <div class="custom-control custom-checkbox">
+                                @if (Model.Params.Brand.Contains(i.EnTitle.ToLower().Trim()))
+                                {
+                                    <input class="custom-control-input" type="checkbox" checked id="@id" data-type="brand" value="@i.EnTitle.ToLower().Trim()">
+                                }
+                                else
+                                {
+                                    <input class="custom-control-input" type="checkbox" id="@id" data-type="brand" value="@i.EnTitle.ToLower().Trim()">
+                                }
+                                <label class="custom-control-label" for="@id"><span class="mr-2">@i.Title</span></label>
+                            </div>
+                        }
+                    </section>
+                }
+                @if (Model.PropList != null)
+                {
+                    foreach (var i in Model.PropList)
+                    {
+                        if (i.ValueList.Count > 0)
+                        {
+                            <section class="widget">
+                                <h3 class="widget-title">@i.Title</h3>
+                                @foreach (var j in i.ValueList)
+                                {
+                                    string id = $"prop{j}";
+                                    <div class="custom-control custom-checkbox">
+                                        @if (Model.Params.Filter.Contains(j))
+                                        {
+                                            <input class="custom-control-input" type="checkbox" checked id="@id" data-type="prop" data-title="@i.EnTitle" value="@j.ToLower()">
+                                        }
+                                        else
+                                        {
+                                            <input class="custom-control-input" type="checkbox" id="@id" data-type="prop" data-title="@i.EnTitle" value="@j.ToLower()">
+                                        }
+                                        <label class="custom-control-label" for="@id"><span class="mr-2">@j</span></label>
+                                    </div>
+                                }
+                            </section>
+                        }
+                    }
+                }
             </aside>
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(() => {
+            //#region variable
+            let pageSize = 10,
+                count = @Model.ResultCount,
+                Params = @Html.Raw(Json.Encode(Model.Params)),
+                CatList = @Html.Raw(Json.Encode(Model.CatList)),
+                MaxPrice = Params.MaxPrice == 0 ? @Model.MaxResultPrice : Params.MaxPrice,
+                Cats = $("#cats"),
+                ResultCats = $("#resultCats");
+            //#endregion
+
+            //fill cats
+            FillCats(CatList, Cats);
+            FillResultCats(CatList, ResultCats);
+            $("#minPrice").val(numberToCurrency(Params.MinPrice));
+            $("#maxPrice").val(numberToCurrency(MaxPrice));
+
+            //change sort
+            $("#sorting").change((e) => {
+                let value = $(e.currentTarget).val();
+                Params.SortBy = value;
+                window.location.href = GetSearchLink(Params);
+            });
+
+            //filter prop & brand
+            $("input[type='checkbox']").change((e) => {
+                let value = $(e.currentTarget).val(),
+                    type = $(e.currentTarget).attr("data-type"),
+                    title = $(e.currentTarget).attr("data-title"),
+                    newLink = GetFilterLink(Params, type, value, title);
+                window.location.href = newLink;
+            });
+
+            //filter price
+            $("#filterPrice").click(() => {
+                Params.MinPrice = currencyToNumber($("#minPrice").val());
+                Params.MaxPrice = currencyToNumber($("#maxPrice").val());
+                window.location.href = GetSearchLink(Params);
+            });
+
+            //make paging
+            makePaging(Math.ceil(count / pageSize), Params.PageNo - 1, Params);
+        });
+    </script>
+}

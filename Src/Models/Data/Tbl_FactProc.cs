@@ -18,7 +18,7 @@ namespace Src.Models.Data
         public int ProcID { get; set; }
         public byte Count { get; set; }
     
-        public virtual Tbl_Product Tbl_Product { get; set; }
         public virtual Tbl_Factor Tbl_Factor { get; set; }
+        public virtual Tbl_Product Tbl_Product { get; set; }
     }
 }

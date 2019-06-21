@@ -40,13 +40,13 @@ namespace Src.Models.Data
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FactProc> Tbl_FactProc { get; set; }
+        public virtual Tbl_ProcBrand Tbl_ProcBrand { get; set; }
+        public virtual Tbl_ProcCat Tbl_ProcCat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_ProcImg> Tbl_ProcImg { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_ProcProp> Tbl_ProcProp { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_ProcReview> Tbl_ProcReview { get; set; }
-        public virtual Tbl_ProcBrand Tbl_ProcBrand { get; set; }
-        public virtual Tbl_ProcCat Tbl_ProcCat { get; set; }
     }
 }
