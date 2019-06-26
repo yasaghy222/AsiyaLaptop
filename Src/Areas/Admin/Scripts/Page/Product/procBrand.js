@@ -5,6 +5,7 @@
         frmProcBrand = $("#FrmProcBrand"),
         BrandID = $("#FrmProcBrand #ID"),
         BrandTitle = $("#FrmProcBrand #Title"),
+        BrandEnTitle = $("#FrmProcBrand #EnTitle"),
         DemoBrand = $("#FrmProcBrand #DemoBrand"),
         DemoBrandBtn = $("#addEditBrand #DemoBrandBtn"),
         frmProcBrandMode = (id) => {
@@ -90,11 +91,13 @@
     function getFrmProcBrand(e) {
         let target = $(e.currentTarget),
             id = target.attr("data-id"),
-            title = target.attr("data-title");
+            title = target.attr("data-title"),
+            enTitle = target.attr("data-enTitle");
 
         if (frmProcBrandMode(id) == "Add") {
             BrandID.val("-1");
             BrandTitle.val("");
+            BrandEnTitle.val("");
             DemoBrandBtn.html("انتخاب");
             modalTitle.html("افزودن تصویر");
             DemoBrand.attr("src", "/Areas/Admin/Content/Images/demoUpload.jpg");
@@ -102,17 +105,18 @@
         else {
             BrandID.val(id);
             BrandTitle.val(title);
+            BrandEnTitle.val(enTitle);
             DemoBrandBtn.html("ویرایش");
             modalTitle.html("ویرایش تصویر");
             DemoBrand.attr("src", "Files/ProcBrand/" + BrandID.val() + ".jpg");
         }
     };
     function saveFrmProcBrand() {
-        debugger;
         let ProcBrand = $("#FrmProcBrand #Image"),
             isProcBrandsValid = validateImage(ProcBrand, frmProcBrandMode(BrandID.val())),
             isTitleValid = validateInput(BrandTitle, "لطفا یک مورد را انتخاب کنید."),
-            isValid = (isProcBrandsValid && isTitleValid) ? true : false;
+            isEnTitleValid = validateInput(BrandEnTitle, "لطفا یک مورد را انتخاب کنید."),
+            isValid = (isProcBrandsValid && isTitleValid && isEnTitleValid) ? true : false;
 
         if (isValid) {
             startAnimate("#addEditBrand .modal-content");
@@ -161,6 +165,9 @@
     });
     frmProcBrand.delegate("#Title", "keyup", (e) => {
         validateInput(BrandTitle, "این فیلد نمی تواند خالی باشد.");
+    });
+    frmProcBrand.delegate("#EnTitle", "keyup", (e) => {
+        validateInput(BrandEnTitle, "این فیلد نمی تواند خالی باشد.");
     });
     $("#addEditBrand #btnAddEdit").on("click", () => {
         saveFrmProcBrand();

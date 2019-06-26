@@ -330,7 +330,8 @@ namespace Src.Controllers.Api
                 ProcBrand = new Tbl_ProcBrand
                 {
                     ID = int.Parse(FormData.Get("ID")),
-                    Title = FormData.Get("Title")
+                    Title = FormData.Get("Title"),
+                    EnTitle = FormData.Get("EnTitle")
                 };
 
                 if (ProcBrand.ID == -1)

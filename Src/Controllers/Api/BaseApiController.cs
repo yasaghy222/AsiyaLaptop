@@ -90,28 +90,22 @@ namespace Src.Controllers.Api
             IsPublicAction = controllerContext.ControllerDescriptor.GetCustomAttributes<BaseApiController>(true).Count > 0;
             object GetResponse()
             {
-                if (controllerContext.Request.Content != null)
-                {
-                    Task<string> Temp = controllerContext.Request.Content.ReadAsStringAsync();
-                    string tempResult = Temp.Result.ToString();
-                    return tempResult != "" ? System.Web.Helpers.Json.Decode(Temp.Result.ToString()) : Result;
-                }
-                else
+                if (controllerContext.Request.Content == null)
                 {
                     return Result = new Common.Result
                     {
                         Message = Common.ResultMessage.InternallServerError
                     };
                 }
+                else
+                {
+                    return controllerContext.Request.CreateResponse(controllerContext);
+                }
             }
             #endregion
 
             #region check is public
-            if (IsPublicAction)
-            {
-                Data = GetResponse();
-            }
-            else
+            if (!IsPublicAction)
             {
                 #region authorize
                 Result = IsAuthorize(Token);
@@ -127,13 +121,14 @@ namespace Src.Controllers.Api
                     Data = Result;
                 }
                 #endregion
+                using (_ = controllerContext.Request.CreateResponse(Data))
+                {
+                    return base.ExecuteAsync(controllerContext, cancellationToken);
+                }
             }
             #endregion
 
-            using (_ = controllerContext.Request.CreateResponse(Data))
-            {
-                return base.ExecuteAsync(controllerContext, cancellationToken);
-            }
+            return base.ExecuteAsync(controllerContext, cancellationToken);
         }
         #endregion
 

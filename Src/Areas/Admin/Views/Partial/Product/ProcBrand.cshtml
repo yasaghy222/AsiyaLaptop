@@ -12,6 +12,9 @@
             </div>
         </td>
         <td class="text-center">
+            {{EnTitle}}
+        </td>
+        <td class="text-center">
             {{#if AssignCount}}
             <span class="label label-rounded label-warning">
                 {{AssignCount}}
@@ -25,7 +28,7 @@
                         <i class="icon-menu"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a id="addEdit" data-id="{{ID}}" data-title="{{Title}}" data-toggle="modal" data-target="#addEditBrand" class="text-blue-800"><i class="icon-pencil"></i> ویرایش</a></li>
+                        <li><a id="addEdit" data-id="{{ID}}" data-title="{{Title}}" data-enTitle="{{EnTitle}}" data-toggle="modal" data-target="#addEditBrand" class="text-blue-800"><i class="icon-pencil"></i> ویرایش</a></li>
                         <li><a id="del" data-id="{{ID}}" data-count="{{AssignCount}}" class="text-danger-800"><i class="icon-bin"></i>حذف</a></li>
                     </ul>
                 </li>
@@ -40,6 +43,7 @@
         <thead>
             <tr>
                 <th>عنوان</th>
+                <th class="text-center">عنوان انگلیسی</th>
                 <th class="text-center">تعداد اختصاص</th>
                 <th class="text-center">عملیات</th>
             </tr>
@@ -91,6 +95,13 @@
                             <div class="col-lg-9">
                                 <input type="text" name="Title" id="Title" class="form-control maxlength" maxlength="50" autocomplete="off">
                                 <span class="validation-error-label field-validation-valid mt-15" data-valmsg-for="Title" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label title col-lg-3">عنوان انگلیسی</label>
+                            <div class="col-lg-9">
+                                <input type="text" name="EnTitle" id="EnTitle" class="form-control maxlength" maxlength="50" autocomplete="off">
+                                <span class="validation-error-label field-validation-valid mt-15" data-valmsg-for="EnTitle" data-valmsg-replace="true"></span>
                             </div>
                         </div>
                     </fieldset>
