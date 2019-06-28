@@ -2771,7 +2771,8 @@ label.ix-input-swich {
     font-size: 12px
 }
 
-input.ipx-switch {
+input.ipx-switch,
+input.cSwitch {
     padding: 0;
     box-sizing: border-box;
     margin: 0 10px 0 0;
@@ -2791,11 +2792,13 @@ input.ipx-switch {
     transition: all 500ms
 }
 
-    input.ipx-switch[type=checkbox]:checked {
+    input.ipx-switch[type=checkbox]:checked,
+    input.cSwitch.checked {
         background: #607D8B
     }
 
-    input.ipx-switch[type=checkbox]:before {
+    input.ipx-switch[type=checkbox]:before,
+    input.cSwitch:before {
         content: "";
         display: block;
         width: 26px;
@@ -2809,13 +2812,15 @@ input.ipx-switch {
         transition: all .3s
     }
 
-    input.ipx-switch[type=checkbox]:checked:before {
-        left: calc(100% - 29px)
-    }
+        input.ipx-switch[type=checkbox]:checked:before,
+        input.cSwitch.checked:before {
+            left: calc(100% - 29px)
+        }
 
-    input.ipx-switch:before {
-        cursor: pointer
-    }
+        input.ipx-switch:before,
+        input.cSwitch:before {
+            cursor: pointer
+        }
 
 .switchery {
     background-color: #fff;

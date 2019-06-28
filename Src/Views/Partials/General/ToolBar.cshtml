@@ -1,4 +1,8 @@
-﻿ <!-- Search / Categories-->
+﻿@model List<Src.Models.ViewData.Table.Menu.ViewTbl_Menu>
+@{
+    var IList = Model.Where(item => item.PID == null);
+}
+<!-- Search / Categories-->
 <div class="search-box-wrap d-flex">
     <div class="search-box-inner align-self-center">
         <div class="search-box d-flex">
@@ -73,11 +77,11 @@
 <div class="mobile-menu">
     <!-- Search Box-->
     <div class="mobile-search">
-        <form class="input-group" action="/Home/Search" method="post">
+        <form class="input-group" action="/Home/Search" method="get">
             <span class="input-group-btn">
                 <button type="submit"><i class="icon-search"></i></button>
             </span>
-            <input class="form-control" type="search" placeholder="جستجو ...">
+            <input class="form-control" name="title" type="text" placeholder="جستجو ..." autocomplete="off">
         </form>
     </div>
     <!-- Toolbar-->
@@ -95,7 +99,7 @@
                 <a><div><i class="icon-chevron-down"></i><span class="text-label">@data.Get("Name") @data.Get("Family")</span></div></a>
                 <ul class="toolbar-dropdown">
                     <li><a href="/Account/Profile"><i class="icon-user"></i>پروفایل</a></li>
-                    <li><a href="/Account/Order"><i class="icon-shopping-bag"></i>سفارش های من</a></li>
+                    <li><a href="/Account/Order"><i class="icon-shopping-bag"></i>منو های من</a></li>
                     <li><hr></li>
                     <li><a href="/Account/Logout"><i class="icon-log-out"></i>خروج از حساب کاربری</a></li>
                 </ul>
@@ -105,142 +109,46 @@
     <!-- Slideable (Mobile) Menu-->
     <nav class="slideable-menu">
         <ul class="menu" data-initial-height="385">
-            <li class="has-children">
-                <span><a href="shop-grid-ls.html">لپتاپ نو</a><span class="sub-menu-toggle"></span></span>
-                <ul class="slideable-submenu">
+            @foreach (var i in IList)
+            {
+                if (i.HasChild)
+                {
+                    var JList = Model.Where(x => x.PID == i.ID);
                     <li class="has-children">
-                        <span><a href="">بر اساس برند</a><span class="sub-menu-toggle"></span></span>
+                        <span><a href="@i.Link">@i.Title</a><span class="sub-menu-toggle"></span></span>
                         <ul class="slideable-submenu">
-                            <li><a href="">Asus</a></li>
-                            <li><a href="">Apple</a></li>
-                            <li><a href="">Lenovo</a></li>
-                            <li><a href="">HP</a></li>
-                            <li><a href="">Dell</a></li>
+                            @foreach (var j in JList)
+                            {
+                                if (j.HasChild)
+                                {
+                                    var KList = Model.Where(x => x.PID == j.ID);
+                                    <li class="has-children">
+                                        <span><a href="@j.Link">@j.Title</a><span class="sub-menu-toggle"></span></span>
+                                        <ul class="slideable-submenu">
+                                            @foreach (var k in KList)
+                                            {
+                                                <li><a href="@k.Link">@k.Title</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <span><a href="@j.Link">@j.Title</a><span class="sub-menu-toggle"></span></span>
+                                    </li>
+                                }
+                            }
                         </ul>
                     </li>
-                    <li class="has-children">
-                        <span><a href="">بر اساس پردازنده</a><span class="sub-menu-toggle"></span></span>
-                        <ul class="slideable-submenu" lang="en">
-                            <li><a href="">I9</a></li>
-                            <li><a href="">I7</a></li>
-                            <li><a href="">I5</a></li>
-                            <li><a href="">I3</a></li>
-                        </ul>
+                }
+                else
+                {
+                    <li>
+                        <span><a href="@i.Link">@i.Title</a><span class="sub-menu-toggle"></span></span>
                     </li>
-                    <li class="has-children">
-                        <span><a href="">بر اساس قیمت</a><span class="sub-menu-toggle"></span></span>
-                        <ul class="slideable-submenu">
-                            <li><a href="">کمتر از 5 ملیون تومان</a></li>
-                            <li><a href="">بین 5 تا 10 ملیون تومان</a></li>
-                            <li><a href="">بیش تر از 10 ملیون تومان</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="has-children">
-                <span><a href="#">لپتاپ کارکده</a><span class="sub-menu-toggle"></span></span>
-                <ul class="slideable-submenu">
-                    <li class="has-children">
-                        <span><a href="">بر اساس برند</a><span class="sub-menu-toggle"></span></span>
-                        <ul class="slideable-submenu">
-                            <li><a href="">Asus</a></li>
-                            <li><a href="">Apple</a></li>
-                            <li><a href="">Lenovo</a></li>
-                            <li><a href="">HP</a></li>
-                            <li><a href="">Dell</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <span><a href="">بر اساس پردازنده</a><span class="sub-menu-toggle"></span></span>
-                        <ul class="slideable-submenu" lang="en">
-                            <li><a href="">I9</a></li>
-                            <li><a href="">I7</a></li>
-                            <li><a href="">I5</a></li>
-                            <li><a href="">I3</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <span><a href="">بر اساس قیمت</a><span class="sub-menu-toggle"></span></span>
-                        <ul class="slideable-submenu">
-                            <li><a href="">کمتر از 5 ملیون تومان</a></li>
-                            <li><a href="">بین 5 تا 10 ملیون تومان</a></li>
-                            <li><a href="">بیش تر از 10 ملیون تومان</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="has-children">
-                <span><a href="account-orders.html">لوازم جانبی</a><span class="sub-menu-toggle"></span></span>
-                <ul class="slideable-submenu">
-                    <li class="has-children">
-                        <span><a href="">موس</a><span class="sub-menu-toggle"></span></span>
-                        <ul class="slideable-submenu">
-                            <li><a href="">Logitech</a></li>
-                            <li><a href="">Apple</a></li>
-                            <li><a href="">Tsco</a></li>
-                            <li><a href="">Genius</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <span><a href="">حافظه جانبی</a><span class="sub-menu-toggle"></span></span>
-                        <ul class="slideable-submenu" lang="en">
-                            <li><a href="">فلش</a></li>
-                            <li><a href="">مموری کارت</a></li>
-                            <li><a href="">هارد اکسترنال</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <span><a href="">سایر</a><span class="sub-menu-toggle"></span></span>
-                        <ul class="slideable-submenu">
-                            <li><a href="">کیف و کوله</a></li>
-                            <li><a href="">کول پد</a></li>
-                            <li><a href="">اسپیکر</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="has-children">
-                <span><a href="">قطعات</a><span class="sub-menu-toggle"></span></span>
-                <ul class="slideable-submenu">
-                    <li class="has-children">
-                        <span><a href="">کارت گرافیک</a><span class="sub-menu-toggle"></span></span>
-                        <ul class="slideable-submenu">
-                            <li><a href="">کارت گرافیک زوتاک Zotac</a></li>
-                            <li><a href="">کارت گرافیک AMD</a></li>
-                            <li><a href="">کارت گرافیک بایوستار Biostar</a></li>
-                            <li><a href="">کارت گرافیک گیگابایت Gigabyte</a></li>
-                            <li><a href="">کارت گرافیک ایسوس Asus</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <span><a href="">رم</a><span class="sub-menu-toggle"></span></span>
-                        <ul class="slideable-submenu">
-                            <li><a href="">رم پاتریوت PATRIOT</a></li>
-                            <li><a href="">رم جي اسکيل G.SKILL</a></li>
-                            <li><a href="">رم زپلین Zeppelin</a></li>
-                            <li><a href="">رم کینگستون Kingston</a></li>
-                            <li><a href="">رم ای دیتا Adata</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <span><a href="">سایر</a><span class="sub-menu-toggle"></span></span>
-                        <ul class="slideable-submenu">
-                            <li><a href="">حافظه داخلی</a></li>
-                            <li><a href="">منبع تغذیه (پاور)</a></li>
-                            <li><a href="">کیس کامپیوتر</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <span><a href="blog-ns.html">بلاگ</a><span class="sub-menu-toggle"></span></span>
-            </li>
-            <li>
-                <span><a href="about.html">درباره ما</a><span class="sub-menu-toggle"></span></span>
-            </li>
-            <li>
-                <span><a href="contact.html">تماس با‌ما</a><span class="sub-menu-toggle"></span></span>
-            </li>
+                }
+            }
             <li class="active">
                 <span><a href="">لیست ‌قیمت روز</a><span class="sub-menu-toggle"></span></span>
             </li>

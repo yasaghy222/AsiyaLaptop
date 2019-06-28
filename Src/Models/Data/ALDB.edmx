@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ALDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ALDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -152,6 +152,17 @@
           <Property Name="Link" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Sort" Type="tinyint" Nullable="false" />
           <Property Name="Location" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Menu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PID" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Link" Type="nvarchar" MaxLength="200" />
+          <Property Name="Sort" Type="int" />
+          <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Tbl_Newsletter">
           <Key>
@@ -376,6 +387,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_Menu_Tbl_Menu">
+          <End Role="Tbl_Menu" Type="Self.Tbl_Menu" Multiplicity="0..1" />
+          <End Role="Tbl_Menu1" Type="Self.Tbl_Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Menu">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Menu1">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tbl_PCPGroup_Tbl_PCPGroup">
           <End Role="Tbl_PCPGroup" Type="Self.Tbl_PCPGroup" Multiplicity="0..1" />
           <End Role="Tbl_PCPGroup1" Type="Self.Tbl_PCPGroup" Multiplicity="*" />
@@ -536,6 +559,7 @@
           <EntitySet Name="Tbl_Factor" EntityType="Self.Tbl_Factor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FactProc" EntityType="Self.Tbl_FactProc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Media" EntityType="Self.Tbl_Media" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Menu" EntityType="Self.Tbl_Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Newsletter" EntityType="Self.Tbl_Newsletter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Page" EntityType="Self.Tbl_Page" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_PCPGroup" EntityType="Self.Tbl_PCPGroup" Schema="dbo" store:Type="Tables" />
@@ -582,6 +606,10 @@
             <End Role="Tbl_Product" EntitySet="Tbl_Product" />
             <End Role="Tbl_FactProc" EntitySet="Tbl_FactProc" />
           </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Menu_Tbl_Menu" Association="Self.FK_Tbl_Menu_Tbl_Menu">
+            <End Role="Tbl_Menu" EntitySet="Tbl_Menu" />
+            <End Role="Tbl_Menu1" EntitySet="Tbl_Menu" />
+          </AssociationSet>
           <AssociationSet Name="FK_Tbl_PCPGroup_Tbl_PCPGroup" Association="Self.FK_Tbl_PCPGroup_Tbl_PCPGroup">
             <End Role="Tbl_PCPGroup" EntitySet="Tbl_PCPGroup" />
             <End Role="Tbl_PCPGroup1" EntitySet="Tbl_PCPGroup" />
@@ -627,8 +655,7 @@
             <End Role="Tbl_State_City1" EntitySet="Tbl_State_City" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ALDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1293,7 +1320,37 @@
             <End Role="Tbl_State_City" EntitySet="Tbl_State_City" />
             <End Role="Tbl_State_City1" EntitySet="Tbl_State_City" />
           </AssociationSet>
+          <EntitySet Name="Tbl_Menu" EntityType="ALDBModel.Tbl_Menu" />
+          <AssociationSet Name="FK_Tbl_Menu_Tbl_Menu" Association="ALDBModel.FK_Tbl_Menu_Tbl_Menu">
+            <End Role="Tbl_Menu" EntitySet="Tbl_Menu" />
+            <End Role="Tbl_Menu1" EntitySet="Tbl_Menu" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Tbl_Menu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PID" Type="Int32" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Sort" Type="Int32" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tbl_Menu1" Relationship="ALDBModel.FK_Tbl_Menu_Tbl_Menu" FromRole="Tbl_Menu" ToRole="Tbl_Menu1" />
+          <NavigationProperty Name="Tbl_Menu2" Relationship="ALDBModel.FK_Tbl_Menu_Tbl_Menu" FromRole="Tbl_Menu1" ToRole="Tbl_Menu" />
+        </EntityType>
+        <Association Name="FK_Tbl_Menu_Tbl_Menu">
+          <End Type="ALDBModel.Tbl_Menu" Role="Tbl_Menu" Multiplicity="0..1" />
+          <End Type="ALDBModel.Tbl_Menu" Role="Tbl_Menu1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Menu">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Menu1">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1567,6 +1624,18 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="PID" ColumnName="PID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Menu">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_Menu">
+              <MappingFragment StoreEntitySet="Tbl_Menu">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

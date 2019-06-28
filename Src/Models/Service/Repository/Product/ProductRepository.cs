@@ -120,9 +120,9 @@ namespace Src.Models.Service.Repository
                     query += $"BrandID in (";
                     foreach (string item in brandList)
                     {
-                        int brandID = await Task.Run(() =>
-                                            Context.Tbl_ProcBrand.Single(x => x.Title == item || x.EnTitle == item).ID);
-                        query += $"'{brandID}',";
+                        int? brandID = await Task.Run(() =>
+                                            Context.Tbl_ProcBrand.SingleOrDefault(x => x.Title == item || x.EnTitle == item)?.ID);
+                        query += $"'{brandID ?? 0}',";
                     }
                     query = query.Substring(0, query.Length - 1) + ")";
                 }

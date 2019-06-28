@@ -103,6 +103,7 @@
     }
 
         .site-header .site-menu > ul > li .mega-menu > li .mega-menu-title {
+            max-width: 30%;
             display: block;
             margin-bottom: 16px;
             padding-bottom: 10px;

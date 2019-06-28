@@ -1,8 +1,11 @@
-﻿using Src.Models.Data;
+﻿using Mapster;
+using Src.Models.Data;
 using Src.Models.Service.Repository;
 using Src.Models.Utitlity;
 using Src.Models.ViewData.Base;
+using Src.Models.ViewData.Table;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -48,6 +51,17 @@ namespace Src.Controllers
         #endregion
 
         public BaseController(IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
+
+        #region general function
+        public static List<Menu.ViewTbl_Menu> GetMenu()
+        {
+            using (ALDBEntities aLDB = new ALDBEntities())
+            {
+                var data = aLDB.Tbl_Menu.Where(item => item.Status).OrderBy(item => item.Sort).ThenBy(item => item.ID);
+                return data.ToList().Adapt<List<Menu.ViewTbl_Menu>>();
+            }
+        }
+        #endregion
 
         #region authorize & check action
         protected void ClearCookie()

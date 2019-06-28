@@ -351,11 +351,15 @@ namespace Src.Models.Utitlity
         /// <returns></returns>
         public static bool HasChild(T item, Expression<Func<T, bool>> exp)
         {
-            using (ALDBEntities db = new ALDBEntities())
+            if (item != null)
             {
-                int count = db.Set<T>().Count(exp);
-                return count == 0 ? false : true;
+                using (ALDBEntities db = new ALDBEntities())
+                {
+                    int count = db.Set<T>().Count(exp);
+                    return count == 0 ? false : true;
+                }
             }
+            return false;
         }
     }
 }

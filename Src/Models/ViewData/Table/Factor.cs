@@ -27,9 +27,9 @@ namespace Src.Models.ViewData.Table
             InBascket = 0,
 
             /// <summary>
-            /// تایید سفارش
+            /// تایید منو
             /// </summary>
-            [Display(Name = "تایید سفارش")]
+            [Display(Name = "تایید منو")]
             Confirm = 1,
 
             /// <summary>

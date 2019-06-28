@@ -175,6 +175,7 @@
     <Content Include="Areas\Admin\Scripts\Core\jquery.validate.unobtrusive.min.js" />
     <Content Include="Areas\Admin\Scripts\Core\makepaging.js" />
     <Content Include="Areas\Admin\Scripts\Page\Dashboard\dashboard.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Menu\menu.js" />
     <Content Include="Areas\Admin\Scripts\Page\Order\order.js" />
     <Content Include="Areas\Admin\Scripts\Page\Product\catAddEdit.js" />
     <Content Include="Areas\Admin\Scripts\Page\Product\procAddEdit.js" />
@@ -456,10 +457,12 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MenuController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
+    <Compile Include="Controllers\Api\MenuController.cs" />
     <Compile Include="Controllers\Api\NinjectApi.cs" />
     <Compile Include="Controllers\Api\OrderController.cs" />
     <Compile Include="Controllers\Api\ProductController.cs" />
@@ -525,6 +528,9 @@
     <Compile Include="Models\Data\Tbl_Media.cs">
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Data\Tbl_Menu.cs">
+      <DependentUpon>ALDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Data\Tbl_Newsletter.cs">
       <DependentUpon>ALDB.tt</DependentUpon>
     </Compile>
@@ -572,6 +578,7 @@
     <Compile Include="Models\ViewData\Table\Admin.cs" />
     <Compile Include="Models\ViewData\Table\Customer.cs" />
     <Compile Include="Models\ViewData\Table\Factor.cs" />
+    <Compile Include="Models\ViewData\Table\Menu.cs" />
     <Compile Include="Models\ViewData\Table\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -663,6 +670,8 @@
     <Content Include="Areas\Admin\Views\Partial\Product\ProcBrand.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Partial\Order\OrderList.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Menu\MenuList.cshtml" />
     <None Include="bundleconfig.json" />
     <None Include="packages.config" />
     <Content Include="Views\Sheared\_Layout_Primary.cshtml" />

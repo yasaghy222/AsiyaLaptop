@@ -1,131 +1,41 @@
-﻿<li class="has-megamenu">
-    <a href="#">لپتاپ نو</a>
-    <ul class="mega-menu">
-        <li class="has-children">
-            <span class="mega-menu-title">بر اساس برند</span>
-            <ul class="sub-menu">
-                <li><a href="">Asus</a></li>
-                <li><a href="">Apple</a></li>
-                <li><a href="">Lenovo</a></li>
-                <li><a href="">HP</a></li>
-                <li><a href="">Dell</a></li>
+﻿@model List<Src.Models.ViewData.Table.Menu.ViewTbl_Menu>
+@{
+    var IList = Model.Where(item => item.PID == null);
+}
+@foreach (var i in IList)
+{
+    if (i.HasChild)
+    {
+        var JList = Model.Where(x => x.PID == i.ID);
+        <li class="has-megamenu">
+            <a href="@i.Link">@i.Title</a>
+            <ul class="mega-menu">
+                @foreach (var j in JList)
+                {
+                    if (j.HasChild)
+                    {
+                        var KList = Model.Where(x => x.PID == j.ID);
+                        <li class="has-children">
+                            <span class="mega-menu-title">@j.Title</span>
+                            <ul class="sub-menu">
+                                @foreach (var k in KList)
+                                {
+                                    <li><a href="@k.Link">@k.Title</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a href="@j.Link">@j.Title</a></li>
+                    }
+                }
             </ul>
         </li>
-        <li class="has-children">
-            <span class="mega-menu-title">بر اساس پردازنده</span>
-            <ul class="sub-menu" lang="en">
-                <li><a href="">I9</a></li>
-                <li><a href="">I7</a></li>
-                <li><a href="">I5</a></li>
-                <li><a href="">I3</a></li>
-            </ul>
-        </li>
-        <li class="has-children">
-            <span class="mega-menu-title">بر اساس قیمت</span>
-            <ul class="sub-menu">
-                <li><a href="">کمتر از 5 ملیون تومان</a></li>
-                <li><a href="">بین 5 تا 10 ملیون تومان</a></li>
-                <li><a href="">بیش تر از 10 ملیون تومان</a></li>
-            </ul>
-        </li>
-    </ul>
-</li>
-<li class="has-megamenu">
-    <a href="#">لپتاپ کارکرده</a>
-    <ul class="mega-menu">
-        <li class="has-children">
-            <span class="mega-menu-title">بر اساس برند</span>
-            <ul class="sub-menu">
-                <li><a href="">Asus</a></li>
-                <li><a href="">Apple</a></li>
-                <li><a href="">Lenovo</a></li>
-                <li><a href="">HP</a></li>
-                <li><a href="">Dell</a></li>
-            </ul>
-        </li>
-        <li class="has-children">
-            <span class="mega-menu-title">بر اساس پردازنده</span>
-            <ul class="sub-menu" lang="en">
-                <li><a href="">I9</a></li>
-                <li><a href="">I7</a></li>
-                <li><a href="">I5</a></li>
-                <li><a href="">I3</a></li>
-            </ul>
-        </li>
-        <li class="has-children">
-            <span class="mega-menu-title">بر اساس قیمت</span>
-            <ul class="sub-menu">
-                <li><a href="">کمتر از 5 ملیون تومان</a></li>
-                <li><a href="">بین 5 تا 10 ملیون تومان</a></li>
-                <li><a href="">بیش تر از 10 ملیون تومان</a></li>
-            </ul>
-        </li>
-    </ul>
-</li>
-<li class="has-megamenu">
-    <a href="components/accordion.html">لوازم جانبی</a>
-    <ul class="mega-menu">
-        <li class="has-children">
-            <span class="mega-menu-title">موس</span>
-            <ul class="sub-menu">
-                <li><a href="">Logitech</a></li>
-                <li><a href="">Apple</a></li>
-                <li><a href="">Tsco</a></li>
-                <li><a href="">Genius</a></li>
-            </ul>
-        </li>
-        <li class="has-children">
-            <span class="mega-menu-title">حافظه جانبی</span>
-            <ul class="sub-menu" lang="en">
-                <li><a href="">فلش</a></li>
-                <li><a href="">مموری کارت</a></li>
-                <li><a href="">هارد اکسترنال</a></li>
-            </ul>
-        </li>
-        <li class="has-children">
-            <span class="mega-menu-title">سایر</span>
-            <ul class="sub-menu">
-                <li><a href="">کیف و کوله</a></li>
-                <li><a href="">کول پد</a></li>
-                <li><a href="">اسپیکر</a></li>
-            </ul>
-        </li>
-    </ul>
-</li>
-<li class="has-megamenu">
-    <a href="components/accordion.html">قطعات</a>
-    <ul class="mega-menu">
-        <li class="has-children">
-            <span class="mega-menu-title">کارت گرافیک</span>
-            <ul class="sub-menu">
-                <li><a href="">کارت گرافیک زوتاک Zotac</a></li>
-                <li><a href="">کارت گرافیک AMD</a></li>
-                <li><a href="">کارت گرافیک بایوستار Biostar</a></li>
-                <li><a href="">کارت گرافیک گیگابایت Gigabyte</a></li>
-                <li><a href="">کارت گرافیک ایسوس Asus</a></li>
-            </ul>
-        </li>
-        <li class="has-children">
-            <span class="mega-menu-title">رم</span>
-            <ul class="sub-menu">
-                <li><a href="">رم پاتریوت PATRIOT</a></li>
-                <li><a href="">رم جي اسکيل G.SKILL</a></li>
-                <li><a href="">رم زپلین Zeppelin</a></li>
-                <li><a href="">رم کینگستون Kingston</a></li>
-                <li><a href="">رم ای دیتا Adata</a></li>
-            </ul>
-        </li>
-        <li class="has-children">
-            <span class="mega-menu-title">سایر</span>
-            <ul class="sub-menu">
-                <li><a href="">حافظه داخلی</a></li>
-                <li><a href="">منبع تغذیه (پاور)</a></li>
-                <li><a href="">کیس کامپیوتر</a></li>
-            </ul>
-        </li>
-    </ul>
-</li>
-<li><a href="blog-ns.html">بلاگ</a></li>
-<li><a href="about.html">درباره ‌ما</a></li>
-<li><a href="contacts.html">تماس ‌با‌ما</a></li>
-<li class="active"><a href="contacts.html">لیست قیمت روز</a></li>
+    }
+    else
+    {
+        <li><a href="@i.Link">@i.Title</a></li>
+    }
+}
+<li class="active"><a href="/Page/DailyPriceList">لیست قیمت روز</a></li>

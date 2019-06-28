@@ -45,6 +45,11 @@ namespace Src.Models.Service.Repository
         public IGenericRepository<Tbl_CustAddress> CustAddress { get => custAddress = custAddress ?? new GenericRepository<Tbl_CustAddress>(_context); }
         #endregion
 
+        #region menu
+        private IGenericRepository<Tbl_Menu> menu;
+        public IGenericRepository<Tbl_Menu> Menu { get => menu = menu ?? new GenericRepository<Tbl_Menu>(_context); }
+        #endregion
+
         public int Save()
         {
             return _context.SaveChanges();

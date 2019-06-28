@@ -11,7 +11,6 @@ using System.ComponentModel.DataAnnotations;
 using Src.Models.ViewData.Base;
 using System.Linq;
 using Mapster;
-using System.Collections.Generic;
 
 namespace Src
 {
@@ -75,6 +74,13 @@ namespace Src
 
             TypeAdapterConfig<Tbl_PCPGroup, Product.CatProp>.NewConfig()
                    .Map(dest => dest.ValueList, src => src.Tbl_ProcProp.Where(item => item.PCPGID == src.ID).Select(item => item.Value).ToList());
+            #endregion
+
+            #region menu
+            TypeAdapterConfig<Tbl_Menu, Menu.ViewTbl_Menu>.NewConfig()
+                   .Map(dest => dest.HasChild, src =>
+                                               GenericFunction<Tbl_Menu>
+                                               .HasChild(src, item => item.PID == src.ID));
             #endregion
 
             #region factor

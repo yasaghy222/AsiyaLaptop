@@ -4,10 +4,6 @@ using Src.Models.Service.Repository;
 using Src.Models.ViewData.Base;
 using Src.Models.ViewData.Table;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 

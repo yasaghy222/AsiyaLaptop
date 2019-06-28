@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var MenuList = Src.Controllers.BaseController.GetMenu();
+}
+<!DOCTYPE html>
 <html lang="fa">
 <head>
     <meta charset="utf-8">
@@ -27,14 +30,14 @@
         <div class="topbar d-flex justify-content-between">
             <!-- Logo-->
             <div class="site-branding d-flex"><a class="site-logo align-self-center" href="/"><img src="~/Content/Images//logo/logo.png" alt="Unishop"></a></div>
-            @Html.Partial("~/Views/Partials/General/ToolBar.cshtml")
+            @Html.Partial("~/Views/Partials/General/ToolBar.cshtml", MenuList)
         </div>
         <!-- Navbar-->
         <div class="navbar">
             <!-- Main Navigation-->
             <nav class="site-menu">
                 <ul>
-                    @Html.Partial("~/Views/Partials/General/MainMenu.cshtml")
+                    @Html.Partial("~/Views/Partials/General/MainMenu.cshtml", MenuList)
                 </ul>
             </nav>
         </div>

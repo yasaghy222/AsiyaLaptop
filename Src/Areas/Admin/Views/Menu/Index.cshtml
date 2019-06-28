@@ -1,18 +1,20 @@
-﻿@model  IEnumerable<Src.Models.ViewData.Table.Factor.ViewFullOrder>
-<div class="content-group">
+﻿<div class="content-group">
     <div class="page-header page-header-default page-header-xs sticky">
         <div class="page-header-content">
             <div class="page-title">
                 <h5>
-                    <span class="text-semibold">لیست منو ها</span>
+                    <span class="text-semibold">منو</span>
                     <small class="display-block" id="count"></small>
                 </h5>
+            </div>
+            <div class="heading-elements">
+                <a id="addEdit" data-toggle="modal" data-target="#addEditMenu" class="btn bg-green-800 btn-labeled heading-btn legitRipple"><b><i class="icon-plus3"></i></b>افزودن لینک جدید</a>
             </div>
         </div>
         <div class="breadcrumb-line">
             <ul class="breadcrumb">
                 <li><a onclick="pageLoad('/Admin/Dashboard','پنل مدیریت لپتاپ آسیا')"><i class="icon-home position-left"></i> میز کار</a></li>
-                <li class="active">لیست منو ها</li>
+                <li class="active">منو</li>
             </ul>
         </div>
     </div>
@@ -27,9 +29,12 @@
             </div>
         </div>
         <div class="panel-body">
-            @Html.Partial("~/Areas/Admin/Views/Partial/Order/OrderList.cshtml")
+            @Html.Partial("~/Areas/Admin/Views/Partial/Menu/MenuList.cshtml")
         </div>
     </div>
 </div>
+<script src="~/Areas/Admin/Scripts/Plugin/touchspin.min.js"></script>
+<script src="~/Areas/Admin/Scripts/Core/jquery.validate.min.js"></script>
+<script src="~/Areas/Admin/Scripts/Core/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Areas/Admin/Scripts/Core/makepaging.js"></script>
-<script src="~/Areas/Admin/Scripts/Page/Order/order.js"></script>
+<script src="~/Areas/Admin/Scripts/Page/Menu/menu.js"></script>

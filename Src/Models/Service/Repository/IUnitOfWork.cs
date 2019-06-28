@@ -24,6 +24,10 @@ namespace Src.Models.Service.Repository
         IGenericRepository<Tbl_CustAddress> CustAddress { get; }
         #endregion
 
+        #region menu
+        IGenericRepository<Tbl_Menu> Menu { get; }
+        #endregion
+
         int Save();
         Task<int> SaveAsync();
     }

@@ -48,5 +48,6 @@ namespace Src.Models.Data
         public virtual DbSet<Tbl_ProcReview> Tbl_ProcReview { get; set; }
         public virtual DbSet<Tbl_Product> Tbl_Product { get; set; }
         public virtual DbSet<Tbl_State_City> Tbl_State_City { get; set; }
+        public virtual DbSet<Tbl_Menu> Tbl_Menu { get; set; }
     }
 }

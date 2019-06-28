@@ -48,6 +48,8 @@
         <AssociationConnector Association="ALDBModel.FK_Tbl_ProcProp_Tbl_Product" ManuallyRouted="false" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_ProcRate_Tbl_Product" ManuallyRouted="false" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_State_City_Tbl_State_City" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Menu" Width="1.5" PointX="12.375" PointY="13.75" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_Menu_Tbl_Menu" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
