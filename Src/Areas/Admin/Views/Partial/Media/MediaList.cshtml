@@ -1,0 +1,146 @@
+﻿<script id="MediaSource" type="text/x-handlebars-template">
+    {{#each list}}
+    <tr>
+        <td>
+            <div class="media">
+                <div class="media-left">
+                    <img src="/Files/Media/{{ID}}.jpg?v={{getDate}}" style="width: 70px; height: 70px;" class="img-circle" alt="{{Title}}">
+                </div>
+                <div class="media-body valign-middle max-width">
+                    <h6 class="media-heading text-blue-700 text-bold" lang="en">{{Title}}</h6>
+                </div>
+            </div>
+        </td>
+        <td class="text-center">
+            <a href="{{Link}}" dir="ltr" target="_blank" class="text-blue">{{Link}}</a>
+        </td>
+        <td class="text-center">
+            <span class="label label-rounded label-warning">
+                {{Sort}}
+            </span>
+        </td>
+        <td class="text-center">
+            <span class="label label-rounded label-info">
+                {{DispLoc}}
+            </span>
+        </td>
+        <td class="text-center">
+            <ul class="icons-list">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-menu"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a id="addEdit"
+                               data-toggle="modal"
+                               data-target="#addEditMedia"
+                               data-id="{{ID}}"
+                               data-title="{{Title}}"
+                               data-link="{{Link}}"
+                               data-sort="{{Sort}}"
+                               data-location="{{Location}}"
+                               class="text-blue-800">
+                                <i class="icon-pencil"></i> ویرایش
+                            </a>
+                        </li>
+                        <li><a id="del" data-id="{{ID}}" class="text-danger-800"><i class="icon-bin"></i>حذف</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+<div id="dataTable">
+    <table class="table datatable" id="TblMedia">
+        <thead>
+            <tr>
+                <th>عنوان</th>
+                <th class="text-center">لینک</th>
+                <th class="text-center">ترتیب</th>
+                <th class="text-center">موقعیت</th>
+                <th class="text-center">عملیات</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div id="no-records" class="text-center hidden">
+    <div class="icon-object no-border">
+        <img class="img-responsive" src="~/Areas/Admin/Content/Images/notFound.png" title="notDataFound" />
+    </div>
+    <h5 class="text-semibold">متاسفانه رکوردی یافت نشد!</h5>
+    <p class="mb-15">داده‌ای برای نمایش وجود ندارد می‌توانید از طریق دکمه ثبت مورد جدیدی را ثبت نمائید.</p>
+</div>
+
+<div id="addEditMedia" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">افزودن مدیا</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="frmMedia">
+                    <fieldset class="content-group col-lg-12">
+                        <input type="hidden" id="ID" name="ID" value="0" />
+                        <div class="form-group mb-40">
+                            <label class="control-label title col-lg-3">تصویر</label>
+                            <div class="col-lg-4" id="fileupload">
+                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                    <div class="fileupload-new thumbnail">
+                                        <img id="Demo" src="~/Areas/Admin/Content/Images/demoUpload.jpg" />
+                                    </div>
+                                    <div id="btns">
+                                        <div class="fileupload-preview fileupload-exists thumbnail"></div>
+                                        <div class="fileupload-btn">
+                                            <span class="btn btn-file btn-block bg-slate"><span class="fileupload-new" id="DemoBtn">انتخاب</span><span class="fileupload-exists">تغییر</span><input type="file" name="Image" id="Image" /></span>
+                                            <a class="btn btn-default btn-block mt-5 fileupload-exists" data-dismiss="fileupload">حذف</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-lg-offset-3">
+                                <span class="validation-error-label field-validation-valid mt-15" data-valmsg-for="Image" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label title col-lg-3">عنوان</label>
+                            <div class="col-lg-9">
+                                <input type="text" name="Title" id="Title" class="form-control" maxlength="50" autocomplete="off">
+                                <span class="validation-error-label field-validation-valid mt-15" data-valmsg-for="Title" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label title col-lg-3">لینک</label>
+                            <div class="col-lg-9">
+                                <input type="url" name="Link" id="Link" class="form-control text-left" dir="ltr" maxlength="200" autocomplete="off">
+                                <span class="validation-error-label field-validation-valid mt-15" data-valmsg-for="Link" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-3">ترتیب</label>
+                            <div class="col-lg-9">
+                                <input type="number" class="form-control touchspin text-center" autocomplete="off" name="Sort" id="Sort" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label title col-lg-3">موقعیت</label>
+                            <div class="col-lg-9">
+                                <select class="select" name="Location" id="Location">
+                                    <option value="0">اسلایدر</option>
+                                    <option value="1">بنر </option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-link text-grey-300" data-dismiss="modal"> بی خیال</button>
+                <button id="btnAddEdit" class="btn bg-green-800"><span class="ladda-label">ثبت</span></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -501,7 +501,6 @@ namespace Src.Controllers.Api
                 catch (Exception)
                 {
                     Result.Message = Common.ResultMessage.InternallServerError;
-                    throw;
                 }
             }
             else

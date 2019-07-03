@@ -7,6 +7,8 @@ using Src.Models.ViewData.Table;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -44,7 +46,7 @@ namespace Src.Controllers
     public class BaseController : Controller
     {
         #region variable
-        protected object Data;
+        protected dynamic Data;
         protected string RedirectPath;
         protected Common.Result Result;
         protected IUnitOfWork _unitOfWork;
@@ -59,6 +61,15 @@ namespace Src.Controllers
             {
                 var data = aLDB.Tbl_Menu.Where(item => item.Status).OrderBy(item => item.Sort).ThenBy(item => item.ID);
                 return data.ToList().Adapt<List<Menu.ViewTbl_Menu>>();
+            }
+        }
+
+        public static List<Media.ViewTbl_Media> GetMedia()
+        {
+            using (ALDBEntities aLDB = new ALDBEntities())
+            {
+                var data = aLDB.Tbl_Media.OrderBy(item => item.Sort).ThenBy(item=>item.ID);
+                return data.ToList().Adapt<List<Media.ViewTbl_Media>>();
             }
         }
         #endregion
@@ -108,19 +119,9 @@ namespace Src.Controllers
         }
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            #region variable
-            bool IsPublicAction;
-            string Action, Controller, Url;
-            string[] Login = { "account/logout", "account/changepass" },
-                     outLogin = { "account/index", "account/resetpass" };
-            #endregion
-
             #region get info
-            Action = filterContext.RouteData.Values["Action"].ToString();
-            Controller = filterContext.RouteData.Values["Controller"].ToString();
-            Url = $"{Controller.ToLower()}/{Action.ToLower()}";
             RedirectPath = filterContext.Controller.ViewBag.RedirectPath?.ToString();
-            IsPublicAction = filterContext.ActionDescriptor.GetCustomAttributes(typeof(PublicAction), true).Count() > 0;
+            bool IsPublicAction = filterContext.ActionDescriptor.GetCustomAttributes(typeof(PublicAction), true).Count() > 0;
             void SetResult(Common.Result result)
             {
                 ViewResultBase contextResult = (filterContext.Result as ViewResultBase);
@@ -164,7 +165,6 @@ namespace Src.Controllers
                 #endregion
             }
             #endregion
-
             base.OnActionExecuted(filterContext);
         }
         #endregion

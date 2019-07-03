@@ -1,7 +1,16 @@
-﻿
+﻿@using Src.Models.ViewData.Table
+@using Src.Controllers
 @{
     ViewBag.Title = "فروشگاه لپتاپ آسیا";
     Layout = "~/Views/Sheared/_Layout_Primary.cshtml";
+    List<Media.ViewTbl_Media> medias = BaseController.GetMedia(),
+                              slider = medias.Where(item => item.Location == (byte)Media.MediaLocation.اسلایدر).ToList(),
+                              Banner = medias.Where(item => item.Location == (byte)Media.MediaLocation.بنر).ToList();
+    List<Product.FullSearchResult> newProc = ProductController.GetNewest(),
+                                   bestSelling = ProductController.GetBestSelling(),
+                                   mostVisited = ProductController.GetMostVisited(),
+                                   mostPopular = ProductController.GetMostPopular();
+    List<Product.Brand> popularBrand = ProductController.GetPopularBrand();
 }
 
 @section MetaTags{
@@ -10,65 +19,114 @@
     <meta name="author" content="T.Yasaghi">
 }
 
-<!-- Main Slider-->
-@Html.Partial("~/Views/Partials/General/MainSlider.cshtml")
+@section Styles{
+    <style type="text/css">
+        .card img {
+            width: 100%;
+            max-height: 212px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 5px
+        }
+    </style>
+}
 
-<!-- Top Categories-->
-<section class="container padding-top-3x padding-bottom-2x">
-    <div class="row">
-        @Html.Partial("~/Views/Partials/General/TopCategories.cshtml")
-    </div>
-</section>
+@if (slider.Count > 0)
+{
+    <!-- Main Slider-->
+    @Html.Partial("~/Views/Partials/General/MainSlider.cshtml", slider)
+}
+
+@if (Banner.Count >= 3)
+{
+    <!-- Top Categories-->
+    <section class="container padding-top-3x padding-bottom-2x">
+        <div class="row">
+            @Html.Partial("~/Views/Partials/General/TopCategories.cshtml", Banner.Take(3).ToList())
+        </div>
+    </section>
+}
 
 <!-- New Products-->
 <section class="container padding-bottom-2x mb-2" dir="rtl">
-    <h2 class="h3 pb-3 text-center">جدیدترین محصولات</h2>
+    <h2 class="pb-3 widget-title">جدیدترین محصولات</h2>
     <div class="row">
-        @Html.Partial("~/Views/Partials/General/NewProducts.cshtml")
+        @foreach (var item in newProc)
+        {
+            @Html.Partial("~/Views/Partials/General/Product.cshtml", Tuple.Create(item, "col-lg-3"))
+        }
     </div>
-    <div class="text-center"><a class="btn btn-outline-secondary" href="shop-grid-ls.html">مشاهده تمام محصولات</a></div>
+    <div class="text-center"><a class="btn btn-outline-secondary" href="/Search">مشاهده تمام محصولات</a></div>
 </section>
 
-<!-- Offer-->
-@Html.Partial("~/Views/Partials/General/Offer.cshtml")
+@if (Banner.Count > 6)
+{
+    <!-- Top Categories-->
+    <section class="container padding-bottom-2x">
+        <div class="row">
+            @Html.Partial("~/Views/Partials/General/TopCategories.cshtml", Banner.Skip(3).Take(3).ToList())
+        </div>
+    </section>
+}
 
-<!-- Staff Picks (Widgets)-->
-<section class="container padding-top-3x padding-bottom-2x">
-    <h2 class="h3 pb-3 text-center">منتخب کاربران</h2>
-    <div class="row pt-1">
-        <div class="col-md-4 col-sm-6">
-            <div class="widget widget-featured-products">
-                <h3 class="widget-title">پرفروش ترین ها</h3>
-                @Html.Partial("~/Views/Partials/General/BestSellers.cshtml")
-                <a class="btn btn-outline-secondary btn-sm mb-0" href="shop-grid-ls.html">بیشتر</a>
-            </div>
+@if (bestSelling.Count > 0)
+{
+    <!-- best selling Products-->
+    <section class="container padding-bottom-2x mb-2" dir="rtl">
+        <h2 class="pb-3 widget-title">پرفروش ترین محصولات</h2>
+        <div class="row">
+            @foreach (var item in bestSelling)
+            {
+                @Html.Partial("~/Views/Partials/General/Product.cshtml", Tuple.Create(item, "col-lg-3"))
+            }
         </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="widget widget-featured-products">
-                <h3 class="widget-title">منتخب برترین ها</h3>
-                @Html.Partial("~/Views/Partials/General/Best.cshtml")
-                <a class="btn btn-outline-secondary btn-sm mb-0" href="shop-grid-ls.html">بیشتر</a>
-            </div>
+    </section>
+}
+
+
+@if (mostVisited.Count > 0)
+{
+    <!-- most visited Products-->
+    <section class="container padding-bottom-2x mb-2" dir="rtl">
+        <h2 class="pb-3 widget-title">پربازدید ترین محصولات</h2>
+        <div class="row">
+            @foreach (var item in mostVisited)
+            {
+                @Html.Partial("~/Views/Partials/General/Product.cshtml", Tuple.Create(item, "col-lg-3"))
+            }
         </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="widget widget-featured-products">
-                <h3 class="widget-title">پربازدیدترین ها</h3>
-                @Html.Partial("~/Views/Partials/General/MostViewed.cshtml")
-                <a class="btn btn-outline-secondary btn-sm mb-0" href="shop-grid-ls.html">بیشتر</a>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+}
 
 <!-- Popular Brands Carousel-->
 <section class="bg-secondary padding-top-3x padding-bottom-3x">
     <div class="container">
         <h2 class="h3 text-center mb-30 pb-3">محبوب ترین برندها</h2>
-        <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: false, &quot;loop&quot;: true, &quot;rtl&quot;:true, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 4000, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:2}, &quot;470&quot;:{&quot;items&quot;:3},&quot;630&quot;:{&quot;items&quot;:4},&quot;991&quot;:{&quot;items&quot;:5},&quot;1200&quot;:{&quot;items&quot;:6}} }">
-            @Html.Partial("~/Views/Partials/General/PopularBrands.cshtml")
+        <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: false, &quot;loop&quot;: false, &quot;rtl&quot;:true, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 4000, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:2}, &quot;470&quot;:{&quot;items&quot;:3},&quot;630&quot;:{&quot;items&quot;:4},&quot;991&quot;:{&quot;items&quot;:5},&quot;1200&quot;:{&quot;items&quot;:6}} }">
+            @foreach (var item in popularBrand)
+            {
+                string src = $"/Files/ProcBrand/{item.ID}.jpg",
+                       link = $"/search?brand={item.EnTitle.ToLower().Trim()}";
+                <a class="d-block w-110 opacity-75 m-auto" href="@link"><img src="@src" alt="@item.Title"></a>
+            }
         </div>
     </div>
 </section>
+
+@if (mostPopular.Count > 0)
+{
+    <!-- most visited Products-->
+    <section class="container padding-top-3x padding-bottom-2x mb-2" dir="rtl">
+        <h2 class="pb-3 widget-title">محبوب ترین محصولات</h2>
+        <div class="row">
+            @foreach (var item in mostPopular)
+            {
+                @Html.Partial("~/Views/Partials/General/Product.cshtml", Tuple.Create(item, "col-lg-3"))
+            }
+        </div>
+    </section>
+}
+
 
 <!-- Services-->
 <section class="container padding-top-3x padding-bottom-2x" dir="rtl">

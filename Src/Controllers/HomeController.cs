@@ -2,6 +2,7 @@
 using Src.Models.Data;
 using Src.Models.Service.Repository;
 using Src.Models.ViewData.Base;
+using Src.Models.ViewData.Table;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,16 @@ namespace Src.Controllers
 
         [HttpGet, PublicAction]
         public ActionResult Index() => View();
+
+        [HttpPost, PublicAction]
+        [ValidateAntiForgeryToken, ValidateModel]
+        public async Task<ActionResult> Index(Newsletter.ViewTbl_Newsletter newsletter)
+        {
+            using (NewsletterController controller = new NewsletterController(_unitOfWork))
+            {
+                ViewBag.Result = await controller.Register(newsletter);
+                return View();
+            }
+        }
     }
 }

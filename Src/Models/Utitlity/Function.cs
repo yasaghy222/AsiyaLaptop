@@ -43,6 +43,24 @@ namespace Src.Models.Utitlity
 
             return second;
         }
+
+        /// <summary>
+        /// کاربر ip دریافت آدرس
+        /// </summary>
+        /// <returns></returns>
+        public static string GetIP()
+        {
+            string VisitorsIPAddr = string.Empty;
+            if (HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] != null)
+            {
+                VisitorsIPAddr = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].ToString();
+            }
+            else if (HttpContext.Current.Request.UserHostAddress.Length != 0)
+            {
+                VisitorsIPAddr = HttpContext.Current.Request.UserHostAddress;
+            }
+            return VisitorsIPAddr;
+        }
         #endregion
 
         #region code
@@ -90,7 +108,7 @@ namespace Src.Models.Utitlity
             HttpRequest request = HttpContext.Current.Request;
             if (request.Files.Count > 0)
             {
-                if (img.ContentLength <= 102400)
+                if ((img.ContentLength / 1024) <= 4096)
                 {
                     if (Common.ImgValidType.Contains(img.ContentType))
                     {

@@ -1,28 +1,14 @@
-﻿<div class="col-lg-4 col-sm-6">
-    <div class="card border-0 bg-secondary mb-30">
-        <div class="card-body d-table w-100 p-0">
-            <a href="">
-                <img src="~/Content/Images//shop/cart/c01.jpg" />
-            </a>
+﻿@model List<Src.Models.ViewData.Table.Media.ViewTbl_Media>
+@foreach (var item in Model)
+{
+    string src = $"/Files/Media/{item.ID}.jpg";
+    <div class="col-lg-4 col-sm-6">
+        <div class="card border-0 bg-secondary mb-30">
+            <div class="card-body d-table w-100 p-0">
+                <a href="@item.Link">
+                    <img src="@src" title="@item.Title" />
+                </a>
+            </div>
         </div>
     </div>
-</div>
-<div class="col-lg-4 col-sm-6">
-    <div class="card border-0 bg-secondary mb-30">
-        <div class="card-body d-table w-100 p-0">
-            <a href="">
-                <img src="~/Content/Images//shop/cart/c01.jpg" />
-            </a>
-        </div>
-    </div>
-</div>
-<div class="col-lg-4 col-sm-6">
-    <div class="card border-0 bg-secondary mb-30">
-        <div class="card-body d-table w-100 p-0">
-            <a href="">
-                <img src="~/Content/Images//shop/cart/c01.jpg" />
-            </a>
-        </div>
-    </div>
-</div>
-
+}

@@ -76,11 +76,11 @@
                 </div>
                 <div class="col-lg-6">
                     <!-- Subscription-->
-                    @Html.Partial("~/Views/Partials/General/Subscription.cshtml")
+                    @Html.Partial("~/Views/Partials/General/Subscription.cshtml", new Src.Models.ViewData.Table.Newsletter.ViewTbl_Newsletter())
                 </div>
             </div>
             <!-- Copyright-->
-            <p class="footer-copyright"> © تمامی حقوق برای فروشگاه لپتاپ آسیا محفوظ است ، طراحی توسط <a href="http://rokaux.com/" target="_blank">طاها یساقی</a></p>
+            <p class="footer-copyright"> © تمامی حقوق برای فروشگاه لپتاپ آسیا محفوظ است </p>
         </div>
     </footer>
     <!-- Back To Top Button--><a class="scroll-to-top-btn" href="#"><i class="icon-chevron-up"></i></a>
@@ -92,13 +92,14 @@
     <script type="text/javascript">
         $(document).ready(() => {
             let resualt = @Html.Raw(Json.Encode(ViewBag.Result));
+            debugger;
             if (resualt != null) {
                 if (resualt.Message == "Success") {
-                    notify('success', 'موفقیت!', resualt.Message);
+                    notify('success', 'موفقیت !', "درخواست با موفقیت انجام شد.");
                 }
                 else
                 {
-                    notify('danger', 'خطا!', resualt.Message);
+                    notify('danger', 'خطا !', resualt.Message);
                 }
             }
         });

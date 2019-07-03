@@ -47,6 +47,11 @@ namespace Src
                    .Map(dest => dest.Type, src => (EnumExtensions
                                                    .GetEnumValue<Product.ProcType>(src.Type))
                                                    .GetAttribute<DisplayAttribute>().Name);
+
+            TypeAdapterConfig<Tbl_Product, Product.Brand>.NewConfig()
+                .Map(dest => dest.ID, src => src.BrandID)
+                .Map(dest => dest.Title, src => src.Tbl_ProcBrand.Title)
+                .Map(dest => dest.EnTitle, src => src.Tbl_ProcBrand.EnTitle);
             #endregion
 
             #region procBrand
@@ -83,6 +88,11 @@ namespace Src
                                                .HasChild(src, item => item.PID == src.ID));
             #endregion
 
+            #region media
+            TypeAdapterConfig<Tbl_Media, Media.ViewTbl_Media>.NewConfig()
+                   .Map(dest => dest.DispLoc, src => EnumExtensions.GetEnumValue<Media.MediaLocation>(src.Location));
+            #endregion
+            
             #region factor
             TypeAdapterConfig<Tbl_Factor, Factor.ViewOrderDetail>.NewConfig()
                    .Map(dest => dest.CustName, src => src.Tbl_Customer.Name)

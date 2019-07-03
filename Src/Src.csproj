@@ -175,6 +175,7 @@
     <Content Include="Areas\Admin\Scripts\Core\jquery.validate.unobtrusive.min.js" />
     <Content Include="Areas\Admin\Scripts\Core\makepaging.js" />
     <Content Include="Areas\Admin\Scripts\Page\Dashboard\dashboard.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Media\media.js" />
     <Content Include="Areas\Admin\Scripts\Page\Menu\menu.js" />
     <Content Include="Areas\Admin\Scripts\Page\Order\order.js" />
     <Content Include="Areas\Admin\Scripts\Page\Product\catAddEdit.js" />
@@ -457,11 +458,13 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MediaController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
+    <Compile Include="Controllers\Api\MediaController.cs" />
     <Compile Include="Controllers\Api\MenuController.cs" />
     <Compile Include="Controllers\Api\NinjectApi.cs" />
     <Compile Include="Controllers\Api\OrderController.cs" />
@@ -469,6 +472,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NewsletterController.cs" />
     <Compile Include="Controllers\NinjectController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
@@ -578,7 +582,9 @@
     <Compile Include="Models\ViewData\Table\Admin.cs" />
     <Compile Include="Models\ViewData\Table\Customer.cs" />
     <Compile Include="Models\ViewData\Table\Factor.cs" />
+    <Compile Include="Models\ViewData\Table\Media.cs" />
     <Compile Include="Models\ViewData\Table\Menu.cs" />
+    <Compile Include="Models\ViewData\Table\Newsletter.cs" />
     <Compile Include="Models\ViewData\Table\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -672,6 +678,8 @@
     <Content Include="Areas\Admin\Views\Partial\Order\OrderList.cshtml" />
     <Content Include="Areas\Admin\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Partial\Menu\MenuList.cshtml" />
+    <Content Include="Areas\Admin\Views\Media\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Media\MediaList.cshtml" />
     <None Include="bundleconfig.json" />
     <None Include="packages.config" />
     <Content Include="Views\Sheared\_Layout_Primary.cshtml" />
@@ -681,7 +689,6 @@
     <Content Include="Views\Partials\General\ToolBar.cshtml" />
     <Content Include="Views\Partials\General\TopCategories.cshtml" />
     <Content Include="Views\Partials\General\NewProducts.cshtml" />
-    <Content Include="Views\Partials\General\Offer.cshtml" />
     <Content Include="Views\Partials\General\BestSellers.cshtml" />
     <Content Include="Views\Partials\General\Best.cshtml" />
     <Content Include="Views\Partials\General\MostViewed.cshtml" />
@@ -694,6 +701,8 @@
     <Content Include="Views\Partials\Account\Register.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Partials\General\Product.cshtml" />
+    <Content Include="Views\Newsletter\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -701,7 +710,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Files\Media\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

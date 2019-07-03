@@ -50,6 +50,16 @@ namespace Src.Models.Service.Repository
         public IGenericRepository<Tbl_Menu> Menu { get => menu = menu ?? new GenericRepository<Tbl_Menu>(_context); }
         #endregion
 
+        #region media
+        private IGenericRepository<Tbl_Media> media;
+        public IGenericRepository<Tbl_Media> Media { get => media = media ?? new GenericRepository<Tbl_Media>(_context); }
+        #endregion
+
+        #region newsletter
+        private IGenericRepository<Tbl_Newsletter> newsletter;
+        public IGenericRepository<Tbl_Newsletter> Newsletter { get => newsletter = newsletter ?? new GenericRepository<Tbl_Newsletter>(_context); }
+        #endregion
+
         public int Save()
         {
             return _context.SaveChanges();

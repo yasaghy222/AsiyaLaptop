@@ -1,13 +1,13 @@
-﻿<section class="widget widget-light-skin">
+﻿@model  Src.Models.ViewData.Table.Newsletter.ViewTbl_Newsletter
+<section class="widget widget-light-skin">
     <h3 class="widget-title">از آخرین اخبار و تخفیف های ما باخبر شوید</h3>
-    <form class="row" action="" method="post" target="_blank" novalidate>
+    <form class="row" action="/Home/Index" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
         <div class="col-sm-9">
             <div class="input-group input-light">
-                <input class="form-control" type="email" name="EMAIL" placeholder="ایمیل"><span class="input-group-addon"><i class="icon-mail"></i></span>
-            </div>
-            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-            <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                <input type="text" name="" tabindex="-1">
+                @Html.TextBoxFor(item => item.Email, new { @class = "form-control", placeholder = "ایمیل", @type = "email" })
+                <span class="input-group-addon"><i class="icon-mail"></i></span>
+                @Html.ValidationMessageFor(item => item.Email, "", new { @class = "invalid-feedback" })
             </div>
         </div>
         <div class="col-sm-3">
@@ -15,7 +15,7 @@
         </div>
     </form>
     <div class="pt-3 nemad">
-        <img class="" alt="enamad" src="~/Content/Images//enamad.png">
-        <img class="" alt="enamad" src="~/Content/Images//samandehi.png">
+        <a href=""><img class="" alt="enamad" src="~/Content/Images//enamad.png"></a>
+        <a href=""><img class="" alt="enamad" src="~/Content/Images//samandehi.png"></a>
     </div>
 </section>

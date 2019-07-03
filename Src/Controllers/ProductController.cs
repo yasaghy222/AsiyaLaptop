@@ -1,4 +1,5 @@
-﻿using Src.Models.Data;
+﻿using Mapster;
+using Src.Models.Data;
 using Src.Models.Service.Repository;
 using Src.Models.Utitlity;
 using Src.Models.ViewData.Base;
@@ -72,6 +73,72 @@ namespace Src.Controllers
                 MaxResultPrice = await _unitOfWork.Product.GetMaxPrice(cat)
             };
             return View(searchPageModel);
+        }
+        #endregion
+
+        #region get newest products
+        public static List<Product.FullSearchResult> GetNewest()
+        {
+            using (ALDBEntities aLDB = new ALDBEntities())
+            {
+                var data = aLDB.Tbl_Product.OrderBy(item => item.RegDate);
+                return data.Take(4).Adapt<List<Product.FullSearchResult>>();
+            }
+        }
+        #endregion
+
+        #region get best selling products
+        public static List<Product.FullSearchResult> GetBestSelling()
+        {
+            using (ALDBEntities aLDB = new ALDBEntities())
+            {
+                var data = aLDB.Tbl_Product.Where(item => item.Tbl_FactProc.Count > 0)
+                                           .OrderByDescending(item => item.Tbl_FactProc.Count);
+                return data.Take(4).Adapt<List<Product.FullSearchResult>>();
+            }
+        }
+        #endregion
+
+        #region get most visited products
+        public static List<Product.FullSearchResult> GetMostVisited()
+        {
+            using (ALDBEntities aLDB = new ALDBEntities())
+            {
+                var data = aLDB.Tbl_Product.OrderByDescending(item => item.VisitCount);
+                return data.Take(4).Adapt<List<Product.FullSearchResult>>();
+            }
+        }
+        #endregion
+
+        #region get most popular products
+        public static List<Product.FullSearchResult> GetMostPopular()
+        {
+            using (ALDBEntities aLDB = new ALDBEntities())
+            {
+                var data = aLDB.Tbl_Product.OrderByDescending(item => item.Rate);
+                return data.Take(4).Adapt<List<Product.FullSearchResult>>();
+            }
+        }
+        #endregion
+
+        #region get popular brands
+        public static List<Product.Brand> GetPopularBrand()
+        {
+            using (ALDBEntities aLDB = new ALDBEntities())
+            {
+                return aLDB.Database
+                           .SqlQuery<Product.Brand>(@"
+                                                      select Top 4 
+                                                      ID,Title,EnTitle 
+                                                      from Tbl_ProcBrand 
+                                                      join (
+                                                            select max(Rate) Rate,BrandID 
+                                                            from Tbl_Product
+                                                            group by BrandID
+                                                      ) product
+                                                      on Tbl_ProcBrand.ID = product.BrandID")
+                           .ToList();
+            }
         }
         #endregion
     }

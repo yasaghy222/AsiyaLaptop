@@ -403,7 +403,7 @@
                     s = target[0].files[0].size;
                 s /= 1024;
 
-                if ((t != 'jpg' || t != 'jpeg') && s > 2048) {
+                if ((t != 'jpg' || t != 'jpeg') && s > 4096) {
                     inputAddError(target, "فرمت یا اندازه تصویر مجاز نمی باشد.");
                 }
                 else {

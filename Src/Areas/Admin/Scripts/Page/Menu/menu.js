@@ -6,7 +6,6 @@
     $(".touchspin").TouchSpin({
         max: 10
     });
-    let count = 0;
     //#endregion
 
     //#region Functions
@@ -137,6 +136,7 @@
         };
 
         if (frmMenuMode(id) == "Add") {
+            modalTitle.html("افزودن لینک");
             ID.val("0");
             Title.val("");
             Link.val("");
@@ -146,6 +146,7 @@
             Sort.val("0");
         }
         else {
+            modalTitle.html("ویرایش لینک");
             ID.val(id);
             Title.val(title);
             Link.val(link);

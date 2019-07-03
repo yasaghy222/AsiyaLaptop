@@ -256,6 +256,7 @@
           <Property Name="Count" Type="int" Nullable="false" />
           <Property Name="VisitCount" Type="int" />
           <Property Name="Type" Type="tinyint" Nullable="false" />
+          <Property Name="RegDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Tbl_State_City">
           <Key>
@@ -936,6 +937,7 @@
           <NavigationProperty Name="Tbl_ProcImg" Relationship="Self.FK_Tbl_ProcImg_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_ProcImg" />
           <NavigationProperty Name="Tbl_ProcProp" Relationship="Self.FK_Tbl_ProcProp_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_ProcProp" />
           <NavigationProperty Name="Tbl_ProcReview" Relationship="Self.FK_Tbl_ProcRate_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_ProcReview" />
+          <Property Name="RegDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Tbl_State_City">
           <Key>
@@ -1601,6 +1603,7 @@
           <EntitySetMapping Name="Tbl_Product">
             <EntityTypeMapping TypeName="ALDBModel.Tbl_Product">
               <MappingFragment StoreEntitySet="Tbl_Product">
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ShortDesc" ColumnName="ShortDesc" />

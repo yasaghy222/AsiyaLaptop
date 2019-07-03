@@ -91,11 +91,15 @@ namespace Src.Models.ViewData.Table
         #endregion
 
         #region procBrand
-        public class ViewTbl_ProcBrand
+        public class Brand
         {
             public int ID { get; set; }
             public string Title { get; set; }
             public string EnTitle { get; set; }
+        }
+
+        public class ViewTbl_ProcBrand : Brand
+        {
             public int AssignCount { get; set; }
         }
         #endregion

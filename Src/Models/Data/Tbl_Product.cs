@@ -37,6 +37,7 @@ namespace Src.Models.Data
         public int Count { get; set; }
         public Nullable<int> VisitCount { get; set; }
         public byte Type { get; set; }
+        public Nullable<System.DateTime> RegDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FactProc> Tbl_FactProc { get; set; }

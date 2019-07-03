@@ -28,6 +28,14 @@ namespace Src.Models.Service.Repository
         IGenericRepository<Tbl_Menu> Menu { get; }
         #endregion
 
+        #region media
+        IGenericRepository<Tbl_Media> Media { get;}
+        #endregion
+
+        #region newsletter
+        IGenericRepository<Tbl_Newsletter> Newsletter { get; }
+        #endregion
+
         int Save();
         Task<int> SaveAsync();
     }
