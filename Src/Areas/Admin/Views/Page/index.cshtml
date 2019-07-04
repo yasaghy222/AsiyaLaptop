@@ -1,0 +1,38 @@
+﻿<div class="content-group">
+    <div class="page-header page-header-default page-header-xs sticky">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h5>
+                    <span class="text-semibold">لیست صفحات</span>
+                    <small class="display-block" id="count"></small>
+                </h5>
+            </div>
+            <div class="heading-elements">
+                <a onclick="pageLoad('/Admin/Page/AddEdit','افزودن صفحه','addEditPage')" class="btn bg-green-800 btn-labeled heading-btn legitRipple"><b><i class="icon-plus3"></i></b>افزودن صفحه جدید</a>
+            </div>
+        </div>
+        <div class="breadcrumb-line">
+            <ul class="breadcrumb">
+                <li><a onclick="pageLoad('/Admin/Dashboard','پنل مدیریت لپتاپ آسیا')"><i class="icon-home position-left"></i> میز کار</a></li>
+                <li class="active">لیست صفحات</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="reload"></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            @Html.Partial("~/Areas/Admin/Views/Partial/Page/PageList.cshtml")
+        </div>
+    </div>
+</div>
+<script src="~/Areas/Admin/Scripts/Plugin/touchspin.min.js"></script>
+<script src="~/Areas/Admin/Scripts/Core/makepaging.js"></script>
+<script src="~/Areas/Admin/Scripts/Page/Page/page.js"></script>

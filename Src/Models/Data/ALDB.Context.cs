@@ -39,7 +39,6 @@ namespace Src.Models.Data
         public virtual DbSet<Tbl_FactProc> Tbl_FactProc { get; set; }
         public virtual DbSet<Tbl_Media> Tbl_Media { get; set; }
         public virtual DbSet<Tbl_Newsletter> Tbl_Newsletter { get; set; }
-        public virtual DbSet<Tbl_Page> Tbl_Page { get; set; }
         public virtual DbSet<Tbl_PCPGroup> Tbl_PCPGroup { get; set; }
         public virtual DbSet<Tbl_ProcBrand> Tbl_ProcBrand { get; set; }
         public virtual DbSet<Tbl_ProcCat> Tbl_ProcCat { get; set; }
@@ -49,5 +48,6 @@ namespace Src.Models.Data
         public virtual DbSet<Tbl_Product> Tbl_Product { get; set; }
         public virtual DbSet<Tbl_State_City> Tbl_State_City { get; set; }
         public virtual DbSet<Tbl_Menu> Tbl_Menu { get; set; }
+        public virtual DbSet<Tbl_Page> Tbl_Page { get; set; }
     }
 }

@@ -176,9 +176,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TItle" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SeoDesc" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Link" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SeoDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="Keywords" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Body" Type="ntext" />
           <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Tbl_PCPGroup">
@@ -832,16 +834,6 @@
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="Tbl_Page">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TItle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SeoDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="Tbl_PCPGroup">
           <Key>
             <PropertyRef Name="ID" />
@@ -1233,7 +1225,6 @@
           <EntitySet Name="Tbl_FactProc" EntityType="Self.Tbl_FactProc" />
           <EntitySet Name="Tbl_Media" EntityType="Self.Tbl_Media" />
           <EntitySet Name="Tbl_Newsletter" EntityType="Self.Tbl_Newsletter" />
-          <EntitySet Name="Tbl_Page" EntityType="Self.Tbl_Page" />
           <EntitySet Name="Tbl_PCPGroup" EntityType="Self.Tbl_PCPGroup" />
           <EntitySet Name="Tbl_ProcBrand" EntityType="Self.Tbl_ProcBrand" />
           <EntitySet Name="Tbl_ProcCat" EntityType="Self.Tbl_ProcCat" />
@@ -1327,6 +1318,7 @@
             <End Role="Tbl_Menu" EntitySet="Tbl_Menu" />
             <End Role="Tbl_Menu1" EntitySet="Tbl_Menu" />
           </AssociationSet>
+          <EntitySet Name="Tbl_Page" EntityType="ALDBModel.Tbl_Page" />
         </EntityContainer>
         <EntityType Name="Tbl_Menu">
           <Key>
@@ -1353,6 +1345,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Tbl_Page">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SeoDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Keywords" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1527,17 +1531,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_Page">
-            <EntityTypeMapping TypeName="ALDBModel.Tbl_Page">
-              <MappingFragment StoreEntitySet="Tbl_Page">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TItle" ColumnName="TItle" />
-                <ScalarProperty Name="SeoDesc" ColumnName="SeoDesc" />
-                <ScalarProperty Name="Body" ColumnName="Body" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tbl_PCPGroup">
             <EntityTypeMapping TypeName="ALDBModel.Tbl_PCPGroup">
               <MappingFragment StoreEntitySet="Tbl_PCPGroup">
@@ -1638,6 +1631,19 @@
                 <ScalarProperty Name="Link" ColumnName="Link" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Page">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_Page">
+              <MappingFragment StoreEntitySet="Tbl_Page">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Keywords" ColumnName="Keywords" />
+                <ScalarProperty Name="SeoDesc" ColumnName="SeoDesc" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

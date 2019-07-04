@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Src.Models.Utitlity
+@{
+    string date = DateTime.Now.ToPersianDate("fullText");
+}
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="utf-8">
@@ -68,7 +72,7 @@
 </head>
 <body class="navbar-top">
     <!-- Main navbar -->
-    @Html.Partial("~/Areas/Admin/Views/Partial/General/MainNavbar.cshtml")
+    @Html.Partial("~/Areas/Admin/Views/Partial/General/MainNavbar.cshtml", date)
     <!-- /main navbar -->
     <!-- Page container -->
     <div class="page-container">
@@ -111,6 +115,40 @@
     <script type="text/javascript" src="~/Areas/Admin/Scripts/Core/app.js"></script>
     <!-- /Core JS files -->
     <script type="text/javascript">
+        function numberToCurrency(number) {
+            if (number == 0)
+                return number;
+            if (!number)
+                return 0;
+            number = number.toString().replace(/,/g, '');
+            if (number.length > 3) {
+                var mod = number.length % 3;
+                var output = mod > 0 ? number.substring(0, mod) : '';
+                for (var i = 0; i < Math.floor(number.length / 3); i++) {
+                    if (mod === 0 && i === 0)
+                        output += number.substring(mod + 3 * i, mod + 3 * i + 3);
+                    else
+                        output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+                }
+                return output;
+            }
+            return number;
+        };
+        function currencyToNumber(currency) {
+            return currency.toString().replace(/,/g, '');
+        };
+        function Clock() {
+            var today = new Date();
+            var hours = today.getHours();
+            var minutes = today.getMinutes();
+            var seconds = today.getSeconds();
+            var time_holder; // holds the time
+            hours = ((hours < 10) ? "0" + hours : hours);
+            minutes = ((minutes < 10) ? "0" + minutes : minutes);
+            seconds = ((seconds < 10) ? "0" + seconds : seconds);
+            time_holder = `${seconds} : ${minutes} : ${hours}`;
+            document.getElementById('jsClock').innerHTML = time_holder;
+        };
         Handlebars.registerHelper('getDate', () => {
             let date = new Date();
             return date.getMilliseconds();
@@ -459,6 +497,14 @@
             $("#btnSaveNext").toggleClass("disabled");
         };
         $(document).ready(() => {
+            //get system time
+            let auto_referesh = setInterval
+                (
+                    function () {
+                        Clock();
+                    }, 1000
+                );
+
             pageLoad('/Admin/Dashboard', 'پنل مدیریت لپتاپ آسیا');
         });
     </script>

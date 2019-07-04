@@ -174,10 +174,14 @@
     <Content Include="Areas\Admin\Scripts\Core\jquery.validate.unobtrusive.js" />
     <Content Include="Areas\Admin\Scripts\Core\jquery.validate.unobtrusive.min.js" />
     <Content Include="Areas\Admin\Scripts\Core\makepaging.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Admin\admin.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Customer\customer.js" />
     <Content Include="Areas\Admin\Scripts\Page\Dashboard\dashboard.js" />
     <Content Include="Areas\Admin\Scripts\Page\Media\media.js" />
     <Content Include="Areas\Admin\Scripts\Page\Menu\menu.js" />
     <Content Include="Areas\Admin\Scripts\Page\Order\order.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Page\page.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Page\pageAddEdit.js" />
     <Content Include="Areas\Admin\Scripts\Page\Product\catAddEdit.js" />
     <Content Include="Areas\Admin\Scripts\Page\Product\procAddEdit.js" />
     <Content Include="Areas\Admin\Scripts\Page\Product\procBrand.js" />
@@ -456,24 +460,31 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\MediaController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\AdminController.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
+    <Compile Include="Controllers\Api\CustomerController.cs" />
     <Compile Include="Controllers\Api\MediaController.cs" />
     <Compile Include="Controllers\Api\MenuController.cs" />
     <Compile Include="Controllers\Api\NinjectApi.cs" />
     <Compile Include="Controllers\Api\OrderController.cs" />
+    <Compile Include="Controllers\Api\PageController.cs" />
     <Compile Include="Controllers\Api\ProductController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsletterController.cs" />
     <Compile Include="Controllers\NinjectController.cs" />
+    <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -585,6 +596,7 @@
     <Compile Include="Models\ViewData\Table\Media.cs" />
     <Compile Include="Models\ViewData\Table\Menu.cs" />
     <Compile Include="Models\ViewData\Table\Newsletter.cs" />
+    <Compile Include="Models\ViewData\Table\Page.cs" />
     <Compile Include="Models\ViewData\Table\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -680,6 +692,14 @@
     <Content Include="Areas\Admin\Views\Partial\Menu\MenuList.cshtml" />
     <Content Include="Areas\Admin\Views\Media\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Partial\Media\MediaList.cshtml" />
+    <Content Include="Areas\Admin\Views\Page\index.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Page\PageList.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Page\PageAddEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Page\AddEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Customer\CustList.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Admin\AdminList.cshtml" />
     <None Include="bundleconfig.json" />
     <None Include="packages.config" />
     <Content Include="Views\Sheared\_Layout_Primary.cshtml" />
@@ -703,6 +723,7 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Partials\General\Product.cshtml" />
     <Content Include="Views\Newsletter\Register.cshtml" />
+    <Content Include="Views\Page\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

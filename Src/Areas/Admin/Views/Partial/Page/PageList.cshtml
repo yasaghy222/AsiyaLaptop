@@ -1,0 +1,61 @@
+﻿<script id="pageSource" type="text/x-handlebars-template">
+    {{#each list}}
+    <tr>
+        <td>
+            {{Title}}
+        </td>
+        <td class="text-center">
+            <a href="page/{{Link}}" dir="ltr" target="_blank" class="text-blue">{{Link}}</a>
+        </td>
+        <td class="text-center text-muted">
+            {{SeoDesc}}
+        </td>
+        <td class="text-center">
+            {{#if Status}}
+            <span class="label label-rounded label-icon label-success"><i class="icon-checkmark3"></i></span>
+            {{else}}
+            <span class="label label-rounded label-icon label-danger"><i class="icon-cross2"></i></span>
+            {{/if}}
+        </td>
+        <td class="text-center">
+            <ul class="icons-list">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-menu"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a onclick="pageLoad('/Admin/Page/AddEdit/{{ID}}','ویرایش صفحه {{Title}}','pageList')"
+                               class="text-blue-800">
+                                <i class="icon-pencil"></i> ویرایش
+                            </a>
+                        </li>
+                        <li><a id="del" data-id="{{ID}}" class="text-danger-800"><i class="icon-bin"></i>حذف</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+<div id="dataTable">
+    <table class="table datatable" id="TblPage">
+        <thead>
+            <tr>
+                <th>عنوان</th>
+                <th class="text-center">لینک</th>
+                <th class="text-center">توضیحات سئو</th>
+                <th class="text-center">وضعیت</th>
+                <th class="text-center">عملیات</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div id="no-records" class="text-center hidden">
+    <div class="icon-object no-border">
+        <img class="img-responsive" src="~/Areas/Admin/Content/Images/notFound.png" title="notDataFound" />
+    </div>
+    <h5 class="text-semibold">متاسفانه رکوردی یافت نشد!</h5>
+    <p class="mb-15">داده‌ای برای نمایش وجود ندارد می‌توانید از طریق دکمه ثبت مورد جدیدی را ثبت نمائید.</p>
+</div>

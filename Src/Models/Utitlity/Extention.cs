@@ -209,7 +209,7 @@ namespace Src.Models.Utitlity
         /// <param name="dateTime">datetime</param>
         /// <param name="format">text: year monthName day, fullText: year monthName day dayOfweek, default: year/month/day</param>
         /// <returns></returns>
-        public static string ToPersianDate(this DateTime dateTime, string format)
+        public static string ToPersianDate(this DateTime dateTime, string format = "")
         {
             PersianCalendar pc = new PersianCalendar();
             switch (format)

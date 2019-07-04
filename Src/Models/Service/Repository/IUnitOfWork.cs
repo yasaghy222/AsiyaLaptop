@@ -24,6 +24,10 @@ namespace Src.Models.Service.Repository
         IGenericRepository<Tbl_CustAddress> CustAddress { get; }
         #endregion
 
+        #region admin
+        IGenericRepository<Tbl_Admin> Admin { get; }
+        #endregion
+
         #region menu
         IGenericRepository<Tbl_Menu> Menu { get; }
         #endregion
@@ -34,6 +38,10 @@ namespace Src.Models.Service.Repository
 
         #region newsletter
         IGenericRepository<Tbl_Newsletter> Newsletter { get; }
+        #endregion
+
+        #region page
+        IGenericRepository<Tbl_Page> Page{ get;}
         #endregion
 
         int Save();

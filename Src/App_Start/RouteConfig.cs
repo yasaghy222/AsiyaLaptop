@@ -14,9 +14,16 @@ namespace Src
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               "Page",
+               "Page/{link}",
+               new { controller = "Page", action = "Index" },
+               new[] { "Src.Controllers" }
+           );
+
+            routes.MapRoute(
                 "Search",
                 "Search",
-                new { controller = "Product", action = "Search"},
+                new { controller = "Product", action = "Search" },
                 new[] { "Src.Controllers" }
             );
 

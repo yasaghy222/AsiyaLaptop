@@ -9,6 +9,19 @@ namespace Src.Models.ViewData.Table
     public class Customer
     {
         #region customer
+        public class ViewTbl_Customer
+        {
+            public int ID { get; set; }
+            public string IP { get; set; }
+            public string Name { get; set; }
+            public string Family { get; set; }
+            public string Phone { get; set; }
+            public string NatCode { get; set; }
+            public string Email { get; set; }
+            public bool IsInNewsletter { get; set; }
+            public bool Status { get; set; }
+        }
+
         public class CustomerInfo
         {
             public string Token { get; set; }

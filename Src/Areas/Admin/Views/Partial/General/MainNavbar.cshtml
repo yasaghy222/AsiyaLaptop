@@ -1,4 +1,5 @@
-﻿<div class="navbar navbar-default navbar-fixed-top header-highlight">
+﻿@model string
+<div class="navbar navbar-default navbar-fixed-top header-highlight">
     <div class="navbar-header">
         <a class="navbar-brand" onclick="pageLoad('/Admin/Dashboard','پنل مدیریت لپتاپ آسیا')"><span>لپتاپ آسیا</span></a>
         <ul class="nav navbar-nav visible-xs-block">
@@ -18,17 +19,18 @@
                 </a>
                 <div class="dropdown-menu dropdown-content">
                     <ul class="list dropdown-content-body width-200 no-padding">
-                        <li onclick="pageLoad('/Admin/Order', 'لیست منو ها','orderList')" class="list-group no-padding no-border no-margin"><a class="list-group-item" href="#">لیست منو ها</a></li>
+                        <li onclick="pageLoad('/Admin/Order', 'لیست سفارش ها','orderList')" class="list-group no-padding no-border no-margin"><a class="list-group-item" href="#">لیست سفارش ها</a></li>
                         <li class="list-group no-padding no-border no-margin">
-                            <a onclick="pageLoad('/Admin/Product', 'لیست محصولات','procList')" class="list-group-item" href="#">لیست محصولات</a>
+                            <a onclick="pageLoad('/Admin/Product', 'لیست محصولات','procList')" class="list-group-item">لیست محصولات</a>
                         </li>
                     </ul>
                 </div>
             </li>
         </ul>
         <div class="navbar-right">
-            <p class="navbar-text"><span class="label datetime">پنج شنبه 4 مرداد 1397</span></p>
-            <p class="navbar-text"><span class="label datetime">11 : 51 : 08</span></p>
+           
+            <p class="navbar-text"><span class="label datetime">@Model</span></p>
+            <p class="navbar-text"><span class="label datetime" id="jsClock">11 : 51 : 08</span></p>
             <ul class="nav navbar-nav">
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">

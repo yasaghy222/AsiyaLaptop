@@ -24,10 +24,13 @@ namespace Src
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ControllerBuilder.Current.SetControllerFactory(new NinjectController());
 
-            #region authorize filler
+            #region mapster
+            #region admin
+            TypeAdapterConfig<Tbl_Admin, Admin.ViewTbl_Admin>.NewConfig()
+                .Map(dest => dest.RoleName, src => src.Tbl_ARole.ShowTitle)
+                .Map(dest => dest.BDate, src => src.BDate.ToPersianDate("text"));
             #endregion
 
-            #region mapster
             #region product
             TypeAdapterConfig<Tbl_Product, Product.ViewProc>.NewConfig()
                    .Map(dest => dest.BrandName, src => src.Tbl_ProcBrand.Title)
@@ -92,7 +95,7 @@ namespace Src
             TypeAdapterConfig<Tbl_Media, Media.ViewTbl_Media>.NewConfig()
                    .Map(dest => dest.DispLoc, src => EnumExtensions.GetEnumValue<Media.MediaLocation>(src.Location));
             #endregion
-            
+
             #region factor
             TypeAdapterConfig<Tbl_Factor, Factor.ViewOrderDetail>.NewConfig()
                    .Map(dest => dest.CustName, src => src.Tbl_Customer.Name)

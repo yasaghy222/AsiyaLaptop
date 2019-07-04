@@ -1,0 +1,83 @@
+﻿<script id="custSource" type="text/x-handlebars-template">
+    {{#each list}}
+    <tr role="row">
+        <td>
+            {{Name}} {{Family}}
+        </td>
+        <td class="text-center">
+            <span class="text-blue-800">{{IP}}</span>
+        </td>
+        <td class="text-center pr-40">
+            {{Phone}}
+        </td>
+        <td class="text-center pr-40">{{NatCode}}</td>
+        <td class="text-center pr-40"><span class="label label-rounded label-info text-lowercase" lang="en">{{Email}}</span></td>
+        <td class="text-center pr-40">
+            {{#if IsInNewsletter}}
+            <span class="label label-rounded label-icon label-success"><i class="icon-checkmark3"></i></span>
+            {{else}}
+            <span class="label label-rounded label-icon label-danger"><i class="icon-cross2"></i></span>
+            {{/if}}
+        </td>
+        <td class="text-center pr-40 text-grey-300">
+            {{#if Status}}
+            <span class="label label-rounded label-icon label-success"><i class="icon-checkmark3"></i></span>
+            {{else}}
+            <span class="label label-rounded label-icon label-danger"><i class="icon-cross2"></i></span>
+            {{/if}}
+        </td>
+        <td class="text-center control">
+            <a id="changeStatus" data-id="{{ID}}" class="text-orange-800"> تغییر وضعیت</a>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+<div id="dataTable">
+    <div class="datatable-header">
+        <div class="dataTables_filter">
+            <label>
+                <span>جستجو بر اساس موبایل :</span>
+                <input placeholder="مثلا : 09335082455" id="getcust" autocomplete="off" type="number">
+            </label>
+        </div>
+        <div class="dataTables_length">
+            <label>
+                <span>نمایش :</span>
+                <select class="select" id="pageSize">
+                    <option value="10" selected="selected">10</option>
+                    <option value="25">25</option>
+                    <option value="40">40</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    <div class="datatable-scroll">
+        <table class="table datatable-basic table-hover dataTable no-footer" id="tblCust">
+            <thead>
+                <tr role="row">
+                    <th class="sorting_desc" data-sort="Name" data-sort-type="desc">نام</th>
+                    <th class="text-center sorting_disabled text-center">IP</th>
+                    <th class="text-center sorting pr-40" data-sort="Phone" data-sort-type="">موبایل</th>
+                    <th class="text-center sorting pr-40" data-sort="NatCode" data-sort-type="">کد ملی</th>
+                    <th class="text-center sorting pr-40" data-sort="Email" data-sort-type="">ایمیل</th>
+                    <th class="text-center sorting pr-40" data-sort="IsInNewsletter" data-sort-type="">عضویت خبرنامه</th>
+                    <th class="text-center sorting pr-40" data-sort="Status" data-sort-type="">وضعیت</th>
+                    <th class="text-center control sorting_disabled">عملیات</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="datatable-footer">
+        <div class="dataTables_info" id="custInfo"></div>
+        <div class="dataTables_paginate paging_simple_numbers" id="custPaging"></div>
+    </div>
+</div>
+<div id="no-records" class="text-center hidden">
+    <div class="icon-object no-border">
+        <img class="img-responsive" src="~/Areas/Admin/Content/Images/notFound.png" title="داده ای یافت نشد" />
+    </div>
+    <h5 class="text-semibold">متاسفانه رکوردی یافت نشد!</h5>
+    <p class="mb-15">داده‌ای برای نمایش وجود ندارد می‌توانید از طریق دکمه ثبت مورد جدیدی را ثبت نمائید.</p>
+</div>
+

@@ -1,0 +1,14 @@
+﻿@model Src.Models.ViewData.Table.Page.ViewPage
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Sheared/_Layout_Primary.cshtml";
+}
+
+
+@section MetaTags{
+    <meta name="description" content="@Model.SeoDesc">
+    <meta name="keywords" content="@Model.Keywords">
+}
+
+@Html.Raw(Model.Body)
+

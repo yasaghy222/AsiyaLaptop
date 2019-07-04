@@ -45,6 +45,11 @@ namespace Src.Models.Service.Repository
         public IGenericRepository<Tbl_CustAddress> CustAddress { get => custAddress = custAddress ?? new GenericRepository<Tbl_CustAddress>(_context); }
         #endregion
 
+        #region admin
+        private IGenericRepository<Tbl_Admin> admin;
+        public IGenericRepository<Tbl_Admin> Admin { get => admin = admin ?? new GenericRepository<Tbl_Admin>(_context); }
+        #endregion
+
         #region menu
         private IGenericRepository<Tbl_Menu> menu;
         public IGenericRepository<Tbl_Menu> Menu { get => menu = menu ?? new GenericRepository<Tbl_Menu>(_context); }
@@ -59,6 +64,12 @@ namespace Src.Models.Service.Repository
         private IGenericRepository<Tbl_Newsletter> newsletter;
         public IGenericRepository<Tbl_Newsletter> Newsletter { get => newsletter = newsletter ?? new GenericRepository<Tbl_Newsletter>(_context); }
         #endregion
+
+        #region page
+        private IGenericRepository<Tbl_Page> page;
+        public IGenericRepository<Tbl_Page> Page { get => page = page ?? new GenericRepository<Tbl_Page>(_context); }
+        #endregion
+
 
         public int Save()
         {

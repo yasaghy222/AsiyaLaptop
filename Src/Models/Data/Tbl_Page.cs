@@ -15,8 +15,10 @@ namespace Src.Models.Data
     public partial class Tbl_Page
     {
         public int ID { get; set; }
-        public string TItle { get; set; }
+        public string Title { get; set; }
+        public string Link { get; set; }
         public string SeoDesc { get; set; }
+        public string Keywords { get; set; }
         public string Body { get; set; }
         public bool Status { get; set; }
     }

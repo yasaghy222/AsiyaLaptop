@@ -21,13 +21,13 @@
                             <li><a onclick="pageLoad('/Admin/Order', 'سفارش ها','orderList')" data-target="orderList">سفارش ها</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#"><i class="icon-percent"></i> <span>تخفیف</span></a>
-                        <ul>
-                            <li><a href="#">ایجاد تخفیف</a></li>
-                            <li><a href="#">لیست تخفیف ها</a></li>
-                        </ul>
-                    </li>
+                    @*<li>
+                            <a href="#"><i class="icon-percent"></i> <span>تخفیف</span></a>
+                            <ul>
+                                <li><a href="#">ایجاد تخفیف</a></li>
+                                <li><a href="#">لیست تخفیف ها</a></li>
+                            </ul>
+                        </li>*@
                 </ul>
             </li>
             <li>
@@ -36,15 +36,12 @@
                     <li>
                         <a href="#"><i class="icon-user-tie"></i> <span>مدیران</span></a>
                         <ul>
-                            <li><a href="#">افزودن مدیر</a></li>
-                            <li><a href="#">لیست مدیران</a></li>
+                            <li><a onclick="pageLoad('/Admin/Admin/AddEdit', 'افزودن مدیر','adminAddEdit')" data-target="adminAddEdit">افزودن مدیر</a></li>
+                            <li><a onclick="pageLoad('/Admin/Admin', 'لیست مدیران','adminList')" data-target="adminList">لیست مدیران</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="icon-users"></i> <span>مشتریان</span></a>
-                        <ul>
-                            <li><a onclick="pageLoad('/Admin/Customer', 'لیست مشتریان','custList')" data-target="custList">لیست مشتریان</a></li>
-                        </ul>
+                        <a onclick="pageLoad('/Admin/Customer', 'لیست مشتریان','custList')" data-target="custList"><i class="icon-users"></i> <span>مشتریان</span></a>
                     </li>
                 </ul>
             </li>
@@ -52,19 +49,19 @@
                 <a><span>محتوا</span><i class="icon-newspaper"></i></a>
                 <ul>
                     <li><a onclick="pageLoad('/Admin/Media', 'مدیا','mediaList')" data-target="mediaList"><i class="icon-images2"></i><span> مدیا</span></a></li>
-                    <li>
-                        <a href="#"><i class="icon-quill4"></i><span>مطالب</span></a>
-                        <ul>
-                            <li><a href="#">لیست مطالب</a></li>
-                            <li><a href="#">درج مطلب</a></li>
-                            <li><a href="#">دستبندی</a></li>
-                        </ul>
-                    </li>
+                    @*<li>
+                            <a href="#"><i class="icon-quill4"></i><span>مطالب</span></a>
+                            <ul>
+                                <li><a href="#">لیست مطالب</a></li>
+                                <li><a href="#">درج مطلب</a></li>
+                                <li><a href="#">دستبندی</a></li>
+                            </ul>
+                        </li>*@
                     <li>
                         <a href="#"><i class="icon-files-empty2"></i><span>صفحات</span></a>
                         <ul>
-                            <li><a href="#">افزودن صفحه</a></li>
-                            <li><a href="#">لیست صفحات</a></li>
+                            <li><a onclick="pageLoad('/Admin/Page/AddEdit', 'افزودن صفحه','pageAddEdit')" data-target="pageAddEdit">افزودن صفحه</a></li>
+                            <li><a onclick="pageLoad('/Admin/Page', 'لیست صفحات','pageList')" data-target="pageList">لیست صفحات</a></li>
                         </ul>
                     </li>
                     <li>
