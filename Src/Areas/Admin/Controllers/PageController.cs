@@ -23,8 +23,8 @@ namespace Src.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult AddEdit(int? id = -1)
         {
-            HttpResponse = Client.GetAsync($"Page/Detail/{Function.GetAdminInfo(Request).Token}?id={id}").Result;
-            if (HttpResponse.IsSuccessStatusCode)
+            _HttpResponse = Client.GetAsync($"Page/Detail/{Function.GetAdminInfo(Request).Token}?id={id}").Result;
+            if (_HttpResponse.IsSuccessStatusCode)
             {
                 Result = GetResult();
                 Page = Result.Data.DeserializeJson<Page.ViewTbl_Page>();

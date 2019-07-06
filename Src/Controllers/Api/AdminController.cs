@@ -6,6 +6,7 @@ using System.Web.Http;
 using Mapster;
 using Src.Models.Data;
 using Src.Models.Service.Repository;
+using Src.Models.Utitlity;
 using Src.Models.ViewData.Base;
 using Src.Models.ViewData.Table;
 
@@ -69,9 +70,11 @@ namespace Src.Controllers.Api
             if (ModelState.IsValid)
             {
                 Admin = model.Adapt<Tbl_Admin>();
-                if (Admin.ID == 0)
+                if (Admin.ID == -1)
                 {
                     #region add
+                    Admin.ID = 1 + Function.GenerateNumCode();
+                    Admin.Pass = Function.GenerateHash(Admin.NatCode);
                     _unitOfWork.Admin.Add(Admin);
                     #endregion
                 }

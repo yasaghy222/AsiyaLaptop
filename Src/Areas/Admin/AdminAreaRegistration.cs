@@ -27,6 +27,12 @@ namespace Src.Areas.Admin
             );
 
             context.MapRoute(
+              "Al-Manage/Logout",
+              "Al-Manage/Logout",
+              new { action = "Logout", Controller = "Account" }
+           );
+
+            context.MapRoute(
              "AL-Manage",
              "AL-Manage",
              new { action = "Index", Controller = "Dashboard" }

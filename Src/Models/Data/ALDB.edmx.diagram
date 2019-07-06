@@ -6,7 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="933b9dd6052440739a251c87377c7881" Name="Diagram1">
         <EntityTypeShape EntityType="ALDBModel.sysdiagrams" Width="1.5" PointX="10.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ALDBModel.Tbl_Admin" Width="1.5" PointX="10" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ALDBModel.Tbl_AModule" Width="1.5" PointX="10.75" PointY="8.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ALDBModel.Tbl_APermission" Width="1.5" PointX="12.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ALDBModel.Tbl_ARole" Width="1.5" PointX="7.75" PointY="11" IsExpanded="true" />
@@ -27,7 +26,6 @@
         <EntityTypeShape EntityType="ALDBModel.Tbl_ProcReview" Width="1.5" PointX="8.25" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ALDBModel.Tbl_Product" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ALDBModel.Tbl_State_City" Width="1.5" PointX="1.5" PointY="23.25" IsExpanded="true" />
-        <AssociationConnector Association="ALDBModel.FK_Tbl_Admin_Tbl_ARole" ManuallyRouted="false" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_Blog_Tbl_BlogCat" ManuallyRouted="false" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_BlogCat_Tbl_BlogCat" ManuallyRouted="false" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_CustAddress_Tbl_Customer" ManuallyRouted="false" />
@@ -50,6 +48,8 @@
         <EntityTypeShape EntityType="ALDBModel.Tbl_Menu" Width="1.5" PointX="12.375" PointY="13.75" />
         <AssociationConnector Association="ALDBModel.FK_Tbl_Menu_Tbl_Menu" />
         <EntityTypeShape EntityType="ALDBModel.Tbl_Page" Width="1.5" PointX="5.375" PointY="13.75" />
+        <EntityTypeShape EntityType="ALDBModel.Tbl_Admin" Width="1.5" PointX="10" PointY="11.25" />
+        <AssociationConnector Association="ALDBModel.FK_Tbl_Admin_Tbl_ARole" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

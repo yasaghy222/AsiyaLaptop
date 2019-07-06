@@ -22,11 +22,33 @@
             </div>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/Core/jquery.min.js"></script>
     <script src="~/Areas/Admin/Scripts/Core/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/Areas/Admin/Scripts/Plugin/jgrowl.min.js"></script>
     <script src="~/Areas/Admin/Scripts/Core/jquery.validate.min.js"></script>
     <script src="~/Areas/Admin/Scripts/Core/jquery.validate.unobtrusive.min.js"></script>
-    @RenderSection("scripts", false)
+    <script type="text/javascript">
+         function notifiction(type, message) {
+            switch (type) {
+                case 0:
+                    $.jGrowl(message, { theme: 'alert-styled-left alert-arrow-left bg-success', header: 'موفقیت', position: 'bottom-right', life: 5000 });
+                    break;
+                case 1:
+                    $.jGrowl(message, { theme: 'alert-styled-left alert-arrow-left bg-danger', header: 'عدم موفقیت', position: 'bottom-right', life: 10000 });
+                    break;
+                default:
+                    $.jGrowl(message, { theme: 'alert-styled-left alert-arrow-left bg-warning', header: 'هشدار', position: 'bottom-right', life: 8000 });
+                    break;
+            }
+        };
+         $(document).ready(() => {
+            let resualt = @Html.Raw(Json.Encode(ViewBag.Result));
+            if (resualt != null) {
+                if (resualt != "Success") {
+                    notifiction(1, resualt);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

@@ -175,6 +175,7 @@
     <Content Include="Areas\Admin\Scripts\Core\jquery.validate.unobtrusive.min.js" />
     <Content Include="Areas\Admin\Scripts\Core\makepaging.js" />
     <Content Include="Areas\Admin\Scripts\Page\Admin\admin.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Admin\adminAddEdit.js" />
     <Content Include="Areas\Admin\Scripts\Page\Customer\customer.js" />
     <Content Include="Areas\Admin\Scripts\Page\Dashboard\dashboard.js" />
     <Content Include="Areas\Admin\Scripts\Page\Media\media.js" />
@@ -457,9 +458,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\MapsterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
@@ -470,9 +474,11 @@
     <Compile Include="Areas\Admin\Controllers\PageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\AccountController.cs" />
     <Compile Include="Controllers\Api\AdminController.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
     <Compile Include="Controllers\Api\CustomerController.cs" />
+    <Compile Include="Controllers\Api\FactorController.cs" />
     <Compile Include="Controllers\Api\MediaController.cs" />
     <Compile Include="Controllers\Api\MenuController.cs" />
     <Compile Include="Controllers\Api\NinjectApi.cs" />
@@ -700,6 +706,9 @@
     <Content Include="Areas\Admin\Views\Partial\Customer\CustList.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Partial\Admin\AdminList.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\AddEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Admin\AdminAddEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <None Include="bundleconfig.json" />
     <None Include="packages.config" />
     <Content Include="Views\Sheared\_Layout_Primary.cshtml" />

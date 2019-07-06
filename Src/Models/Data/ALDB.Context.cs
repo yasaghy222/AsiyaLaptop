@@ -26,7 +26,6 @@ namespace Src.Models.Data
         }
     
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<Tbl_Admin> Tbl_Admin { get; set; }
         public virtual DbSet<Tbl_AModule> Tbl_AModule { get; set; }
         public virtual DbSet<Tbl_APermission> Tbl_APermission { get; set; }
         public virtual DbSet<Tbl_ARole> Tbl_ARole { get; set; }
@@ -49,5 +48,6 @@ namespace Src.Models.Data
         public virtual DbSet<Tbl_State_City> Tbl_State_City { get; set; }
         public virtual DbSet<Tbl_Menu> Tbl_Menu { get; set; }
         public virtual DbSet<Tbl_Page> Tbl_Page { get; set; }
+        public virtual DbSet<Tbl_Admin> Tbl_Admin { get; set; }
     }
 }

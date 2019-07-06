@@ -215,7 +215,7 @@
         getFrmMenu(e);
     });
     $(".content-wrapper").delegate("#Status", "click", () => {
-        if (Status.hasClass("checked") == "false") {
+        if (Status.hasClass("checked") == true) {
             Status.val("false");
             Status.removeClass("checked");
         } else {

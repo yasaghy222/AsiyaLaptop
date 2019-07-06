@@ -21,9 +21,10 @@ namespace Src.Models.Data
         public string Phone { get; set; }
         public string Pass { get; set; }
         public string NatCode { get; set; }
-        public Nullable<byte> RFCount { get; set; }
-        public Nullable<System.DateTime> BDate { get; set; }
+        public Nullable<byte> LFCount { get; set; }
+        public string BDate { get; set; }
         public bool Status { get; set; }
+        public string Token { get; set; }
     
         public virtual Tbl_ARole Tbl_ARole { get; set; }
     }

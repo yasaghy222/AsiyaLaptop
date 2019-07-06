@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using static Src.App_Start.FilterConfig;
 using static Src.Models.ViewData.Table.Customer;
 
 namespace Src.Controllers
@@ -73,7 +74,7 @@ namespace Src.Controllers
 
         #region login/register
         [HttpPost, PublicAction]
-        [ValidateAntiForgeryToken, ValidateModel]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Index(ViewAccountVar accountVar)
         {
             if (accountVar.Name == null)
@@ -136,8 +137,6 @@ namespace Src.Controllers
                     try
                     {
                         ClearCookie();
-                        ViewBag.RedirectPath = "/";
-                        return View();
                     }
                     catch (Exception)
                     {
@@ -145,23 +144,20 @@ namespace Src.Controllers
                         {
                             Message = Common.ResultMessage.InternallServerError
                         };
-                        return View();
                     }
                 }
                 else
                 {
                     ClearCookie();
-                    ViewBag.RedirectPath = "/";
-                    return View();
                 }
                 #endregion
             }
             else
             {
                 ClearCookie();
-                ViewBag.RedirectPath = "/";
-                return View();
             }
+
+            return RedirectToRoute("/");
             #endregion
         }
         #endregion

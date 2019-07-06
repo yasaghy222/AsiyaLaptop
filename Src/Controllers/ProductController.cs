@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using static Src.App_Start.FilterConfig;
 
 namespace Src.Controllers
 {
@@ -16,7 +17,7 @@ namespace Src.Controllers
         public ProductController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         #region search
-        [HttpPost, PublicAction, ValidateModel]
+        [HttpPost, PublicAction]
         public async Task<JsonResult> Search(string title)
         {
             if (title != null)
@@ -39,7 +40,7 @@ namespace Src.Controllers
         #endregion
 
         #region search with full details
-        [HttpGet, PublicAction, ValidateModel]
+        [HttpGet, PublicAction]
         [Route("Search")]
         public async Task<ActionResult> Search(string title = "",
                                                string category = "",

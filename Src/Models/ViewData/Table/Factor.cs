@@ -27,9 +27,15 @@ namespace Src.Models.ViewData.Table
             InBascket = 0,
 
             /// <summary>
-            /// تایید منو
+            /// ثبت شده
             /// </summary>
-            [Display(Name = "تایید منو")]
+            [Display(Name = "ثبت شده")]
+            Registered = 7,
+
+            /// <summary>
+            /// تایید سفارش
+            /// </summary>
+            [Display(Name = "تایید شده")]
             Confirm = 1,
 
             /// <summary>
@@ -71,6 +77,7 @@ namespace Src.Models.ViewData.Table
             public string SubmitDate { get; set; }
             public string CustName { get; set; }
             public string PaymentStatus { get; set; }
+            public string TrackingCode { get; set; }
             public string Status { get; set; }
         }
 

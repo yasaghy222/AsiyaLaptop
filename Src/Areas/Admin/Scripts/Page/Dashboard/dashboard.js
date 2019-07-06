@@ -9,10 +9,11 @@
  *
  * ---------------------------------------------------------------------------- */
 //select top orders
-function TopOrders() {
+function GetTopOrder() {
+    let url = getUrl("/Factor/GetTopOrder");
     $.ajax({
-        url: '/Base/TopOrders',
-        type: 'POST',
+        url: url,
+        type: 'Get',
         success: function (Result) {
             var source = $('#topOrderSource').html();
             var template = Handlebars.compile(source);
@@ -24,22 +25,56 @@ function TopOrders() {
         }
     });
 };
+
+//get order count
+function GetOrderCount() {
+    let url = getUrl("/Factor/GetOrderCount");
+    $.ajax({
+        url: url,
+        type: 'Get',
+        success: function (Result) {
+            $("#newOrderCount").html(Result[0]);
+            $("#totalOrderCount").html("کل سفارش ها : " + Result[1]);
+        }
+    });
+}
+
+//get customer count
+function GetCustCount() {
+    let url = getUrl("/Customer/GetCount");
+    $.ajax({
+        url: url,
+        type: 'Get',
+        success: function (Result) {
+            $("#custCount").html(Result);
+        }
+    });
+}
+
+//get income
+function GetIncome() {
+    let url = getUrl("/Factor/GetIncome");
+    $.ajax({
+        url: url,
+        type: 'Get',
+        success: function (Result) {
+            $("#todayIncome").html(Result[0]);
+            $("#yesterdayIncome").html(`دیروز تا این لحظه : ${Result[1]} تومان`);
+        }
+    });
+}
+
 $(() => {
     const host = window.location.origin;
-
     // Set paths
     // ------------------------------
-
     require.config({
         paths: {
             echarts: '' + host + '/Areas/Admin/Scripts/Plugin/echarts'
         }
     });
-
-
     // Configuration
     // ------------------------------
-
     require(
         [
             'echarts',
@@ -47,8 +82,6 @@ $(() => {
             'echarts/chart/bar',
             'echarts/chart/line'
         ],
-
-
         // Charts setup
         function (ec, limitless) {
 
@@ -125,4 +158,10 @@ $(() => {
             }
         }
     );
+});
+$(document).ready(() => {
+    GetTopOrder();
+    GetOrderCount();
+    GetCustCount();
+    GetIncome();
 });

@@ -1,10 +1,10 @@
 ﻿<script id="topOrderSource" type="text/x-handlebars-template">
-    {{#each orderList}}
+    {{#each list}}
     <tr role="row">
-        <td class="text-center"><a class="text-blue-700" onclick="pageLoad('/Admin/Order/AddEdit/{{id}}','ویرایش سفارش','orderList')">{{code}}</a></td>
-        <td class="text-center">{{registerDate}}</td>
-        <td class="text-center text-info">{{customerName}}</td>
-        <td class="text-center text-grey-300">{{orderTitles}}</td>
+        <td class="text-center"><a class="text-blue-700" onclick="pageLoad('/Admin/Order/AddEdit/{{ID}}','ویرایش سفارش','orderList')">{{TrackingCode}}</a></td>
+        <td class="text-center">{{SubmitDate}}</td>
+        <td class="text-center text-info">{{CustName}}</td>
+        <td class="text-center text-grey-300">{{PaymentType}}</td>
         <td class="text-center"><span class="label label-rounded bg-slate">{{status}}</span></td>
     </tr>
     {{/each}}
@@ -22,10 +22,10 @@
             <table class="table table-hover" id="tbl-TopOrder">
                 <thead>
                     <tr>
-                        <th class="text-center">شناسه</th>
+                        <th class="text-center">کد پیگیری</th>
                         <th class="text-center">تاریخ ثبت</th>
                         <th class="text-center">مشتری</th>
-                        <th class="text-center">عناوین سفارش</th>
+                        <th class="text-center">پرداخت</th>
                         <th class="text-center">وضعیت</th>
                     </tr>
                 </thead>

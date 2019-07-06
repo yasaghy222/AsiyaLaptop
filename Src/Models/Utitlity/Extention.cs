@@ -9,6 +9,10 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Data.Entity;
+using System.Threading.Tasks;
+using System.Web.Script.Serialization;
+using System.Net.Http;
+using System.Text;
 
 namespace Src.Models.Utitlity
 {
@@ -184,6 +188,14 @@ namespace Src.Models.Utitlity
             T Result = JsonConvert.DeserializeObject<T>(Temp);
             return Result;
         }
+
+        /// <summary>
+        /// serialize c# entity to json string
+        /// </summary>
+        /// <typeparam name="T">T entity type</typeparam>
+        /// <param name="entity">c# entity</param>
+        /// <returns></returns>
+        public static string SerializeJson<T>(this T entity) => JsonConvert.SerializeObject(entity);
 
         /// <summary>
         /// substring from beginning of the string to custom word position

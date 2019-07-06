@@ -1383,10 +1383,10 @@ input[type="file"]:focus {
         box-shadow: 0 1px 0 #009688;
     }
 
-    .form-control.sani:focus {
-        border-bottom-color: #32BBCB !important;
-        -webkit-box-shadow: 0 1px 0 #32BBCB !important;
-        box-shadow: 0 1px 0 #32BBCB !important;
+    .form-control.asia:focus {
+        border-bottom-color: #202020 !important;
+        -webkit-box-shadow: 0 1px 0 #202020 !important;
+        box-shadow: 0 1px 0 #202020 !important;
     }
 
     .form-control[disabled],

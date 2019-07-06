@@ -1,0 +1,96 @@
+﻿@model  Src.Models.ViewData.Table.Admin.ViewTbl_Admin
+<form id="FrmAdmin">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            @Html.HiddenFor(item => item.ID)
+            @Html.HiddenFor(item => item.Pass)
+            <div class="form-group col-lg-12">
+                <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">نام</label>
+                <div class="col-lg-7 col-xs-12">
+                    @Html.TextBoxFor(item => item.Name, new
+                    {
+                        @class = "form-control maxlength",
+                                                              autocomplete = "off",
+                                                              maxlength = "50"
+                    })
+                    @Html.ValidationMessageFor(item => item.Name, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">نام خانوادگی</label>
+                <div class="col-lg-7 col-xs-12">
+                    @Html.TextBoxFor(item => item.Family, new
+                    {
+                        @class = "form-control maxlength",
+                                                              autocomplete = "off",
+                                                              maxlength = "50"
+                    })
+                    @Html.ValidationMessageFor(item => item.Family, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="control-label col-lg-2 col-xs-12">موبایل</label>
+                <div class="col-lg-4 col-xs-12">
+                    @Html.TextBoxFor(item => item.Phone, new { @class = "form-control text-left", @type = "number", dir = "ltr", autocomplete = "off", placeholder = "09*******" })
+                    @Html.ValidationMessageFor(item => item.Phone, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="control-label col-lg-2 col-xs-12">کدملی</label>
+                <div class="col-lg-4 col-xs-12">
+                    @if (Model.ID != -1)
+                    {
+                        @Html.TextBoxFor(item => item.NatCode, new { @class = "form-control disabled", dir = "ltr", disabled = "disabled" })
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(item => item.NatCode, new
+                        {
+                            @class = "form-control text-left",
+                                                                      @type = "number",
+                                                                      dir = "ltr",
+                                                                      autocomplete = "off"
+                        })
+                        @Html.ValidationMessageFor(item => item.NatCode, "", new { @class = "validation-error-label" })
+                    }
+                </div>
+            </div>
+            <div class="form-group col-lg-12 mb-40">
+                <label class="control-label col-lg-2 col-xs-12">تاریخ تولد</label>
+                <div class="col-lg-4 col-xs-10">
+                    @Html.TextBoxFor(item => item.BDate, new
+                    {
+                        @class = "form-control disabled text-left",
+                                                                   dir = "ltr",
+                                                                   autocomplete = "off",
+                                                                   disabled = "disabled"
+                    })
+                    @Html.ValidationMessageFor(item => item.BDate, "", new { @class = "validation-error-label" })
+                </div>
+                @if (Model.ID == -1)
+                {
+                    <div class="col-lg-3 col-xs-2">
+                        <a class="btn bg-slate"
+                           data-mddatetimepicker="true"
+                           data-targetselector="#BDate"
+                           data-enabletimepicker="false"
+                           data-placement="left"
+                           data-trigger="click"
+                           data-englishnumber="true"
+                           data-mdpersiandatetimepickershowing="false">انتخاب</a>
+                    </div>
+                }
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="text-semibold title col-lg-2 col-xs-12">وضعیت</label>
+                <div class="col-lg-4 col-xs-12">
+                    <label>فعال</label>
+                    <label class="ix-input-swich">
+                        @Html.CheckBoxFor(item => item.Status, new { @class = "cSwitch" })
+                    </label>
+                    <label class="ml-10">بلاک</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

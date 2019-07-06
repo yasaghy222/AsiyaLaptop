@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using static Src.App_Start.FilterConfig;
 
 namespace Src.Controllers
 {
@@ -20,7 +21,7 @@ namespace Src.Controllers
         public ActionResult Index() => View();
 
         [HttpPost, PublicAction]
-        [ValidateAntiForgeryToken, ValidateModel]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Index(Newsletter.ViewTbl_Newsletter newsletter)
         {
             using (NewsletterController controller = new NewsletterController(_unitOfWork))

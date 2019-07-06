@@ -15,8 +15,8 @@ namespace Src
 
             config.Routes.MapHttpRoute(
                 "DefaultApi",
-                "api/v1/{controller}/{action}/{token}/{id}",
-                new { id = RouteParameter.Optional }
+                "api/v1/{controller}/{action}/{Token}",
+                 new { Token = RouteParameter.Optional }
             );
         }
     }

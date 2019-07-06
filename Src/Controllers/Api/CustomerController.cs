@@ -34,6 +34,13 @@ namespace Src.Controllers.Api
             return Result;
         }
 
+        /// <summary>
+        /// return customer total count
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<long> GetCount() => await _unitOfWork.Customer.GetCountAsync();
+
         [HttpPost]
         public async Task<Common.Result> ChangeStatus([FromBody]int id)
         {

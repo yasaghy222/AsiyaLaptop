@@ -1,52 +1,33 @@
 ﻿$(document).ready(() => {
     // #region General
-    $(".styled").uniform({
-        radioClass: 'choice'
-    });
     $(".select").select2();
-    $(".touchspin").TouchSpin({
-        max: 200000000
-    });
     $('.maxlength').maxlength({
         placement: 'bottom-left'
     });
-
-    $('.summernote').summernote();
-    $(".link-dialog input[type=checkbox], .note-modal-frmPage input[type=radio]").uniform({
-        radioClass: 'choice'
-    });
-
-    $(".note-image-input").uniform({
-        fileButtonClass: 'action btn bg-slate'
-    });
-
-    $('.tokenfield').tokenfield();
-    //#endregion
-
-    //#region PageAddEdit
-    let frmPage = $("#FrmPage");
-    function saveFrmPage(e) {
-        let isValid = frmPage.valid(),
+    //#region AdminAddEdit
+    let frmAdmin = $("#FrmAdmin");
+    function saveFrmAdmin(e) {
+        let isValid = frmAdmin.valid(),
             targetId = $(e.currentTarget).attr("id");
-
         if (isValid) {
             btnSaveOnOff();
             startAnimate(".tab-content");
             let data = {
                 ID: $("#ID").val(),
-                Title: $("#Title").val(),
-                Link: $("#Link").val(),
-                SeoDesc: $("#SeoDesc").val(),
-                Keywords: $("#Keywords").val(),
-                Body: $("#Body").val(),
+                Name: $("#Name").val(),
+                Family: $("#Family").val(),
+                Phone: $("#Phone").val(),
+                NatCode: $("#NatCode").val(),
+                BDate: $("#BDate").val(),
+                Pass: $("#Pass").val(),
                 Status: $("#Status").val()
-            },
-                url = getUrl("Page/AddEdit");
+            };
+            let url = getUrl("Admin/AddEdit");
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: JSON.stringify(data),
-                pageessData: false,
+                AdminessData: false,
                 contentType: "application/json",
                 success: function (Result) {
                     if (Result.Message == "Success") {
@@ -54,7 +35,7 @@
                         btnSaveOnOff();
                         notifiction(0, "عمیات با موفقیت انجام شد.");
                         if (targetId == "btnSaveNext") {
-                            pageLoad('/Admin/Page', 'لیست صفحات', 'pageList');
+                            pageLoad('/Admin/Admin', 'لیست مدیران', 'adminList');
                         }
                     } else {
                         notifiction(1, Result.Message);
@@ -79,10 +60,10 @@
         };
     });
     $("#btnSave").on("click", (e) => {
-        saveFrmPage(e);
+        saveFrmAdmin(e);
     });
     $("#btnSaveNext").on("click", (e) => {
-        saveFrmPage(e);
+        saveFrmAdmin(e);
     });
     //#endregion
 });

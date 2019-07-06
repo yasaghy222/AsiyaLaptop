@@ -14,7 +14,7 @@
 <div class="content">
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <a href="#">
+            <div>
                 <div class="panel hover panel-flat information">
                     <div class="panel-heading">
                         <h3 class="panel-title text-grey-400">
@@ -30,58 +30,57 @@
                         <div class="text-muted text-size-small"> دیروز تا این لحظه : 5</div>
                     </div>
                 </div>
-            </a>
+            </div>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <a href="#">
+            <a onclick="pageLoad('/Admin/Order', 'سفارش ها','orderList')">
                 <div class="panel hover panel-flat information">
                     <div class="panel-heading">
                         <h3 class="panel-title text-grey-400">سفارش ها</h3>
                     </div>
                     <div class="panel-body text-center">
                         <p>
-                            <span class="text-size-xlarge text-bold text-blue-800">6</span>
+                            <span class="text-size-xlarge text-bold text-blue-800" id="newOrderCount">6</span>
                             <small>جدید</small>
                         </p>
-                        <div class="text-muted text-size-small">کل سفارش ها : 36</div>
+                        <div class="text-muted text-size-small" id="totalOrderCount">کل سفارش ها : 36</div>
                     </div>
                 </div>
             </a>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <a href="#">
+            <a onclick="pageLoad('/Admin/Customer', 'لیست کاربران','custList')">
                 <div class="panel hover panel-flat information">
                     <div class="panel-heading">
-                        <h3 class="panel-title text-grey-400">نیروها</h3>
+                        <h3 class="panel-title text-grey-400">کاربران</h3>
                     </div>
                     <div class="panel-body text-center">
                         <p>
-                            <span class="text-size-xlarge text-bold text-orange-800">9</span>
-                            <small>نیروی فعال</small>
+                            <span class="text-size-xlarge text-bold text-orange-800" id="custCount">9</span>
+                            <small>نفر</small>
                         </p>
-                        <div class="text-muted text-size-small">کل نیروها : 25</div>
+                        <div class="text-muted">&nbsp;</div>
                     </div>
                 </div>
             </a>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <a href="#">
+            <div>
                 <div class="panel hover panel-flat information">
                     <div class="panel-heading">
                         <h3 class="panel-title text-grey-400">
                             درآمد امروز
-                            <span class="pull-right mtb-5 badge bg-green-800">100% <i class="icon-arrow-up12"></i></span>
                         </h3>
                     </div>
                     <div class="panel-body text-center">
                         <p>
-                            <span class="text-size-xlarge text-bold text-green-800">100,000</span>
+                            <span class="text-size-xlarge text-bold text-green-800" id="todayIncome">100,000</span>
                             <small>تومان</small>
                         </p>
-                        <div class="text-muted text-size-small"> دیروز تا این لحظه : 10،000 تومان</div>
+                        <div class="text-muted text-size-small" id="yesterdayIncome"> دیروز تا این لحظه : 10،000 تومان</div>
                     </div>
                 </div>
-            </a>
+            </div>
         </div>
     </div>
     <div class="row">

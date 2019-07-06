@@ -1,0 +1,42 @@
+﻿@model Src.Models.ViewData.Table.Admin.LoginVar
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin_Login.cshtml";
+}
+
+<form class="form-validate" action="/Admin/Account/Login" method="post" enctype="multipart/form-data">
+    <div class="panel panel-body login-form">
+        <div class="text-center">
+            <div class="icon-object no-border text-slate-300 max-width-120 no-padding no-margin"><img class="img-responsive" src="~/Content/Images/logo/logo.png" /></div>
+            <h5 class="content-group">پنل مدیریت</h5>
+        </div>
+        <div class="form-group has-feedback has-feedback-left">
+            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control asia", autocomplete = "off", placeholder = "شماره موبایل", @type = "number" })
+            <div class="form-control-feedback">
+                <i class="icon-mobile text-muted"></i>
+            </div>
+            @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "validation-error-label" })
+        </div>
+        <div class="form-group has-feedback has-feedback-left">
+            @Html.PasswordFor(m => m.Pass, new { @class = "form-control asia", placeholder = "رمز عبور" })
+            <div class="form-control-feedback">
+                <i class="icon-lock2 text-muted"></i>
+            </div>
+            @Html.ValidationMessageFor(m => m.Pass, "", new { @class = "validation-error-label" })
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger btn-block">ورود</button>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <a>آیا رمز عبور خود را فراموش کرده اید؟</a>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-sm-12 text-center">
+        <a href="/" class="text-white">بازگشت به لپتاپ آسیا</a>
+    </div>
+</div>
+
+

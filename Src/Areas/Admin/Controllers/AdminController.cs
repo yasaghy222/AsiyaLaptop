@@ -22,8 +22,8 @@ namespace Src.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult AddEdit(int? id = -1)
         {
-            HttpResponse = Client.GetAsync($"Admin/Detail/{Function.GetAdminInfo(Request).Token}?id={id}").Result;
-            if (HttpResponse.IsSuccessStatusCode)
+            _HttpResponse = Client.GetAsync($"Admin/Detail/{Function.GetAdminInfo(Request).Token}?id={id}").Result;
+            if (_HttpResponse.IsSuccessStatusCode)
             {
                 Result = GetResult();
                 Admin = Result.Data.DeserializeJson<Models.ViewData.Table.Admin.ViewTbl_Admin>();

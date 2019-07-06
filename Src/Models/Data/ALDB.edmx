@@ -26,9 +26,10 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="Pass" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="NatCode" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="RFCount" Type="tinyint" />
-          <Property Name="BDate" Type="datetime" />
+          <Property Name="LFCount" Type="tinyint" />
+          <Property Name="BDate" Type="nvarchar" MaxLength="10" />
           <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Token" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Tbl_AModule">
           <Key>
@@ -672,22 +673,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="Tbl_Admin">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Family" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Pass" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NatCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RFCount" Type="Byte" />
-          <Property Name="BDate" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Tbl_ARole" Relationship="Self.FK_Tbl_Admin_Tbl_ARole" FromRole="Tbl_Admin" ToRole="Tbl_ARole" />
-        </EntityType>
         <EntityType Name="Tbl_AModule">
           <Key>
             <PropertyRef Name="ID" />
@@ -712,7 +697,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ShowTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tbl_Admin" Relationship="Self.FK_Tbl_Admin_Tbl_ARole" FromRole="Tbl_ARole" ToRole="Tbl_Admin" />
+          <NavigationProperty Name="Tbl_Admin" Relationship="ALDBModel.FK_Tbl_Admin_Tbl_ARole" FromRole="Tbl_ARole" ToRole="Tbl_Admin" />
         </EntityType>
         <EntityType Name="Tbl_Blog">
           <Key>
@@ -942,20 +927,6 @@
           <NavigationProperty Name="Tbl_State_City1" Relationship="Self.FK_Tbl_State_City_Tbl_State_City" FromRole="Tbl_State_City" ToRole="Tbl_State_City1" />
           <NavigationProperty Name="Tbl_State_City2" Relationship="Self.FK_Tbl_State_City_Tbl_State_City" FromRole="Tbl_State_City1" ToRole="Tbl_State_City" />
         </EntityType>
-        <Association Name="FK_Tbl_Admin_Tbl_ARole">
-          <End Role="Tbl_ARole" Type="Self.Tbl_ARole" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Tbl_Admin" Type="Self.Tbl_Admin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_ARole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Tbl_Admin">
-              <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tbl_Blog_Tbl_BlogCat">
           <End Role="Tbl_BlogCat" Type="Self.Tbl_BlogCat" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1212,7 +1183,6 @@
         </Association>
         <EntityContainer Name="ALDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="Tbl_Admin" EntityType="Self.Tbl_Admin" />
           <EntitySet Name="Tbl_AModule" EntityType="Self.Tbl_AModule" />
           <EntitySet Name="Tbl_APermission" EntityType="Self.Tbl_APermission" />
           <EntitySet Name="Tbl_ARole" EntityType="Self.Tbl_ARole" />
@@ -1233,10 +1203,6 @@
           <EntitySet Name="Tbl_ProcReview" EntityType="Self.Tbl_ProcReview" />
           <EntitySet Name="Tbl_Product" EntityType="Self.Tbl_Product" />
           <EntitySet Name="Tbl_State_City" EntityType="Self.Tbl_State_City" />
-          <AssociationSet Name="FK_Tbl_Admin_Tbl_ARole" Association="Self.FK_Tbl_Admin_Tbl_ARole">
-            <End Role="Tbl_ARole" EntitySet="Tbl_ARole" />
-            <End Role="Tbl_Admin" EntitySet="Tbl_Admin" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tbl_Blog_Tbl_BlogCat" Association="Self.FK_Tbl_Blog_Tbl_BlogCat">
             <End Role="Tbl_BlogCat" EntitySet="Tbl_BlogCat" />
             <End Role="Tbl_Blog" EntitySet="Tbl_Blog" />
@@ -1319,6 +1285,11 @@
             <End Role="Tbl_Menu1" EntitySet="Tbl_Menu" />
           </AssociationSet>
           <EntitySet Name="Tbl_Page" EntityType="ALDBModel.Tbl_Page" />
+          <EntitySet Name="Tbl_Admin" EntityType="ALDBModel.Tbl_Admin" />
+          <AssociationSet Name="FK_Tbl_Admin_Tbl_ARole" Association="ALDBModel.FK_Tbl_Admin_Tbl_ARole">
+            <End Role="Tbl_ARole" EntitySet="Tbl_ARole" />
+            <End Role="Tbl_Admin" EntitySet="Tbl_Admin" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Tbl_Menu">
           <Key>
@@ -1357,6 +1328,37 @@
           <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="Tbl_Admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Family" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Pass" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NatCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="LFCount" Type="Byte" />
+          <Property Name="BDate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tbl_ARole" Relationship="ALDBModel.FK_Tbl_Admin_Tbl_ARole" FromRole="Tbl_Admin" ToRole="Tbl_ARole" />
+        </EntityType>
+        <Association Name="FK_Tbl_Admin_Tbl_ARole">
+          <End Type="ALDBModel.Tbl_ARole" Role="Tbl_ARole" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ALDBModel.Tbl_Admin" Role="Tbl_Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ARole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Admin">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1371,22 +1373,6 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_Admin">
-            <EntityTypeMapping TypeName="ALDBModel.Tbl_Admin">
-              <MappingFragment StoreEntitySet="Tbl_Admin">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Family" ColumnName="Family" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Pass" ColumnName="Pass" />
-                <ScalarProperty Name="NatCode" ColumnName="NatCode" />
-                <ScalarProperty Name="RFCount" ColumnName="RFCount" />
-                <ScalarProperty Name="BDate" ColumnName="BDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1644,6 +1630,23 @@
                 <ScalarProperty Name="SeoDesc" ColumnName="SeoDesc" />
                 <ScalarProperty Name="Link" ColumnName="Link" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Admin">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_Admin">
+              <MappingFragment StoreEntitySet="Tbl_Admin">
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="BDate" ColumnName="BDate" />
+                <ScalarProperty Name="LFCount" ColumnName="LFCount" />
+                <ScalarProperty Name="NatCode" ColumnName="NatCode" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

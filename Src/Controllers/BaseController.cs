@@ -8,41 +8,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using static Src.App_Start.FilterConfig;
 
 namespace Src.Controllers
 {
-    public class PublicAction : ActionFilterAttribute { }
-
-    public class ValidateModel : ActionFilterAttribute
-    {
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            var viewData = filterContext.Controller.ViewData;
-
-            if (!viewData.ModelState.IsValid)
-            {
-                if (filterContext.HttpContext.Request.IsAjaxRequest())
-                {
-                    filterContext.Result = new JsonResult
-                    {
-                        Data = new Common.Result { Message = Common.ResultMessage.BadRequest }
-                    };
-                }
-                else
-                {
-                    filterContext.Result = new ViewResult();
-                    ViewResultBase contextResult = (filterContext.Result as ViewResultBase);
-                    contextResult.ViewBag.Result = new Common.Result { Message = Common.ResultMessage.BadRequest };
-                }
-            }
-            base.OnActionExecuting(filterContext);
-        }
-    }
-
     public class BaseController : Controller
     {
         #region variable
@@ -68,7 +42,7 @@ namespace Src.Controllers
         {
             using (ALDBEntities aLDB = new ALDBEntities())
             {
-                var data = aLDB.Tbl_Media.OrderBy(item => item.Sort).ThenBy(item=>item.ID);
+                var data = aLDB.Tbl_Media.OrderBy(item => item.Sort).ThenBy(item => item.ID);
                 return data.ToList().Adapt<List<Media.ViewTbl_Media>>();
             }
         }
@@ -117,15 +91,19 @@ namespace Src.Controllers
                 return Common.ResultMessage.TokenExpire;
             }
         }
-        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+
+        protected override void OnActionExecuting(ActionExecutingContext context)
         {
             #region get info
-            RedirectPath = filterContext.Controller.ViewBag.RedirectPath?.ToString();
-            bool IsPublicAction = filterContext.ActionDescriptor.GetCustomAttributes(typeof(PublicAction), true).Count() > 0;
-            void SetResult(Common.Result result)
+            RedirectPath = context.Controller.ViewBag.RedirectPath?.ToString();
+            bool IsPublicAction = context.ActionDescriptor.GetCustomAttributes(typeof(PublicAction), true).Count() > 0;
+            void SetResult(Common.Result result = null)
             {
-                ViewResultBase contextResult = (filterContext.Result as ViewResultBase);
-                contextResult.ViewBag.Result = result;
+                if (result != null)
+                {
+                    ViewResultBase contextResult = (context.Result as ViewResultBase);
+                    contextResult.ViewBag.Result = result;
+                }
             }
             ActionResult GetResponse(Common.Result result, string redirectPath = null)
             {
@@ -138,7 +116,7 @@ namespace Src.Controllers
                 else
                 {
                     #region check  is ajax request
-                    if (filterContext.HttpContext.Request.IsAjaxRequest())
+                    if (context.HttpContext.Request.IsAjaxRequest())
                     {
                         actionResult = new JsonResult { Data = result };
                     }
@@ -160,12 +138,36 @@ namespace Src.Controllers
                 #region check authorize
                 if (message != Common.ResultMessage.OK)
                 {
-                    filterContext.Result = GetResponse(Result, "/");
+                    context.Result = GetResponse(Result, "/");
                 }
                 #endregion
             }
             #endregion
-            base.OnActionExecuted(filterContext);
+
+            #region validate model state
+            string method = context.HttpContext.Request.HttpMethod;
+            if (method.ToLower() == "post")
+            {
+                ViewDataDictionary viewData = context.Controller.ViewData;
+                if (!viewData.ModelState.IsValid)
+                {
+                    if (context.HttpContext.Request.IsAjaxRequest())
+                    {
+                        context.Result = new JsonResult
+                        {
+                            Data = new Common.Result { Message = Common.ResultMessage.BadRequest }
+                        };
+                    }
+                    else
+                    {
+                        SetResult(new Common.Result { Message = Common.ResultMessage.BadRequest });
+                        context.Result = new ViewResult();
+                    }
+                }
+            }
+            #endregion
+
+            base.OnActionExecuting(context);
         }
         #endregion
     }
