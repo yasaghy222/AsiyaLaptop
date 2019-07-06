@@ -97,8 +97,6 @@ namespace Src.Areas.Admin.Controllers
             }
         }
 
-
-
         protected override void OnActionExecuting(ActionExecutingContext context)
         {
             #region get admin info
@@ -117,35 +115,33 @@ namespace Src.Areas.Admin.Controllers
             bool IsPublicAction = context.ActionDescriptor.GetCustomAttributes(typeof(PublicAction), true).Count() > 0;
             void SetResult(Common.Result result)
             {
-                if (result != null)
+                if (result != null && context.Result != null)
                 {
                     ViewResultBase contextResult = (context.Result as ViewResultBase);
                     contextResult.ViewBag.Result = result;
                 }
             }
-            ActionResult GetResponse(Common.Result result, string redirectPath = null)
+            void GetResponse(Common.Result result, string redirectPath = null)
             {
-                ActionResult actionResult;
                 if (redirectPath != null)
                 {
                     SetResult(result);
-                    actionResult = new RedirectResult(redirectPath);
+                    context.Result = new RedirectResult(redirectPath);
                 }
                 else
                 {
-                    #region check  is ajax request
+                    #region check is ajax request
                     if (context.HttpContext.Request.IsAjaxRequest())
                     {
-                        actionResult = new JsonResult { Data = result };
+                        context.Result = new JsonResult { Data = result };
                     }
                     else
                     {
                         SetResult(result);
-                        actionResult = new ViewResult();
+                        context.Result = new ViewResult();
                     }
                     #endregion
                 }
-                return actionResult;
             }
             #endregion
 
@@ -156,8 +152,7 @@ namespace Src.Areas.Admin.Controllers
                 #region check authorize
                 if (message != Common.ResultMessage.OK)
                 {
-                    context.Result = GetResponse(Result, "/al-manage/login");
-                    return;
+                    GetResponse(new Common.Result { Message = message }, "/al-manage/login");
                 }
                 #endregion
             }

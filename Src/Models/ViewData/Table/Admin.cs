@@ -44,5 +44,20 @@ namespace Src.Models.ViewData.Table
             [Required(ErrorMessage = "لطفا رمز عبور خود را وارد نمایید")]
             public string Pass { get; set; }
         }
+
+        public class ChangePassVar
+        {
+            [Required(ErrorMessage = "این فیلد اجباری است.")]
+            public string OldPass { get; set; }
+
+            [DataType(DataType.Password)]
+            [Required(ErrorMessage = "این فیلد اجباری است.")]
+            public string NewPass { get; set; }
+
+            [DataType(DataType.Password)]
+            [Required(ErrorMessage = "تایید رمز عبور جدید اجباری است.")]
+            [Compare("NewPass",ErrorMessage ="تکرار رمز عبور جدید باید مطابق با رمز عبور جدید باشد.")]
+            public string ConfirmNewPass { get; set; }
+        }
     }
 }

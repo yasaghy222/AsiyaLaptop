@@ -40,7 +40,8 @@
                         <i class="caret"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right no-padding">
-                        <li><a class="text-primary"><i class="icon-user"></i><span class="text-semibold">پروفایل</span></a></li>
+                        <li><a class="text-slate-700" onclick="pageLoad('/Admin/Account/Index?token=@ViewBag.Token','پروفایل')"><i class="icon-user"></i><span class="text-semibold">پروفایل</span></a></li>
+                        <li><a class="text-slate-700" onclick="pageLoad('/Admin/Account/ChangePass','پروفایل تغییر رمز عبور')"><i class="icon-key"></i><span class="text-semibold">تغییر رمز عبور</span></a></li>
                         <li><a class="text-danger-300" href="/al-manage/logout"><i class="icon-exit3"></i><span class="text-semibold">خروج</span></a></li>
                     </ul>
                 </li>

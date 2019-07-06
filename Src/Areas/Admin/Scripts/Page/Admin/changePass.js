@@ -1,34 +1,27 @@
 ﻿$(document).ready(() => {
     // #region General
-    $(".select").select2();
     $('.maxlength').maxlength({
         placement: 'bottom-left'
     });
-    //#region AdminAddEdit
-    let frmAdmin = $("#FrmAdmin");
-    function saveFrmAdmin(e) {
-        let isValid = frmAdmin.valid(),
+    //#region ChangePass
+    let frmChangePass = $("#FrmChangePass");
+    function saveFrmChangePass(e) {
+        let isValid = frmChangePass.valid(),
             targetId = $(e.currentTarget).attr("id");
         if (isValid) {
             btnSaveOnOff();
             startAnimate(".tab-content");
             let data = {
-                ID: $("#ID").val(),
-                Name: $("#Name").val(),
-                Family: $("#Family").val(),
-                Phone: $("#Phone").val(),
-                NatCode: $("#NatCode").val(),
-                BDate: $("#BDate").val(),
-                Pass: $("#Pass").val(),
-                Status: $("#Status").val(),
-                Token: $("#Token").val()
+                OldPass: $("#OldPass").val(),
+                NewPass: $("#NewPass").val(),
+                ConfirmNewPass: $("#ConfirmNewPass").val(),
             };
-            let url = getUrl("Admin/AddEdit");
+            let url = getUrl("Account/ChangePass");
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: JSON.stringify(data),
-                AdminessData: false,
+                ChangePassessData: false,
                 contentType: "application/json",
                 success: function (Result) {
                     if (Result.Message == "Success") {
@@ -36,7 +29,7 @@
                         btnSaveOnOff();
                         notifiction(0, "عمیات با موفقیت انجام شد.");
                         if (targetId == "btnSaveNext") {
-                            pageLoad('/Admin/Admin', 'لیست مدیران', 'adminList');
+                            pageLoad('/Admin/Dashboard', 'پنل مدریت لپتاپ آسیا',);
                         }
                     } else {
                         notifiction(1, Result.Message);
@@ -50,19 +43,11 @@
             });
         }
     }
-    //$(".content-wrapper").delegate("#Status", "click", (e) => {
-    //    let Status = $(e.currentTarget);
-    //    if (Status.val() == "true") {
-    //        Status.val("false");
-    //    } else {
-    //        Status.val("true");
-    //    };
-    //});
     $("#btnSave").on("click", (e) => {
-        saveFrmAdmin(e);
+        saveFrmChangePass(e);
     });
     $("#btnSaveNext").on("click", (e) => {
-        saveFrmAdmin(e);
+        saveFrmChangePass(e);
     });
     //#endregion
 });

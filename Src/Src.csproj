@@ -176,6 +176,7 @@
     <Content Include="Areas\Admin\Scripts\Core\makepaging.js" />
     <Content Include="Areas\Admin\Scripts\Page\Admin\admin.js" />
     <Content Include="Areas\Admin\Scripts\Page\Admin\adminAddEdit.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Admin\changePass.js" />
     <Content Include="Areas\Admin\Scripts\Page\Customer\customer.js" />
     <Content Include="Areas\Admin\Scripts\Page\Dashboard\dashboard.js" />
     <Content Include="Areas\Admin\Scripts\Page\Media\media.js" />
@@ -709,6 +710,8 @@
     <Content Include="Areas\Admin\Views\Admin\AddEdit.cshtml" />
     <Content Include="Areas\Admin\Views\Partial\Admin\AdminAddEdit.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\ChangePass.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Admin\ChangePass.cshtml" />
     <None Include="bundleconfig.json" />
     <None Include="packages.config" />
     <Content Include="Views\Sheared\_Layout_Primary.cshtml" />
@@ -723,7 +726,7 @@
     <Content Include="Views\Partials\General\MostViewed.cshtml" />
     <Content Include="Views\Partials\General\PopularBrands.cshtml" />
     <Content Include="Views\Partials\General\Subscription.cshtml" />
-    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
     <Content Include="Views\Sheared\_Layout_secondery.cshtml" />
     <Content Include="Views\Account\ResetPass.cshtml" />
     <Content Include="Views\Partials\Account\Login.cshtml" />

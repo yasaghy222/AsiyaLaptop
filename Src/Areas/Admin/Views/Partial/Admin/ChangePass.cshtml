@@ -1,0 +1,40 @@
+﻿@model  Src.Models.ViewData.Table.Admin.ChangePassVar
+<form id="FrmChangePass">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <div class="form-group col-lg-12">
+                <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">رمز عبور قدیمی</label>
+                <div class="col-lg-7 col-xs-12">
+                    @Html.PasswordFor(item => item.OldPass, new
+                    {
+                        @class = "form-control",
+                        maxlength = "50"
+                    })
+                    @Html.ValidationMessageFor(item => item.OldPass, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">رمز عبور جدید</label>
+                <div class="col-lg-7 col-xs-12">
+                    @Html.PasswordFor(item => item.NewPass, new
+                    {
+                        @class = "form-control",
+                        maxlength = "50"
+                    })
+                    @Html.ValidationMessageFor(item => item.NewPass, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">تکرار رمز عبور جدید</label>
+                <div class="col-lg-7 col-xs-12">
+                    @Html.PasswordFor(item => item.ConfirmNewPass, new
+                    {
+                        @class = "form-control",
+                        maxlength = "50"
+                    })
+                    @Html.ValidationMessageFor(item => item.ConfirmNewPass, "", new { @class = "validation-error-label" })
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

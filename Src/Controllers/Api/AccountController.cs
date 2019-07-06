@@ -29,7 +29,7 @@ namespace Src.Controllers.Api
         public Common.Result IsAuthorize([FromBody] string token)
         {
             string hashToken = Function.GenerateHash(token);
-            Tbl_Admin admin = _unitOfWork.Admin.Single(item => item.Token == hashToken);
+            Tbl_Admin admin = _unitOfWork.Admin.Single(item => item.Token == hashToken && item.Status);
             if (admin != null)
             {
                 if (admin.Status)
@@ -103,6 +103,23 @@ namespace Src.Controllers.Api
         #endregion
 
         [HttpPost, PublicAction]
+        public async Task<Common.Result> Profile([FromBody] string token)
+        {
+            string hashToken = Function.GenerateHash(token);
+            Admin = await _unitOfWork.Admin.SingleAsync(item => item.Token == hashToken);
+            if (Admin != null)
+            {
+                Result.Data = Admin.Adapt<Admin.ViewTbl_Admin>();
+                Result.Message = Common.ResultMessage.OK;
+            }
+            else
+            {
+                Result.Message = Common.ResultMessage.NotFound;
+            }
+            return Result;
+        }
+
+        [HttpPost, PublicAction]
         public async Task<Common.Result> Login([FromBody] Admin.LoginVar loginVar)
         {
             Admin = await _unitOfWork.Admin.SingleAsync(item => item.Phone == loginVar.Phone);
@@ -117,7 +134,7 @@ namespace Src.Controllers.Api
             return Result;
         }
 
-        [HttpPost, PublicAction]
+        [HttpPost]
         public async Task<Common.Result> Logout([FromBody] string token)
         {
             string hashToken = Function.GenerateHash(token);
@@ -125,6 +142,32 @@ namespace Src.Controllers.Api
             if (Admin != null)
             {
                 Admin.Token = "";
+                try
+                {
+                    await _unitOfWork.SaveAsync();
+                    Result.Message = Common.ResultMessage.OK;
+                }
+                catch (Exception)
+                {
+                    Result.Message = Common.ResultMessage.InternallServerError;
+                }
+            }
+            else
+            {
+                Result.Message = Common.ResultMessage.NotFound;
+            }
+            return Result;
+        }
+
+        [HttpPost]
+        public async Task<Common.Result> ChangePass([FromBody] Admin.ChangePassVar changePassVar, [FromUri] string token)
+        {
+            string hashToken = Function.GenerateHash(token),
+                   hashOldPass = Function.GenerateHash(changePassVar.OldPass);
+            Admin = await _unitOfWork.Admin.SingleAsync(item => item.Token == hashToken && item.Pass == hashOldPass);
+            if (Admin != null)
+            {
+                Admin.Pass = Function.GenerateHash(changePassVar.NewPass);
                 try
                 {
                     await _unitOfWork.SaveAsync();

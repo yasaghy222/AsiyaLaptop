@@ -1,4 +1,5 @@
-﻿using Src.Controllers;
+﻿using Mapster;
+using Src.Controllers;
 using Src.Models.Data;
 using Src.Models.Utitlity;
 using Src.Models.ViewData.Base;
@@ -38,10 +39,29 @@ namespace Src.Areas.Admin.Controllers
         #endregion
 
         [HttpGet]
-        public ActionResult Index() => View(new Models.ViewData.Table.Admin.ViewTbl_Admin());
+        public async Task<ActionResult> Index(string token)
+        {
+            _HttpResponse = await Client.PostAsJsonAsync("Account/Profile", token);
+            if (_HttpResponse.IsSuccessStatusCode)
+            {
+                Result = GetResult();
+                if (Result.Message == Common.ResultMessage.OK)
+                {
+                    var adminInfo = Result.Data.Adapt<Models.ViewData.Table.Admin.ViewTbl_Admin>();
+                    return View(adminInfo);
+                }
+            }
+            else
+            {
+                Result.Message = Common.ResultMessage.InternallServerError;
+            }
+
+            ViewBag.Result = Result.Message;
+            return RedirectToRoute("/al-manage");
+        }
 
         [HttpGet]
-        public ActionResult ChangePass() => View();
+        public ActionResult ChangePass() => View(new Models.ViewData.Table.Admin.ChangePassVar());
 
         [HttpGet, PublicAction]
         public ActionResult Login() => View(new Models.ViewData.Table.Admin.LoginVar());
@@ -49,30 +69,23 @@ namespace Src.Areas.Admin.Controllers
         [HttpPost, PublicAction]
         public async Task<ActionResult> Login(Models.ViewData.Table.Admin.LoginVar loginInfo)
         {
-            if (ModelState.IsValid)
+            _HttpResponse = await Client.PostAsJsonAsync("Account/Login", loginInfo);
+            if (_HttpResponse.IsSuccessStatusCode)
             {
-                _HttpResponse = await Client.PostAsJsonAsync("Account/Login", loginInfo);
-                if (_HttpResponse.IsSuccessStatusCode)
+                Result = GetResult();
+                if (Result.Message == Common.ResultMessage.OK)
                 {
-                    Result = GetResult();
-                    if (Result.Message == Common.ResultMessage.OK)
-                    {
-                        SetCookie(Result.Data.DeserializeJson<Models.ViewData.Table.Admin.ViewAdmin>());
-                        return RedirectToRoute("al-manage");
-                    }
-                    else
-                    {
-                        ViewBag.Result = Result.Message;
-                    }
+                    SetCookie(Result.Data.DeserializeJson<Models.ViewData.Table.Admin.ViewAdmin>());
+                    return RedirectToRoute("al-manage");
                 }
                 else
                 {
-                    ViewBag.Result = Common.ResultMessage.InternallServerError;
+                    ViewBag.Result = Result.Message;
                 }
             }
             else
             {
-                ViewBag.Result = Common.ResultMessage.BadRequest;
+                ViewBag.Result = Common.ResultMessage.InternallServerError;
             }
 
             return View();
@@ -81,7 +94,7 @@ namespace Src.Areas.Admin.Controllers
         [HttpGet, PublicAction]
         public ActionResult ResetPass() => View();
 
-        [HttpGet, PublicAction]
+        [HttpGet]
         public async Task<ActionResult> Logout()
         {
             Models.ViewData.Table.Admin.ViewAdmin info = Function.GetAdminInfo(Request);

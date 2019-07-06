@@ -17,7 +17,6 @@ using static Src.App_Start.FilterConfig;
 
 namespace Src.Controllers.Api
 {
-
     public class AuthorizeApi : ActionFilterAttribute
     {
         #region variable
@@ -30,7 +29,7 @@ namespace Src.Controllers.Api
             string hashToken = Function.GenerateHash(token);
             using (ALDBEntities aLDB = new ALDBEntities())
             {
-                Tbl_Admin admin = aLDB.Tbl_Admin.Single(item => item.Token == hashToken);
+                Tbl_Admin admin = aLDB.Tbl_Admin.Single(item => item.Token == hashToken && item.Status);
                 if (admin != null)
                 {
                     if (admin.Status)

@@ -4,6 +4,8 @@
         <div class="panel-body">
             @Html.HiddenFor(item => item.ID)
             @Html.HiddenFor(item => item.Pass)
+            @Html.HiddenFor(item => item.Token)
+            @Html.HiddenFor(item => item.Status)
             <div class="form-group col-lg-12">
                 <label class="control-label title col-lg-2 col-xs-12 mt-sm-5">نام</label>
                 <div class="col-lg-7 col-xs-12">
@@ -81,16 +83,16 @@
                     </div>
                 }
             </div>
-            <div class="form-group col-lg-12">
-                <label class="text-semibold title col-lg-2 col-xs-12">وضعیت</label>
-                <div class="col-lg-4 col-xs-12">
-                    <label>فعال</label>
-                    <label class="ix-input-swich">
-                        @Html.CheckBoxFor(item => item.Status, new { @class = "cSwitch" })
-                    </label>
-                    <label class="ml-10">بلاک</label>
-                </div>
+            @*<div class="form-group col-lg-12">
+            <label class="text-semibold title col-lg-2 col-xs-12">وضعیت</label>
+            <div class="col-lg-4 col-xs-12">
+                <label>فعال</label>
+                <label class="ix-input-swich">
+                    @Html.CheckBoxFor(item => item.Status, new { @class = "ipx-switch" })
+                </label>
+                <label class="ml-10">بلاک</label>
             </div>
+        </div>*@
         </div>
     </div>
 </form>

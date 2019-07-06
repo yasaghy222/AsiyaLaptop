@@ -67,36 +67,30 @@ namespace Src.Controllers.Api
         [HttpPost]
         public async Task<Common.Result> AddEdit([FromBody] Admin.ViewTbl_Admin model)
         {
-            if (ModelState.IsValid)
+            model.Token = Function.GenerateHash(model.Token);
+            Admin = model.Adapt<Tbl_Admin>();
+            if (Admin.ID == -1)
             {
-                Admin = model.Adapt<Tbl_Admin>();
-                if (Admin.ID == -1)
-                {
-                    #region add
-                    Admin.ID = 1 + Function.GenerateNumCode();
-                    Admin.Pass = Function.GenerateHash(Admin.NatCode);
-                    _unitOfWork.Admin.Add(Admin);
-                    #endregion
-                }
-                else
-                {
-                    #region edit
-                    _unitOfWork.Admin.Update(Admin);
-                    #endregion
-                }
-                try
-                {
-                    await _unitOfWork.SaveAsync();
-                    Result.Message = Common.ResultMessage.OK;
-                }
-                catch (Exception)
-                {
-                    Result.Message = Common.ResultMessage.InternallServerError;
-                }
+                #region add
+                Admin.ID = 1 + Function.GenerateNumCode();
+                Admin.Pass = Function.GenerateHash(Admin.NatCode);
+                _unitOfWork.Admin.Add(Admin);
+                #endregion
             }
             else
             {
-                Result.Message = Common.ResultMessage.BadRequest;
+                #region edit
+                _unitOfWork.Admin.Update(Admin);
+                #endregion
+            }
+            try
+            {
+                await _unitOfWork.SaveAsync();
+                Result.Message = Common.ResultMessage.OK;
+            }
+            catch (Exception)
+            {
+                Result.Message = Common.ResultMessage.InternallServerError;
             }
             return Result;
         }

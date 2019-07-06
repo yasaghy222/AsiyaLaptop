@@ -1,0 +1,40 @@
+﻿@model  Src.Models.ViewData.Table.Admin.ViewTbl_Admin
+@{
+    string Title = $"پروفایل {Model.Name} {Model.Family}";
+}
+<div class="content-group">
+    <div class="page-header page-header-default page-header-xs sticky">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h5>
+                    <span class="text-semibold">@Title</span>
+                </h5>
+            </div>
+            <div class="heading-elements">
+                <a onclick="pageLoad('/Admin/Account/ChangePass','پروفایل تغییر رمز عبور')" class="btn bg-teal-800 btn-labeled heading-btn legitRipple"><b><i class="icon-key"></i></b>تغییر رمز عبور</a>
+                <button id="btnSaveNext" class="btn bg-green-800 btn-labeled heading-btn legitRipple btn-ladda"><b><i class="icon-floppy-disk"></i></b>ثبت تغییرات</button>
+            </div>
+        </div>
+        <div class="breadcrumb-line">
+            <ul class="breadcrumb">
+                <li><a onclick="pageLoad('/Admin/Dashboard','پنل مدیریت لپتاپ آسیا')"><i class="icon-home position-left"></i> میز کار</a></li>
+                <li class="active">@Title</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="panel panel-flat bg-none">
+        <div class="panel-body">
+            @Html.Partial("/Areas/Admin/Views/Partial/Admin/AdminAddEdit.cshtml", Model)
+        </div>
+    </div>
+</div>
+<script src="~/Areas/Admin/Scripts/Plugin/uniform.min.js"></script>
+<script src="~/Areas/Admin/Scripts/Plugin/maxlength.min.js"></script>
+<script src="~/Areas/Admin/Scripts/Core/jquery.validate.min.js"></script>
+<script src="~/Areas/Admin/Scripts/Core/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Areas/Admin/Scripts/Page/Admin/adminAddEdit.js"></script>
+
+
