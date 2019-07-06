@@ -736,6 +736,7 @@
     <Content Include="Views\Partials\General\Product.cshtml" />
     <Content Include="Views\Newsletter\Register.cshtml" />
     <Content Include="Views\Page\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

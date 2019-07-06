@@ -1,0 +1,20 @@
+﻿@model Src.Models.ViewData.Table.Customer.ViewAccountVar
+@{
+    ViewBag.Title = "لپتاپ آسیا";
+    Layout = "~/Views/Sheared/_Layout_Secondery.cshtml";
+}
+
+@section MetaTags{
+    <meta name="description" content="@ViewBag.Title">
+    <meta name="keywords" content="shop, e-commerce, modern, flat style, responsive, online store, business, mobile, blog, bootstrap 4, html5, Css3, jquery, js, gallery, slider, touch, creative, clean">
+    <meta name="author" content="T.Yasaghi">
+}
+
+<div class="col-md-6">
+    @Html.Partial("~/Views/Partials/Account/Login.cshtml", Model)
+</div>
+<div class="col-md-6 text-right">
+    <div class="padding-top-3x hidden-md-up"></div>
+    <h3 class="margin-bottom-1x">کاربر جدید هستید؟ ثبت نام کنید</h3>
+    @Html.Partial("~/Views/Partials/Account/Register.cshtml", Model)
+</div>
