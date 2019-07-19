@@ -32,6 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +42,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -487,6 +489,7 @@
     <Compile Include="Controllers\Api\PageController.cs" />
     <Compile Include="Controllers\Api\ProductController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CardController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsletterController.cs" />
@@ -590,6 +593,8 @@
     <Compile Include="Models\Service\Repository\Blog\IBlogRepository.cs" />
     <Compile Include="Models\Service\Repository\IGenericRepository.cs" />
     <Compile Include="Models\Service\Repository\Factor\IFactorRepository.cs" />
+    <Compile Include="Models\Service\Repository\PCPGroup\IPCPGRepository.cs" />
+    <Compile Include="Models\Service\Repository\PCPGroup\PCPGRepository.cs" />
     <Compile Include="Models\Service\Repository\Product\IProductRepository.cs" />
     <Compile Include="Models\Service\Repository\IUnitOfWork.cs" />
     <Compile Include="Models\Service\Repository\Product\ProductRepository.cs" />
@@ -720,23 +725,21 @@
     <Content Include="Views\Partials\General\MainMenu.cshtml" />
     <Content Include="Views\Partials\General\ToolBar.cshtml" />
     <Content Include="Views\Partials\General\TopCategories.cshtml" />
-    <Content Include="Views\Partials\General\NewProducts.cshtml" />
-    <Content Include="Views\Partials\General\BestSellers.cshtml" />
-    <Content Include="Views\Partials\General\Best.cshtml" />
-    <Content Include="Views\Partials\General\MostViewed.cshtml" />
-    <Content Include="Views\Partials\General\PopularBrands.cshtml" />
     <Content Include="Views\Partials\General\Subscription.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
     <Content Include="Views\Sheared\_Layout_secondery.cshtml" />
     <Content Include="Views\Account\ResetPass.cshtml" />
     <Content Include="Views\Partials\Account\Login.cshtml" />
     <Content Include="Views\Partials\Account\Register.cshtml" />
-    <Content Include="Views\Product\Search.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Partials\General\Product.cshtml" />
     <Content Include="Views\Newsletter\Register.cshtml" />
     <Content Include="Views\Page\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Partials\General\CarouselProc.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -746,6 +749,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Media\" />
+    <Folder Include="Views\Card\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

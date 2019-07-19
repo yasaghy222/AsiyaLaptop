@@ -86,13 +86,36 @@
     <!-- Back To Top Button--><a class="scroll-to-top-btn" href="#"><i class="icon-chevron-up"></i></a>
     <!-- Backdrop-->
     <div class="site-backdrop"></div>
+    <!-- card item delete modal-->
     <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
     <script src="~/Scripts/Js/vendor.min.js"></script>
     <script src="~/Scripts/Js/scripts.min.js"></script>
     <script type="text/javascript">
         $(document).ready(() => {
+
+            //#region check authorize
+            const isAuthorize = @(Request.Cookies.Get("ALCustInfo") != null ? "true" : "false");
+            if (isAuthorize) {
+                //get card list for login customer
+                GetCardList();
+            }
+
+            //add to card
+            $(document).delegate("#addToCard",
+                "click",
+                (e) => {
+                    if (isAuthorize) {
+                        let procID = $(e.currentTarget).attr("data-procID");
+                        procID = parseInt(procID);
+                        AddToCard(procID);
+                    } else {
+                        notify('warning', "لطفا ابتدا وارد حساب کاربری خود شده و یا ثبت نام نمایید!");
+                    }
+                });
+            //#endregion
+
+
             let resualt = @Html.Raw(Json.Encode(ViewBag.Result));
-            debugger;
             if (resualt != null) {
                 if (resualt.Message == "Success") {
                     notify('success', 'موفقیت !', "درخواست با موفقیت انجام شد.");

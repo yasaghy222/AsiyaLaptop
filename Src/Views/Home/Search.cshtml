@@ -7,7 +7,6 @@
 @section MetaTags{
     <meta name="description" content="@ViewBag.Title">
     <meta name="keywords" content="@Model.Params.Category,@Model.Params.Brand">
-    <meta name="author" content="T.Yasaghi">
 }
 
 <div class="container padding-top-3x mt-1 padding-bottom-3x mb-1">
@@ -51,11 +50,14 @@
             <div class="sidebar-toggle position-left"><i class="icon-filter"></i></div>
             <aside class="sidebar sidebar-offcanvas position-left">
                 <span class="sidebar-close"><i class="icon-x"></i></span>
-                <!-- Widget Categories-->
-                <section class="widget widget-categories">
-                    <h3 class="widget-title">دستبندی نتایج</h3>
-                    <ul lang="en" id="resultCats"></ul>
-                </section>
+                @if (Model.CatList?.First() != null)
+                {
+                    <!-- Widget Categories-->
+                    <section class="widget widget-categories">
+                        <h3 class="widget-title">دستبندی نتایج</h3>
+                        <ul lang="en" id="resultCats"></ul>
+                    </section>
+                }
                 <!-- Widget Price Range-->
                 <section class="widget widget-categories">
                     <h3 class="widget-title">محدوده قیمت مورد نظر</h3>
@@ -110,7 +112,7 @@
                         {
                             <section class="widget">
                                 <h3 class="widget-title">@i.Title</h3>
-                                @foreach (var j in i.ValueList)
+                                @foreach (var j in i.ValueList.Distinct())
                                 {
                                     string id = $"prop{j}";
                                     <div class="custom-control custom-checkbox">

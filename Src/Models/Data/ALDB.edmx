@@ -231,9 +231,9 @@
         </EntityType>
         <EntityType Name="Tbl_ProcReview">
           <Key>
-            <PropertyRef Name="ProcID" />
-            <PropertyRef Name="CustID" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProcID" Type="int" Nullable="false" />
           <Property Name="CustID" Type="int" Nullable="false" />
           <Property Name="Rate" Type="tinyint" Nullable="false" />
@@ -769,7 +769,7 @@
           <Property Name="Token" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Tbl_CustAddress" Relationship="Self.FK_Tbl_CustAddress_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_CustAddress" />
           <NavigationProperty Name="Tbl_Factor" Relationship="Self.FK_Tbl_Factor_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_Factor" />
-          <NavigationProperty Name="Tbl_ProcReview" Relationship="Self.FK_Tbl_ProcRate_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_ProcReview" />
+          <NavigationProperty Name="Tbl_ProcReview" Relationship="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_ProcReview" />
         </EntityType>
         <EntityType Name="Tbl_Factor">
           <Key>
@@ -876,20 +876,6 @@
           <NavigationProperty Name="Tbl_PCPGroup" Relationship="Self.FK_Tbl_ProcProp_Tbl_PCPGroup" FromRole="Tbl_ProcProp" ToRole="Tbl_PCPGroup" />
           <NavigationProperty Name="Tbl_Product" Relationship="Self.FK_Tbl_ProcProp_Tbl_Product" FromRole="Tbl_ProcProp" ToRole="Tbl_Product" />
         </EntityType>
-        <EntityType Name="Tbl_ProcReview">
-          <Key>
-            <PropertyRef Name="ProcID" />
-            <PropertyRef Name="CustID" />
-          </Key>
-          <Property Name="ProcID" Type="Int32" Nullable="false" />
-          <Property Name="CustID" Type="Int32" Nullable="false" />
-          <Property Name="Rate" Type="Byte" Nullable="false" />
-          <Property Name="Subject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Review" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Tbl_Customer" Relationship="Self.FK_Tbl_ProcRate_Tbl_Customer" FromRole="Tbl_ProcReview" ToRole="Tbl_Customer" />
-          <NavigationProperty Name="Tbl_Product" Relationship="Self.FK_Tbl_ProcRate_Tbl_Product" FromRole="Tbl_ProcReview" ToRole="Tbl_Product" />
-        </EntityType>
         <EntityType Name="Tbl_Product">
           <Key>
             <PropertyRef Name="ID" />
@@ -913,8 +899,8 @@
           <NavigationProperty Name="Tbl_ProcCat" Relationship="Self.FK_Tbl_Product_Tbl_ProcCat" FromRole="Tbl_Product" ToRole="Tbl_ProcCat" />
           <NavigationProperty Name="Tbl_ProcImg" Relationship="Self.FK_Tbl_ProcImg_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_ProcImg" />
           <NavigationProperty Name="Tbl_ProcProp" Relationship="Self.FK_Tbl_ProcProp_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_ProcProp" />
-          <NavigationProperty Name="Tbl_ProcReview" Relationship="Self.FK_Tbl_ProcRate_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_ProcReview" />
           <Property Name="RegDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tbl_ProcReview" Relationship="ALDBModel.FK_Tbl_ProcRate_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_ProcReview" />
         </EntityType>
         <EntityType Name="Tbl_State_City">
           <Key>
@@ -1003,20 +989,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Tbl_Factor">
-              <PropertyRef Name="CustID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_ProcRate_Tbl_Customer">
-          <End Role="Tbl_Customer" Type="Self.Tbl_Customer" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Tbl_ProcReview" Type="Self.Tbl_ProcReview" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Customer">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Tbl_ProcReview">
               <PropertyRef Name="CustID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1155,20 +1127,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_ProcRate_Tbl_Product">
-          <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Tbl_ProcReview" Type="Self.Tbl_ProcReview" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Product">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Tbl_ProcReview">
-              <PropertyRef Name="ProcID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tbl_State_City_Tbl_State_City">
           <End Role="Tbl_State_City" Type="Self.Tbl_State_City" Multiplicity="1" />
           <End Role="Tbl_State_City1" Type="Self.Tbl_State_City" Multiplicity="*" />
@@ -1200,7 +1158,6 @@
           <EntitySet Name="Tbl_ProcCat" EntityType="Self.Tbl_ProcCat" />
           <EntitySet Name="Tbl_ProcImg" EntityType="Self.Tbl_ProcImg" />
           <EntitySet Name="Tbl_ProcProp" EntityType="Self.Tbl_ProcProp" />
-          <EntitySet Name="Tbl_ProcReview" EntityType="Self.Tbl_ProcReview" />
           <EntitySet Name="Tbl_Product" EntityType="Self.Tbl_Product" />
           <EntitySet Name="Tbl_State_City" EntityType="Self.Tbl_State_City" />
           <AssociationSet Name="FK_Tbl_Blog_Tbl_BlogCat" Association="Self.FK_Tbl_Blog_Tbl_BlogCat">
@@ -1226,10 +1183,6 @@
           <AssociationSet Name="FK_Tbl_Factor_Tbl_Customer" Association="Self.FK_Tbl_Factor_Tbl_Customer">
             <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
             <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_ProcRate_Tbl_Customer" Association="Self.FK_Tbl_ProcRate_Tbl_Customer">
-            <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
-            <End Role="Tbl_ProcReview" EntitySet="Tbl_ProcReview" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FactProc_Tbl_Factor" Association="Self.FK_Tbl_FactProc_Tbl_Factor">
             <End Role="Tbl_Factor" EntitySet="Tbl_Factor" />
@@ -1271,10 +1224,6 @@
             <End Role="Tbl_Product" EntitySet="Tbl_Product" />
             <End Role="Tbl_ProcProp" EntitySet="Tbl_ProcProp" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_ProcRate_Tbl_Product" Association="Self.FK_Tbl_ProcRate_Tbl_Product">
-            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
-            <End Role="Tbl_ProcReview" EntitySet="Tbl_ProcReview" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tbl_State_City_Tbl_State_City" Association="Self.FK_Tbl_State_City_Tbl_State_City">
             <End Role="Tbl_State_City" EntitySet="Tbl_State_City" />
             <End Role="Tbl_State_City1" EntitySet="Tbl_State_City" />
@@ -1289,6 +1238,15 @@
           <AssociationSet Name="FK_Tbl_Admin_Tbl_ARole" Association="ALDBModel.FK_Tbl_Admin_Tbl_ARole">
             <End Role="Tbl_ARole" EntitySet="Tbl_ARole" />
             <End Role="Tbl_Admin" EntitySet="Tbl_Admin" />
+          </AssociationSet>
+          <EntitySet Name="Tbl_ProcReview" EntityType="ALDBModel.Tbl_ProcReview" />
+          <AssociationSet Name="FK_Tbl_ProcRate_Tbl_Customer" Association="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer">
+            <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
+            <End Role="Tbl_ProcReview" EntitySet="Tbl_ProcReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ProcRate_Tbl_Product" Association="ALDBModel.FK_Tbl_ProcRate_Tbl_Product">
+            <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+            <End Role="Tbl_ProcReview" EntitySet="Tbl_ProcReview" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Tbl_Menu">
@@ -1356,6 +1314,48 @@
             </Principal>
             <Dependent Role="Tbl_Admin">
               <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tbl_ProcReview">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcID" Type="Int32" Nullable="false" />
+          <Property Name="CustID" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Byte" Nullable="false" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Review" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tbl_Customer" Relationship="ALDBModel.FK_Tbl_ProcRate_Tbl_Customer" FromRole="Tbl_ProcReview" ToRole="Tbl_Customer" />
+          <NavigationProperty Name="Tbl_Product" Relationship="ALDBModel.FK_Tbl_ProcRate_Tbl_Product" FromRole="Tbl_ProcReview" ToRole="Tbl_Product" />
+        </EntityType>
+        <Association Name="FK_Tbl_ProcRate_Tbl_Customer">
+          <End Type="ALDBModel.Tbl_Customer" Role="Tbl_Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ALDBModel.Tbl_ProcReview" Role="Tbl_ProcReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcReview">
+              <PropertyRef Name="CustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ProcRate_Tbl_Product">
+          <End Type="ALDBModel.Tbl_Product" Role="Tbl_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ALDBModel.Tbl_ProcReview" Role="Tbl_ProcReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ProcReview">
+              <PropertyRef Name="ProcID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1567,18 +1567,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_ProcReview">
-            <EntityTypeMapping TypeName="ALDBModel.Tbl_ProcReview">
-              <MappingFragment StoreEntitySet="Tbl_ProcReview">
-                <ScalarProperty Name="ProcID" ColumnName="ProcID" />
-                <ScalarProperty Name="CustID" ColumnName="CustID" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="Review" ColumnName="Review" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Product">
             <EntityTypeMapping TypeName="ALDBModel.Tbl_Product">
               <MappingFragment StoreEntitySet="Tbl_Product">
@@ -1647,6 +1635,19 @@
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Family" ColumnName="Family" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ProcReview">
+            <EntityTypeMapping TypeName="ALDBModel.Tbl_ProcReview">
+              <MappingFragment StoreEntitySet="Tbl_ProcReview">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Review" ColumnName="Review" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="CustID" ColumnName="CustID" />
+                <ScalarProperty Name="ProcID" ColumnName="ProcID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

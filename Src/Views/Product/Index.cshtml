@@ -1,0 +1,223 @@
+﻿@using Src.Models.Utitlity
+@model Src.Models.ViewData.Table.Product.ProcPageModel
+@{
+    string imgPath = $"/Files/Product/{Model.Proc.ID}.jpg";
+}
+
+@section MetaTags{
+    <meta name="description" content="@Model.Proc.ShortDesc">
+    <meta name="keywords" content="@Model.Proc.TopProp">
+}
+
+<!-- Page Title-->
+<div class="page-title">
+    <div class="container">
+        <div class="column">
+            <ul class="breadcrumbs text-right" id="cats">
+                <li>
+                    <a href="/">لپتاپ آسیا</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Page Content-->
+<div class="container padding-bottom-3x">
+    <div class="row">
+        <!-- Product Info-->
+        <div class="col-md-6 text-right" dir="rtl">
+            <div class="padding-top-2x mt-2 hidden-md-up"></div>
+            <div class="row">
+                <div class="sp-categories pb-3 col-md-3">برند :<a class="text-danger" href="/Search?brand=@Model.Proc.BrandEnName.ToLower()">@Model.Proc.BrandName</a></div>
+                <div class="sp-categories pb-3 col-md-4">دستبندی :<a class="text-danger" href="/Search?category=@Model.Proc.CatEnName.ToLower()">@Model.Proc.CatName</a></div>
+            </div>
+            <h2 class="mb-3" lang="en">@Model.Proc.Title</h2>
+            <p class="text-muted">
+                @Model.Proc.ShortDesc
+            </p>
+            <div class="row margin-top-1x">
+                <div class="col-md-6">
+                    <h6 class="h6">ویژگی های محصول</h6>
+                    <ul class="list-icon mb-4" lang="en">
+                        @foreach (var item in Model.Proc.TopProp?.Split(','))
+                        {
+                            <li><i class="icon-check text-success"></i>@item</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <hr class="mb-2">
+            <ul class="list-icon mb-4 mt-4">
+                <li> <i class="icon-truck"></i>ارسال از طریق پست پیشتاز</li>
+                <li> <i class="icon-repeat"></i>تضمین بازگرداندن کالا</li>
+            </ul>
+            <hr class="mb-2">
+            <div class="d-flex flex-wrap justify-content-between">
+                <div class="mt-2 mb-2">
+                    @if (Model.Proc.Type == "اتمام موجودی" || Model.Proc.Type == "توقف تولید")
+                    {
+                        <span class="text-xlarge text-bold d-block">---------------</span>
+                    }
+                    else
+                    {
+                        <span class="text-xlarge text-bold d-block">
+                            @if (Model.Proc.OffPrice != "0")
+                            {
+                                <del>@Model.Proc.Price</del>
+                                @Model.Proc.OffPrice
+                            }
+                            else
+                            {
+                                @Model.Proc.Price
+                            }
+                            تومان
+                        </span>
+                    }
+                </div>
+            </div>
+            <div class="row align-items-end pt-2">
+                <div class="col-sm-8 col-sm-offset-4">
+                    <div class="pt-4 hidden-sm-up"></div>
+                    @if (Model.Proc.Type == "اتمام موجودی" || Model.Proc.Type == "توقف تولید")
+                    {
+                        <button class="btn btn-white btn-block m-0 disabled"><i class="icon-bag"></i>@Model.Proc.Type</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary btn-block m-0" id="addToCard" data-procID="@Model.Proc.ID"><i class="icon-bag"></i> افزودن به سبد خرید</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- Poduct Gallery-->
+        <div class="col-md-6">
+            <div class="product-gallery">
+                @if (Model.Proc.Type == "پیشنهاد ویژه")
+                {
+                    <span class="product-badge bg-danger">@Model.Proc.Type</span>
+                }
+                <div class="product-carousel owl-carousel gallery-wrapper">
+                    <div class="gallery-item" data-hash="one"><a href="@imgPath" data-size="1000x667"><img src="@imgPath" alt="@Model.Proc.Title"></a></div>
+                    @foreach (var item in Model.Imgs)
+                    {
+                        string path = $"/Files/Product/{item.ProcID}_{item.ID}.jpg";
+                        <div class="gallery-item" data-hash="@item.ID"><a href="@path" data-size="1000x667"><img src="@path" alt="@item.Title"></a></div>
+                    }
+                </div>
+                <ul class="product-thumbnails">
+                    <li class="active"><a href="#one"><img src="@imgPath" alt="@Model.Proc.Title"></a></li>
+                    @foreach (var item in Model.Imgs)
+                    {
+                        string path = $"/Files/Product/{item.ProcID}_{item.ID}.jpg";
+                        <li><a href="#@item.ID"><img src="@path" alt="@item.Title"></a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model.RelatedProcs.Count > 0)
+{
+    <!-- Related Products Carousel-->
+    <div class="bg-secondary">
+        <div class="container padding-bottom-3x mb-1">
+            <h3 class="text-center padding-top-2x mt-2 padding-bottom-1x">محصولات مرتبط</h3>
+            <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false,&quot;rtl&quot;: true, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;576&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
+                @foreach (var item in Model.RelatedProcs)
+                {
+                    @Html.Partial("~/Views/Partials/General/CarouselProc.cshtml", item)
+                }
+            </div>
+        </div>
+    </div>
+}
+<!-- Product Details-->
+<div class="padding-top-3x padding-bottom-2x mb-3 text-justify" id="details" dir="rtl">
+    <div class="container">
+        <div class="row">
+            <ul class="col-lg-12 nav nav-tabs justify-content-center" role="tablist">
+                @if (Model.Proc.FullDesc != null)
+                {
+                    <li class="nav-item"><a class="nav-link active" href="#review" data-toggle="tab" role="tab">نقد و بررسی</a></li>
+                }
+                <li class="nav-item"><a class="nav-link" href="#properety" data-toggle="tab" role="tab">مشخصات</a></li>
+            </ul>
+            <div class="col-lg-12 tab-content">
+                <div class="tab-pane fade active show" id="review" role="tabpanel">
+                    @Html.Raw(HttpUtility.HtmlDecode(Model.Proc.FullDesc));
+                </div>
+                <div class="tab-pane fade" id="properety" role="tabpanel">
+                    <div class="title">
+                        <h3 class="mb-1">مشخصات فنی</h3>
+                        <p lang="en">@Model.Proc.Title</p>
+                    </div>
+                    <div class="body">
+                        @foreach (var i in Model.Props)
+                        {
+                            <h6 class="text-muted text-lg text-uppercase padding-top-1x d-flex align-items-center">
+                                <i class="icon-arrow-down-left text-danger"></i>
+                                @i.Title
+                            </h6>
+                            <ul class="prop-group p-0">
+                                @foreach (var j in i.Props)
+                                {
+                                    <li class="prop-group-item d-block">
+                                        <div class="row m-0">
+                                            <div class="col-lg-3 title d-inline-block">@j.Title</div>
+                                            <div lang="en" class="col-lg-8 mr-auto value d-inline-block">@j.Value</div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Photoswipe container-->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="بستن"></button>
+                <button class="pswp__button pswp__button--fs" title="تمام صفحه"></button>
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="قبلی"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="بعدی"></button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(() => {
+            //#region variable
+            let CatList = @Html.Raw(Json.Encode(Model.Cats)),
+                Cats = $("#cats");
+            //#endregion
+
+            //fill cats
+            FillCats(CatList, Cats);
+        });
+    </script>
+}

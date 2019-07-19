@@ -58,7 +58,7 @@ namespace Src.Controllers
                 ControllerContext.HttpContext.Response.Cookies.Add(cookie);
             }
         }
-        string IsAuthorize()
+        protected string IsAuthorize()
         {
             if (Request.Cookies.Get("ALCustInfo") != null)
             {
@@ -96,14 +96,11 @@ namespace Src.Controllers
         {
             #region get info
             RedirectPath = context.Controller.ViewBag.RedirectPath?.ToString();
-            bool IsPublicAction = context.ActionDescriptor.GetCustomAttributes(typeof(PublicAction), true).Count() > 0;
+            var isPublicAction = context.ActionDescriptor.GetCustomAttributes(typeof(PublicAction), true).Any();
             void SetResult(Common.Result result = null)
             {
-                if (result != null)
-                {
-                    ViewResultBase contextResult = (context.Result as ViewResultBase);
-                    contextResult.ViewBag.Result = result;
-                }
+                if (result == null) return;
+                if (context.Result is ViewResultBase contextResult) contextResult.ViewBag.Result = result;
             }
             ActionResult GetResponse(Common.Result result, string redirectPath = null)
             {
@@ -132,8 +129,8 @@ namespace Src.Controllers
             #endregion
 
             #region check is public
-            string message = IsAuthorize();
-            if (!IsPublicAction)
+            var message = IsAuthorize();
+            if (!isPublicAction)
             {
                 #region check authorize
                 if (message != Common.ResultMessage.OK)
@@ -145,7 +142,7 @@ namespace Src.Controllers
             #endregion
 
             #region validate model state
-            string method = context.HttpContext.Request.HttpMethod;
+            var method = context.HttpContext.Request.HttpMethod;
             if (method.ToLower() == "post")
             {
                 ViewDataDictionary viewData = context.Controller.ViewData;

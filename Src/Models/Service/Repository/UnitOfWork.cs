@@ -28,13 +28,19 @@ namespace Src.Models.Service.Repository
         private IGenericRepository<Tbl_ProcProp> procProp;
         public IGenericRepository<Tbl_ProcProp> ProcProp { get => procProp = procProp ?? new GenericRepository<Tbl_ProcProp>(_context); }
 
-        private IGenericRepository<Tbl_PCPGroup> pcpGroup;
-        public IGenericRepository<Tbl_PCPGroup> PCPGroup { get => pcpGroup = pcpGroup ?? new GenericRepository<Tbl_PCPGroup>(_context); }
+        private IPCPGRepository pcpGroup;
+        public IPCPGRepository PCPGroup { get => pcpGroup = pcpGroup ?? new PCPGRepository(_context); }
+
+        private IGenericRepository<Tbl_ProcReview> procReview;
+        public IGenericRepository<Tbl_ProcReview> ProcReview { get => procReview = procReview ?? new GenericRepository<Tbl_ProcReview>(_context); }
         #endregion
 
         #region factor
         private IFactorRepository factor;
         public IFactorRepository Factor { get => factor = factor ?? new FactorRepository(_context); }
+
+        private IGenericRepository<Tbl_FactProc> factProc;
+        public IGenericRepository<Tbl_FactProc> FactProc { get => factProc = factProc ?? new GenericRepository<Tbl_FactProc>(_context); }
         #endregion
 
         #region customer

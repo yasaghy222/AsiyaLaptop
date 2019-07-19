@@ -94,6 +94,14 @@ namespace Src.Models.ViewData.Table
         }
         #endregion
 
+        #region Card
+        public class ViewCard
+        {
+            public string TotalPrice { get; set; }
+            public List<OrderProc> Procs { get; set; }
+        }
+        #endregion
+
         #region factProc
         public class OrderProc
         {

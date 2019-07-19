@@ -24,13 +24,13 @@ namespace Src.Controllers.Api
         [HttpGet]
         public async Task<long[]> GetOrderCount()
         {
-            long TotalCount = await _unitOfWork.Factor
+            var TotalCount = await _unitOfWork.Factor
                                     .GetCountAsync(item => item.PaymentStatus &&
                                                    item.Status == (byte)Factor.FactStatus.DeliveryToCust);
-            long NewCount = await _unitOfWork.Factor
+            var NewCount = await _unitOfWork.Factor
                                              .GetCountAsync(item => item.Status == (byte)Factor.FactStatus.Registered);
 
-            return new long[] { NewCount, TotalCount };
+            return new[] { NewCount, TotalCount };
         }
 
         /// <summary>
@@ -40,17 +40,17 @@ namespace Src.Controllers.Api
         [HttpGet]
         public async Task<string[]> GetIncome()
         {
-            long TodayIncome = await Task.Run(() => _unitOfWork.Factor
+            var TodayIncome = await Task.Run(() => _unitOfWork.Factor
                                                                .Get(item => item.SubmitDate == DateTime.Now &&
                                                                     item.Status == (byte)Factor.FactStatus.DeliveryToCust)
                                                                .Sum(item => item.TotalPrice));
-            DateTime yesterday = DateTime.Now.AddDays(-1);
-            long YesterdayIncome = await Task.Run(() => _unitOfWork.Factor
+            var yesterday = DateTime.Now.AddDays(-1);
+            var YesterdayIncome = await Task.Run(() => _unitOfWork.Factor
                                                               .Get(item => item.SubmitDate == yesterday &&
                                                                    item.Status == (byte)Factor.FactStatus.DeliveryToCust)
                                                               .Sum(item => item.TotalPrice));
 
-            return new string[] { TodayIncome.SetCama(), YesterdayIncome.SetCama() };
+            return new[] { TodayIncome.ToCurrency(), YesterdayIncome.ToCurrency() };
         }
     }
 }

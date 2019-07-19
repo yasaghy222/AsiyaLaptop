@@ -242,6 +242,26 @@ namespace Src.Models.Utitlity
         }
 
         /// <summary>
+        /// دریافت اطلاعات کاربر
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static Customer.CustomerInfo GetCustInfo(HttpRequestBase request)
+        {
+            Customer.CustomerInfo Item = null;
+            if (request.Cookies?.Get("ALCustInfo") != null)
+            {
+                Item = new Customer.CustomerInfo
+                {
+                    Name = request.Cookies["ALCustInfo"]["Name"],
+                    Family = request.Cookies["ALCustInfo"]["Family"],
+                    Token = request.Cookies["ALCustInfo"]["Token"]
+                };
+            }
+            return Item;
+        }
+
+        /// <summary>
         /// دریافت آدرس جستجوی محصولات
         /// </summary>
         /// <param name="category"></param>
@@ -284,7 +304,6 @@ namespace Src.Models.Utitlity
             url = url.Length == 8 ? url.Substring(0, 7) : url;
             return url;
         }
-        #endregion
 
         /// <summary>
         /// get single category of products
@@ -354,6 +373,7 @@ namespace Src.Models.Utitlity
             }
             return catList;
         }
+        #endregion
     }
 
     public static class GenericFunction<T> where T : class

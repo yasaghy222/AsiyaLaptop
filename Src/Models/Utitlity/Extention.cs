@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Net.Http;
 using System.Text;
+using Src.Models.ViewData.Table;
 
 namespace Src.Models.Utitlity
 {
@@ -153,21 +154,20 @@ namespace Src.Models.Utitlity
     {
         #region general
         /// <summary>
-        /// split input by 3
+        /// number to currency
         /// </summary>
-        /// <param name="InputText">input</param>
+        /// <param name="InputText">number</param>
         /// <returns></returns>
-        public static string SetCama(this object InputText)
+        public static string ToCurrency(this object InputText)
         {
-            string num = "0";
+            var num = "0";
             try
             {
-                if (InputText == null || string.IsNullOrEmpty(InputText.ToString()))
-                    return "0";
+                if (InputText == null || string.IsNullOrEmpty(InputText.ToString())) return "0";
                 num = InputText.ToString();
-                double.TryParse(InputText.ToString(), out double number);
-                string res = string.Format("{0:###,###.####}", number);
-                string temp = string.IsNullOrEmpty(res) ? "0" : res;
+                double.TryParse(InputText.ToString(), out var number);
+                var res = $"{number:###,###.####}";
+                var temp = string.IsNullOrEmpty(res) ? "0" : res;
                 return temp;
             }
             catch
@@ -175,6 +175,13 @@ namespace Src.Models.Utitlity
                 return num;
             }
         }
+
+        /// <summary>
+        /// currency to number 
+        /// </summary>
+        /// <param name="currency">currency</param>
+        /// <returns></returns>
+        public static long ToNumber(this string currency) => long.Parse(currency.Replace(",", string.Empty));
 
         /// <summary>
         /// deserialize json to c# entity
@@ -357,6 +364,33 @@ namespace Src.Models.Utitlity
                 }
             }
             return temp;
+        }
+
+
+        /// <summary>
+        /// get product page category list
+        /// </summary>
+        /// <param name="item">procCat</param>
+        /// <returns></returns>
+        public static async Task<List<Product.Cat>> GetProcPageCats(this Tbl_ProcCat item)
+        {
+            List<Product.Cat> catList = new List<Product.Cat>();
+            string category = item.GetCatList();
+            string[] cats = category.Contains("-") ? category.Split('-') : null;
+            if (cats != null)
+            {
+                string oldCat = category;
+                foreach (string i in cats)
+                {
+                    Product.SearchParam searchParam = new Product.SearchParam { Category = oldCat };
+                    Product.Cat cat = await Function.GetSearchCat(searchParam, i.Trim());
+                    if (cat != null)
+                    {
+                        catList.Add(cat);
+                    }
+                }
+            }
+            return catList;
         }
         #endregion
     }

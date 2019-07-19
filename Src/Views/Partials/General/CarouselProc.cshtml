@@ -1,0 +1,64 @@
+﻿@model Src.Models.ViewData.Table.Product.FullSearchResult
+@{
+    string imgPath = $"/Files/Product/{Model.ID}.jpg";
+}
+
+    <div class="product-card">
+        <div class="rating-stars">
+            @{
+                if (Model.Rate > 2)
+                {
+                    int i = 0;
+                    for (i = 0; i < Model.Rate; i++)
+                    {
+                        <i class="icon-star filled"></i>
+                    }
+                    if (i < 5)
+                    {
+                        int diff = 5 - i;
+                        for (i = 0; i < diff; i++)
+                        {
+                            <i class="icon-star"></i>
+                        }
+                    }
+                }
+            }
+        </div>
+        @if (Model.Type == "پیشنهاد ویژه")
+        {
+            <div class="product-badge bg-danger">@Model.Type</div>
+        }
+        <a class="product-thumb" href="/Product/ALP-@Model.ID/@Model.Title"><img src="@imgPath" alt="@Model.Title"></a>
+        <div class="product-card-body">
+            <h3 class="product-title" lang="en"><a href="/Product/ALP-@Model.ID/@Model.Title">@Model.Title</a></h3>
+            @if (Model.Type == "اتمام موجودی" || Model.Type == "توقف تولید")
+            {
+                <h4 class="product-price">---------------</h4>
+            }
+            else
+            {
+                <h4 class="product-price">
+                    @if (Model.OffPrice != "0")
+                    {
+                        <del>@Model.Price</del>
+                        @Model.OffPrice
+                    }
+                    else
+                    {
+                        @Model.Price
+                    }
+                    تومان
+                </h4>
+            }
+        </div>
+        <div class="product-button-group">
+            @if (Model.Type == "اتمام موجودی" || Model.Type == "توقف تولید")
+            {
+                <span class="product-button"><i class="icon-x-circle"></i><span>@Model.Type</span></span>
+            }
+            else
+            {
+                <a class="product-button" id="addToCard" data-procID="@Model.ID"><i class="icon-shopping-cart"></i><span>افزودن به سبد خرید</span></a>
+            }
+        </div>
+    </div>

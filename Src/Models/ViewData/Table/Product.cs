@@ -74,6 +74,46 @@ namespace Src.Models.ViewData.Table
             public int VisitCount { get; set; }
             public string Type { get; set; }
         }
+
+        public class ViewFullProc : ViewProc
+        {
+            public string CatEnName { get; set; }
+            public string BrandEnName { get; set; }
+            public string TopProp { get; set; }
+            public string ShortDesc { get; set; }
+            public string FullDesc { get; set; }
+        }
+
+        public class ProcPageModel
+        {
+            public List<Cat> Cats { get; set; }
+            public ViewFullProc Proc { get; set; }
+            public List<ViewPCPGroup> Props { get; set; }
+            public List<Tbl_ProcImg> Imgs { get; set; }
+            public List<ViewProcReview> Reviews { get; set; }
+            public List<FullSearchResult> RelatedProcs { get; set; }
+        }
+        #endregion
+
+        #region procReview
+        public class ViewTbl_ProcReview
+        {
+            public int ID { get; set; }
+            public int ProcID { get; set; }
+            public int CustID { get; set; }
+            public byte Rate { get; set; }
+            public string Subject { get; set; }
+            public string Review { get; set; }
+        }
+
+        public class ViewProcReview
+        {
+            public int ID { get; set; }
+            public byte Rate { get; set; }
+            public string Subject { get; set; }
+            public string Review { get; set; }
+            public string CustName { get; set; }
+        }
         #endregion
 
         #region procCat
@@ -114,11 +154,17 @@ namespace Src.Models.ViewData.Table
 
         public class ViewProcProp
         {
+            public string Title { get; set; }
+            public string EnTitle { get; set; }
+            public string Value { get; set; }
+
+        }
+
+        public class ViewProcPropFull :ViewProcProp
+        {
             public int ID { get; set; }
             public int? PID { get; set; }
-            public string Title { get; set; }
-            public string Value { get; set; }
-            public bool HasChild { get; set; }
+            public bool HasChild { get; set; } = false;
         }
         #endregion
 
@@ -131,13 +177,12 @@ namespace Src.Models.ViewData.Table
             public int PID { get; set; }
             public int CatID { get; set; }
         }
-
+       
         public class ViewPCPGroup
         {
-            public int ID { get; set; }
-            public int Title { get; set; }
-            public string PName { get; set; }
-            public string CatName { get; set; }
+            public string Title { get; set; }
+            public string EnTitle { get; set; }
+            public List<ViewProcProp> Props { get; set; }
         }
         #endregion
 
@@ -173,14 +218,14 @@ namespace Src.Models.ViewData.Table
             }
 
             public SearchParam(
-            string title,
-            string category,
-            string brand,
-            string filter,
-            long minprice,
-            long maxprice,
-            byte pageno,
-            byte sortby)
+            string title = "",
+            string category = "",
+            string brand = "",
+            string filter = "",
+            long minprice = 0,
+            long maxprice = 0,
+            byte pageno = 0,
+            byte sortby = 0)
             {
                 Title = title;
                 Category = category;
@@ -212,7 +257,6 @@ namespace Src.Models.ViewData.Table
 
         public class Cat : Common.Tree
         {
-            public string EnTitle { get; set; }
             public List<Cat> ChildList { get; set; }
             public string Link { get; set; }
         }

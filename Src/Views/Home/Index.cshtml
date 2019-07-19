@@ -107,7 +107,7 @@
             {
                 string src = $"/Files/ProcBrand/{item.ID}.jpg",
                        link = $"/search?brand={item.EnTitle.ToLower().Trim()}";
-                <a class="d-block w-110 opacity-75 m-auto" href="@link"><img src="@src" alt="@item.Title"></a>
+                <a class="d-block opacity-75 m-auto w-110 h-110" href="@link"><img src="@src" class="w-110 h-110" alt="@item.Title"></a>
             }
         </div>
     </div>

@@ -14,6 +14,7 @@ namespace Src.Models.Data
     
     public partial class Tbl_ProcReview
     {
+        public int ID { get; set; }
         public int ProcID { get; set; }
         public int CustID { get; set; }
         public byte Rate { get; set; }

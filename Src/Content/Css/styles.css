@@ -4097,6 +4097,21 @@ a.card {
     }
 }
 
+.prop-group-item {
+    margin-bottom: 16px
+}
+
+    .prop-group-item:last-child {
+        margin-bottom: 0
+    }
+
+    .prop-group-item .title,
+    .prop-group-item .value {
+        background: #f8f8f8;
+        padding: 10px;
+        border-radius:5px
+    }
+
 .list-group-item {
     border-color: #e5e5e5;
     background-color: #fff;
@@ -4832,6 +4847,9 @@ a.alert {
 
     .owl-carousel .owl-item img {
         width: 100%;
+        max-height: 512px;
+        object-fit: cover;
+        object-position: center;
     }
 
 .hero-slider .owl-carousel .owl-item img {
@@ -5581,7 +5599,7 @@ video {
 
     .widget-featured-posts > .entry .entry-thumb, .widget-featured-posts > .entry .entry-content, .widget-featured-products > .entry .entry-thumb, .widget-featured-products > .entry .entry-content, .widget-cart > .entry .entry-thumb, .widget-cart > .entry .entry-content {
         display: table-cell;
-        vertical-align: top;
+        vertical-align: middle;
         text-align: right
     }
 
@@ -7679,6 +7697,14 @@ video {
                 border-color: #e61923;
                 cursor: default;
                 opacity: 1
+            }
+
+            .product-gallery .product-thumbnails > li > a img {
+                width: 94px;
+                height: 94px;
+                padding: 5px;
+                object-fit: cover;
+                object-position: center;
             }
 
     .product-gallery .video-btn {

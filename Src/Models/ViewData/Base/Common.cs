@@ -7,6 +7,11 @@ namespace Src.Models.ViewData.Base
     {
         public class Result
         {
+            public Result(string message)
+            {
+                if (message != null) Message = message;
+            }
+
             public Result() => Data = null;
             public string Message { get; set; }
             public object Data { get; set; }

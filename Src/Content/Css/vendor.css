@@ -5461,6 +5461,10 @@ a.badge:hover, a.badge:focus {
     height: 100% !important
 }
 
+.h-110 {
+    height: 110px !important;
+}
+
 .h-auto {
     height: auto !important
 }
@@ -9808,7 +9812,8 @@ a.badge:hover, a.badge:focus {
 }
 
 .pswp img {
-    max-width: none
+    max-width: none;
+    object-fit: contain
 }
 
 .pswp--animate_opacity {

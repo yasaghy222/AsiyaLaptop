@@ -2,13 +2,13 @@
 using Src.Models.Data;
 using Src.Models.Service.Repository;
 using Src.Models.Utitlity;
-using Src.Models.ViewData.Base;
 using Src.Models.ViewData.Table;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using static Src.App_Start.FilterConfig;
+using static Src.Models.ViewData.Table.Product;
 
 namespace Src.Controllers
 {
@@ -16,87 +16,71 @@ namespace Src.Controllers
     {
         public ProductController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
-        #region search
-        [HttpPost, PublicAction]
-        public async Task<JsonResult> Search(string title)
+        [HttpGet, PublicAction]
+        public async Task<ActionResult> Index(string id = "")
         {
-            if (title != null)
+            string[] index = { "index", "Index" };
+            if (id != "" && !index.Contains(id))
             {
-                List<Product.SearchResult> searchResults = await _unitOfWork.Product.Search(title);
-                return new JsonResult
+                int procID = int.Parse(id.Split('-')[1]);
+                var Data = await _unitOfWork.Product.SingleByIdAsync(procID);
+                ProcPageModel procPageModel = new ProcPageModel
                 {
-                    Data = new Common.Result
-                    {
-                        Message = searchResults != null ? Common.ResultMessage.OK : Common.ResultMessage.NotFound,
-                        Data = searchResults ?? null
-                    }
+                    Proc = Data.Adapt<ViewFullProc>(),
+                    Cats = await Data.Tbl_ProcCat.GetProcPageCats(),
+                    Imgs = await Task.Run(() => _unitOfWork.ProcImg.Get(item => item.ProcID == Data.ID).ToList()),
+                    Props = await _unitOfWork.PCPGroup.GetPCPGs(Data),
+                    RelatedProcs = await Task.Run(() => _unitOfWork.Product.Get(item => item.ID != Data.ID && item.CatID == Data.CatID).Adapt<List<FullSearchResult>>()),
+                    Reviews = await Task.Run(() => _unitOfWork.ProcReview.Get(item => item.ProcID == Data.ID).Adapt<List<ViewProcReview>>())
                 };
+
+                await AddVisitCount(Data);
+                ViewBag.Title = Data.Title;
+                return View(procPageModel);
             }
             else
             {
-                return new JsonResult { Data = new Common.Result { Message = Common.ResultMessage.BadRequest } };
+                return Redirect("/");
             }
         }
-        #endregion
 
-        #region search with full details
-        [HttpGet, PublicAction]
-        [Route("Search")]
-        public async Task<ActionResult> Search(string title = "",
-                                               string category = "",
-                                               string brand = "",
-                                               string filter = "",
-                                               long minprice = 0,
-                                               long maxprice = 0,
-                                               byte pageno = 1,
-                                               byte sortby = 0)
+        #region add visit count
+        private async Task AddVisitCount(Tbl_Product product)
         {
-            #region set parameters
-            Product.SearchParam searchParam = new Product.SearchParam(title, category, brand, filter, minprice, maxprice, pageno, sortby);
-            string[] catList = category != "" ? category.Split('-') ?? null : null;
-            _ = brand != "" ? brand.Split(',') ?? null : null;
-            string cat = catList == null ? category : catList[catList.Length - 1];
-            #endregion
-
-            #region search result
-            var searchResult = await _unitOfWork.Product.Search(searchParam);
-            #endregion
-
-            Product.SearchPageModel searchPageModel = new Product.SearchPageModel
+            if (product != null)
             {
-                Params = searchParam,
-                CatList = await Function.GetSearchCats(searchParam),
-                PropList = await _unitOfWork.Product.GetCatProps(cat),
-                BrandList = await _unitOfWork.Product.GetBrands(cat),
-                Results = searchResult.Item1,
-                SeoTitle = searchResult.Item2,
-                ResultCount = searchResult.Item3,
-                MaxResultPrice = await _unitOfWork.Product.GetMaxPrice(cat)
-            };
-            return View(searchPageModel);
+                product.VisitCount++;
+                try
+                {
+                    await _unitOfWork.SaveAsync();
+                }
+                catch (System.Exception)
+                {
+                    throw;
+                }
+            }
         }
         #endregion
 
         #region get newest products
-        public static List<Product.FullSearchResult> GetNewest()
+        public static List<FullSearchResult> GetNewest()
         {
             using (ALDBEntities aLDB = new ALDBEntities())
             {
                 var data = aLDB.Tbl_Product.OrderBy(item => item.RegDate);
-                return data.Take(4).Adapt<List<Product.FullSearchResult>>();
+                return data.Take(4).Adapt<List<FullSearchResult>>();
             }
         }
         #endregion
 
         #region get best selling products
-        public static List<Product.FullSearchResult> GetBestSelling()
+        public static List<FullSearchResult> GetBestSelling()
         {
-            using (ALDBEntities aLDB = new ALDBEntities())
-            {
-                var data = aLDB.Tbl_Product.Where(item => item.Tbl_FactProc.Count > 0)
-                                           .OrderByDescending(item => item.Tbl_FactProc.Count);
-                return data.Take(4).Adapt<List<Product.FullSearchResult>>();
-            }
+            using var aLDB = new ALDBEntities();
+            var data = aLDB.Tbl_FactProc.Where(item => item.Tbl_Factor.Status == (byte)Factor.FactStatus.DeliveryToCust)
+                .Select(item => item.Tbl_Product)
+                .OrderByDescending(item => item.Count);
+            return data.Take(4).Adapt<List<FullSearchResult>>();
         }
         #endregion
 
@@ -123,7 +107,7 @@ namespace Src.Controllers
         #endregion
 
         #region get popular brands
-        public static List<Product.Brand> GetPopularBrand()
+        public static List<Brand> GetPopularBrand()
         {
             using (ALDBEntities aLDB = new ALDBEntities())
             {

@@ -23,7 +23,6 @@
         return resualt;
     });
     Handlebars.registerHelper('checkOff', (price, offPrice) => {
-        debugger;
         let resualt = '';
         let numberOff = currencyToNumber(offPrice),
             numberPrice = currencyToNumber(price);

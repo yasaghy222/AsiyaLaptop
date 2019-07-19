@@ -128,7 +128,9 @@ namespace Src.Models.Service.Repository
                 }
                 else
                 {
-                    query += $"BrandName in ('{searchParam.Brand}')";
+                    int? brandID = await Task.Run(() =>
+                                            Context.Tbl_ProcBrand.SingleOrDefault(x => x.Title == searchParam.Brand || x.EnTitle == searchParam.Brand)?.ID);
+                    query += $"BrandID = {brandID}";
                 }
             }
             #endregion
@@ -228,8 +230,32 @@ namespace Src.Models.Service.Repository
 
         public async Task<List<Product.CatProp>> GetCatProps(string catName)
         {
-            List<Tbl_PCPGroup> catProps = await Context.Tbl_PCPGroup.Where(item => item.Tbl_ProcCat.EnTitle == catName).ToListAsync();
-            return catProps.Count() > 0 ? catProps.Adapt<List<Product.CatProp>>() : null;
+            var cat = await Context.Tbl_ProcCat.SingleOrDefaultAsync(item => item.EnTitle == catName || item.Title == catName);
+            if (cat != null)
+            {
+                var result = new List<Product.CatProp>();
+                var catProps = await Context.Tbl_PCPGroup.Where(item => item.CatID == cat.ID).ToListAsync();
+                var selfProps = catProps.Count() > 0 ? catProps.Adapt<List<Product.CatProp>>() : null;
+                if (selfProps !=null)
+                {
+                    result.AddRange(selfProps);
+                }
+
+                if (cat.PID != null)
+                {
+                    string parentName = cat.Tbl_ProcCat2.EnTitle;
+                    var parentProps = await GetCatProps(parentName);
+                    if (parentProps != null)
+                    {
+                        result.AddRange(parentProps);
+                    }
+                }
+                return result;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<List<Product.ViewTbl_ProcBrand>> GetBrands(string catName)

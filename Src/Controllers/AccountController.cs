@@ -157,7 +157,7 @@ namespace Src.Controllers
                 ClearCookie();
             }
 
-            return RedirectToRoute("/");
+            return Redirect("/");
             #endregion
         }
         #endregion

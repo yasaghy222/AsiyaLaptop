@@ -12,11 +12,13 @@ namespace Src.Models.Service.Repository
         IGenericRepository<Tbl_ProcBrand> ProcBrand { get; }
         IGenericRepository<Tbl_ProcImg> ProcImg { get; }
         IGenericRepository<Tbl_ProcProp> ProcProp { get; }
-        IGenericRepository<Tbl_PCPGroup> PCPGroup { get; }
+        IPCPGRepository PCPGroup { get; }
+        IGenericRepository<Tbl_ProcReview> ProcReview { get; }
         #endregion
 
         #region factor
         IFactorRepository Factor { get; }
+        IGenericRepository<Tbl_FactProc> FactProc { get; }
         #endregion
 
         #region customer

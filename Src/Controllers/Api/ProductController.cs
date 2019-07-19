@@ -516,13 +516,13 @@ namespace Src.Controllers.Api
         [HttpGet]
         public async Task<Common.Result> PropList([FromUri] int procID, [FromUri] int catID)
         {
-            PCPGroupList = await _unitOfWork.PCPGroup.GetAsync(item => item.CatID == catID);
+            PCPGroupList = await _unitOfWork.PCPGroup.GetGroups(catID);
             ProcPropList = await _unitOfWork.ProcProp.GetAsync(item => item.ProcID == procID);
 
-            List<Product.ViewProcProp> Props = new List<Product.ViewProcProp>();
+            List<Product.ViewProcPropFull> Props = new List<Product.ViewProcPropFull>();
             foreach (Tbl_PCPGroup item in PCPGroupList)
             {
-                Product.ViewProcProp Prop = new Product.ViewProcProp
+                Product.ViewProcPropFull Prop = new Product.ViewProcPropFull
                 {
                     ID = item.ID,
                     PID = item.PID,
@@ -598,9 +598,9 @@ namespace Src.Controllers.Api
 
         #region product category property group
         [HttpGet]
-        public Common.Result PCPGList([FromUri] int catID)
+        public async Task<Common.Result> PCPGList([FromUri] int catID)
         {
-            Data = _unitOfWork.PCPGroup.Get(item => item.CatID == catID);
+            Data = await _unitOfWork.PCPGroup.GetGroups(catID);
             if (Data != null)
             {
                 Result.Message = Common.ResultMessage.OK;
