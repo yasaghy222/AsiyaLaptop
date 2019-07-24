@@ -17,7 +17,7 @@ function GetTopOrder() {
         success: function (Result) {
             var source = $('#topOrderSource').html();
             var template = Handlebars.compile(source);
-            var list = template({ orderList: Result });
+            var list = template({ list: Result });
             $('#tbl-TopOrder tbody').html(list);
         },
         error: function () {

@@ -37,7 +37,6 @@ namespace Src.Controllers
                 return data.ToList().Adapt<List<Menu.ViewTbl_Menu>>();
             }
         }
-
         public static List<Media.ViewTbl_Media> GetMedia()
         {
             using (ALDBEntities aLDB = new ALDBEntities())
@@ -53,79 +52,85 @@ namespace Src.Controllers
         {
             if (ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("ALCustInfo"))
             {
-                HttpCookie cookie = ControllerContext.HttpContext.Request.Cookies["ALCustInfo"];
+                var cookie = ControllerContext.HttpContext.Request.Cookies["ALCustInfo"];
                 cookie.Expires = DateTime.Now.AddDays(-1);
                 ControllerContext.HttpContext.Response.Cookies.Add(cookie);
             }
         }
-        protected string IsAuthorize()
+        private string IsAuthorize()
         {
-            if (Request.Cookies.Get("ALCustInfo") != null)
+            if (Request.Cookies.Get("ALCustInfo") == null) return Common.ResultMessage.TokenExpire;
+            string message,
+                token = Request.Cookies["ALCustInfo"]?["Token"],
+                hashToken = Function.GenerateHash(token);
+            var customer = _unitOfWork.Customer.Single(item => item.Token == hashToken);
+            if (customer != null)
             {
-                string message,
-                       token = Request.Cookies["ALCustInfo"]["Token"],
-                       hashToken = Function.GenerateHash(token);
-
-                Tbl_Customer customer = _unitOfWork.Customer.Single(item => item.Token == hashToken);
-                if (customer != null)
-                {
-                    if (customer.Status)
-                    {
-                        message = Common.ResultMessage.OK;
-                    }
-                    else
-                    {
-                        message = Common.ResultMessage.AccountIsBlock;
-                        ClearCookie();
-                    }
-                }
+                if (customer.Status)
+                    message = Common.ResultMessage.OK;
                 else
                 {
-                    message = Common.ResultMessage.NotFound;
+                    message = Common.ResultMessage.AccountIsBlock;
                     ClearCookie();
                 }
-                return message;
             }
             else
             {
-                return Common.ResultMessage.TokenExpire;
+                message = Common.ResultMessage.NotFound;
+                ClearCookie();
             }
+            return message;
         }
+
+        #region action context function
+        private static ActionExecutingContext SetResult(ActionExecutingContext context, Common.Result result = null)
+        {
+            if (result == null) return context;
+            var contextResult = (ViewResultBase)context.Result;
+            if (contextResult != null) contextResult.ViewBag.Result = result;
+            return context;
+        }
+        private static ActionExecutingContext SetResponse(ActionExecutingContext context, Common.Result result, string redirectPath = null)
+        {
+            #region set redirect
+            if (redirectPath != null)
+            {
+                context.Result = new RedirectResult(redirectPath);
+                return context;
+            }
+            #endregion
+
+            #region set response
+            if (context.HttpContext.Request.IsAjaxRequest())
+            {
+                context.Result = new JsonResult { Data = result };
+            }
+            else
+            {
+                context.ActionParameters.TryGetValue("model", out var model);
+                context.Result = new ViewResult
+                {
+                    ViewData = new ViewDataDictionary
+                    {
+                        Model = model
+                    }
+                };
+                context = SetResult(context, result);
+            }
+            #endregion
+
+            return context;
+        }
+        #endregion
 
         protected override void OnActionExecuting(ActionExecutingContext context)
         {
             #region get info
-            RedirectPath = context.Controller.ViewBag.RedirectPath?.ToString();
+            string[] loginAction = { "account", "account/index", "account/resetpass" };
+            string controller = context.ActionDescriptor.ControllerDescriptor.ControllerName,
+                   action = context.ActionDescriptor.ActionName,
+                   route = $"{controller.ToLower()}/{action.ToLower()}";
             var isPublicAction = context.ActionDescriptor.GetCustomAttributes(typeof(PublicAction), true).Any();
-            void SetResult(Common.Result result = null)
-            {
-                if (result == null) return;
-                if (context.Result is ViewResultBase contextResult) contextResult.ViewBag.Result = result;
-            }
-            ActionResult GetResponse(Common.Result result, string redirectPath = null)
-            {
-                ActionResult actionResult;
-                if (redirectPath != null)
-                {
-                    SetResult(result);
-                    actionResult = new RedirectResult(redirectPath);
-                }
-                else
-                {
-                    #region check  is ajax request
-                    if (context.HttpContext.Request.IsAjaxRequest())
-                    {
-                        actionResult = new JsonResult { Data = result };
-                    }
-                    else
-                    {
-                        SetResult(result);
-                        actionResult = new ViewResult();
-                    }
-                    #endregion
-                }
-                return actionResult;
-            }
             #endregion
 
             #region check is public
@@ -134,36 +139,19 @@ namespace Src.Controllers
             {
                 #region check authorize
                 if (message != Common.ResultMessage.OK)
-                {
-                    context.Result = GetResponse(Result, "/");
-                }
+                    context = SetResponse(context, new Common.Result(message), "/Account");
                 #endregion
             }
+            else if (message == Common.ResultMessage.OK && loginAction.Contains(route))
+                context = SetResponse(context, null, "/");
             #endregion
 
             #region validate model state
             var method = context.HttpContext.Request.HttpMethod;
-            if (method.ToLower() == "post")
-            {
-                ViewDataDictionary viewData = context.Controller.ViewData;
-                if (!viewData.ModelState.IsValid)
-                {
-                    if (context.HttpContext.Request.IsAjaxRequest())
-                    {
-                        context.Result = new JsonResult
-                        {
-                            Data = new Common.Result { Message = Common.ResultMessage.BadRequest }
-                        };
-                    }
-                    else
-                    {
-                        SetResult(new Common.Result { Message = Common.ResultMessage.BadRequest });
-                        context.Result = new ViewResult();
-                    }
-                }
-            }
+            var viewData = context.Controller.ViewData;
+            if (method.ToLower() == "post" && !viewData.ModelState.IsValid)
+                context = SetResponse(context, new Common.Result(Common.ResultMessage.BadRequest));
             #endregion
-
             base.OnActionExecuting(context);
         }
         #endregion

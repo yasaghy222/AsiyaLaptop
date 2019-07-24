@@ -1,0 +1,57 @@
+﻿@model Src.Models.ViewData.Table.Customer.ViewCustomer
+@{
+    string redirect = Request.Url.Query,
+           action = redirect !="" ? $"/Account/Profile{redirect}" : "/Account/Profile";
+}
+<div class="col-lg-8">
+    <div class="padding-top-2x mt-2 hidden-lg-up"></div>
+    <form class="row" action="@action" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(item => item.ID)
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="account-fn">نام</label>
+                @Html.TextBoxFor(item => item.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(item => item.Name, "", new { @class = "invalid-feedback field-validation-error" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="account-fn">نام خانوادگی</label>
+                @Html.TextBoxFor(item => item.Family, new { @class = "form-control" })
+                @Html.ValidationMessageFor(item => item.Family, "", new { @class = "invalid-feedback field-validation-error" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="account-ln">کدملی</label>
+                @Html.TextBoxFor(item => item.NatCode, new { @class = "form-control text-left", @type = "number", dir = "ltr" })
+                @Html.ValidationMessageFor(item => item.NatCode, "", new { @class = "invalid-feedback field-validation-error" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="account-email">ایمیل</label>
+                @Html.TextBoxFor(item => item.Email, new { @class = "form-control text-left", @type = "email", dir = "ltr", lang = "en" })
+                @Html.ValidationMessageFor(item => item.Email, "", new { @class = "invalid-feedback field-validation-error" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="account-phone">شماره موبایل</label>
+                @Html.TextBoxFor(item => item.Phone, new { @class = "form-control text-left", @type = "number", dir = "ltr" })
+                @Html.ValidationMessageFor(item => item.Phone, "", new { @class = "invalid-feedback field-validation-error" })
+            </div>
+        </div>
+        <div class="col-12">
+            <hr class="mt-2 mb-3">
+            <div class="d-flex flex-wrap justify-content-between">
+                <div class="custom-control custom-checkbox d-flex p-0 m-0">
+                    @Html.CheckBoxFor(item => item.IsInNewsletter, new { @class = "custom-control-input" })
+                    <label class="custom-control-label" for="IsInNewsletter"><span class="mr-2">اشتراک در خبرنامه لپتاپ آسیا</span></label>
+                </div>
+                <button class="btn btn-primary margin-right-none m-0" type="submit">ثبت اطلاعات کاربری</button>
+            </div>
+        </div>
+    </form>
+</div>

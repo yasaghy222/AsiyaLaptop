@@ -183,6 +183,7 @@
     <Content Include="Areas\Admin\Scripts\Page\Dashboard\dashboard.js" />
     <Content Include="Areas\Admin\Scripts\Page\Media\media.js" />
     <Content Include="Areas\Admin\Scripts\Page\Menu\menu.js" />
+    <Content Include="Areas\Admin\Scripts\Page\Order\detail.js" />
     <Content Include="Areas\Admin\Scripts\Page\Order\order.js" />
     <Content Include="Areas\Admin\Scripts\Page\Page\page.js" />
     <Content Include="Areas\Admin\Scripts\Page\Page\pageAddEdit.js" />
@@ -313,6 +314,7 @@
     <Content Include="Content\Images\docs\sass_variables.jpg" />
     <Content Include="Content\Images\docs\technologies.png" />
     <Content Include="Content\Images\docs\utilities.jpg" />
+    <Content Include="Content\Images\emptyCard.svg" />
     <Content Include="Content\Images\enamad.png" />
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\flags\DE.png" />
@@ -717,6 +719,8 @@
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <Content Include="Areas\Admin\Views\Account\ChangePass.cshtml" />
     <Content Include="Areas\Admin\Views\Partial\Admin\ChangePass.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Partial\Order\Detail.cshtml" />
     <None Include="bundleconfig.json" />
     <None Include="packages.config" />
     <Content Include="Views\Sheared\_Layout_Primary.cshtml" />
@@ -740,6 +744,11 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Partials\General\CarouselProc.cshtml" />
+    <Content Include="Views\Card\Index.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Partials\Account\AccountPanel.cshtml" />
+    <Content Include="Views\Partials\Account\Profile.cshtml" />
+    <Content Include="Views\Card\Shopping.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -749,7 +758,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Media\" />
-    <Folder Include="Views\Card\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

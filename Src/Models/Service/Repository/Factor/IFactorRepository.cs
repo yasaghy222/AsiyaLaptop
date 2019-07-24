@@ -10,5 +10,6 @@ namespace Src.Models.Service.Repository
     public interface IFactorRepository : IGenericRepository<Data.Tbl_Factor>
     {
         List<Factor.ViewFullOrder> OrderList(Common.TableVar tableVar);
+        List<Factor.ViewOrder> TopOrders();
     }
 }

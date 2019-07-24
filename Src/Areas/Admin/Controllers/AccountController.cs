@@ -66,7 +66,7 @@ namespace Src.Areas.Admin.Controllers
         [HttpGet, PublicAction]
         public ActionResult Login() => View(new Models.ViewData.Table.Admin.LoginVar());
 
-        [HttpPost, PublicAction]
+        [HttpPost, PublicAction, ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(Models.ViewData.Table.Admin.LoginVar loginInfo)
         {
             _HttpResponse = await Client.PostAsJsonAsync("Account/Login", loginInfo);

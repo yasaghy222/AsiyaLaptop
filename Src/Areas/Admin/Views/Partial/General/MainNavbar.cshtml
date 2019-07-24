@@ -28,20 +28,23 @@
             </li>
         </ul>
         <div class="navbar-right">
-           
-            <p class="navbar-text"><span class="label datetime">@Model</span></p>
-            <p class="navbar-text"><span class="label datetime" id="jsClock">11 : 51 : 08</span></p>
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav" style="display: flex;align-items: center">
+                <li class="mr-15">
+                    <span class="label datetime">@Model</span>
+                </li>
+                <li>
+                    <span id="jsClock" class="cursor-default label datetime" style="display: block;width: 80px"></span>
+                </li>
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <span>@ViewBag.FullName ، @ViewBag.RoleName </span>
-                        <input type="hidden" id="token" value="@ViewBag.Token" />
-                        <input type="hidden" id="roleID" value="@ViewBag.RoleID" />
+                        <input type="hidden" id="token" value="@ViewBag.Token"/>
+                        <input type="hidden" id="roleID" value="@ViewBag.RoleID"/>
                         <i class="caret"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right no-padding">
-                        <li><a class="text-slate-700" onclick="pageLoad('/Admin/Account/Index?token=@ViewBag.Token','پروفایل')"><i class="icon-user"></i><span class="text-semibold">پروفایل</span></a></li>
-                        <li><a class="text-slate-700" onclick="pageLoad('/Admin/Account/ChangePass','پروفایل تغییر رمز عبور')"><i class="icon-key"></i><span class="text-semibold">تغییر رمز عبور</span></a></li>
+                        <li><a class="text-slate-700" onclick="pageLoad('/Admin/Account/Index?token=@ViewBag.Token', 'پروفایل')"><i class="icon-user"></i><span class="text-semibold">پروفایل</span></a></li>
+                        <li><a class="text-slate-700" onclick="pageLoad('/Admin/Account/ChangePass', 'پروفایل تغییر رمز عبور')"><i class="icon-key"></i><span class="text-semibold">تغییر رمز عبور</span></a></li>
                         <li><a class="text-danger-300" href="/al-manage/logout"><i class="icon-exit3"></i><span class="text-semibold">خروج</span></a></li>
                     </ul>
                 </li>

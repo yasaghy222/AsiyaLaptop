@@ -223,6 +223,29 @@ namespace Src.Models.Utitlity
 
         #region datetime and calender
         /// <summary>
+        /// get date from datetime
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static int GetDate(this DateTime dateTime)
+        {
+            var pc = new PersianCalendar();
+            return pc.GetYear(dateTime) + pc.GetMonth(dateTime) + pc.GetDayOfMonth(dateTime);
+        }
+
+        /// <summary>
+        /// get date from datetime
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static int GetDate(this DateTime? dateTime)
+        {
+            var dt = (DateTime)dateTime;
+            var pc = new PersianCalendar();
+            return pc.GetYear(dt) + pc.GetMonth(dt) + pc.GetDayOfMonth(dt);
+        }
+
+        /// <summary>
         /// convert datetime to persian date
         /// </summary>
         /// <param name="dateTime">datetime</param>

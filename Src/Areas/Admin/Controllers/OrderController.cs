@@ -16,5 +16,22 @@ namespace Src.Areas.Admin.Controllers
     {
         [HttpGet]
         public ActionResult Index() => View();
+
+        [HttpGet]
+        public async Task<ActionResult> Detail(int id = 0)
+        {
+            if (id == 0) return Redirect("/Admin/Order");
+
+            _HttpResponse = await Client.GetAsync($"Order/Detail/{Function.GetAdminInfo(Request).Token}?id={id}");
+            if (_HttpResponse.IsSuccessStatusCode)
+            {
+                Result = GetResult();
+                var detail = Result.Data.DeserializeJson<Factor.ViewOrderDetail>();
+                return View(detail);
+            }
+
+            ViewBag.Message = Common.ResultMessage.InternallServerError;
+            return Redirect("/Admin/Order");
+        }
     }
 }

@@ -111,36 +111,44 @@ namespace Src.App_Start
             #endregion
 
             #region factor
-
             TypeAdapterConfig<Tbl_FactProc, Factor.OrderProc>.NewConfig()
                 .Map(dest => dest.ID, src => src.Tbl_Product.ID)
                 .Map(dest => dest.Title, src => src.Tbl_Product.Title)
                 .Map(dest => dest.TopProp, src => src.Tbl_Product.TopProp)
+                .Map(dest => dest.ExistCount, src => src.Tbl_Product.ExistCount)
                 .Map(dest => dest.ValuePrice, src => src.Tbl_Product.Price.ToCurrency())
                 .Map(dest => dest.OffPrice, src => src.Tbl_Product.OffPrice.ToCurrency())
                 .Map(dest => dest.TotalPrice, src => (src.Tbl_Product.Price * src.Count).ToCurrency())
                 .Map(dest => dest.FinalPrice, src => ((src.Tbl_Product.Price - src.Tbl_Product.OffPrice) * src.Count).ToCurrency());
 
             TypeAdapterConfig<Tbl_Factor, Factor.ViewCard>.NewConfig()
-                .Map(dest => dest.Procs, src => src.Tbl_FactProc);
+                .Map(dest => dest.Procs, src => src.Tbl_FactProc)
+                .Map(dest => dest.TotalPrice, src => src.TotalPrice.ToCurrency());
 
             TypeAdapterConfig<Tbl_Factor, Factor.ViewOrder>.NewConfig()
                 .Map(dest => dest.SubmitDate, src => src.SubmitDate.ToPersianDate(""))
-                .Map(dest => dest.CustName, src => src.Tbl_CustAddress.Name)
-                .Map(dest => dest.PaymentStatus, src => src.PaymentStatus ? Factor.PaymentStatus.Paid : Factor.PaymentStatus.UnPaid);
+                .Map(dest => dest.CustName, src => $"{src.Tbl_Customer.Name} {src.Tbl_Customer.Family}")
+                .Map(dest => dest.StatusName,
+                    src => EnumExtensions.GetEnumValue<Factor.FactStatus>(src.Status).GetAttribute<DisplayAttribute>()
+                        .Name);
+
+            TypeAdapterConfig<Tbl_Factor, Factor.ViewFullOrder>.NewConfig()
+                .Map(dest => dest.CustName, src => $"{src.Tbl_Customer.Name} {src.Tbl_Customer.Family}")
+                .Map(dest => dest.TotalPrice, src => src.TotalPrice.ToCurrency())
+                .Map(dest => dest.StatusName,
+                    src => EnumExtensions.GetEnumValue<Factor.FactStatus>(src.Status).GetAttribute<DisplayAttribute>()
+                        .Name);
 
             TypeAdapterConfig<Tbl_Factor, Factor.ViewOrderDetail>.NewConfig()
-                   .Map(dest => dest.CustName, src => src.Tbl_Customer.Name)
-                   .Map(dest => dest.CustAddress, src => src.Tbl_CustAddress)
-                   .Map(dest => dest.OrderProc, src => src.Tbl_FactProc)
-                   .Map(dest => dest.PaymentStatus, src => src.PaymentStatus ?
-                                                           Factor.PaymentStatus.Paid : Factor.PaymentStatus.UnPaid)
-                   .Map(dest => dest.TotalPrice, src => src.TotalPrice.ToCurrency())
-                   .Map(dest => dest.Status, src => (EnumExtensions
-                                                     .GetEnumValue<Factor.FactStatus>(src.Status))
-                                                     .GetAttribute<DisplayAttribute>().Name)
-                   .Map(dest => dest.SubmitDate, src => src.SubmitDate.ToPersianDate("default"));
+                .Map(dest => dest.CustName, src => src.Tbl_Customer.Name)
+                .Map(dest => dest.CustAddress, src => src.Tbl_CustAddress)
+                .Map(dest => dest.Procs, src => src.Tbl_FactProc)
+                .Map(dest => dest.TotalPrice, src => src.TotalPrice.ToCurrency())
+                .Map(dest => dest.StatusName, src => (EnumExtensions
+                        .GetEnumValue<Factor.FactStatus>(src.Status))
+                    .GetAttribute<DisplayAttribute>().Name);
             #endregion
+
             #endregion
         }
     }

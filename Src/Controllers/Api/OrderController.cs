@@ -14,7 +14,7 @@ namespace Src.Controllers.Api
         public OrderController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         #region variable
-        Tbl_Factor Factor = null;
+        private Tbl_Factor tblFactor;
         #endregion
 
         #region order
@@ -28,7 +28,7 @@ namespace Src.Controllers.Api
                 Result.Data = new
                 {
                     List = Data,
-                    Count = await _unitOfWork.Factor.GetCountAsync()
+                    Count = await _unitOfWork.Factor.GetCountAsync(item => item.Status != (byte)Factor.FactStatus.InBascket)
                 };
             }
             else
@@ -55,15 +55,16 @@ namespace Src.Controllers.Api
             return Result;
         }
 
+
         [HttpPost]
-        public async Task<Common.Result> ChangeStatus([FromBody] int id, [FromBody] byte newState)
+        public async Task<Common.Result> ChangeStatus([FromBody] Factor.StatusOP status)
         {
             if (ModelState.IsValid)
             {
-                Factor = await _unitOfWork.Factor.SingleByIdAsync(id);
-                if (Factor != null)
+                tblFactor = await _unitOfWork.Factor.SingleByIdAsync(status.ID);
+                if (tblFactor != null)
                 {
-                    Factor.Status = newState;
+                    tblFactor.Status = (byte)status.Status;
                     try
                     {
                         await _unitOfWork.SaveAsync();

@@ -34,7 +34,7 @@ namespace Src.Models.Data
         public Nullable<int> OffID { get; set; }
         public int BrandID { get; set; }
         public int CatID { get; set; }
-        public int Count { get; set; }
+        public int ExistCount { get; set; }
         public Nullable<int> VisitCount { get; set; }
         public byte Type { get; set; }
         public Nullable<System.DateTime> RegDate { get; set; }

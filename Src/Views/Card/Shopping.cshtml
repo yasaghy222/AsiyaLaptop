@@ -1,0 +1,174 @@
+﻿@model Src.Models.ViewData.Table.Factor.ViewOrderDetail
+@{
+    ViewBag.Title = "فروشگاه لپتاپ آسیا";
+    Layout = "~/Views/Sheared/_Layout_secondery.cshtml";
+}
+@section MetaTags{
+    <meta name="description" content="@ViewBag.Title">
+}
+<div class="container padding-bottom-2x mb-2" dir="rtl">
+    <!-- Checkout Adress-->
+    <div class="steps flex-sm-nowrap mb-5">
+        <a class="step active">
+            <h4 class="step-title">اطلاعات ارسال</h4>
+        </a><a class="step">
+            <h4 class="step-title">پرداخت</h4>
+        </a><a class="step">
+            <h4 class="step-title">اتمام خرید و ارسال</h4>
+        </a>
+    </div>
+    <h5 class="text-muted">
+        انتخاب آدرس تحویل سفارش
+        <a class="btn btn-outline-secondary btn-sm mr-3" data-toggle="modal" data-target="#addEditAdd">تغییر آدرس ارسال</a>
+    </h5>
+    <div class="modal fade" id="addEditAdd" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">افزودن آدرس جدید</h4>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body padding-top-2x padding-bottom-2x">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="checkout-fn">نام و نام خانوادگی تحویل گیرنده</label>
+                                <input class="form-control" type="text" id="checkout-fn" placeholder="نام تحویل گیرنده را واردنمایید">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="checkout-ln">شماره موبایل</label>
+                                <input class="form-control text-left" type="number" id="checkout-ln" placeholder="09XXXXXXXX" dir="ltr">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="checkout-country">استان</label>
+                                <select class="form-control" id="checkout-country">
+                                    <option>استان مورد نظر خود را انتخاب کنید</option>
+                                    <option>خراسان رضوی</option>
+                                    <option>خراسان شمالی</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="checkout-country">شهر</label>
+                                <select class="form-control" id="checkout-country">
+                                    <option>شهر مورد نظر خود را انتخاب کنید</option>
+                                    <option>مشهد</option>
+                                    <option>چناران</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="checkout-city">آدرس پستی</label>
+                                <textarea class="form-control" id="textarea-input" rows="5">آدرس تحویل گیرنده را وارد نمایید</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="checkout-city">کدپستی</label>
+                                <input class="form-control" type="text" id="checkout-fn" placeholder="کدپستی را بدون خط تیره بنویسید">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary btn-sm" type="button" data-dismiss="modal">انصراف و بازگشت</button>
+                    <button class="btn btn-primary btn-sm" type="button">ثبت و ارسال به این آدرس</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="align-middle">
+                        <div class="custom-control custom-radio align-middle">
+                            <input class="custom-control-input" type="radio" id="courier" name="shipping-method" checked>
+                            <label class="custom-control-label" for="courier">
+                                <div class="product-card product-list no-border">
+                                    <div class="product-card-inner">
+                                        <div class="product-card-body">
+                                            <h3 class="product-title text-bold text-lg mb-0">
+                                                گیرنده : علی علوی
+                                                <a class="btn btn-link-danger text-danger" data-toggle="modal" data-target="#addEditAdd"> <i class="icon-edit"></i>&nbsp;اصلاح این آدرس</a>
+                                            </h3>
+                                            <div class="product-category">
+                                                <span class="text-lg"><i class="icon-smartphone"></i> تلفن همراه : 09334568790</span>
+                                                <span class="text-lg mr-3"><i class="icon-mail"></i> کدپستی : 9416621522</span>
+                                            </div>
+                                            <p class="text-sm text-muted my-1 mt-1">استان خراسان رضوی، مشهد، بلوار شهید صیاد شیرازی</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h5 class="text-muted">
+        اقلام سفارش
+    </h5>
+    <div class="table-responsive shopping-cart">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="product-item">
+                            <a class="product-thumb" href="shop-single.html"><img src="img/shop/cart/03.jpg" alt="Product"></a>
+                            <div class="product-info p-0">
+                                <h4 class="product-title">
+                                    <a href="shop-single.html">HP LaserJet Pro Laser Printer</a>
+                                </h4>
+                                <span>
+                                    <em>مدل :</em> Laser Jet
+                                </span>
+                                <span>
+                                    <em>رنگ :</em> سفید
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="count-input">
+                            <select class="form-control disabled" disabled>
+                                <option>1</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="text-center">1،500،080 تومان</td>
+                    <td class="text-center">1،500،080 تومان</td>
+                    <td class="text-center"><a class="remove-from-cart" href="cart.html" data-toggle="tooltip" title="ویرایش"><i class="icon-edit"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="shopping-cart-footer">
+        <div class="coulomn text-right align-middle">
+            <div class="custom-control custom-checkbox d-block">
+                <input class="custom-control-input" type="checkbox" id="Subescripe" checked="">
+                <label class="custom-control-label" for="Subescripe">
+                    <span class="pr-3">درخواست چاپ فاکتور</span>
+                </label>
+            </div>
+        </div>
+        <div class="column text-lg text-left"><span class="text-muted text-bold">مبلغ کل:&nbsp; </span><span class="text-success text-bold">1،500،080 تومان</span></div>
+    </div>
+    <div class="shopping-cart-footer">
+        <div class="column"><a class="btn btn-outline-secondary" href="/Card"><i class="icon-chevron-right"></i>&nbsp;بازگشت به سبدخرید</a></div>
+        <div class="column text-left"><a class="btn btn-primary m-0" href="/Payment">تایید و ادامه ثبت سفارش</a></div>
+    </div>
+</div>

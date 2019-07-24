@@ -21789,8 +21789,8 @@ thead .htCollapseButton {
 @media (min-width: 769px) {
     .invoice-details,
     .invoice-payment-details > li span {
-        float: left;
-        text-align: left;
+        float: right;
+        text-align: right;
     }
 }
 

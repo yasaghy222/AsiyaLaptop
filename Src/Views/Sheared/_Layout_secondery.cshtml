@@ -45,9 +45,9 @@
             let resualt = @Html.Raw(Json.Encode(ViewBag.Result));
             if (resualt != null) {
                 if (resualt.Message == "Success") {
-                    notify('success', 'موفقیت !', resualt.Message);
+                    notify('success', resualt.Message);
                 } else {
-                    notify('danger', 'خطا !', resualt.Message);
+                    notify('danger', resualt.Message);
                 }
             }
         });

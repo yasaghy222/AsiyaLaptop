@@ -1,0 +1,121 @@
+﻿@model  Src.Models.ViewData.Table.Factor.ViewOrderDetail
+@{
+    var paymentStatus = Model.PaymentStatus ? "پرداخت شده" : "پرداخت نشده";
+    var isPrint = Model.IsPrint ? "بله" : "خیر";
+}
+<div class="panel-body no-padding-bottom">
+    <div class="row">
+        <div class="col-sm-6 content-group">
+            <span class="text-muted">مشخصات گیرنده</span>
+            <ul class="list-condensed list-unstyled">
+                <li>نام و نام خانوادگی : @(Model.CustAddress?.Name) </li>
+                <li>تلفن همراه : @(Model.CustAddress?.Phone)</li>
+                <li>آدرس : @(Model.CustAddress?.Address)</li>
+            </ul>
+        </div>
+        <div class="col-sm-6 content-group">
+            <div class="invoice-details">
+                <span class="text-muted">جزئیات</span>
+                <ul class="list-condensed list-unstyled">
+                    @if (Model.TrackingCode != null)
+                    {
+                        <li>کد پیگیری : @Model.TrackingCode</li>
+                    }
+                    @if (Model.TipaxCode != null)
+                    {
+                        <li>کد تیپاکس : @Model.TipaxCode</li>
+                    }
+                    <li>
+                        <div class="form-group col-lg-12 no-padding mb-15 mt-15">
+                            <label class="text-semibold title col-lg-4 col-xs-12 no-padding">وضعیت</label>
+                            <div class="col-lg-8 col-xs-12 no-padding">
+                                @Html.DropDownListFor(item => item.Status,
+                                    EnumHelper.GetSelectList(typeof(Src.Models.ViewData.Table.Factor.OrderStatus)),
+                                    new { @class = "form-control select" })
+                            </div>
+                        </div>
+                    </li>
+                    <li> تاریخ پرداخت : @Model.PayDate</li>
+                    <li>وضعیت پرداخت : @paymentStatus</li>
+                    <li>درخواست فاکتور : @isPrint</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="datatable-scroll">
+    <div class="table-responsive p-15">
+        <table class="table datatable-basic table-hover dataTable no-footer table-bordered">
+            <thead class="bg-slate-300 text-white">
+                <tr>
+                    <th>نام محصول</th>
+                    <th class="text-center">تعداد</th>
+                    <th class="text-center">قیمت واحد</th>
+                    <th class="text-center">قیمت کل</th>
+                    <th class="text-center">تخفیف</th>
+                    <th class="text-center">قیمت نهایی</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @foreach (var item in Model.Procs)
+                {
+                    <tr>
+                        <td>
+                            @{
+                                var link = $"/Product/ALP-{item.ID}/{item.Title}";
+                            }
+                            <a href="@link" target="_blank">
+                                <div class="media">
+                                    <div class="media-left">
+                                        @{
+                                            var path = $"/Files/Product/{item.ID}.jpg";
+                                        }
+                                        <img src="@path" style="width: 70px; height: 70px;" class="img-circle" alt="@item.Title">
+                                    </div>
+                                    <div class="media-body valign-middle max-width">
+                                        <h6 class="media-heading text-blue-700 text-bold text-right" lang="en">@item.Title</h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </td>
+                        <td>@item.Count</td>
+                        <td>@item.ValuePrice تومان</td>
+                        <td>@item.TotalPrice تومان</td>
+                        <td>
+                            @{
+                                string offPrice = item.OffPrice != "0" ? $"{item.OffPrice} تومان" : "0";
+                            }
+                            @offPrice
+                        </td>
+                        <td>@item.FinalPrice تومان</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="row invoice-payment">
+        <div class="col-sm-5 pull-right">
+            <div class="content-group">
+                <div class="table-responsive no-border">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th class="no-border">مبلغ قابل پرداخت :</th>
+                                @{
+                                    var price = Model.PaymentStatus ? "0" : $"{Model.TotalPrice} تومان";
+                                }
+                                <td class="text-center text-primary no-border">@price</td>
+                            </tr>
+                            <tr>
+                                <th>مبلغ کل :</th>
+                                <td class="text-center text-grey-300">@Model.TotalPrice تومان</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

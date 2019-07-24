@@ -79,7 +79,7 @@ namespace Src.Controllers
             using var aLDB = new ALDBEntities();
             var data = aLDB.Tbl_FactProc.Where(item => item.Tbl_Factor.Status == (byte)Factor.FactStatus.DeliveryToCust)
                 .Select(item => item.Tbl_Product)
-                .OrderByDescending(item => item.Count);
+                .OrderByDescending(item => item.ExistCount);
             return data.Take(4).Adapt<List<FullSearchResult>>();
         }
         #endregion

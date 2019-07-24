@@ -68,34 +68,29 @@ namespace Src.Controllers.Api
 
         public override void OnActionExecuted(HttpActionExecutedContext context)
         {
-            #region variable
-            bool IsPublicAction;
-            string Token, Action, Controller;
-            #endregion
-
             #region get info
-            IsPublicAction = context.ActionContext.ActionDescriptor.GetCustomAttributes<PublicAction>().Count() > 0;
+            var isPublicAction = context.ActionContext.ActionDescriptor.GetCustomAttributes<PublicAction>().Any();
             void SetResponse(object data) => context.Response = context.Request.CreateResponse(data);
             #endregion
 
             #region check is public
-            if (!IsPublicAction)
+            if (!isPublicAction)
             {
                 #region get authorize info
-                Token = context.ActionContext.ControllerContext.RouteData.Values["Token"].ToString();
-                Action = context.ActionContext.ActionDescriptor.ActionName;
-                Controller = context.ActionContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+                var token = context.ActionContext.ControllerContext.RouteData.Values["Token"].ToString();
+                var action = context.ActionContext.ActionDescriptor.ActionName;
+                var controller = context.ActionContext.ActionDescriptor.ControllerDescriptor.ControllerName;
                 #endregion
 
                 #region authorize
-                Common.Result Result = IsAuthorize(Token);
-                if (Result.Message == Common.ResultMessage.OK)
+                var result = IsAuthorize(token);
+                if (result.Message == Common.ResultMessage.OK)
                 {
                     #region check permission
-                    Result = HasPermisstion((int)Result.Data, Action, Controller);
-                    if (Result.Message != Common.ResultMessage.OK)
+                    result = HasPermisstion((int)result.Data, action, controller);
+                    if (result.Message != Common.ResultMessage.OK)
                     {
-                        SetResponse(Result);
+                        SetResponse(result);
                     }
                     #endregion
                 }

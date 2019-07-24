@@ -3,6 +3,7 @@ using Src.Models.Data;
 using Src.Models.Service.Repository;
 using Src.Models.Utitlity;
 using Src.Models.ViewData.Base;
+using Src.Models.ViewData.Table;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,11 +19,60 @@ namespace Src.Controllers
         public AccountController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         #region variable
-        Tbl_Customer Customer;
+        Tbl_Customer tblCustomer;
         #endregion
 
         [HttpGet, PublicAction]
         public ActionResult Index() => View(new ViewAccountVar());
+
+        [HttpGet]
+        public async Task<ActionResult> Profile()
+        {
+            #region Get Customer
+            var info = Function.GetCustInfo(Request);
+            var hashToken = Function.GenerateHash(info.Token);
+            tblCustomer = await _unitOfWork.Customer.SingleAsync(item => item.Token == hashToken);
+            if (tblCustomer == null) return new JsonResult { Data = new Common.Result(Common.ResultMessage.NotFound) };
+            #endregion
+
+            return View(tblCustomer.Adapt<ViewCustomer>());
+        }
+
+        #region change profile info
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<ActionResult> Profile(ViewCustomer model)
+        {
+            #region update info
+            tblCustomer = await _unitOfWork.Customer.SingleByIdAsync(model.ID);
+            tblCustomer.Name = model.Name;
+            tblCustomer.Family = model.Family;
+            tblCustomer.Email = model.Email;
+            tblCustomer.Phone = model.Phone;
+            tblCustomer.NatCode = model.NatCode;
+            tblCustomer.IP = Function.GetIP();
+            tblCustomer.IsInNewsletter = model.IsInNewsletter;
+            #endregion
+            try
+            {
+                await _unitOfWork.SaveAsync();
+                UpdateCookie(tblCustomer.Adapt<CustomerInfo>());
+                string query = Request.Url.Query,
+                       redirect = query != "" ? $"/{query.Substring(1, query.Length-1)}" : "/";
+                return Redirect(redirect);
+            }
+            catch (Exception)
+            {
+                ViewBag.Message = Common.ResultMessage.InternallServerError;
+                #region Get Customer
+                var info = Function.GetCustInfo(Request);
+                var hashToken = Function.GenerateHash(info.Token);
+                tblCustomer = await _unitOfWork.Customer.SingleAsync(item => item.Token == hashToken);
+                if (tblCustomer == null) return new JsonResult { Data = new Common.Result(Common.ResultMessage.NotFound) };
+                #endregion
+                return View(tblCustomer.Adapt<ViewCustomer>());
+            }
+        }
+        #endregion
 
         [HttpGet, PublicAction]
         public ActionResult ResetPass() => View();
@@ -41,10 +91,20 @@ namespace Src.Controllers
             cookie.Values.Add("Family", info.Family);
             HttpContext.Response.SetCookie(cookie);
         }
+        void UpdateCookie(CustomerInfo info)
+        {
+            if (ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("ALCustInfo"))
+            {
+                var cookie = ControllerContext.HttpContext.Request.Cookies["ALCustInfo"];
+                cookie.Values["Name"] = info.Name;
+                cookie.Values["Family"] = info.Family;
+                ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+            }
+        }
         async Task<bool> SetToken(Tbl_Customer customer)
         {
             customer.Token = Function.GenerateNewToken();
-            CustomerInfo info = customer.Adapt<CustomerInfo>();
+            var info = customer.Adapt<CustomerInfo>();
             customer.Token = Function.GenerateHash(customer.Token);
             await _unitOfWork.SaveAsync();
             try
@@ -80,34 +140,22 @@ namespace Src.Controllers
             if (accountVar.Name == null)
             {
                 #region login
-                string hashPass = Function.GenerateHash(accountVar.Pass);
-                Customer = await _unitOfWork.Customer.SingleAsync(item =>
+                var hashPass = Function.GenerateHash(accountVar.Pass);
+                tblCustomer = await _unitOfWork.Customer.SingleAsync(item =>
                                                                          item.Phone == accountVar.Phone &&
                                                                          item.Pass == hashPass);
-                if (Customer != null)
+                if (tblCustomer != null)
                 {
-                    string message = await IsValid(Customer);
+                    var message = await IsValid(tblCustomer);
                     if (message == Common.ResultMessage.OK)
-                    {
                         return Redirect("/");
-                    }
-                    else
-                    {
-                        ViewBag.Result = new Common.Result
-                        {
-                            Message = message
-                        };
-                        return View();
-                    }
-                }
-                else
-                {
-                    ViewBag.Result = new Common.Result
-                    {
-                        Message = "شماره موبایل یا رمزعبور اشتباه است"
-                    };
+
+                    ViewBag.Result = new Common.Result(message);
                     return View();
                 }
+
+                ViewBag.Result = new Common.Result("شماره موبایل یا رمزعبور اشتباه است");
+                return View();
                 #endregion
             }
             else
@@ -129,10 +177,10 @@ namespace Src.Controllers
             {
                 string hashToken = Function.GenerateHash(token);
                 #region get customer with token
-                Customer = await _unitOfWork.Customer.SingleAsync(item => item.Token == hashToken);
-                if (Customer != null)
+                tblCustomer = await _unitOfWork.Customer.SingleAsync(item => item.Token == hashToken);
+                if (tblCustomer != null)
                 {
-                    Customer.Token = null;
+                    tblCustomer.Token = null;
                     await _unitOfWork.SaveAsync();
                     try
                     {

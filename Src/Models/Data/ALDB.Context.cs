@@ -43,11 +43,11 @@ namespace Src.Models.Data
         public virtual DbSet<Tbl_ProcCat> Tbl_ProcCat { get; set; }
         public virtual DbSet<Tbl_ProcImg> Tbl_ProcImg { get; set; }
         public virtual DbSet<Tbl_ProcProp> Tbl_ProcProp { get; set; }
-        public virtual DbSet<Tbl_Product> Tbl_Product { get; set; }
         public virtual DbSet<Tbl_State_City> Tbl_State_City { get; set; }
         public virtual DbSet<Tbl_Menu> Tbl_Menu { get; set; }
         public virtual DbSet<Tbl_Page> Tbl_Page { get; set; }
         public virtual DbSet<Tbl_Admin> Tbl_Admin { get; set; }
         public virtual DbSet<Tbl_ProcReview> Tbl_ProcReview { get; set; }
+        public virtual DbSet<Tbl_Product> Tbl_Product { get; set; }
     }
 }

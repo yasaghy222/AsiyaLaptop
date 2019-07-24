@@ -15,7 +15,7 @@ namespace Src.Controllers.Api
         public FactorController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         [HttpGet]
-        public List<Factor.ViewOrder> GetTopOrder() => _unitOfWork.Factor.Get().Take(5).Adapt<List<Factor.ViewOrder>>();
+        public List<Factor.ViewOrder> GetTopOrder() => _unitOfWork.Factor.TopOrders();
 
         /// <summary>
         /// return order total count and new count
@@ -40,14 +40,16 @@ namespace Src.Controllers.Api
         [HttpGet]
         public async Task<string[]> GetIncome()
         {
-            var TodayIncome = await Task.Run(() => _unitOfWork.Factor
-                                                               .Get(item => item.SubmitDate == DateTime.Now &&
-                                                                    item.Status == (byte)Factor.FactStatus.DeliveryToCust)
-                                                               .Sum(item => item.TotalPrice));
             var yesterday = DateTime.Now.AddDays(-1);
+            var TodayIncome = await Task.Run(() => _unitOfWork.Factor
+                                                               .Get(item => item.PayDate <= DateTime.Now &&
+                                                                            item.PayDate > yesterday &&
+                                                                            item.Status == (byte)Factor.FactStatus.DeliveryToCust)
+                                                               .Sum(item => item.TotalPrice));
             var YesterdayIncome = await Task.Run(() => _unitOfWork.Factor
-                                                              .Get(item => item.SubmitDate == yesterday &&
-                                                                   item.Status == (byte)Factor.FactStatus.DeliveryToCust)
+                                                              .Get(item => item.PayDate < DateTime.Now &&
+                                                                                item.PayDate > yesterday &&
+                                                                                item.Status == (byte)Factor.FactStatus.DeliveryToCust)
                                                               .Sum(item => item.TotalPrice));
 
             return new[] { TodayIncome.ToCurrency(), YesterdayIncome.ToCurrency() };

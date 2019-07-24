@@ -50,23 +50,26 @@ namespace Src.Areas.Admin.Controllers
         {
             if (ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("ALAdminInfo"))
             {
-                HttpCookie cookie = ControllerContext.HttpContext.Request.Cookies["ALAdminInfo"];
-                cookie.Expires = DateTime.Now.AddDays(-1);
-                ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+                var cookie = ControllerContext.HttpContext.Request.Cookies["ALAdminInfo"];
+                if (cookie != null)
+                {
+                    cookie.Expires = DateTime.Now.AddDays(-1);
+                    ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+                }
             }
         }
-        string IsAuthorize()
+
+        private string IsAuthorize()
         {
             if (Request.Cookies.Get("ALAdminInfo") != null)
             {
                 string message,
-                       token = Request.Cookies["ALAdminInfo"]["Token"];
-
+                       token = Request.Cookies["ALAdminInfo"]?["Token"];
                 _HttpResponse = Client.PostAsJsonAsync("Account/IsAuthorize", token).Result;
                 if (_HttpResponse.IsSuccessStatusCode)
                 {
                     Result = GetResult();
-                    Tbl_Admin admin = Result.Data.DeserializeJson<Tbl_Admin>();
+                    var admin = Result.Data.DeserializeJson<Tbl_Admin>();
                     if (admin != null)
                     {
                         if (admin.Status)
@@ -112,14 +115,11 @@ namespace Src.Areas.Admin.Controllers
 
             #region get info
             RedirectPath = context.Controller.ViewBag.RedirectPath?.ToString();
-            bool IsPublicAction = context.ActionDescriptor.GetCustomAttributes(typeof(PublicAction), true).Count() > 0;
+            var isPublicAction = context.ActionDescriptor.GetCustomAttributes(typeof(PublicAction), true).Any();
             void SetResult(Common.Result result)
             {
-                if (result != null && context.Result != null)
-                {
-                    ViewResultBase contextResult = (context.Result as ViewResultBase);
-                    contextResult.ViewBag.Result = result;
-                }
+                if (result == null || context.Result == null) return;
+                if (context.Result is ViewResultBase contextResult) contextResult.ViewBag.Result = result;
             }
             void GetResponse(Common.Result result, string redirectPath = null)
             {
@@ -146,9 +146,9 @@ namespace Src.Areas.Admin.Controllers
             #endregion
 
             #region check is public
-            if (!IsPublicAction)
+            var message = IsAuthorize();
+            if (!isPublicAction)
             {
-                string message = IsAuthorize();
                 #region check authorize
                 if (message != Common.ResultMessage.OK)
                 {
@@ -156,6 +156,14 @@ namespace Src.Areas.Admin.Controllers
                 }
                 #endregion
             }
+            else if (message == Common.ResultMessage.OK)
+            {
+                string[] loginAction = { "account", "account/index", "account/resetpass" };
+                string controller = context.ActionDescriptor.ControllerDescriptor.ControllerName,
+                    action = context.ActionDescriptor.ActionName;
+                if (loginAction.Contains($"{controller.ToLower()}/{action.ToLower()}")) GetResponse(null, "/");
+            }
+
             #endregion
 
             #region validate model state

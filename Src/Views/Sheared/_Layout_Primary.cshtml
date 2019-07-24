@@ -118,11 +118,11 @@
             let resualt = @Html.Raw(Json.Encode(ViewBag.Result));
             if (resualt != null) {
                 if (resualt.Message == "Success") {
-                    notify('success', 'موفقیت !', "درخواست با موفقیت انجام شد.");
+                    notify('success', "درخواست با موفقیت انجام شد.");
                 }
                 else
                 {
-                    notify('danger', 'خطا !', resualt.Message);
+                    notify('danger', resualt.Message);
                 }
             }
         });

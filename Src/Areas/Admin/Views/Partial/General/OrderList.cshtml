@@ -4,8 +4,15 @@
         <td class="text-center"><a class="text-blue-700" onclick="pageLoad('/Admin/Order/AddEdit/{{ID}}','ویرایش سفارش','orderList')">{{TrackingCode}}</a></td>
         <td class="text-center">{{SubmitDate}}</td>
         <td class="text-center text-info">{{CustName}}</td>
-        <td class="text-center text-grey-300">{{PaymentType}}</td>
-        <td class="text-center"><span class="label label-rounded bg-slate">{{status}}</span></td>
+        <td class="text-center">
+            {{#if PaymentStatus}}
+            <span class="label label-rounded label-icon label-success"><i class="icon-checkmark3"></i></span>
+            {{else}}
+            <span class="label label-rounded label-icon label-danger"><i class="icon-cross2"></i></span>
+            {{/if}}
+        </td>
+        <td class="text-center"><span class="label label-rounded bg-slate">{{StatusName}}</span></td>
+        <td class="text-center"><a class="text-grey-300" onclick="pageLoad('/Admin/Order/Detail/{{ID}}','جزئیات سفارش ALO-{{ID}}','orderList')"><i class="icon-chevron-left"></i></a></td>
     </tr>
     {{/each}}
 </script>
@@ -27,6 +34,7 @@
                         <th class="text-center">مشتری</th>
                         <th class="text-center">پرداخت</th>
                         <th class="text-center">وضعیت</th>
+                        <th class="text-center">جزئیات</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

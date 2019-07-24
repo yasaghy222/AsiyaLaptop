@@ -75,7 +75,6 @@
                 frmProcValue = frmProc.serializeArray();
 
             $.each(frmProcValue, (i) => {
-                debugger;
                 if (frmProcValue[i].name == "FullDesc") {
                     frmProcData.append(frmProcValue[i].name, HtmlEncode($("#FullDesc")));
                 }

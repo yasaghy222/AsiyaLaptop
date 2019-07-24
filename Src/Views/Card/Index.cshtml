@@ -1,0 +1,112 @@
+﻿@model Src.Models.ViewData.Table.Factor.ViewCard
+@{
+    ViewBag.Title = "سبد خرید | فروشگاه لپتاپ آسیا";
+}
+@section MetaTags{
+    <meta name="description" content="@ViewBag.Title">
+}
+@if (Model != null)
+{
+    <div class="container padding-bottom-3x mb-1 text-right padding-top-3x" dir="rtl">
+        <div class="table-responsive shopping-cart">
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th class="text-right">نام محصول</th>
+                        <th>تعداد</th>
+                        <th>قیمت واحد</th>
+                        <th>قیمت کل</th>
+                        <th>تخفیف</th>
+                        <th>قیمت نهایی</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Procs)
+                    {
+                        <tr>
+                            <td>
+                                <div class="product-item">
+                                    @{
+                                        string link = $"/Product/ALP-{item.ID}/{item.Title}",
+                                            path = $"/Files/Product/{item.ID}.jpg";
+                                    }
+                                    <a class="product-thumb" href="@link" target="_blank"><img src="@path" alt="@item.Title"></a>
+                                    <div class="product-info p-0">
+                                        <h4 class="product-title">
+                                            <a href="@link" target="_blank" lang="en">@item.Title</a>
+                                        </h4>
+                                        @if (item.TopProp != null)
+                                        {
+                                            foreach (var prop in item.TopProp.Split(','))
+                                            {
+                                                <span>
+                                                    @prop
+                                                </span>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="count-input">
+                                    @if (item.ExistCount > 1)
+                                    {
+                                        <select class="form-control" id="changeItemCount" data-procId="@item.ID">
+                                            @for (byte i = 1; i < item.ExistCount + 1; i++)
+                                            {
+                                                if (i == item.Count)
+                                                {
+                                                    <option selected="selected">@i</option>
+                                                }
+                                                else
+                                                {
+                                                    <option>@i</option>
+                                                }
+                                            }
+                                        </select>
+                                    }
+                                    else
+                                    {
+                                        @item.Count
+                                    }
+                                </div>
+                            </td>
+                            <td class="text-center">@item.ValuePrice تومان</td>
+                            <td class="text-center">@item.TotalPrice تومان</td>
+                            @{
+                                var offPrice = item.OffPrice != "0" ? $"{item.OffPrice} تومان" : "0";
+                            }
+                            <td class="text-center"> @offPrice</td>
+                            <td class="text-center">@item.FinalPrice تومان</td>
+                            <td class="text-center"><a class="remove-from-cart" id="delFromCard" data-id="@item.ID" data-toggle="tooltip" title="حذف از سبد خرید"><i class="icon-x"></i></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="shopping-cart-footer">
+            <div class="column text-lg text-left"><span class="text-muted text-bold">مبلغ کل:&nbsp; </span><span class="text-success text-bold">@Model.TotalPrice تومان</span></div>
+        </div>
+        <div class="shopping-cart-footer">
+            <div class="column text-left"><a class="btn btn-primary m-0" href="/Shopping">ادامه ثبت سفارش</a></div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container padding-bottom-2x padding-top-2x">
+        <div class="row">
+            <div class="col-lg-12 title">
+                <div class="col-lg-2 max-width-120 img-thumbnail rounded-circle p-20 mx-auto">
+                    <img class="max-width" src="~/Content/Images/emptyCard.svg" alt="your card is empty!">
+                </div>
+                <h2 class="text-center text-mute mt-30 text-medium">! سبد خرید شما خالیست</h2>
+            </div>
+            <div class="col-lg-4 col-xs-8 mx-auto">
+                <a class="btn btn-primary btn-sm btn-block " href="/">بازگشت به لپتاپ آسیا</a>
+            </div>
+        </div>
+    </div>
+
+}

@@ -524,7 +524,7 @@ body {
 a {
     color: #e61923;
     cursor: pointer;
-    text-decoration: underline
+    text-decoration: none;
 }
 
     a.no-decor {
@@ -532,8 +532,7 @@ a {
     }
 
     a:hover {
-        color: #e61923;
-        text-decoration: none
+        color: #bd151d;
     }
 
     a:focus {
@@ -1983,8 +1982,6 @@ select.form-control.form-control-sm:not([size]):not([multiple]) {
 }
 
 .custom-control {
-    margin-bottom: 6px !important;
-    padding-right: 1.5rem !important
 }
 
     .custom-control:focus {

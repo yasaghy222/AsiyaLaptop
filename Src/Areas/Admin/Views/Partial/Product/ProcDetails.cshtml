@@ -112,10 +112,10 @@
             <div class="form-group col-lg-12">
                 <label class="control-label col-lg-2 col-xs-12">تعداد موجودی</label>
                 <div class="col-lg-4 col-xs-12">
-                    @Html.TextBoxFor(item => item.Count, new { @class = "form-control touchspin text-center",
+                    @Html.TextBoxFor(item => item.ExistCount, new { @class = "form-control touchspin text-center",
                                                                   dir = "ltr",
                                                                   autocomplete = "off" })
-                    @Html.ValidationMessageFor(item => item.Count, "", new { @class = "validation-error-label" })
+                    @Html.ValidationMessageFor(item => item.ExistCount, "", new { @class = "validation-error-label" })
                 </div>
             </div>
             <div class="form-group col-lg-12">

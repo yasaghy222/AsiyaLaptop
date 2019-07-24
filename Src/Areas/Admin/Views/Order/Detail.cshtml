@@ -1,0 +1,34 @@
+﻿@model  Src.Models.ViewData.Table.Factor.ViewOrderDetail
+@{
+    string Title = $"جزئیات سفارش ALO-{Model.ID}";
+}
+<div class="content-group">
+    <div class="page-header page-header-default page-header-xs sticky">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h5>
+                    <span class="text-semibold" lang="en">@Title</span>
+                    <small class="display-block">ثبت شده در @Model.SubmitDate</small>
+                </h5>
+            </div>
+            <div class="heading-elements">
+                <button id="btnSaveNext" data-id="@Model.ID" class="btn bg-green-800 btn-labeled heading-btn legitRipple btn-ladda"><b><i class="icon-floppy-disk"></i></b>ثبت</button>
+            </div>
+        </div>
+        <div class="breadcrumb-line">
+            <ul class="breadcrumb">
+                <li><a onclick="pageLoad('/Admin/Dashboard','پنل مدیریت لپتاپ آسیا')"><i class="icon-home position-left"></i> میز کار</a></li>
+                <li><a onclick="pageLoad('/Admin/Order', 'لیست سفارش ها','orderList')"><i class="icon-price-Services position-left"></i> لیست سفارش ها</a></li>
+                <li class="active">@Title</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="panel panel-flat panel-white">
+        @Html.Partial("/Areas/Admin/Views/Partial/Order/Detail.cshtml", Model)
+    </div>
+</div>
+<script src="~/Areas/Admin/Scripts/Plugin/uniform.min.js"></script>
+<script src="~/Areas/Admin/Scripts/Page/Order/detail.js"></script>

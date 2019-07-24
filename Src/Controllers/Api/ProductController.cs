@@ -108,7 +108,7 @@ namespace Src.Controllers.Api
                     OffID = int.Parse(FormData.Get("OffID")),
                     BrandID = int.Parse(FormData.Get("BrandID")),
                     CatID = int.Parse(FormData.Get("CatID")),
-                    Count = int.Parse(FormData.Get("Count")),
+                    ExistCount = int.Parse(FormData.Get("ExistCount")),
                     Type = byte.Parse(FormData.Get("Type"))
                 };
 

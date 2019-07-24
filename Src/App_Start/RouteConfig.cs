@@ -14,13 +14,6 @@ namespace Src
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-              "Product",
-              "Product/{id}/{title}",
-              new { controller = "Product", action = "Index", title = UrlParameter.Optional },
-              new[] { "Src.Controllers" }
-            );
-
-            routes.MapRoute(
               "AddVisitCount",
               "AddVisitCount",
               new { controller = "Home", action = "AddVisitCount", title = UrlParameter.Optional },
@@ -33,6 +26,20 @@ namespace Src
                "Page/{link}",
                new { controller = "Page", action = "Index" },
                new[] { "Src.Controllers" }
+            );
+
+            routes.MapRoute(
+                "Shopping",
+                "Shopping",
+                new { controller = "Card", action = "Shopping" },
+                new[] { "Src.Controllers" }
+            );
+
+            routes.MapRoute(
+                "Product",
+                "Product/{id}/{title}",
+                new { controller = "Product", action = "Index", title = UrlParameter.Optional },
+                new[] { "Src.Controllers" }
             );
 
             routes.MapRoute(

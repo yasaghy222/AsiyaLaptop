@@ -1,0 +1,17 @@
+﻿@model Src.Models.ViewData.Table.Customer.ViewCustomer
+@{
+    ViewBag.Title = $"فروشگاه لپتاپ آسیا | پروفایل - {Model.Name} {Model.Family}";
+}
+@section MetaTags{
+    <meta name="description" content="@ViewBag.Title">
+    <meta name="robots" content="nofollow,noindex" />
+}
+<div class="container padding-top-3x mt-2 padding-bottom-3x mb-2" dir="rtl">
+    <div class="row">
+        <div class="col-lg-4">
+            @Html.Partial("~/Views/Partials/Account/AccountPanel.cshtml", $"{Model.Name} {Model.Family}")
+            <nav class="list-group"><a class="list-group-item active" href="/Account/Profile"><i class="icon-user"></i>اطلاعات شخصی</a><a class="list-group-item with-badge" href="/Account/Order"><i class="icon-shopping-bag"></i>همه سفارش ها</a><a class="list-group-item" href="/Account/Address"><i class="icon-map-pin"></i>آدرس ها</a></nav>
+        </div>
+        @Html.Partial("~/Views/Partials/Account/Profile.cshtml", Model)
+    </div>
+</div>

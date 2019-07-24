@@ -10934,3 +10934,10 @@ a.pswp__share--download:hover {
 .socicon-battlenet:before {
     content: "\e083"
 }
+
+.max-width-120 {
+    max-width: 120px !important
+}
+.max-width {
+    max-width: 100% !important;
+}

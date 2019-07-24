@@ -55,7 +55,7 @@ namespace Src.Models.ViewData.Table
             public int BrandID { get; set; }
             public int CatID { get; set; }
             [Required(ErrorMessage = "این فیلد اجباری است.")]
-            public int Count { get; set; }
+            public int ExistCount { get; set; }
             public int VisitCount { get; set; }
             public byte Type { get; set; }
             public ICollection<Common.Tree> CatList { get; set; }
